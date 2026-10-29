@@ -1,14 +1,11 @@
 import { z } from "zod";
+import {
+  UZ_PHONE_REGEX,
+  cleanUzPhone,
+  isValidUzPhone,
+} from "@/lib/utils/phone";
 
-export const UZ_PHONE_REGEX = /^\+998\d{9}$/;
-
-export function cleanUzPhone(phone: string): string {
-  return phone.replace(/[\s\-()]/g, "");
-}
-
-export function isValidUzPhone(phone: string): boolean {
-  return UZ_PHONE_REGEX.test(cleanUzPhone(phone));
-}
+export { UZ_PHONE_REGEX, cleanUzPhone, isValidUzPhone };
 
 export const checkoutItemSchema = z.object({
   variantId: z.string().min(1, { message: "variantRequired" }),

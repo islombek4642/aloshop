@@ -526,7 +526,13 @@
       "errorGeneric": "Amalni bajarishda xatolik yuz berdi",
       "noBranchesFound": "Filiallar topilmadi",
       "noBranchesDesc": "Qidiruv parametrlariga mos keladigan filial mavjud emas",
-      "superAdminOnlyNotice": "Filiallarni tahrirlash yoki yangi qo'shish huquqi faqat Bosh Administratorga berilgan"
+      "superAdminOnlyNotice": "Filiallarni tahrirlash yoki yangi qo'shish huquqi faqat Bosh Administratorga berilgan",
+      "errorPhoneInvalid": "Telefon raqami O'zbekiston formatida bo'lishi shart (+998XXXXXXXXX)",
+      "delete": "O'chirish",
+      "deleteConfirmTitle": "Filialni o'chirishni tasdiqlang",
+      "deleteConfirmDescription": "Haqiqatan ham ushbu filialni butunlay o'chirmoqchimisiz? Agar filialda buyurtmalar mavjud bo'lsa, uni o'chirish taqiqlanadi.",
+      "cannotDeleteWithOrders": "Ushbu filialda buyurtmalar mavjud. Uni o'chirib bo'lmaydi, nofaol holatga o'tkazing.",
+      "deleteSuccess": "Filial muvaffaqiyatli o'chirildi"
     }
   },
   "errors": {

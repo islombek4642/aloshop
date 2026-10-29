@@ -526,7 +526,13 @@
       "errorGeneric": "An error occurred while performing this action",
       "noBranchesFound": "No branches found",
       "noBranchesDesc": "No branches match your current search or filter criteria",
-      "superAdminOnlyNotice": "Creating or modifying branches requires Super Administrator privileges"
+      "superAdminOnlyNotice": "Creating or modifying branches requires Super Administrator privileges",
+      "errorPhoneInvalid": "Phone number must be in Uzbekistan format (+998XXXXXXXXX)",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Confirm Branch Deletion",
+      "deleteConfirmDescription": "Are you sure you want to permanently delete this branch? If the branch has orders, deletion is prohibited.",
+      "cannotDeleteWithOrders": "This branch has associated orders. It cannot be deleted; deactivate it instead.",
+      "deleteSuccess": "Branch successfully deleted"
     }
   },
   "errors": {

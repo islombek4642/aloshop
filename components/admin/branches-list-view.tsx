@@ -10,8 +10,10 @@ import {
   Clock,
   Plus,
   Pencil,
+  Trash2,
   CheckCircle2,
   XCircle,
+  AlertTriangle,
   Users,
   Boxes,
   Search,
@@ -36,7 +38,9 @@ import {
   createBranchAction,
   updateBranchAction,
   toggleBranchStatusAction,
+  deleteBranchAction,
 } from "@/app/actions/admin-branches";
+import { isValidUzPhone } from "@/lib/utils/phone";
 
 export interface BranchListItem {
   id: string;
@@ -71,9 +75,15 @@ export function BranchesListView({
   const [searchQuery, setSearchQuery] = React.useState("");
   const [statusFilter, setStatusFilter] = React.useState<"all" | "active" | "inactive">("all");
 
-  // Modal State
+  // Create / Edit Modal State
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [editingBranch, setEditingBranch] = React.useState<BranchListItem | null>(null);
+
+  // Delete Modal State
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const [branchToDelete, setBranchToDelete] = React.useState<BranchListItem | null>(null);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState<string | null>(null);
 
   // Form Fields
   const [name, setName] = React.useState("");
@@ -115,6 +125,12 @@ export function BranchesListView({
     setIsModalOpen(true);
   };
 
+  const openDeleteDialog = (branch: BranchListItem) => {
+    setBranchToDelete(branch);
+    setDeleteError(null);
+    setIsDeleteDialogOpen(true);
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -122,6 +138,11 @@ export function BranchesListView({
 
     if (!name.trim() || !address.trim() || !phone.trim() || !workingHours.trim()) {
       setErrorMessage(t("errorGeneric"));
+      return;
+    }
+
+    if (!isValidUzPhone(phone.trim())) {
+      setErrorMessage(t("errorPhoneInvalid"));
       return;
     }
 
@@ -140,7 +161,13 @@ export function BranchesListView({
         });
 
         if (!result.success) {
-          setErrorMessage(t("errorGeneric"));
+          if (result.error === "phoneInvalid") {
+            setErrorMessage(t("errorPhoneInvalid"));
+          } else if (result.error === "unauthorized") {
+            setErrorMessage(t("superAdminOnlyNotice"));
+          } else {
+            setErrorMessage(t("errorGeneric"));
+          }
           setIsPending(false);
           return;
         }
@@ -157,7 +184,13 @@ export function BranchesListView({
         });
 
         if (!result.success) {
-          setErrorMessage(t("errorGeneric"));
+          if (result.error === "phoneInvalid") {
+            setErrorMessage(t("errorPhoneInvalid"));
+          } else if (result.error === "unauthorized") {
+            setErrorMessage(t("superAdminOnlyNotice"));
+          } else {
+            setErrorMessage(t("errorGeneric"));
+          }
           setIsPending(false);
           return;
         }
@@ -193,6 +226,35 @@ export function BranchesListView({
       console.error("toggle error:", err);
     } finally {
       setTogglingId(null);
+    }
+  };
+
+  const handleDeleteBranch = async () => {
+    if (!branchToDelete || !isSuperAdmin) return;
+    setIsDeleting(true);
+    setDeleteError(null);
+
+    try {
+      const result = await deleteBranchAction({ id: branchToDelete.id });
+      if (!result.success) {
+        if (result.error === "hasOrders") {
+          setDeleteError(t("cannotDeleteWithOrders"));
+        } else if (result.error === "unauthorized") {
+          setDeleteError(t("superAdminOnlyNotice"));
+        } else {
+          setDeleteError(t("errorGeneric"));
+        }
+        setIsDeleting(false);
+        return;
+      }
+
+      setIsDeleting(false);
+      setIsDeleteDialogOpen(false);
+      setBranchToDelete(null);
+      router.refresh();
+    } catch {
+      setDeleteError(t("errorGeneric"));
+      setIsDeleting(false);
     }
   };
 
@@ -298,7 +360,7 @@ export function BranchesListView({
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
           {/* Status Filter Buttons */}
           <div className="flex items-center rounded-lg border border-border p-1 bg-muted/40">
             <Button
@@ -478,15 +540,15 @@ export function BranchesListView({
 
                 {/* Card Actions (SuperAdmin only) */}
                 {isSuperAdmin && (
-                  <div className="p-4 sm:p-5 pt-3 sm:pt-3 border-t border-border/60 flex items-center justify-between gap-2">
+                  <div className="p-4 sm:p-5 pt-3 sm:pt-3 border-t border-border/60 flex items-center justify-between gap-1.5 sm:gap-2">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => openEditModal(branch)}
-                      className="h-8 text-xs font-medium gap-1.5 rounded-lg flex-1"
+                      className="h-8 text-xs font-medium gap-1 rounded-lg flex-1 min-w-0"
                     >
-                      <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
-                      <span>{t("edit")}</span>
+                      <Pencil className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                      <span className="truncate">{t("edit")}</span>
                     </Button>
 
                     <Button
@@ -494,20 +556,31 @@ export function BranchesListView({
                       size="sm"
                       onClick={() => handleToggleStatus(branch)}
                       disabled={isToggling}
-                      className={`h-8 text-xs font-medium gap-1.5 rounded-lg flex-1 ${
+                      className={`h-8 text-xs font-medium gap-1 rounded-lg flex-1 min-w-0 ${
                         branch.isActive
                           ? "hover:border-destructive/40 hover:text-destructive text-muted-foreground"
                           : "text-emerald-700 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300"
                       }`}
                     >
                       {isToggling ? (
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                        <Loader2 className="w-3.5 h-3.5 animate-spin shrink-0" aria-hidden="true" />
                       ) : (
-                        <Power className="w-3.5 h-3.5" aria-hidden="true" />
+                        <Power className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                       )}
-                      <span>
+                      <span className="truncate">
                         {branch.isActive ? t("deactivate") : t("activate")}
                       </span>
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => openDeleteDialog(branch)}
+                      className="h-8 text-xs font-medium gap-1 rounded-lg px-2.5 text-destructive hover:bg-destructive/10 hover:border-destructive/40 hover:text-destructive shrink-0"
+                      title={t("delete")}
+                      aria-label={t("delete")}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                     </Button>
                   </div>
                 )}
@@ -673,6 +746,67 @@ export function BranchesListView({
               </Button>
             </DialogFooter>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-base font-bold text-destructive flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>{t("deleteConfirmTitle")}</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground leading-relaxed pt-1">
+              {t("deleteConfirmDescription")}
+            </DialogDescription>
+          </DialogHeader>
+
+          {deleteError && (
+            <div className="flex items-center gap-2 p-3 text-xs rounded-lg border border-destructive/20 bg-destructive/10 text-destructive">
+              <XCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>{deleteError}</span>
+            </div>
+          )}
+
+          {branchToDelete && (
+            <div className="p-3 bg-muted/40 rounded-lg border border-border text-xs space-y-1">
+              <div className="font-semibold text-foreground">
+                {branchToDelete.name} ({branchToDelete.city})
+              </div>
+              <div className="text-muted-foreground">
+                {branchToDelete.address}
+              </div>
+              {branchToDelete.ordersCount > 0 && (
+                <div className="text-amber-600 dark:text-amber-400 font-medium pt-1">
+                  {t("cannotDeleteWithOrders")}
+                </div>
+              )}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setIsDeleteDialogOpen(false)}
+              className="h-9 text-xs"
+            >
+              {t("cancel")}
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              onClick={handleDeleteBranch}
+              disabled={isDeleting || (branchToDelete ? branchToDelete.ordersCount > 0 : false)}
+              className="h-9 text-xs font-semibold min-w-24 gap-1.5"
+            >
+              {isDeleting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+              <span>{t("delete")}</span>
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
