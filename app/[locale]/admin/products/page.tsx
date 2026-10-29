@@ -27,8 +27,25 @@ export default async function AdminProductsPage({
     namespace: "admin.productsManagement",
   });
 
+  const isSuper = isSuperAdmin(session);
+  const productWhere = isSuper
+    ? {}
+    : {
+        variants: {
+          some: {
+            inventory: {
+              some: {
+                branchId: session.branchId || "none",
+                quantity: { gt: 0 },
+              },
+            },
+          },
+        },
+      };
+
   const [dbProducts, categories] = await Promise.all([
     prisma.product.findMany({
+      where: productWhere,
       orderBy: { createdAt: "desc" },
       include: {
         category: true,
@@ -50,7 +67,7 @@ export default async function AdminProductsPage({
     }),
   ]);
 
-  const branchFilter = isSuperAdmin(session) ? null : session.branchId;
+  const branchFilter = isSuper ? null : session.branchId;
 
   const serializedProducts: SerializedProduct[] = dbProducts.map((p) => {
     const categoryName =

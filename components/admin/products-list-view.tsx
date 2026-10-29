@@ -199,15 +199,13 @@ export function ProductsListView({
           </div>
         </div>
 
-        {/* Create Button (SuperAdmin only) */}
-        {isSuperAdmin && (
-          <Link href="/admin/products/new">
-            <Button size="sm" className="h-9 gap-1.5 text-xs shrink-0">
-              <Plus className="w-4 h-4" aria-hidden="true" />
-              <span>{t("newProduct")}</span>
-            </Button>
-          </Link>
-        )}
+        {/* Create Button */}
+        <Link href="/admin/products/new">
+          <Button size="sm" className="h-9 gap-1.5 text-xs shrink-0">
+            <Plus className="w-4 h-4" aria-hidden="true" />
+            <span>{t("newProduct")}</span>
+          </Button>
+        </Link>
       </div>
 
       {/* Products Table */}

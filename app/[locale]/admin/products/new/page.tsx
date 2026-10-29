@@ -19,8 +19,8 @@ export default async function AdminNewProductPage({
     redirect(`/${locale}/admin/login`);
   }
 
-  // RBAC: Only SuperAdmin can create products
-  if (!isSuperAdmin(session)) {
+  const isSuper = isSuperAdmin(session);
+  if (!isSuper && !session.branchId) {
     redirect(`/${locale}/admin/products`);
   }
 
@@ -28,6 +28,10 @@ export default async function AdminNewProductPage({
     locale,
     namespace: "admin.productCreate",
   });
+
+  const branchWhere = isSuper
+    ? { isActive: true }
+    : { id: session.branchId! };
 
   const [categories, branches] = await Promise.all([
     prisma.category.findMany({
@@ -40,7 +44,7 @@ export default async function AdminNewProductPage({
       },
     }),
     prisma.branch.findMany({
-      where: { isActive: true },
+      where: branchWhere,
       orderBy: { name: "asc" },
       select: {
         id: true,

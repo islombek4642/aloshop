@@ -43,7 +43,18 @@ export async function createProductAction(
   input: CreateProductInput
 ): Promise<CreateProductResult> {
   const session = await getAdminSession();
-  if (!session || !isSuperAdmin(session)) {
+  if (!session) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  const isSuper = isSuperAdmin(session);
+  const isBranch = session.role === "BRANCH_ADMIN";
+
+  if (!isSuper && !isBranch) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  if (isBranch && !session.branchId) {
     return { success: false, error: "unauthorized" };
   }
 
@@ -90,6 +101,17 @@ export async function createProductAction(
       });
 
       for (const v of data.variants) {
+        // IDOR / Stock safety: Filter initialStock so BRANCH_ADMIN only modifies their own branch
+        let filteredInitialStock: Record<string, number> = {};
+        if (isSuper && v.initialStock) {
+          filteredInitialStock = { ...v.initialStock };
+        } else if (isBranch && session.branchId && v.initialStock) {
+          if (typeof v.initialStock[session.branchId] === "number") {
+            filteredInitialStock[session.branchId] =
+              v.initialStock[session.branchId];
+          }
+        }
+
         const variant = await tx.productVariant.create({
           data: {
             productId: product.id,
@@ -111,7 +133,7 @@ export async function createProductAction(
 
         // Initialize branch inventory records
         for (const branch of allBranches) {
-          const qty = v.initialStock?.[branch.id] ?? 0;
+          const qty = filteredInitialStock[branch.id] ?? 0;
           await tx.branchInventory.create({
             data: {
               branchId: branch.id,
