@@ -80,7 +80,12 @@
     "applyFilters": "Apply Filters",
     "resultsCount": "Products found: {count}",
     "noProductsFound": "No products match the selected filters",
-    "branchesFilter": "By Branch"
+    "branchesFilter": "By Branch",
+    "allBrands": "All Brands",
+    "allBranches": "All Branches",
+    "clearAll": "Clear All",
+    "discount": "Discount",
+    "storage": "Storage"
   },
   "product": {
     "details": "Product Information",
@@ -109,7 +114,10 @@
     "availableInBranches": "Branch Stock",
     "branchStockCount": "{branch}: {count} pcs in stock",
     "branchOutOfStock": "{branch}: out of stock",
-    "pickupFromBranch": "Pickup from branch"
+    "pickupFromBranch": "Pickup from branch",
+    "viewDetails": "View Details",
+    "unitsInStock": "{count} units left",
+    "original": "100% Original"
   },
   "cart": {
     "title": "Cart",
@@ -178,6 +186,29 @@
     "landmark": "Landmark",
     "inventoryStatus": "Stock Status",
     "allBranches": "All Branches"
+  },
+  "home": {
+    "heroTitle": "Latest Original Smartphones",
+    "heroSubtitle": "Official warranty, fast delivery across Tashkent or branch pickup",
+    "exploreCatalog": "Explore Catalog",
+    "ourBranches": "Our Branches",
+    "popularBrands": "Popular Brands",
+    "featuredSmartphones": "Featured Smartphones",
+    "viewAll": "View All",
+    "badgeOfficial": "Official Warranty",
+    "badgeFastDelivery": "Fast Delivery",
+    "badgePickup": "Branch Pickup",
+    "badgeBestPrice": "Best Price"
+  },
+  "footer": {
+    "aboutTitle": "About AloShop",
+    "aboutText": "Modern multi-branch original smartphones and gadgets store in Tashkent.",
+    "quickLinks": "Quick Links",
+    "branchesTitle": "Our Branches",
+    "contactsTitle": "Contacts",
+    "workingHours": "Daily 09:00 - 20:00",
+    "paymentMethods": "Payment methods: Cash, Payme, Click, Uzum",
+    "allRightsReserved": "All rights reserved."
   },
   "admin": {
     "title": "Admin Dashboard",

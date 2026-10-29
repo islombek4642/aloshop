@@ -80,7 +80,12 @@
     "applyFilters": "Filtrlash",
     "resultsCount": "Topilgan mahsulotlar: {count}",
     "noProductsFound": "Tanlangan filtrlar bo'yicha mahsulot topilmadi",
-    "branchesFilter": "Filial bo'yicha"
+    "branchesFilter": "Filial bo'yicha",
+    "allBrands": "Barcha brendlar",
+    "allBranches": "Barcha filiallar",
+    "clearAll": "Hammasini tozalash",
+    "discount": "Chegirma",
+    "storage": "Xotira"
   },
   "product": {
     "details": "Mahsulot ma'lumotlari",
@@ -109,7 +114,10 @@
     "availableInBranches": "Filiallardagi qoldiq",
     "branchStockCount": "{branch}: {count} dona mavjud",
     "branchOutOfStock": "{branch}: mavjud emas",
-    "pickupFromBranch": "Filialdan olib ketish"
+    "pickupFromBranch": "Filialdan olib ketish",
+    "viewDetails": "Batafsil",
+    "unitsInStock": "{count} dona qoldi",
+    "original": "100% Original"
   },
   "cart": {
     "title": "Savatcha",
@@ -178,6 +186,29 @@
     "landmark": "Mo'ljal",
     "inventoryStatus": "Qoldiqlar holati",
     "allBranches": "Barcha filiallar"
+  },
+  "home": {
+    "heroTitle": "Eng so'nggi original smartfonlar",
+    "heroSubtitle": "Rasmiy kafolat, Toshkent bo'ylab tezkor yetkazib berish yoki filialdan olib ketish",
+    "exploreCatalog": "Katalogga o'tish",
+    "ourBranches": "Filiallarimiz",
+    "popularBrands": "Ommabop brendlar",
+    "featuredSmartphones": "Tavsiya etilayotgan smartfonlar",
+    "viewAll": "Barchasini ko'rish",
+    "badgeOfficial": "Rasmiy kafolat",
+    "badgeFastDelivery": "Tezkor yetkazish",
+    "badgePickup": "Filialdan olib ketish",
+    "badgeBestPrice": "Hamyonbop narx"
+  },
+  "footer": {
+    "aboutTitle": "AloShop haqida",
+    "aboutText": "Toshkent shahridagi zamonaviy ko'p filialli original smartfonlar va gadjetlar do'koni.",
+    "quickLinks": "Tezkor havolalar",
+    "branchesTitle": "Filiallarimiz",
+    "contactsTitle": "Aloqa",
+    "workingHours": "Har kuni 09:00 - 20:00",
+    "paymentMethods": "To'lov usullari: Naqd pul, Payme, Click, Uzum",
+    "allRightsReserved": "Barcha huquqlar himoyalangan."
   },
   "admin": {
     "title": "Boshqaruv paneli",

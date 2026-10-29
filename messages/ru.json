@@ -80,7 +80,12 @@
     "applyFilters": "Применить фильтры",
     "resultsCount": "Найдено товаров: {count}",
     "noProductsFound": "По выбранным фильтрам товары не найдены",
-    "branchesFilter": "По филиалам"
+    "branchesFilter": "По филиалам",
+    "allBrands": "Все бренды",
+    "allBranches": "Все филиалы",
+    "clearAll": "Сбросить все",
+    "discount": "Скидка",
+    "storage": "Память"
   },
   "product": {
     "details": "Информация о товаре",
@@ -109,7 +114,10 @@
     "availableInBranches": "Остатки по филиалам",
     "branchStockCount": "{branch}: в наличии {count} шт.",
     "branchOutOfStock": "{branch}: нет в наличии",
-    "pickupFromBranch": "Забрать из филиала"
+    "pickupFromBranch": "Забрать из филиала",
+    "viewDetails": "Подробнее",
+    "unitsInStock": "Осталось {count} шт.",
+    "original": "100% Оригинал"
   },
   "cart": {
     "title": "Корзина",
@@ -178,6 +186,29 @@
     "landmark": "Ориентир",
     "inventoryStatus": "Статус наличия",
     "allBranches": "Все филиалы"
+  },
+  "home": {
+    "heroTitle": "Новейшие оригинальные смартфоны",
+    "heroSubtitle": "Официальная гарантия, быстрая доставка по Ташкенту или самовывоз из филиала",
+    "exploreCatalog": "Перейти в каталог",
+    "ourBranches": "Наши филиалы",
+    "popularBrands": "Популярные бренды",
+    "featuredSmartphones": "Рекомендуемые смартфоны",
+    "viewAll": "Смотреть все",
+    "badgeOfficial": "Официальная гарантия",
+    "badgeFastDelivery": "Быстрая доставка",
+    "badgePickup": "Самовывоз из филиала",
+    "badgeBestPrice": "Выгодная цена"
+  },
+  "footer": {
+    "aboutTitle": "О магазине AloShop",
+    "aboutText": "Современный мультифилиальный магазин оригинальных смартфонов и гаджетов в Ташкенте.",
+    "quickLinks": "Быстрые ссылки",
+    "branchesTitle": "Наши филиалы",
+    "contactsTitle": "Контакты",
+    "workingHours": "Ежедневно 09:00 - 20:00",
+    "paymentMethods": "Способы оплаты: Наличные, Payme, Click, Uzum",
+    "allRightsReserved": "Все права защищены."
   },
   "admin": {
     "title": "Панель управления",
