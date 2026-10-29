@@ -95,7 +95,7 @@ export function AdminPagination({
               value={String(pageSize)}
               onValueChange={(val) => onPageSizeChange(Number(val))}
             >
-              <SelectTrigger className="h-8 w-[72px] text-xs">
+              <SelectTrigger className="h-8 w-[76px] px-2.5 text-xs">
                 <SelectValue placeholder={String(pageSize)} />
               </SelectTrigger>
               <SelectContent>

@@ -122,12 +122,19 @@ export function ProductsListView({
     setCurrentPage(1);
   }, [searchTerm, selectedBrand, selectedCategory]);
 
-  const totalPages = Math.ceil(filteredProducts.length / pageSize) || 1;
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
+
+  React.useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const paginatedProducts = React.useMemo(() => {
-    const startIndex = (currentPage - 1) * pageSize;
+    const safePage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
     return filteredProducts.slice(startIndex, startIndex + pageSize);
-  }, [filteredProducts, currentPage, pageSize]);
+  }, [filteredProducts, currentPage, pageSize, totalPages]);
 
   return (
     <div className="space-y-4">

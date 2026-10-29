@@ -87,6 +87,15 @@ export function StockTransferModal({
     null
   );
 
+  // Reset feedback state and quantity whenever modal is opened
+  React.useEffect(() => {
+    if (isOpen) {
+      setErrorMessage(null);
+      setSuccessMessage(null);
+      setQuantity(1);
+    }
+  }, [isOpen]);
+
   // Sync state when props change
   React.useEffect(() => {
     if (initialFromBranchId) {
@@ -325,7 +334,7 @@ export function StockTransferModal({
             <Button
               type="submit"
               size="sm"
-              disabled={isPending || availableStock === 0}
+              disabled={isPending || availableStock === 0 || destBranchOptions.length === 0}
               className="text-xs"
             >
               {isPending ? (

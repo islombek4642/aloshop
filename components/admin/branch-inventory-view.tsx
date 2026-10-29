@@ -128,12 +128,19 @@ export function BranchInventoryView({
       });
   }, [inventoryItems, activeBranch, searchTerm]);
 
-  const totalPages = Math.ceil(currentBranchItems.length / pageSize) || 1;
+  const totalPages = Math.max(1, Math.ceil(currentBranchItems.length / pageSize));
+
+  React.useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const paginatedBranchItems = React.useMemo(() => {
-    const startIndex = (currentPage - 1) * pageSize;
+    const safePage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
     return currentBranchItems.slice(startIndex, startIndex + pageSize);
-  }, [currentBranchItems, currentPage, pageSize]);
+  }, [currentBranchItems, currentPage, pageSize, totalPages]);
 
   const totalUnits = React.useMemo(() => {
     if (!activeBranch) return 0;

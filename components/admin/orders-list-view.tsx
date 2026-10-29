@@ -104,12 +104,19 @@ export function OrdersListView({
     setCurrentPage(1);
   }, [searchTerm, selectedStatus, selectedBranch]);
 
-  const totalPages = Math.ceil(filteredOrders.length / pageSize) || 1;
+  const totalPages = Math.max(1, Math.ceil(filteredOrders.length / pageSize));
+
+  React.useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const paginatedOrders = React.useMemo(() => {
-    const startIndex = (currentPage - 1) * pageSize;
+    const safePage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
     return filteredOrders.slice(startIndex, startIndex + pageSize);
-  }, [filteredOrders, currentPage, pageSize]);
+  }, [filteredOrders, currentPage, pageSize, totalPages]);
 
   return (
     <div className="space-y-4">
