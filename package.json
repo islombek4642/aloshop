@@ -9,6 +9,9 @@
     "lint": "next lint",
     "check-types": "tsc --noEmit"
   },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^6.2.1",
     "@radix-ui/react-dialog": "^1.1.4",
