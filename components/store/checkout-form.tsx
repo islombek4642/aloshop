@@ -190,6 +190,10 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
           msg = tCheckout("validation.branchRequired");
         } else if (response.error === "addressRequired") {
           msg = tCheckout("validation.addressRequired");
+        } else if (response.error === "insufficientBranchStock") {
+          msg = tCheckout("validation.insufficientBranchStock");
+        } else if (response.error === "outOfStockDelivery") {
+          msg = tCheckout("validation.outOfStockDelivery");
         } else if (response.error) {
           msg = response.error;
         }
