@@ -66,7 +66,7 @@ export function AdminSidebar({
       label: t("branches"),
       href: "/admin/branches",
       icon: Building2,
-      roles: ["SUPER_ADMIN"],
+      roles: ["SUPER_ADMIN", "BRANCH_ADMIN"],
     },
     {
       label: t("orders"),
