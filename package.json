@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "verify": "npx tsx scripts/verify-all.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
