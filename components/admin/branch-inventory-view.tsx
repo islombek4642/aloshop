@@ -35,6 +35,7 @@ import {
   type VariantOption,
   type InventoryRecord,
 } from "./stock-transfer-modal";
+import { AdminPagination } from "./admin-pagination";
 import { formatCurrency } from "@/lib/utils/format-currency";
 
 export interface BranchDetails {
@@ -62,6 +63,7 @@ export interface InventoryItemDetail {
 
 interface BranchInventoryViewProps {
   branches: BranchDetails[];
+  allBranches?: BranchDetails[];
   inventoryItems: InventoryItemDetail[];
   allVariants: VariantOption[];
   isSuperAdmin: boolean;
@@ -70,6 +72,7 @@ interface BranchInventoryViewProps {
 
 export function BranchInventoryView({
   branches,
+  allBranches,
   inventoryItems,
   allVariants,
   isSuperAdmin,
@@ -85,10 +88,19 @@ export function BranchInventoryView({
   // Search filter
   const [searchTerm, setSearchTerm] = React.useState("");
 
+  // Pagination state (default: 20 per page)
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(20);
+
   // Transfer modal state
   const [isTransferOpen, setIsTransferOpen] = React.useState(false);
   const [transferFromBranchId, setTransferFromBranchId] = React.useState(activeBranchId);
   const [transferVariantId, setTransferVariantId] = React.useState<string | undefined>();
+
+  // Reset page when branch tab or search term changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [activeBranchId, searchTerm]);
 
   // Inline stock edit states: variantId -> current string value
   const [editedStock, setEditedStock] = React.useState<Record<string, number>>({});
@@ -115,6 +127,13 @@ export function BranchInventoryView({
         );
       });
   }, [inventoryItems, activeBranch, searchTerm]);
+
+  const totalPages = Math.ceil(currentBranchItems.length / pageSize) || 1;
+
+  const paginatedBranchItems = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    return currentBranchItems.slice(startIndex, startIndex + pageSize);
+  }, [currentBranchItems, currentPage, pageSize]);
 
   const totalUnits = React.useMemo(() => {
     if (!activeBranch) return 0;
@@ -161,7 +180,9 @@ export function BranchInventoryView({
     setIsTransferOpen(true);
   };
 
-  const branchOptions: BranchOption[] = branches.map((b) => ({
+  // Branch options for transfer: all active branches so branch admins can transfer to any branch
+  const transferBranches = allBranches && allBranches.length > 0 ? allBranches : branches;
+  const branchOptions: BranchOption[] = transferBranches.map((b) => ({
     id: b.id,
     name: b.name,
   }));
@@ -290,7 +311,7 @@ export function BranchInventoryView({
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
                   <TableHead className="text-xs">SKU</TableHead>
-                  <TableHead className="text-xs">{t("searchProduct").replace("...", "")}</TableHead>
+                  <TableHead className="text-xs">{t("product")}</TableHead>
                   <TableHead className="text-xs">{t("colorAndStorage")}</TableHead>
                   <TableHead className="text-xs">{t("price")}</TableHead>
                   <TableHead className="text-xs text-center w-40">{t("stockQuantity")}</TableHead>
@@ -298,7 +319,7 @@ export function BranchInventoryView({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {currentBranchItems.map((item) => {
+                {paginatedBranchItems.map((item) => {
                   const currentQty =
                     editedStock[item.variantId] !== undefined
                       ? editedStock[item.variantId]
@@ -388,6 +409,22 @@ export function BranchInventoryView({
                 })}
               </TableBody>
             </Table>
+          )}
+
+          {currentBranchItems.length > 0 && (
+            <div className="border-t border-border px-4 py-2">
+              <AdminPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pageSize={pageSize}
+                totalItems={currentBranchItems.length}
+                onPageChange={setCurrentPage}
+                onPageSizeChange={(newSize) => {
+                  setPageSize(newSize);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
           )}
         </div>
       </div>

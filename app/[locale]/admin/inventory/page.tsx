@@ -32,11 +32,25 @@ export default async function AdminInventoryPage({
   const isSuper = isSuperAdmin(session);
   const branchFilter = isSuper ? undefined : session.branchId || "none";
 
-  // 1. Fetch branches accessible to this user
-  const branches = await prisma.branch.findMany({
-    where: isSuper ? { isActive: true } : { id: branchFilter, isActive: true },
-    orderBy: { name: "asc" },
-  });
+  // 1. Fetch branches accessible to this user and all active branches for transfers
+  const [branches, allActiveBranches] = await Promise.all([
+    prisma.branch.findMany({
+      where: isSuper ? { isActive: true } : { id: branchFilter, isActive: true },
+      orderBy: { name: "asc" },
+    }),
+    prisma.branch.findMany({
+      where: { isActive: true },
+      select: {
+        id: true,
+        name: true,
+        city: true,
+        address: true,
+        phone: true,
+        workingHours: true,
+      },
+      orderBy: { name: "asc" },
+    }),
+  ]);
 
   if (branches.length === 0 && !isSuper) {
     redirect(`/${locale}/admin/dashboard`);
@@ -71,6 +85,15 @@ export default async function AdminInventoryPage({
   ]);
 
   const serializedBranches: BranchDetails[] = branches.map((b) => ({
+    id: b.id,
+    name: b.name,
+    city: b.city,
+    address: b.address,
+    phone: b.phone,
+    workingHours: b.workingHours,
+  }));
+
+  const serializedAllBranches: BranchDetails[] = allActiveBranches.map((b) => ({
     id: b.id,
     name: b.name,
     city: b.city,
@@ -136,6 +159,7 @@ export default async function AdminInventoryPage({
       {/* Main Multi-Branch Inventory Component */}
       <BranchInventoryView
         branches={serializedBranches}
+        allBranches={serializedAllBranches}
         inventoryItems={serializedItems}
         allVariants={serializedAllVariants}
         isSuperAdmin={isSuper}

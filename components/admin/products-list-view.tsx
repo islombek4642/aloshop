@@ -32,6 +32,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { AdminPagination } from "./admin-pagination";
 import { formatCurrency } from "@/lib/utils/format-currency";
 
 export interface SerializedVariant {
@@ -81,6 +82,10 @@ export function ProductsListView({
     new Set()
   );
 
+  // Pagination state (default: 20 per page)
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(20);
+
   const toggleExpand = (productId: string) => {
     setExpandedProductIds((prev) => {
       const next = new Set(prev);
@@ -111,6 +116,18 @@ export function ProductsListView({
       return matchesSearch && matchesBrand && matchesCategory;
     });
   }, [products, searchTerm, selectedBrand, selectedCategory]);
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedBrand, selectedCategory]);
+
+  const totalPages = Math.ceil(filteredProducts.length / pageSize) || 1;
+
+  const paginatedProducts = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    return filteredProducts.slice(startIndex, startIndex + pageSize);
+  }, [filteredProducts, currentPage, pageSize]);
 
   return (
     <div className="space-y-4">
@@ -200,13 +217,13 @@ export function ProductsListView({
                 <TableHead className="w-8"></TableHead>
                 <TableHead className="text-xs">{t("title")}</TableHead>
                 <TableHead className="text-xs">{t("filterCategory")}</TableHead>
-                <TableHead className="text-xs">{t("warrantyMonths", { count: 0 }).replace("0 ", "")}</TableHead>
-                <TableHead className="text-xs">{t("variantsCount", { count: 0 }).replace("0 ", "")}</TableHead>
+                <TableHead className="text-xs">{t("warranty")}</TableHead>
+                <TableHead className="text-xs">{t("variants")}</TableHead>
                 <TableHead className="text-xs text-right">{t("totalStock")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredProducts.map((product) => {
+              {paginatedProducts.map((product) => {
                 const isExpanded = expandedProductIds.has(product.id);
                 const minPrice = Math.min(...product.variants.map((v) => v.price));
                 const maxPrice = Math.max(...product.variants.map((v) => v.price));
@@ -348,6 +365,22 @@ export function ProductsListView({
               })}
             </TableBody>
           </Table>
+        )}
+
+        {filteredProducts.length > 0 && (
+          <div className="border-t border-border px-4 py-2">
+            <AdminPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              pageSize={pageSize}
+              totalItems={filteredProducts.length}
+              onPageChange={setCurrentPage}
+              onPageSizeChange={(newSize) => {
+                setPageSize(newSize);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

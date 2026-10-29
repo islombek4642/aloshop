@@ -22,17 +22,19 @@ export default async function AdminBranchesPage({
     redirect(`/${locale}/admin/login`);
   }
 
+  if (!isSuperAdmin(session)) {
+    redirect(`/${locale}/admin/dashboard`);
+  }
+
   const t = await getTranslations({
     locale,
     namespace: "admin.branchesManagement",
   });
 
-  const isSuper = isSuperAdmin(session);
-  const branchFilter = isSuper ? undefined : session.branchId || "none";
+  const isSuper = true;
 
   // Fetch branches with relation counts and metrics
   const branches = await prisma.branch.findMany({
-    where: isSuper ? undefined : { id: branchFilter },
     include: {
       users: {
         select: { id: true },
@@ -50,9 +52,6 @@ export default async function AdminBranchesPage({
     orderBy: [{ isActive: "desc" }, { name: "asc" }],
   });
 
-  if (branches.length === 0 && !isSuper) {
-    redirect(`/${locale}/admin/dashboard`);
-  }
 
   const serializedBranches: BranchListItem[] = branches.map((b) => ({
     id: b.id,

@@ -66,7 +66,7 @@ export function AdminSidebar({
       label: t("branches"),
       href: "/admin/branches",
       icon: Building2,
-      roles: ["SUPER_ADMIN", "BRANCH_ADMIN"],
+      roles: ["SUPER_ADMIN"],
     },
     {
       label: t("orders"),
@@ -100,7 +100,7 @@ export function AdminSidebar({
       )}
     >
       {/* Brand & Logo */}
-      <div className="h-16 flex items-center gap-3 px-6 border-b border-border">
+      <div className="h-16 shrink-0 flex items-center gap-3 px-6 border-b border-border">
         <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-primary text-primary-foreground font-bold shadow-sm">
           <Store className="w-5 h-5" aria-hidden="true" />
         </div>
@@ -115,7 +115,7 @@ export function AdminSidebar({
       </div>
 
       {/* Role & Branch Indicator */}
-      <div className="px-5 py-4 border-b border-border/60 bg-muted/30">
+      <div className="px-5 py-4 border-b border-border/60 bg-muted/30 shrink-0">
         <div className="flex items-center gap-2 mb-1.5">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
           <span className="text-xs font-semibold text-foreground truncate">
@@ -142,7 +142,7 @@ export function AdminSidebar({
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
         {visibleNavItems.map((item) => {
           const Icon = item.icon;
           const isActive =
@@ -169,7 +169,7 @@ export function AdminSidebar({
       </nav>
 
       {/* Footer / Logout */}
-      <div className="p-4 border-t border-border">
+      <div className="p-4 border-t border-border shrink-0">
         <Button
           variant="outline"
           size="sm"

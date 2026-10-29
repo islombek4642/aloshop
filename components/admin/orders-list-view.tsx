@@ -30,6 +30,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { OrderStatusSelector } from "./order-status-selector";
+import { AdminPagination } from "./admin-pagination";
 import { formatCurrency } from "@/lib/utils/format-currency";
 
 export interface SerializedOrderItem {
@@ -75,6 +76,10 @@ export function OrdersListView({
   const [selectedStatus, setSelectedStatus] = React.useState<string>("ALL");
   const [selectedBranch, setSelectedBranch] = React.useState<string>("ALL");
 
+  // Pagination state (default: 20 per page)
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(20);
+
   const filteredOrders = React.useMemo(() => {
     return orders.filter((ord) => {
       const term = searchTerm.toLowerCase();
@@ -93,6 +98,18 @@ export function OrdersListView({
       return matchesSearch && matchesStatus && matchesBranch;
     });
   }, [orders, searchTerm, selectedStatus, selectedBranch]);
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedStatus, selectedBranch]);
+
+  const totalPages = Math.ceil(filteredOrders.length / pageSize) || 1;
+
+  const paginatedOrders = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * pageSize;
+    return filteredOrders.slice(startIndex, startIndex + pageSize);
+  }, [filteredOrders, currentPage, pageSize]);
 
   return (
     <div className="space-y-4">
@@ -185,7 +202,7 @@ export function OrdersListView({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredOrders.map((ord) => (
+              {paginatedOrders.map((ord) => (
                 <TableRow key={ord.id} className="hover:bg-muted/30">
                   {/* Order Number */}
                   <TableCell className="font-mono text-xs font-semibold text-primary">
@@ -276,6 +293,22 @@ export function OrdersListView({
               ))}
             </TableBody>
           </Table>
+        )}
+
+        {filteredOrders.length > 0 && (
+          <div className="border-t border-border px-4 py-2">
+            <AdminPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              pageSize={pageSize}
+              totalItems={filteredOrders.length}
+              onPageChange={setCurrentPage}
+              onPageSizeChange={(newSize) => {
+                setPageSize(newSize);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

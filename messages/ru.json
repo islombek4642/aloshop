@@ -322,6 +322,12 @@
     "accessDenied": "Недостаточно прав для просмотра этой страницы",
     "roleSuperAdmin": "Главный администратор",
     "roleBranchAdmin": "Администратор филиала",
+    "pagination": {
+      "showing": "Показано {from}-{to} из {total}",
+      "prev": "Назад",
+      "next": "Вперед",
+      "perPage": "На странице"
+    },
     "productsManagement": {
       "title": "Каталог товаров",
       "subtitle": "Управление смартфонами, вариантами и ценами",
@@ -331,6 +337,8 @@
       "filterCategory": "По категории",
       "allBrands": "Все бренды",
       "allCategories": "Все категории",
+      "warranty": "Срок гарантии",
+      "variants": "Варианты",
       "variantsCount": "{count} вариантов",
       "warrantyMonths": "{count} мес. гарантии",
       "totalStock": "Общий остаток",
@@ -397,6 +405,7 @@
       "branchHours": "Режим работы",
       "totalVariants": "Всего вариантов",
       "inStockCount": "Всего единиц",
+      "product": "Товар",
       "searchProduct": "Поиск по модели или SKU...",
       "colorAndStorage": "Цвет и память",
       "price": "Цена",

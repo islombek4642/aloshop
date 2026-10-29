@@ -27,7 +27,7 @@ export function AdminHeader({ session }: AdminHeaderProps) {
 
   return (
     <>
-      <header className="h-16 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/75 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6">
+      <header className="h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/75 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6">
         {/* Left: Mobile hamburger & Branch Badge */}
         <div className="flex items-center gap-3">
           <Button

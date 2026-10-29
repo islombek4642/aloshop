@@ -322,6 +322,12 @@
     "accessDenied": "Ushbu sahifani ko'rish uchun yetarli ruxsat yo'q",
     "roleSuperAdmin": "Super Administrator",
     "roleBranchAdmin": "Filial Administratori",
+    "pagination": {
+      "showing": "Jami {total} tadan {from}-{to} ko'rsatilmoqda",
+      "prev": "Oldingi",
+      "next": "Keyingi",
+      "perPage": "Sahifada"
+    },
     "productsManagement": {
       "title": "Mahsulotlar katalogi",
       "subtitle": "Smartfonlar, variantlar va narxlarni boshqarish",
@@ -331,6 +337,8 @@
       "filterCategory": "Kategoriya bo'yicha",
       "allBrands": "Barcha brendlar",
       "allCategories": "Barcha kategoriyalar",
+      "warranty": "Kafolat muddati",
+      "variants": "Variantlar",
       "variantsCount": "{count} ta variant",
       "warrantyMonths": "{count} oy kafolat",
       "totalStock": "Umumiy qoldiq",
@@ -397,6 +405,7 @@
       "branchHours": "Ish vaqti",
       "totalVariants": "Jami variantlar",
       "inStockCount": "Umumiy dona",
+      "product": "Mahsulot",
       "searchProduct": "Model yoki SKU bo'yicha qidirish...",
       "colorAndStorage": "Rang va xotira",
       "price": "Narx",

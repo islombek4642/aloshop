@@ -322,6 +322,12 @@
     "accessDenied": "You do not have permission to view this page",
     "roleSuperAdmin": "Super Administrator",
     "roleBranchAdmin": "Branch Administrator",
+    "pagination": {
+      "showing": "Showing {from}-{to} of {total}",
+      "prev": "Previous",
+      "next": "Next",
+      "perPage": "Per page"
+    },
     "productsManagement": {
       "title": "Products Catalog",
       "subtitle": "Manage smartphone models, variants, and pricing",
@@ -331,6 +337,8 @@
       "filterCategory": "By Category",
       "allBrands": "All Brands",
       "allCategories": "All Categories",
+      "warranty": "Warranty period",
+      "variants": "Variants",
       "variantsCount": "{count} variants",
       "warrantyMonths": "{count} months warranty",
       "totalStock": "Total Stock",
@@ -397,6 +405,7 @@
       "branchHours": "Working Hours",
       "totalVariants": "Total Variants",
       "inStockCount": "Total Units",
+      "product": "Product",
       "searchProduct": "Search by model or SKU...",
       "colorAndStorage": "Color & Storage",
       "price": "Price",
