@@ -197,7 +197,9 @@
       "addressRequired": "Yetkazish manzilini kiritish shart",
       "spamDetected": "Soxta so'rov aniqlandi",
       "itemsRequired": "Kamida bitta mahsulot tanlanishi shart",
-      "rateLimitExceeded": "Juda ko'p so'rov yuborildi. Iltimos, 1 daqiqadan so'ng qayta urinib ko'ring"
+      "rateLimitExceeded": "Juda ko'p so'rov yuborildi. Iltimos, 1 daqiqadan so'ng qayta urinib ko'ring",
+      "insufficientBranchStock": "Tanlangan filialda ushbu mahsulot zaxirasi yetarli emas",
+      "outOfStockDelivery": "Afsuski, yetkazib berish uchun barcha tovarlar mavjud bo'lgan filial topilmadi"
     }
   },
   "branches": {

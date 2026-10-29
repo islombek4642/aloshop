@@ -197,7 +197,9 @@
       "addressRequired": "Please enter a delivery address",
       "spamDetected": "Suspicious request detected",
       "itemsRequired": "At least one item is required",
-      "rateLimitExceeded": "Too many requests. Please try again after 1 minute"
+      "rateLimitExceeded": "Too many requests. Please try again after 1 minute",
+      "insufficientBranchStock": "Insufficient stock available in the selected branch",
+      "outOfStockDelivery": "Unfortunately, no branch has all requested items in stock for delivery"
     }
   },
   "branches": {
