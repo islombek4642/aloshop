@@ -509,3 +509,4 @@ export default async function CatalogPage({
     </div>
   );
 }
+

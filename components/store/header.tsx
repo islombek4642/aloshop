@@ -163,3 +163,4 @@ export function StoreHeader({ cartItemCount = 0 }: StoreHeaderProps) {
     </header>
   );
 }
+

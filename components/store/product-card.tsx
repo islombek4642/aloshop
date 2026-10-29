@@ -158,7 +158,7 @@ export function ProductCard({
 
       {/* Product Image Section */}
       <Link
-        href={`/catalog`}
+        href={`/product/${product.slug}`}
         className="relative my-3 flex h-48 w-full items-center justify-center overflow-hidden rounded-lg bg-muted/20 p-2"
         aria-label={`${product.brand} ${product.modelName}`}
       >
@@ -261,7 +261,7 @@ export function ProductCard({
           size="sm"
           className="w-full text-xs font-medium justify-between h-8"
         >
-          <Link href={`/catalog`}>
+          <Link href={`/product/${product.slug}`}>
             <span>{tProduct("viewDetails")}</span>
             <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
           </Link>
@@ -270,3 +270,4 @@ export function ProductCard({
     </div>
   );
 }
+

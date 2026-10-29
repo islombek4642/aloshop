@@ -117,7 +117,22 @@
     "pickupFromBranch": "Filialdan olib ketish",
     "viewDetails": "Batafsil",
     "unitsInStock": "{count} dona qoldi",
-    "original": "100% Original"
+    "original": "100% Original",
+    "description": "Tavsif",
+    "brand": "Brend",
+    "model": "Model",
+    "category": "Kategoriya",
+    "warrantyMonths": "{count} oy rasmiy kafolat",
+    "availableInStock": "{count} dona mavjud",
+    "allBranchesStock": "Barcha filiallar bo'yicha qoldiq",
+    "fastDeliveryNotice": "Toshkent bo'ylab 3 soatda yetkazib berish",
+    "officialWarrantyNotice": "Rasmiy servis markazidan 12 oylik kafolat",
+    "pickupAvailable": "Filialdan bepul olib ketish",
+    "contactConsultant": "Savollar bormi? Mutaxassis bilan bog'laning",
+    "callStore": "Telefon qilish",
+    "writeTelegram": "Telegram",
+    "notFound": "Mahsulot topilmadi",
+    "backToCatalog": "Katalogga qaytish"
   },
   "cart": {
     "title": "Savatcha",

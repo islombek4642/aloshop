@@ -86,3 +86,4 @@ export function MobileNav({ cartItemCount = 0 }: MobileNavProps) {
     </nav>
   );
 }
+

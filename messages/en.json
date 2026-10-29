@@ -117,7 +117,22 @@
     "pickupFromBranch": "Pickup from branch",
     "viewDetails": "View Details",
     "unitsInStock": "{count} units left",
-    "original": "100% Original"
+    "original": "100% Original",
+    "description": "Description",
+    "brand": "Brand",
+    "model": "Model",
+    "category": "Category",
+    "warrantyMonths": "{count} months official warranty",
+    "availableInStock": "{count} pcs in stock",
+    "allBranchesStock": "Stock across all branches",
+    "fastDeliveryNotice": "Delivery across Tashkent in 3 hours",
+    "officialWarrantyNotice": "12-month official service center warranty",
+    "pickupAvailable": "Free branch pickup",
+    "contactConsultant": "Have questions? Contact a specialist",
+    "callStore": "Call store",
+    "writeTelegram": "Telegram",
+    "notFound": "Product not found",
+    "backToCatalog": "Back to catalog"
   },
   "cart": {
     "title": "Cart",

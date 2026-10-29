@@ -117,7 +117,22 @@
     "pickupFromBranch": "Забрать из филиала",
     "viewDetails": "Подробнее",
     "unitsInStock": "Осталось {count} шт.",
-    "original": "100% Оригинал"
+    "original": "100% Оригинал",
+    "description": "Описание",
+    "brand": "Бренд",
+    "model": "Модель",
+    "category": "Категория",
+    "warrantyMonths": "{count} мес. официальной гарантии",
+    "availableInStock": "{count} шт. в наличии",
+    "allBranchesStock": "Остатки по всем филиалам",
+    "fastDeliveryNotice": "Доставка по Ташкенту за 3 часа",
+    "officialWarrantyNotice": "12 месяцев гарантии от официального сервисного центра",
+    "pickupAvailable": "Бесплатный самовывоз из филиала",
+    "contactConsultant": "Есть вопросы? Свяжитесь со специалистом",
+    "callStore": "Позвонить",
+    "writeTelegram": "Telegram",
+    "notFound": "Товар не найден",
+    "backToCatalog": "Вернуться в каталог"
   },
   "cart": {
     "title": "Корзина",
