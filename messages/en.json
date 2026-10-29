@@ -141,6 +141,10 @@
     "itemsCount": "Items in cart: {count}",
     "subtotal": "Subtotal",
     "total": "Total Amount",
+    "delivery": "Delivery",
+    "free": "Free",
+    "summary": "Order Summary",
+    "inStock": "In stock",
     "checkout": "Proceed to Checkout",
     "continueShopping": "Continue Shopping",
     "removeItem": "Remove",
@@ -170,7 +174,14 @@
     "notesPlaceholder": "Additional delivery instructions",
     "paymentMethod": "Payment Method",
     "paymentCash": "Cash or card on delivery",
+    "paymentBranch": "Pay at branch (cash or card)",
     "paymentCard": "Online payment (Payme / Click)",
+    "deliveryFreeNotice": "Free delivery across Tashkent",
+    "itemsInOrder": "{count} items",
+    "errorTitle": "Failed to place order",
+    "errorGeneric": "Please try again or contact customer support",
+    "emptyCartWarning": "Your cart must contain items to checkout",
+    "directOrderNotice": "1-Click quick purchase — enter your contact details and our specialist will reach out",
     "submitOrder": "Place Order",
     "submitting": "Submitting...",
     "orderSuccessTitle": "Order Placed Successfully",
@@ -183,7 +194,10 @@
       "phoneInvalid": "Invalid phone number (+998XXXXXXXXX)",
       "phoneRequired": "Please enter your phone number",
       "branchRequired": "Please select a branch",
-      "addressRequired": "Please enter a delivery address"
+      "addressRequired": "Please enter a delivery address",
+      "spamDetected": "Suspicious request detected",
+      "itemsRequired": "At least one item is required",
+      "rateLimitExceeded": "Too many requests. Please try again after 1 minute"
     }
   },
   "branches": {

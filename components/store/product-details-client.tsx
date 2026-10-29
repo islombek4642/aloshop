@@ -13,6 +13,8 @@ import {
   Check,
   ChevronRight,
   Smartphone,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Badge } from "@/components/ui/badge";
@@ -42,6 +44,8 @@ import {
 } from "@/components/store/branch-stock-widget";
 import { formatCurrency } from "@/lib/utils/format-currency";
 import { cn } from "@/lib/utils/cn";
+import { useCart } from "@/lib/store/use-cart";
+import { createOrderAction } from "@/app/actions/checkout";
 
 export interface SerializedProduct {
   id: string;
@@ -85,6 +89,11 @@ export function ProductDetailsClient({
   const [oneClickName, setOneClickName] = React.useState("");
   const [oneClickPhone, setOneClickPhone] = React.useState("+998 ");
   const [oneClickSubmitted, setOneClickSubmitted] = React.useState(false);
+  const [oneClickLoading, setOneClickLoading] = React.useState(false);
+  const [oneClickOrderNumber, setOneClickOrderNumber] = React.useState<string | null>(null);
+  const [oneClickError, setOneClickError] = React.useState<string | null>(null);
+
+  const addItem = useCart((state) => state.addItem);
 
   const activeVariant =
     product.variants.find((v) => v.id === selectedVariantId) ||
@@ -131,22 +140,61 @@ export function ProductDetailsClient({
   }, [activeVariant]);
 
   const handleAddToCart = () => {
+    if (!activeVariant) return;
+    addItem({
+      variantId: activeVariant.id,
+      productId: product.id,
+      modelName: product.modelName,
+      brand: product.brand,
+      colorName,
+      colorHex: activeVariant.colorHex,
+      storage: activeVariant.storage,
+      condition: activeVariant.condition,
+      price: activeVariant.price,
+      image: activeVariant.images[0] || "",
+      maxStock: totalStock,
+    });
     setIsAddedToCart(true);
     setTimeout(() => {
       setIsAddedToCart(false);
     }, 2500);
   };
 
-  const handleOneClickSubmit = (e: React.FormEvent) => {
+  const handleOneClickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!oneClickName.trim() || oneClickPhone.trim().length < 9) return;
-    setOneClickSubmitted(true);
-    setTimeout(() => {
-      setOneClickOpen(false);
-      setOneClickSubmitted(false);
-      setOneClickName("");
-      setOneClickPhone("+998 ");
-    }, 2500);
+    if (!activeVariant || !oneClickName.trim() || oneClickPhone.trim().length < 9) return;
+    setOneClickLoading(true);
+    setOneClickError(null);
+
+    try {
+      const res = await createOrderAction({
+        customerName: oneClickName.trim(),
+        customerPhone: oneClickPhone.trim(),
+        fulfillmentType: "DELIVERY",
+        pickupBranchId: null,
+        deliveryAddress: "Toshkent (1-Click)",
+        paymentType: "CASH_ON_DELIVERY",
+        notes: `1-Click: ${product.brand} ${product.modelName} (${activeVariant.storage})`,
+        items: [
+          {
+            variantId: activeVariant.id,
+            quantity: 1,
+            unitPrice: activeVariant.price,
+          },
+        ],
+      });
+
+      if (res.success) {
+        setOneClickSubmitted(true);
+        setOneClickOrderNumber(res.orderNumber);
+      } else {
+        setOneClickError(res.error);
+      }
+    } catch {
+      setOneClickError(tCheckout("errorGeneric"));
+    } finally {
+      setOneClickLoading(false);
+    }
   };
 
   return (
@@ -478,7 +526,7 @@ export function ProductDetailsClient({
           </DialogHeader>
 
           {oneClickSubmitted ? (
-            <div className="py-6 text-center space-y-2">
+            <div className="py-6 text-center space-y-3">
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
                 <Check className="h-6 w-6 stroke-[2.5]" aria-hidden="true" />
               </div>
@@ -488,9 +536,40 @@ export function ProductDetailsClient({
               <p className="text-xs text-muted-foreground">
                 {tCheckout("orderSuccessDescription")}
               </p>
+              {oneClickOrderNumber && (
+                <div className="rounded-lg border border-primary/20 bg-primary/5 py-2 px-3 text-sm font-bold text-primary">
+                  {tCheckout("orderNumber", { orderNumber: oneClickOrderNumber })}
+                </div>
+              )}
+              <div className="pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setOneClickOpen(false);
+                    setOneClickSubmitted(false);
+                    setOneClickOrderNumber(null);
+                    setOneClickName("");
+                    setOneClickPhone("+998 ");
+                  }}
+                  className="text-xs h-9"
+                >
+                  {tCommon("actions.close")}
+                </Button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleOneClickSubmit} className="space-y-4 pt-2">
+              {oneClickError && (
+                <div
+                  role="alert"
+                  className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-2.5 text-xs text-destructive"
+                >
+                  <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{oneClickError}</span>
+                </div>
+              )}
+
               {/* Selected product summary */}
               <div className="flex items-center gap-3 rounded-lg border border-border/70 bg-muted/30 p-2.5 text-xs">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -546,8 +625,19 @@ export function ProductDetailsClient({
                 >
                   {tCommon("actions.cancel")}
                 </Button>
-                <Button type="submit" className="text-xs h-9">
-                  {tCheckout("submitOrder")}
+                <Button
+                  type="submit"
+                  disabled={oneClickLoading}
+                  className="text-xs h-9 gap-1.5"
+                >
+                  {oneClickLoading && (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
+                  )}
+                  <span>
+                    {oneClickLoading
+                      ? tCheckout("submitting")
+                      : tCheckout("submitOrder")}
+                  </span>
                 </Button>
               </div>
             </form>
@@ -557,3 +647,4 @@ export function ProductDetailsClient({
     </div>
   );
 }
+

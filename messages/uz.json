@@ -141,6 +141,10 @@
     "itemsCount": "Mahsulotlar soni: {count}",
     "subtotal": "Oraliq jami",
     "total": "To'lov uchun jami",
+    "delivery": "Yetkazib berish",
+    "free": "Bepul",
+    "summary": "Buyurtma xulosasi",
+    "inStock": "Mavjud",
     "checkout": "Rasmiylashtirish",
     "continueShopping": "Xaridni davom ettirish",
     "removeItem": "O'chirish",
@@ -170,7 +174,14 @@
     "notesPlaceholder": "Buyurtmaga qo'shimcha ma'lumot",
     "paymentMethod": "To'lov usuli",
     "paymentCash": "Naqd pul yoki terminal (qabul qilinganda)",
+    "paymentBranch": "Filialda to'lash (naqd yoki karta)",
     "paymentCard": "Karta orqali (Payme / Click)",
+    "deliveryFreeNotice": "Toshkent shahri bo'ylab yetkazib berish bepul",
+    "itemsInOrder": "{count} ta mahsulot",
+    "errorTitle": "Buyurtma yaratishda xatolik yuz berdi",
+    "errorGeneric": "Iltimos, qayta urinib ko'ring yoki qo'llab-quvvatlash xizmati bilan bog'laning",
+    "emptyCartWarning": "Savatchangiz bo'sh. Buyurtma berish uchun mahsulot tanlang",
+    "directOrderNotice": "1 bosishda tezkor xarid — ma'lumotlaringizni qoldiring, mutaxassisimiz siz bilan bog'lanadi",
     "submitOrder": "Buyurtma berish",
     "submitting": "Yuborilmoqda...",
     "orderSuccessTitle": "Buyurtmangiz qabul qilindi",
@@ -183,7 +194,10 @@
       "phoneInvalid": "Telefon raqami noto'g'ri (+998XXXXXXXXX)",
       "phoneRequired": "Telefon raqamini kiritish shart",
       "branchRequired": "Filialni tanlash shart",
-      "addressRequired": "Yetkazish manzilini kiritish shart"
+      "addressRequired": "Yetkazish manzilini kiritish shart",
+      "spamDetected": "Soxta so'rov aniqlandi",
+      "itemsRequired": "Kamida bitta mahsulot tanlanishi shart",
+      "rateLimitExceeded": "Juda ko'p so'rov yuborildi. Iltimos, 1 daqiqadan so'ng qayta urinib ko'ring"
     }
   },
   "branches": {

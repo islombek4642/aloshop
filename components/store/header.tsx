@@ -9,17 +9,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
+import { useCart } from "@/lib/store/use-cart";
 
 export interface StoreHeaderProps {
   cartItemCount?: number;
 }
 
-export function StoreHeader({ cartItemCount = 0 }: StoreHeaderProps) {
+export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
   const tNav = useTranslations("nav");
   const tCommon = useTranslations("common");
   const pathname = usePathname();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [mounted, setMounted] = React.useState(false);
+
+  const storeCartCount = useCart((state) => state.getTotalCount());
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartItemCount =
+    propCount !== undefined ? propCount : mounted ? storeCartCount : 0;
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

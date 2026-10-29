@@ -5,14 +5,25 @@ import { useTranslations } from "next-intl";
 import { Home, Layers, ShoppingBag, Store } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils/cn";
+import { useCart } from "@/lib/store/use-cart";
 
 export interface MobileNavProps {
   cartItemCount?: number;
 }
 
-export function MobileNav({ cartItemCount = 0 }: MobileNavProps) {
+export function MobileNav({ cartItemCount: propCount }: MobileNavProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const [mounted, setMounted] = React.useState(false);
+
+  const storeCartCount = useCart((state) => state.getTotalCount());
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartItemCount =
+    propCount !== undefined ? propCount : mounted ? storeCartCount : 0;
 
   const navItems = [
     {
