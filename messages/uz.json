@@ -196,9 +196,13 @@
     "featuredSmartphones": "Tavsiya etilayotgan smartfonlar",
     "viewAll": "Barchasini ko'rish",
     "badgeOfficial": "Rasmiy kafolat",
+    "badgeOfficialDesc": "12 oy to'liq kafolat",
     "badgeFastDelivery": "Tezkor yetkazish",
+    "badgeFastDeliveryDesc": "Toshkent bo'ylab 3 soatda",
     "badgePickup": "Filialdan olib ketish",
-    "badgeBestPrice": "Hamyonbop narx"
+    "badgePickupDesc": "3 ta zamonaviy filial",
+    "badgeBestPrice": "Hamyonbop narx",
+    "badgeBestPriceDesc": "Eng qulay narx kafolati"
   },
   "footer": {
     "aboutTitle": "AloShop haqida",

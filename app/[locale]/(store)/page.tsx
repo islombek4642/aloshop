@@ -246,22 +246,22 @@ export default async function HomePage({ params }: HomePageProps) {
     {
       icon: ShieldCheck,
       title: tHome("badgeOfficial"),
-      description: "12 oy to'liq kafolat",
+      description: tHome("badgeOfficialDesc"),
     },
     {
       icon: Truck,
       title: tHome("badgeFastDelivery"),
-      description: "Toshkent bo'ylab 3 soatda",
+      description: tHome("badgeFastDeliveryDesc"),
     },
     {
       icon: Store,
       title: tHome("badgePickup"),
-      description: "3 ta zamonaviy filial",
+      description: tHome("badgePickupDesc"),
     },
     {
       icon: BadgePercent,
       title: tHome("badgeBestPrice"),
-      description: "Eng qulay narx kafolati",
+      description: tHome("badgeBestPriceDesc"),
     },
   ];
 

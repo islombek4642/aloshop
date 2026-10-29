@@ -196,9 +196,13 @@
     "featuredSmartphones": "Рекомендуемые смартфоны",
     "viewAll": "Смотреть все",
     "badgeOfficial": "Официальная гарантия",
+    "badgeOfficialDesc": "Полная гарантия на 12 месяцев",
     "badgeFastDelivery": "Быстрая доставка",
+    "badgeFastDeliveryDesc": "По Ташкенту за 3 часа",
     "badgePickup": "Самовывоз из филиала",
-    "badgeBestPrice": "Выгодная цена"
+    "badgePickupDesc": "3 современных филиала",
+    "badgeBestPrice": "Выгодная цена",
+    "badgeBestPriceDesc": "Гарантия лучшей цены"
   },
   "footer": {
     "aboutTitle": "О магазине AloShop",

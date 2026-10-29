@@ -196,9 +196,13 @@
     "featuredSmartphones": "Featured Smartphones",
     "viewAll": "View All",
     "badgeOfficial": "Official Warranty",
+    "badgeOfficialDesc": "12 months full warranty",
     "badgeFastDelivery": "Fast Delivery",
+    "badgeFastDeliveryDesc": "Across Tashkent within 3 hours",
     "badgePickup": "Branch Pickup",
-    "badgeBestPrice": "Best Price"
+    "badgePickupDesc": "3 modern branch locations",
+    "badgeBestPrice": "Best Price",
+    "badgeBestPriceDesc": "Best price guarantee"
   },
   "footer": {
     "aboutTitle": "About AloShop",
