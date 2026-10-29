@@ -28,19 +28,19 @@ export function StoreFooter() {
 
   const branches = [
     {
-      name: "Malika Filiali",
-      address: "Toshkent sh., Shayxontohur t., Kichik Halka Yo'li 59 (C-4)",
-      phone: "+998 71 200 11 22",
+      name: "Malika Savdo Markazi",
+      address: "Navoiy shoh ko'chasi, A-blok 14-do'kon",
+      slug: "malika",
     },
     {
-      name: "Chilonzor Filiali",
-      address: "Toshkent sh., Chilonzor t., Qatortol ko'chasi 28",
-      phone: "+998 71 200 33 44",
+      name: "Chilonzor filiali",
+      address: "Qatortol ko'chasi 1-uy",
+      slug: "chilonzor",
     },
     {
-      name: "Buyuk Ipak Yo'li Filiali",
-      address: "Toshkent sh., Mirzo Ulug'bek t., Buyuk Ipak Yo'li 14",
-      phone: "+998 71 200 55 66",
+      name: "Buyuk Ipak Yo'li filiali",
+      address: "Mirzo Ulug'bek shoh ko'chasi 14",
+      slug: "buyuk-ipak-yoli",
     },
   ];
 
@@ -98,12 +98,19 @@ export function StoreFooter() {
             </h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               {branches.map((b) => (
-                <li key={b.name} className="flex flex-col space-y-0.5">
-                  <span className="font-medium text-foreground">{b.name}</span>
-                  <span className="text-xs text-muted-foreground flex items-start gap-1">
-                    <MapPin className="h-3 w-3 mt-0.5 shrink-0 text-muted-foreground" aria-hidden="true" />
-                    {b.address}
-                  </span>
+                <li key={b.name}>
+                  <Link
+                    href="/branches"
+                    className="flex flex-col space-y-0.5 group hover:text-foreground transition-colors"
+                  >
+                    <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                      {b.name}
+                    </span>
+                    <span className="text-xs text-muted-foreground flex items-start gap-1">
+                      <MapPin className="h-3 w-3 mt-0.5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
+                      {b.address}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>
