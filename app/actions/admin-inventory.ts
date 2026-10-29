@@ -56,6 +56,7 @@ export async function updateStockAction(
     });
 
     revalidatePath("/admin/branches");
+    revalidatePath("/admin/inventory");
     revalidatePath("/admin/products");
     revalidatePath("/catalog");
 
@@ -147,6 +148,7 @@ export async function transferStockAction(
     });
 
     revalidatePath("/admin/branches");
+    revalidatePath("/admin/inventory");
     revalidatePath("/admin/products");
     revalidatePath("/catalog");
 
@@ -159,4 +161,5 @@ export async function transferStockAction(
     return { success: false, error: "failedToTransfer" };
   }
 }
+
 
