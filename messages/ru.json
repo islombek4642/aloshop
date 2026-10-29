@@ -292,6 +292,8 @@
       "actions": "Действия",
       "statusPending": "Ожидает",
       "statusConfirmed": "Подтвержден",
+      "statusShipped": "В пути",
+      "statusDelivered": "Доставлен",
       "statusCompleted": "Доставлен",
       "statusCancelled": "Отменен"
     },
@@ -374,6 +376,8 @@
       "imageUrlsLabel": "Ссылки на изображения (через запятую)",
       "imageUrlsPlaceholder": "https://example.com/phone-front.jpg, https://example.com/phone-back.jpg",
       "initialStockSection": "Начальный остаток по филиалам",
+      "conditionNew": "Новый (NEW)",
+      "conditionUsed": "Б/У (Использованный)",
       "saving": "Сохранение...",
       "saveProduct": "Сохранить товар",
       "cancel": "Отмена",
@@ -392,6 +396,8 @@
       "totalVariants": "Всего вариантов",
       "inStockCount": "Всего единиц",
       "searchProduct": "Поиск по модели или SKU...",
+      "colorAndStorage": "Цвет и память",
+      "price": "Цена",
       "stockQuantity": "Текущий остаток",
       "saveQuantity": "Сохранить",
       "updateSuccess": "Остаток успешно обновлен",
@@ -416,14 +422,21 @@
       "transferSuccess": "Товары успешно перемещены",
       "transferError": "Ошибка при перемещении товаров",
       "insufficientStock": "В филиале-отправителе недостаточно остатка",
-      "sameBranchError": "Филиал-отправитель и филиал-получатель не могут совпадать"
+      "sameBranchError": "Филиал-отправитель и филиал-получатель не могут совпадать",
+      "cancel": "Отмена"
     },
     "ordersManagement": {
       "title": "Управление заказами",
       "subtitle": "Заказы клиентов, обновление статусов и контроль выдачи",
       "allStatuses": "Все статусы",
+      "allBranches": "Все филиалы",
       "filterByStatus": "По статусу",
       "filterByBranch": "По филиалу",
+      "statusPending": "Ожидает",
+      "statusConfirmed": "Подтвержден",
+      "statusShipped": "В пути",
+      "statusDelivered": "Доставлен",
+      "statusCancelled": "Отменен",
       "orderNumber": "Номер заказа",
       "customer": "Клиент",
       "fulfillment": "Способ получения",
@@ -466,7 +479,10 @@
       "error": "Ошибка при создании пользователя",
       "usernameTaken": "Это имя пользователя уже занято",
       "noUsers": "Пользователи не найдены",
-      "allBranchesScope": "Все филиалы (Без ограничений)"
+      "allBranchesScope": "Все филиалы (Без ограничений)",
+      "roleSuperAdmin": "Главный администратор",
+      "roleBranchAdmin": "Администратор филиала",
+      "cancel": "Отмена"
     }
   },
   "errors": {

@@ -78,14 +78,14 @@ export function OrderStatusSelector({
         };
       case OrderStatus.SHIPPED:
         return {
-          label: t("statusCompleted"),
+          label: t("statusShipped"),
           icon: Truck,
           color:
             "border-indigo-200 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800",
         };
       case OrderStatus.DELIVERED:
         return {
-          label: t("statusCompleted"),
+          label: t("statusDelivered"),
           icon: CheckCheck,
           color:
             "border-emerald-200 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800",
@@ -150,13 +150,13 @@ export function OrderStatusSelector({
           <SelectItem value={OrderStatus.SHIPPED} className="text-xs">
             <span className="flex items-center gap-1.5">
               <Truck className="w-3.5 h-3.5 text-indigo-500" aria-hidden="true" />
-              <span>{t("statusCompleted")} (Shipped)</span>
+              <span>{t("statusShipped")}</span>
             </span>
           </SelectItem>
           <SelectItem value={OrderStatus.DELIVERED} className="text-xs">
             <span className="flex items-center gap-1.5">
               <CheckCheck className="w-3.5 h-3.5 text-emerald-500" aria-hidden="true" />
-              <span>{t("statusCompleted")} (Delivered)</span>
+              <span>{t("statusDelivered")}</span>
             </span>
           </SelectItem>
           <SelectItem value={OrderStatus.CANCELLED} className="text-xs">
@@ -170,3 +170,4 @@ export function OrderStatusSelector({
     </div>
   );
 }
+

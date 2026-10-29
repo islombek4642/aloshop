@@ -187,7 +187,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                         className="text-[10px] px-2 py-0 border-primary/30 bg-primary/10 text-primary font-medium"
                       >
                         <ShieldCheck className="w-3 h-3 mr-1" aria-hidden="true" />
-                        <span>SuperAdmin</span>
+                        <span>{t("roleSuperAdmin")}</span>
                       </Badge>
                     ) : (
                       <Badge
@@ -195,7 +195,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                         className="text-[10px] px-2 py-0 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium"
                       >
                         <Building2 className="w-3 h-3 mr-1" aria-hidden="true" />
-                        <span>BranchAdmin</span>
+                        <span>{t("roleBranchAdmin")}</span>
                       </Badge>
                     )}
                   </TableCell>
@@ -315,7 +315,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 disabled={isPending}
                 className="text-xs"
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <Button
                 type="submit"
@@ -339,3 +339,4 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
     </div>
   );
 }
+

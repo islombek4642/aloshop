@@ -10,3 +10,4 @@ export default async function AdminInventoryRedirectPage({
   const { locale } = await params;
   redirect(`/${locale}/admin/branches`);
 }
+

@@ -292,6 +292,8 @@
       "actions": "Amallar",
       "statusPending": "Kutilmoqda",
       "statusConfirmed": "Tasdiqlandi",
+      "statusShipped": "Yetkazilmoqda",
+      "statusDelivered": "Yetkazib berildi",
       "statusCompleted": "Yetkazildi",
       "statusCancelled": "Bekor qilindi"
     },
@@ -374,6 +376,8 @@
       "imageUrlsLabel": "Rasm havolalari (vergul bilan ajratilgan)",
       "imageUrlsPlaceholder": "https://example.com/phone-front.jpg, https://example.com/phone-back.jpg",
       "initialStockSection": "Filiallar bo'yicha boshlang'ich qoldiq",
+      "conditionNew": "Yangi (NEW)",
+      "conditionUsed": "B/U (Ishlatilgan)",
       "saving": "Saqlanmoqda...",
       "saveProduct": "Mahsulotni saqlash",
       "cancel": "Bekor qilish",
@@ -392,6 +396,8 @@
       "totalVariants": "Jami variantlar",
       "inStockCount": "Umumiy dona",
       "searchProduct": "Model yoki SKU bo'yicha qidirish...",
+      "colorAndStorage": "Rang va xotira",
+      "price": "Narx",
       "stockQuantity": "Mavjud miqdor",
       "saveQuantity": "Saqlash",
       "updateSuccess": "Qoldiq muvaffaqiyatli yangilandi",
@@ -416,14 +422,21 @@
       "transferSuccess": "Tovarlar muvaffaqiyatli ko'chirildi",
       "transferError": "Ko'chirishda xatolik yuz berdi",
       "insufficientStock": "Chiqaruvchi filialda yetarli qoldiq mavjud emas",
-      "sameBranchError": "Chiqaruvchi va qabul qiluvchi filial bir xil bo'lishi mumkin emas"
+      "sameBranchError": "Chiqaruvchi va qabul qiluvchi filial bir xil bo'lishi mumkin emas",
+      "cancel": "Bekor qilish"
     },
     "ordersManagement": {
       "title": "Buyurtmalar boshqaruvi",
       "subtitle": "Mijozlar buyurtmalari, holatni yangilash va yetkazib berish nazorati",
       "allStatuses": "Barcha holatlar",
+      "allBranches": "Barcha filiallar",
       "filterByStatus": "Holat bo'yicha",
       "filterByBranch": "Filial bo'yicha",
+      "statusPending": "Kutilmoqda",
+      "statusConfirmed": "Tasdiqlandi",
+      "statusShipped": "Yetkazilmoqda",
+      "statusDelivered": "Yetkazib berildi",
+      "statusCancelled": "Bekor qilindi",
       "orderNumber": "Buyurtma raqami",
       "customer": "Mijoz",
       "fulfillment": "Yetkazish turi",
@@ -466,7 +479,10 @@
       "error": "Foydalanuvchi yaratishda xatolik yuz berdi",
       "usernameTaken": "Ushbu foydalanuvchi nomi allaqachon mavjud",
       "noUsers": "Foydalanuvchilar topilmadi",
-      "allBranchesScope": "Barcha filiallar (Cheklovsiz)"
+      "allBranchesScope": "Barcha filiallar (Cheklovsiz)",
+      "roleSuperAdmin": "Super Administrator",
+      "roleBranchAdmin": "Filial Administratori",
+      "cancel": "Bekor qilish"
     }
   },
   "errors": {

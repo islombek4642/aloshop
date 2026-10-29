@@ -320,7 +320,7 @@ export function StockTransferModal({
               disabled={isPending}
               className="text-xs"
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               type="submit"
@@ -343,3 +343,4 @@ export function StockTransferModal({
     </Dialog>
   );
 }
+

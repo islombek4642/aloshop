@@ -502,10 +502,10 @@ export function ProductCreateForm({
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="NEW" className="text-xs">
-                        NEW (Yangi)
+                        {t("conditionNew")}
                       </SelectItem>
                       <SelectItem value="USED" className="text-xs">
-                        USED (B/U)
+                        {t("conditionUsed")}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -695,3 +695,4 @@ export function ProductCreateForm({
     </form>
   );
 }
+

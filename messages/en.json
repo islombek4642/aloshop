@@ -292,6 +292,8 @@
       "actions": "Actions",
       "statusPending": "Pending",
       "statusConfirmed": "Confirmed",
+      "statusShipped": "Shipped",
+      "statusDelivered": "Delivered",
       "statusCompleted": "Completed",
       "statusCancelled": "Cancelled"
     },
@@ -374,6 +376,8 @@
       "imageUrlsLabel": "Image URLs (comma-separated)",
       "imageUrlsPlaceholder": "https://example.com/phone-front.jpg, https://example.com/phone-back.jpg",
       "initialStockSection": "Initial Stock Distribution Across Branches",
+      "conditionNew": "New (NEW)",
+      "conditionUsed": "Used (B/U)",
       "saving": "Saving...",
       "saveProduct": "Save Product",
       "cancel": "Cancel",
@@ -392,6 +396,8 @@
       "totalVariants": "Total Variants",
       "inStockCount": "Total Units",
       "searchProduct": "Search by model or SKU...",
+      "colorAndStorage": "Color & Storage",
+      "price": "Price",
       "stockQuantity": "Current Quantity",
       "saveQuantity": "Save",
       "updateSuccess": "Stock updated successfully",
@@ -416,14 +422,21 @@
       "transferSuccess": "Stock transferred successfully",
       "transferError": "Failed to transfer stock",
       "insufficientStock": "Insufficient stock in source branch",
-      "sameBranchError": "Source and destination branch cannot be the same"
+      "sameBranchError": "Source and destination branch cannot be the same",
+      "cancel": "Cancel"
     },
     "ordersManagement": {
       "title": "Orders Management",
       "subtitle": "Customer orders, status progression, and fulfillment tracking",
       "allStatuses": "All Statuses",
+      "allBranches": "All Branches",
       "filterByStatus": "By Status",
       "filterByBranch": "By Branch",
+      "statusPending": "Pending",
+      "statusConfirmed": "Confirmed",
+      "statusShipped": "Shipped",
+      "statusDelivered": "Delivered",
+      "statusCancelled": "Cancelled",
       "orderNumber": "Order Number",
       "customer": "Customer",
       "fulfillment": "Fulfillment Type",
@@ -466,7 +479,10 @@
       "error": "Failed to create user",
       "usernameTaken": "Username is already taken",
       "noUsers": "No users found",
-      "allBranchesScope": "All Branches (Unrestricted)"
+      "allBranchesScope": "All Branches (Unrestricted)",
+      "roleSuperAdmin": "Super Administrator",
+      "roleBranchAdmin": "Branch Administrator",
+      "cancel": "Cancel"
     }
   },
   "errors": {

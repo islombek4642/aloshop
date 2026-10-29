@@ -291,8 +291,8 @@ export function BranchInventoryView({
                 <TableRow className="hover:bg-transparent">
                   <TableHead className="text-xs">SKU</TableHead>
                   <TableHead className="text-xs">{t("searchProduct").replace("...", "")}</TableHead>
-                  <TableHead className="text-xs">Color & Storage</TableHead>
-                  <TableHead className="text-xs">Price</TableHead>
+                  <TableHead className="text-xs">{t("colorAndStorage")}</TableHead>
+                  <TableHead className="text-xs">{t("price")}</TableHead>
                   <TableHead className="text-xs text-center w-40">{t("stockQuantity")}</TableHead>
                   <TableHead className="text-xs text-right w-24"></TableHead>
                 </TableRow>
@@ -406,3 +406,4 @@ export function BranchInventoryView({
     </div>
   );
 }
+

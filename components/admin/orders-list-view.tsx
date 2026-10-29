@@ -124,19 +124,19 @@ export function OrdersListView({
                 {t("allStatuses")}
               </SelectItem>
               <SelectItem value={OrderStatus.PENDING} className="text-xs">
-                Pending
+                {t("statusPending")}
               </SelectItem>
               <SelectItem value={OrderStatus.CONFIRMED} className="text-xs">
-                Confirmed
+                {t("statusConfirmed")}
               </SelectItem>
               <SelectItem value={OrderStatus.SHIPPED} className="text-xs">
-                Shipped
+                {t("statusShipped")}
               </SelectItem>
               <SelectItem value={OrderStatus.DELIVERED} className="text-xs">
-                Delivered
+                {t("statusDelivered")}
               </SelectItem>
               <SelectItem value={OrderStatus.CANCELLED} className="text-xs">
-                Cancelled
+                {t("statusCancelled")}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -151,7 +151,7 @@ export function OrdersListView({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="ALL" className="text-xs">
-                  {t("filterByBranch")}: All
+                  {t("allBranches")}
                 </SelectItem>
                 {branches.map((b) => (
                   <SelectItem key={b.id} value={b.id} className="text-xs">
@@ -281,3 +281,4 @@ export function OrdersListView({
     </div>
   );
 }
+
