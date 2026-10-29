@@ -120,13 +120,94 @@ export async function createOrderAction(
 
     // 6. DB Transaction to create Order + OrderItems and decrement inventory
     const createdOrder = await prisma.$transaction(async (tx) => {
+      let fulfillingBranchId: string | null = null;
+
+      if (data.fulfillmentType === "PICKUP_FROM_BRANCH") {
+        fulfillingBranchId = data.pickupBranchId || null;
+        if (!fulfillingBranchId) {
+          throw new Error("BRANCH_REQUIRED");
+        }
+
+        // Verify stock for each item in the chosen pickup branch
+        for (const item of data.items) {
+          const currentInv = await tx.branchInventory.findUnique({
+            where: {
+              branchId_variantId: {
+                branchId: fulfillingBranchId,
+                variantId: item.variantId,
+              },
+            },
+          });
+
+          if (!currentInv || currentInv.quantity < item.quantity) {
+            throw new Error("INSUFFICIENT_BRANCH_STOCK");
+          }
+
+          // Atomically decrement stock
+          await tx.branchInventory.update({
+            where: { id: currentInv.id },
+            data: {
+              quantity: { decrement: item.quantity },
+            },
+          });
+        }
+      } else {
+        // DELIVERY: Smart nearest branch allocation
+        // Find active branches having sufficient inventory for ALL items in the order
+        const activeBranches = await tx.branch.findMany({
+          where: { isActive: true },
+          include: {
+            inventory: {
+              where: {
+                variantId: { in: variantIds },
+              },
+            },
+          },
+          orderBy: { createdAt: "asc" },
+        });
+
+        for (const branch of activeBranches) {
+          const invMap = new Map(
+            branch.inventory.map((inv) => [inv.variantId, inv.quantity])
+          );
+          const hasAllStock = data.items.every((item) => {
+            const available = invMap.get(item.variantId) ?? 0;
+            return available >= item.quantity;
+          });
+
+          if (hasAllStock) {
+            fulfillingBranchId = branch.id;
+            break;
+          }
+        }
+
+        if (!fulfillingBranchId) {
+          throw new Error("OUT_OF_STOCK_DELIVERY");
+        }
+
+        // Atomically decrement stock from the assigned fulfillment branch
+        for (const item of data.items) {
+          await tx.branchInventory.update({
+            where: {
+              branchId_variantId: {
+                branchId: fulfillingBranchId,
+                variantId: item.variantId,
+              },
+            },
+            data: {
+              quantity: { decrement: item.quantity },
+            },
+          });
+        }
+      }
+
       const order = await tx.order.create({
         data: {
           orderNumber,
           customerName: data.customerName,
           customerPhone: cleanUzPhone(data.customerPhone),
           fulfillmentType: data.fulfillmentType,
-          pickupBranchId: data.pickupBranchId || null,
+          pickupBranchId: fulfillingBranchId,
           deliveryAddress: data.deliveryAddress || null,
           notes: data.notes || null,
           totalAmount: calculatedTotal,
@@ -144,33 +225,6 @@ export async function createOrderAction(
         },
       });
 
-      // If branch pickup, decrement branch inventory
-      if (data.pickupBranchId) {
-        for (const item of data.items) {
-          // Decrement only if stock exists, clamping to minimum 0
-          const currentInv = await tx.branchInventory.findUnique({
-            where: {
-              branchId_variantId: {
-                branchId: data.pickupBranchId,
-                variantId: item.variantId,
-              },
-            },
-          });
-
-          if (currentInv && currentInv.quantity > 0) {
-            const nextQty = Math.max(0, currentInv.quantity - item.quantity);
-            await tx.branchInventory.update({
-              where: {
-                id: currentInv.id,
-              },
-              data: {
-                quantity: nextQty,
-              },
-            });
-          }
-        }
-      }
-
       return order;
     });
 
@@ -180,6 +234,27 @@ export async function createOrderAction(
       orderId: createdOrder.id,
     };
   } catch (error) {
+    if (error instanceof Error) {
+      if (error.message === "INSUFFICIENT_BRANCH_STOCK") {
+        return {
+          success: false,
+          error: "insufficientBranchStock",
+        };
+      }
+      if (error.message === "OUT_OF_STOCK_DELIVERY") {
+        return {
+          success: false,
+          error: "outOfStockDelivery",
+        };
+      }
+      if (error.message === "BRANCH_REQUIRED") {
+        return {
+          success: false,
+          error: "branchRequired",
+        };
+      }
+    }
+
     console.error("Order creation failed:", error);
     return {
       success: false,
