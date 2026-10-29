@@ -176,7 +176,7 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
             key={b.id}
             className="flex flex-col justify-between border-border/70 hover:border-primary/50 transition-all hover:shadow-md"
           >
-            <CardHeader className="space-y-3 pb-4">
+            <CardHeader className="p-4 sm:p-6 space-y-3 pb-3 sm:pb-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
                   <Building2 className="h-5 w-5" aria-hidden="true" />
@@ -212,7 +212,7 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
               </div>
             </CardHeader>
 
-            <CardContent className="space-y-3 text-xs text-muted-foreground pb-4">
+            <CardContent className="p-4 sm:p-6 pt-0 sm:pt-0 space-y-3 text-xs text-muted-foreground pb-4">
               {/* Working Hours */}
               <div className="flex items-center gap-2 rounded-lg bg-muted/40 p-2.5">
                 <Clock
@@ -262,28 +262,26 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
               </div>
             </CardContent>
 
-            <CardFooter className="pt-2 flex flex-col sm:flex-row gap-2 border-t border-border/50">
+            <CardFooter className="p-4 sm:p-6 pt-3 sm:pt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 border-t border-border/60">
               <Button
                 asChild
                 variant="outline"
-                size="sm"
-                className="w-full sm:w-auto flex-1 h-9 text-xs font-semibold gap-1.5"
+                className="w-full h-11 sm:h-10 text-sm font-medium gap-2 rounded-xl border-border/80 hover:bg-muted/60 transition-colors"
               >
                 <a href={`tel:${b.phone.replace(/\s+/g, "")}`}>
-                  <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-                  <span>{tBranches("phone")}</span>
+                  <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
+                  <span className="truncate">{tBranches("phone")}</span>
                 </a>
               </Button>
 
               <Button
                 asChild
-                size="sm"
-                className="w-full sm:w-auto flex-1 h-9 text-xs font-semibold gap-1.5"
+                className="w-full h-11 sm:h-10 text-sm font-semibold gap-2 rounded-xl shadow-xs"
               >
                 <Link href={`/catalog?branch=${b.slug}`}>
-                  <Layers className="h-3.5 w-3.5" aria-hidden="true" />
+                  <Layers className="h-4 w-4 shrink-0" aria-hidden="true" />
                   <span>{tNav("catalog")}</span>
-                  <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
                 </Link>
               </Button>
             </CardFooter>
