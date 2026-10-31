@@ -145,7 +145,7 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
           aria-hidden="true"
         />
         <span className="font-medium text-foreground">
-          {tBranches("title")}
+          {tNav("branches")}
         </span>
       </nav>
 

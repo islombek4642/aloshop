@@ -90,21 +90,23 @@ export function LanguageSwitcher({
         disabled={isPending}
       >
         <SelectTrigger
-          className="h-9 w-[82px] sm:w-[130px] gap-1.5 sm:gap-2 text-xs font-medium border-border/80 bg-background px-2 sm:px-3"
+          className="h-9 w-auto min-w-[78px] sm:min-w-[145px] gap-1.5 sm:gap-2 text-xs font-medium border-border/80 bg-background px-2 sm:px-3"
           aria-label={tLabels("switchLanguage")}
         >
           <Globe
             className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-muted-foreground"
             aria-hidden="true"
           />
-          <span className="sm:hidden font-mono uppercase text-xs font-semibold">
-            {LOCALE_SHORT_LABELS[locale as Locale]}
-          </span>
-          <span className="hidden sm:inline truncate">
-            <SelectValue placeholder={LOCALE_LABELS[locale as Locale] ?? locale} />
-          </span>
+          <SelectValue aria-label={LOCALE_LABELS[locale as Locale]}>
+            <span className="sm:hidden font-mono uppercase text-xs font-semibold">
+              {LOCALE_SHORT_LABELS[locale as Locale]}
+            </span>
+            <span className="hidden sm:inline font-medium">
+              {LOCALE_LABELS[locale as Locale]}
+            </span>
+          </SelectValue>
         </SelectTrigger>
-        <SelectContent align="end" className="min-w-[130px]">
+        <SelectContent align="end" className="min-w-[145px]">
           {LOCALES.map((cur) => (
             <SelectItem
               key={cur}

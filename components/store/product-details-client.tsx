@@ -211,7 +211,7 @@ export function ProductDetailsClient({
         {categoryName && (
           <>
             <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50" aria-hidden="true" />
-            <span className="hover:text-foreground transition-colors">
+            <span>
               {categoryName}
             </span>
           </>

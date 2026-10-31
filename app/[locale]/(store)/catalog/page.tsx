@@ -1,7 +1,7 @@
 import * as React from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Prisma } from "@prisma/client";
-import { Smartphone, RotateCcw, Search } from "lucide-react";
+import { Smartphone, RotateCcw, Search, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -311,7 +311,10 @@ export default async function CatalogPage({
   const queryParams = await searchParams;
   setRequestLocale(locale);
 
-  const tCatalog = await getTranslations({ locale, namespace: "catalog" });
+  const [tCatalog, tNav] = await Promise.all([
+    getTranslations({ locale, namespace: "catalog" }),
+    getTranslations({ locale, namespace: "nav" }),
+  ]);
 
   const branches = await getBranches();
 
@@ -443,7 +446,24 @@ export default async function CatalogPage({
   const availableStorages = ["128GB", "256GB", "512GB", "1TB"];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
+      {/* Breadcrumb Navigation */}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground"
+      >
+        <Link href="/" className="hover:text-foreground transition-colors">
+          {tNav("home")}
+        </Link>
+        <ChevronRight
+          className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50"
+          aria-hidden="true"
+        />
+        <span className="font-medium text-foreground">
+          {tNav("catalog")}
+        </span>
+      </nav>
+
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b pb-6">
         <div>

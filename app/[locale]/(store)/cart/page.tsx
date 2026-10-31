@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Truck,
   RotateCcw,
+  ChevronRight,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { useCart } from "@/lib/store/use-cart";
@@ -19,6 +20,7 @@ import { formatCurrency } from "@/lib/utils/format-currency";
 
 export default function CartPage() {
   const tCart = useTranslations("cart");
+  const tNav = useTranslations("nav");
   const tProduct = useTranslations("product");
   const tCheckout = useTranslations("checkout");
 
@@ -58,31 +60,67 @@ export default function CartPage() {
   // Empty cart state
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16 sm:py-24 max-w-3xl text-center">
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-muted/50 text-muted-foreground/60 mb-6">
-          <ShoppingBag className="h-10 w-10" aria-hidden="true" />
-        </div>
-
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground mb-3">
-          {tCart("emptyTitle")}
-        </h1>
-
-        <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto mb-8">
-          {tCart("emptyDescription")}
-        </p>
-
-        <Button asChild size="lg" className="h-11 px-8 gap-2 font-semibold">
-          <Link href="/catalog">
-            <span>{tCart("continueShopping")}</span>
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
+        {/* Breadcrumb Navigation */}
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground"
+        >
+          <Link href="/" className="hover:text-foreground transition-colors">
+            {tNav("home")}
           </Link>
-        </Button>
+          <ChevronRight
+            className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50"
+            aria-hidden="true"
+          />
+          <span className="font-medium text-foreground">
+            {tNav("cart")}
+          </span>
+        </nav>
+
+        <div className="py-12 sm:py-20 max-w-3xl mx-auto text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-muted/50 text-muted-foreground/60 mb-6">
+            <ShoppingBag className="h-10 w-10" aria-hidden="true" />
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground mb-3">
+            {tCart("emptyTitle")}
+          </h1>
+
+          <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto mb-8">
+            {tCart("emptyDescription")}
+          </p>
+
+          <Button asChild size="lg" className="h-11 px-8 gap-2 font-semibold">
+            <Link href="/catalog">
+              <span>{tCart("continueShopping")}</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
+      {/* Breadcrumb Navigation */}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground"
+      >
+        <Link href="/" className="hover:text-foreground transition-colors">
+          {tNav("home")}
+        </Link>
+        <ChevronRight
+          className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50"
+          aria-hidden="true"
+        />
+        <span className="font-medium text-foreground">
+          {tNav("cart")}
+        </span>
+      </nav>
+
       {/* Top Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border/60 mb-8">
         <div className="flex items-center gap-3">
