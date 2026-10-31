@@ -22,6 +22,7 @@ interface AdminHeaderProps {
 
 export function AdminHeader({ session }: AdminHeaderProps) {
   const t = useTranslations("admin");
+  const tNav = useTranslations("nav");
   const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
@@ -35,7 +36,7 @@ export function AdminHeader({ session }: AdminHeaderProps) {
             size="icon"
             className="md:hidden h-10 w-10 text-muted-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
+            aria-label={mobileMenuOpen ? tNav("closeMenu") : tNav("menu")}
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />

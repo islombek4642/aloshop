@@ -57,7 +57,8 @@
     "myCart": "My Cart",
     "menu": "Menu",
     "closeMenu": "Close menu",
-    "contact": "Contact"
+    "contact": "Contact",
+    "mobileNav": "Mobile navigation"
   },
   "catalog": {
     "title": "Catalog",
@@ -132,7 +133,10 @@
     "callStore": "Call store",
     "writeTelegram": "Telegram",
     "notFound": "Product not found",
-    "backToCatalog": "Back to catalog"
+    "backToCatalog": "Back to catalog",
+    "gallery": "Product images",
+    "prevImage": "Previous image",
+    "nextImage": "Next image"
   },
   "cart": {
     "title": "Cart",

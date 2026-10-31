@@ -160,7 +160,7 @@ export function ProductsListView({
           {/* Brand Filter */}
           <div className="w-[140px]">
             <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-              <SelectTrigger className="h-9 text-xs">
+              <SelectTrigger className="h-9 text-base sm:text-xs">
                 <SelectValue placeholder={t("allBrands")} />
               </SelectTrigger>
               <SelectContent>
@@ -182,7 +182,7 @@ export function ProductsListView({
               value={selectedCategory}
               onValueChange={setSelectedCategory}
             >
-              <SelectTrigger className="h-9 text-xs">
+              <SelectTrigger className="h-9 text-base sm:text-xs">
                 <SelectValue placeholder={t("allCategories")} />
               </SelectTrigger>
               <SelectContent>

@@ -28,6 +28,8 @@ export function ProductGallery({
 
   const touchStartX = React.useRef<number | null>(null);
   const touchEndX = React.useRef<number | null>(null);
+  const touchStartY = React.useRef<number | null>(null);
+  const touchEndY = React.useRef<number | null>(null);
   const minSwipeDistance = 40;
 
   // Reset selected image when images list changes (e.g. variant switched)
@@ -47,20 +49,45 @@ export function ProductGallery({
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchEndX.current = null;
+    touchEndY.current = null;
     touchStartX.current = e.targetTouches[0].clientX;
+    touchStartY.current = e.targetTouches[0].clientY;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.targetTouches[0].clientX;
+    touchEndY.current = e.targetTouches[0].clientY;
   };
 
   const handleTouchEnd = () => {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > minSwipeDistance && selectedIndex < safeImages.length - 1) {
-      setSelectedIndex((prev) => prev + 1);
-    } else if (distance < -minSwipeDistance && selectedIndex > 0) {
-      setSelectedIndex((prev) => prev - 1);
+    if (
+      touchStartX.current === null ||
+      touchEndX.current === null ||
+      touchStartY.current === null ||
+      touchEndY.current === null
+    ) {
+      touchStartX.current = null;
+      touchEndX.current = null;
+      touchStartY.current = null;
+      touchEndY.current = null;
+      return;
+    }
+
+    const distanceX = touchStartX.current - touchEndX.current;
+    const distanceY = touchStartY.current - touchEndY.current;
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+    touchStartY.current = null;
+    touchEndY.current = null;
+
+    // Only swipe horizontally if horizontal movement exceeds vertical movement
+    if (Math.abs(distanceX) > minSwipeDistance && Math.abs(distanceX) > Math.abs(distanceY)) {
+      if (distanceX > 0 && selectedIndex < safeImages.length - 1) {
+        setSelectedIndex((prev) => prev + 1);
+      } else if (distanceX < 0 && selectedIndex > 0) {
+        setSelectedIndex((prev) => prev - 1);
+      }
     }
   };
 
@@ -132,7 +159,7 @@ export function ProductGallery({
                 type="button"
                 onClick={handlePrev}
                 className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-background/80 backdrop-blur-xs border border-border/60 shadow-xs flex items-center justify-center text-foreground hover:bg-background transition-opacity"
-                aria-label="Previous image"
+                aria-label={tProduct("prevImage")}
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -143,14 +170,17 @@ export function ProductGallery({
                 type="button"
                 onClick={handleNext}
                 className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-background/80 backdrop-blur-xs border border-border/60 shadow-xs flex items-center justify-center text-foreground hover:bg-background transition-opacity"
-                aria-label="Next image"
+                aria-label={tProduct("nextImage")}
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             )}
 
             {/* Pagination Dots indicator on Mobile */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-background/70 backdrop-blur-xs">
+            <div
+              className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-background/70 backdrop-blur-xs"
+              aria-hidden="true"
+            >
               {safeImages.map((_, dotIdx) => (
                 <span
                   key={dotIdx}
@@ -171,7 +201,7 @@ export function ProductGallery({
       {safeImages.length > 1 && (
         <div
           role="region"
-          aria-label={tProduct("details")}
+          aria-label={tProduct("gallery")}
           className="flex items-center gap-2.5 overflow-x-auto pb-1 pt-0.5"
         >
           {safeImages.map((imgUrl, idx) => {

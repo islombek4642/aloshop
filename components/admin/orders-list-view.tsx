@@ -133,14 +133,14 @@ export function OrdersListView({
             placeholder={t("orderNumber") + " / " + t("customer") + "..."}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-9 h-9 text-xs"
+            className="pl-9 h-9 text-base sm:text-xs"
           />
         </div>
 
         {/* Status Filter */}
         <div className="w-[160px]">
           <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-            <SelectTrigger className="h-9 text-xs">
+            <SelectTrigger className="h-9 text-base sm:text-xs">
               <SelectValue placeholder={t("allStatuses")} />
             </SelectTrigger>
             <SelectContent>
@@ -170,7 +170,7 @@ export function OrdersListView({
         {isSuperAdmin && (
           <div className="w-[180px]">
             <Select value={selectedBranch} onValueChange={setSelectedBranch}>
-              <SelectTrigger className="h-9 text-xs">
+              <SelectTrigger className="h-9 text-base sm:text-xs">
                 <SelectValue placeholder={t("filterByBranch")} />
               </SelectTrigger>
               <SelectContent>
@@ -196,113 +196,203 @@ export function OrdersListView({
             <p className="font-medium text-foreground">{t("noOrdersFound")}</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow className="hover:bg-transparent">
-                <TableHead className="text-xs">{t("orderNumber")}</TableHead>
-                <TableHead className="text-xs">{t("customer")}</TableHead>
-                <TableHead className="text-xs">{t("fulfillment")}</TableHead>
-                <TableHead className="text-xs">{t("items")}</TableHead>
-                <TableHead className="text-xs">{t("total")}</TableHead>
-                <TableHead className="text-xs">{t("date")}</TableHead>
-                <TableHead className="text-xs text-right">{t("status")}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <>
+            {/* Mobile Card List (< md) */}
+            <div className="md:hidden divide-y divide-border">
               {paginatedOrders.map((ord) => (
-                <TableRow key={ord.id} className="hover:bg-muted/30">
-                  {/* Order Number */}
-                  <TableCell className="font-mono text-xs font-semibold text-primary">
-                    {ord.orderNumber}
-                  </TableCell>
-
-                  {/* Customer Info */}
-                  <TableCell className="text-xs font-medium">
-                    <div className="flex flex-col">
-                      <span className="font-semibold text-foreground">
-                        {ord.customerName}
+                <div key={ord.id} className="p-4 space-y-3">
+                  {/* Header: Order Number & Date & Price */}
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="font-mono text-xs font-bold text-primary truncate">
+                        {ord.orderNumber}
                       </span>
-                      <a
-                        href={`tel:${ord.customerPhone.replace(/[^\d+]/g, "")}`}
-                        className="text-[11px] text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1 mt-0.5"
-                      >
-                        <Phone className="w-3 h-3 text-muted-foreground/70 shrink-0" aria-hidden="true" />
-                        <span>{ord.customerPhone}</span>
-                      </a>
+                      <span className="text-[11px] text-muted-foreground shrink-0">
+                        {new Intl.DateTimeFormat(locale, {
+                          dateStyle: "short",
+                          timeStyle: "short",
+                        }).format(new Date(ord.createdAt))}
+                      </span>
                     </div>
-                  </TableCell>
+                    <span className="text-sm font-bold font-mono text-foreground shrink-0">
+                      {formatCurrency(ord.totalAmount)}
+                    </span>
+                  </div>
+
+                  {/* Customer Info & Phone Link */}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-foreground">
+                      {ord.customerName}
+                    </span>
+                    <a
+                      href={`tel:${ord.customerPhone.replace(/[^\d+]/g, "")}`}
+                      className="text-xs text-primary font-mono hover:underline flex items-center gap-1"
+                    >
+                      <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>{ord.customerPhone}</span>
+                    </a>
+                  </div>
 
                   {/* Fulfillment */}
-                  <TableCell className="text-xs">
+                  <div className="text-xs">
                     {ord.fulfillmentType === OrderFulfillment.PICKUP_FROM_BRANCH ? (
-                      <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
                         <Badge
                           variant="outline"
-                          className="w-fit text-[10px] px-1.5 py-0 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium"
+                          className="text-[10px] px-1.5 py-0 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium shrink-0"
                         >
                           <Building2 className="w-3 h-3 mr-1" aria-hidden="true" />
                           <span>{t("deliveryPickup")}</span>
                         </Badge>
-                        <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
-                          {ord.pickupBranchName || "-"}
-                        </span>
+                        <span className="truncate">{ord.pickupBranchName || "-"}</span>
                       </div>
                     ) : (
-                      <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
                         <Badge
                           variant="outline"
-                          className="w-fit text-[10px] px-1.5 py-0 bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 font-medium"
+                          className="text-[10px] px-1.5 py-0 bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 font-medium shrink-0"
                         >
                           <Truck className="w-3 h-3 mr-1" aria-hidden="true" />
                           <span>{t("deliveryCourier")}</span>
                         </Badge>
-                        <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
-                          {ord.deliveryAddress || "-"}
-                        </span>
+                        <span className="truncate">{ord.deliveryAddress || "-"}</span>
                       </div>
                     )}
-                  </TableCell>
+                  </div>
 
-                  {/* Order Items */}
-                  <TableCell className="text-xs text-muted-foreground">
-                    <div className="space-y-0.5 max-w-[220px]">
-                      {ord.items.map((item) => (
-                        <div key={item.id} className="truncate text-[11px]">
-                          <span className="text-foreground font-medium">
-                            {item.quantity}x
-                          </span>{" "}
-                          <span>{item.variantName}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </TableCell>
+                  {/* Items */}
+                  <div className="rounded-lg bg-muted/40 p-2 space-y-1">
+                    {ord.items.map((item) => (
+                      <div key={item.id} className="text-xs flex items-center justify-between text-muted-foreground">
+                        <span className="truncate pr-2">{item.variantName}</span>
+                        <span className="font-semibold text-foreground shrink-0">{item.quantity}x</span>
+                      </div>
+                    ))}
+                  </div>
 
-                  {/* Total */}
-                  <TableCell className="text-xs font-bold font-mono">
-                    {formatCurrency(ord.totalAmount)}
-                  </TableCell>
-
-                  {/* Date */}
-                  <TableCell className="text-xs text-muted-foreground">
-                    {new Intl.DateTimeFormat(locale, {
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    }).format(new Date(ord.createdAt))}
-                  </TableCell>
-
-                  {/* Status Dropdown */}
-                  <TableCell className="text-right">
-                    <div className="flex justify-end">
-                      <OrderStatusSelector
-                        orderId={ord.id}
-                        currentStatus={ord.status}
-                      />
-                    </div>
-                  </TableCell>
-                </TableRow>
+                  {/* Status Selector Footer */}
+                  <div className="pt-1 flex items-center justify-between gap-2 border-t border-border/50">
+                    <span className="text-xs font-medium text-muted-foreground">{t("status")}:</span>
+                    <OrderStatusSelector
+                      orderId={ord.id}
+                      currentStatus={ord.status}
+                    />
+                  </div>
+                </div>
               ))}
-            </TableBody>
-          </Table>
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="text-xs">{t("orderNumber")}</TableHead>
+                    <TableHead className="text-xs">{t("customer")}</TableHead>
+                    <TableHead className="text-xs">{t("fulfillment")}</TableHead>
+                    <TableHead className="text-xs">{t("items")}</TableHead>
+                    <TableHead className="text-xs">{t("total")}</TableHead>
+                    <TableHead className="text-xs">{t("date")}</TableHead>
+                    <TableHead className="text-xs text-right">{t("status")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {paginatedOrders.map((ord) => (
+                    <TableRow key={ord.id} className="hover:bg-muted/30">
+                      {/* Order Number */}
+                      <TableCell className="font-mono text-xs font-semibold text-primary">
+                        {ord.orderNumber}
+                      </TableCell>
+
+                      {/* Customer Info */}
+                      <TableCell className="text-xs font-medium">
+                        <div className="flex flex-col">
+                          <span className="font-semibold text-foreground">
+                            {ord.customerName}
+                          </span>
+                          <a
+                            href={`tel:${ord.customerPhone.replace(/[^\d+]/g, "")}`}
+                            className="text-[11px] text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1 mt-0.5"
+                          >
+                            <Phone className="w-3 h-3 text-muted-foreground/70 shrink-0" aria-hidden="true" />
+                            <span>{ord.customerPhone}</span>
+                          </a>
+                        </div>
+                      </TableCell>
+
+                      {/* Fulfillment */}
+                      <TableCell className="text-xs">
+                        {ord.fulfillmentType === OrderFulfillment.PICKUP_FROM_BRANCH ? (
+                          <div className="flex flex-col gap-0.5">
+                            <Badge
+                              variant="outline"
+                              className="w-fit text-[10px] px-1.5 py-0 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium"
+                            >
+                              <Building2 className="w-3 h-3 mr-1" aria-hidden="true" />
+                              <span>{t("deliveryPickup")}</span>
+                            </Badge>
+                            <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
+                              {ord.pickupBranchName || "-"}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-0.5">
+                            <Badge
+                              variant="outline"
+                              className="w-fit text-[10px] px-1.5 py-0 bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300 font-medium"
+                            >
+                              <Truck className="w-3 h-3 mr-1" aria-hidden="true" />
+                              <span>{t("deliveryCourier")}</span>
+                            </Badge>
+                            <span className="text-[11px] text-muted-foreground truncate max-w-[180px]">
+                              {ord.deliveryAddress || "-"}
+                            </span>
+                          </div>
+                        )}
+                      </TableCell>
+
+                      {/* Order Items */}
+                      <TableCell className="text-xs text-muted-foreground">
+                        <div className="space-y-0.5 max-w-[220px]">
+                          {ord.items.map((item) => (
+                            <div key={item.id} className="truncate text-[11px]">
+                              <span className="text-foreground font-medium">
+                                {item.quantity}x
+                              </span>{" "}
+                              <span>{item.variantName}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </TableCell>
+
+                      {/* Total */}
+                      <TableCell className="text-xs font-bold font-mono">
+                        {formatCurrency(ord.totalAmount)}
+                      </TableCell>
+
+                      {/* Date */}
+                      <TableCell className="text-xs text-muted-foreground">
+                        {new Intl.DateTimeFormat(locale, {
+                          dateStyle: "short",
+                          timeStyle: "short",
+                        }).format(new Date(ord.createdAt))}
+                      </TableCell>
+
+                      {/* Status Dropdown */}
+                      <TableCell className="text-right">
+                        <div className="flex justify-end">
+                          <OrderStatusSelector
+                            orderId={ord.id}
+                            currentStatus={ord.status}
+                          />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </>
         )}
 
         {filteredOrders.length > 0 && (

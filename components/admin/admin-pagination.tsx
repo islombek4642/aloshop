@@ -95,7 +95,7 @@ export function AdminPagination({
               value={String(pageSize)}
               onValueChange={(val) => onPageSizeChange(Number(val))}
             >
-              <SelectTrigger className="h-8 w-[76px] px-2.5 text-xs">
+              <SelectTrigger className="h-9 sm:h-8 w-[84px] sm:w-[76px] px-2.5 text-base sm:text-xs">
                 <SelectValue placeholder={String(pageSize)} />
               </SelectTrigger>
               <SelectContent>
@@ -116,7 +116,7 @@ export function AdminPagination({
         <Button
           variant="outline"
           size="sm"
-          className="h-8 px-2.5 gap-1 text-xs"
+          className="h-9 sm:h-8 px-2.5 gap-1 text-xs min-w-[36px] sm:min-w-0"
           disabled={safeCurrentPage <= 1}
           onClick={() => onPageChange(safeCurrentPage - 1)}
           aria-label={t("prev")}
@@ -168,7 +168,7 @@ export function AdminPagination({
         <Button
           variant="outline"
           size="sm"
-          className="h-8 px-2.5 gap-1 text-xs"
+          className="h-9 sm:h-8 px-2.5 gap-1 text-xs min-w-[36px] sm:min-w-0"
           disabled={safeCurrentPage >= safeTotalPages}
           onClick={() => onPageChange(safeCurrentPage + 1)}
           aria-label={t("next")}

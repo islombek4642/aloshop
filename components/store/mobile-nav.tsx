@@ -60,7 +60,7 @@ export function MobileNav({ cartItemCount: propCount }: MobileNavProps) {
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 md:hidden border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 pb-[env(safe-area-inset-bottom,0px)] shadow-lg"
-      aria-label="Mobile Bottom Navigation"
+      aria-label={t("mobileNav")}
     >
       <div className="grid h-14 grid-cols-4 items-center">
         {navItems.map((item) => {

@@ -233,7 +233,7 @@ export function ProductCard({
                       : "border-black/20 hover:scale-105"
                   )}
                   style={{ backgroundColor: c.hex }}
-                  aria-label={`Color ${c.hex}`}
+                  aria-label={`${tProduct("color")}: ${c.hex}`}
                 />
               );
             })}

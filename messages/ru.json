@@ -57,7 +57,8 @@
     "myCart": "Моя корзина",
     "menu": "Меню",
     "closeMenu": "Закрыть меню",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "mobileNav": "Мобильная навигация"
   },
   "catalog": {
     "title": "Каталог",
@@ -132,7 +133,10 @@
     "callStore": "Позвонить",
     "writeTelegram": "Telegram",
     "notFound": "Товар не найден",
-    "backToCatalog": "Вернуться в каталог"
+    "backToCatalog": "Вернуться в каталог",
+    "gallery": "Фотографии товара",
+    "prevImage": "Предыдущее фото",
+    "nextImage": "Следующее фото"
   },
   "cart": {
     "title": "Корзина",

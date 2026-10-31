@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Globe, Check } from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/routing";
 import {
@@ -30,6 +30,7 @@ export function LanguageSwitcher({
   variant = "select",
 }: LanguageSwitcherProps) {
   const locale = useLocale();
+  const tLabels = useTranslations("common.labels");
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = React.useTransition();
@@ -46,7 +47,7 @@ export function LanguageSwitcher({
     return (
       <div
         role="group"
-        aria-label="Language selection"
+        aria-label={tLabels("switchLanguage")}
         className={cn(
           "inline-flex items-center gap-1 rounded-md border p-1 bg-background",
           className
@@ -90,7 +91,7 @@ export function LanguageSwitcher({
       >
         <SelectTrigger
           className="h-9 w-[82px] sm:w-[130px] gap-1.5 sm:gap-2 text-xs font-medium border-border/80 bg-background px-2 sm:px-3"
-          aria-label="Language selection"
+          aria-label={tLabels("switchLanguage")}
         >
           <Globe
             className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-muted-foreground"

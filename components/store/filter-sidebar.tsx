@@ -161,7 +161,7 @@ export function FilterSidebar({
           <span>{tCatalog("sortBy")}</span>
         </label>
         <Select value={selectedSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="h-9 text-xs bg-background">
+          <SelectTrigger className="h-9 text-base sm:text-xs bg-background">
             <SelectValue placeholder={tCatalog("sortBy")} />
           </SelectTrigger>
           <SelectContent>
@@ -249,7 +249,7 @@ export function FilterSidebar({
             value={selectedBranch || "all"}
             onValueChange={handleBranchChange}
           >
-            <SelectTrigger className="h-9 text-xs bg-background">
+            <SelectTrigger className="h-9 text-base sm:text-xs bg-background">
               <SelectValue placeholder={tCatalog("allBranches")} />
             </SelectTrigger>
             <SelectContent>

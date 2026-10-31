@@ -57,7 +57,8 @@
     "myCart": "Mening savatcham",
     "menu": "Menyu",
     "closeMenu": "Menyuni yopish",
-    "contact": "Bog'lanish"
+    "contact": "Bog'lanish",
+    "mobileNav": "Mobil navigatsiya"
   },
   "catalog": {
     "title": "Katalog",
@@ -132,7 +133,10 @@
     "callStore": "Telefon qilish",
     "writeTelegram": "Telegram",
     "notFound": "Mahsulot topilmadi",
-    "backToCatalog": "Katalogga qaytish"
+    "backToCatalog": "Katalogga qaytish",
+    "gallery": "Mahsulot rasmlari",
+    "prevImage": "Oldingi rasm",
+    "nextImage": "Keyingi rasm"
   },
   "cart": {
     "title": "Savatcha",

@@ -168,7 +168,7 @@ export function VariantSelector({
                   type="button"
                   onClick={() => handleColorChange(item.hex)}
                   className={cn(
-                    "group relative flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    "group relative flex min-h-[38px] items-center gap-2 rounded-full border px-3.5 py-2 text-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                     isSelected
                       ? "border-primary bg-primary/5 text-foreground ring-1 ring-primary shadow-xs font-medium"
                       : "border-border/80 bg-background text-muted-foreground hover:border-foreground/40 hover:text-foreground"
@@ -228,7 +228,7 @@ export function VariantSelector({
                   type="button"
                   onClick={() => handleStorageChange(storage)}
                   className={cn(
-                    "min-w-16 rounded-xl border px-3.5 py-2 text-xs font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    "min-h-[38px] min-w-16 rounded-xl border px-3.5 py-2 text-xs font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                     isSelected
                       ? "border-primary bg-primary text-primary-foreground shadow-xs font-semibold"
                       : existsInColor

@@ -302,7 +302,7 @@ export function BranchInventoryView({
               placeholder={t("searchProduct")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 h-9 text-xs"
+              className="pl-9 h-9 text-base sm:text-xs"
             />
           </div>
         </div>
@@ -377,7 +377,7 @@ export function BranchInventoryView({
                                 parseInt(e.target.value, 10) || 0
                               )
                             }
-                            className="w-20 h-8 text-center text-xs font-mono font-bold"
+                            className="w-20 h-8 text-center text-base sm:text-xs font-mono font-bold"
                           />
                           <Button
                             size="sm"
