@@ -477,7 +477,7 @@ export function ProductDetailsClient({
       </div>
 
       {/* Sticky Bottom Bar on Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur-md px-4 py-3 sm:hidden shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur-md px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:hidden shadow-lg">
         <div className="flex items-center justify-between gap-3">
           <div className="space-y-0.5">
             <span className="block text-[10px] text-muted-foreground font-medium">
@@ -598,7 +598,7 @@ export function ProductDetailsClient({
                   value={oneClickName}
                   onChange={(e) => setOneClickName(e.target.value)}
                   placeholder={tCheckout("fullNamePlaceholder")}
-                  className="h-10 text-xs"
+                  className="h-10 text-base sm:text-xs"
                 />
               </div>
 
@@ -612,7 +612,7 @@ export function ProductDetailsClient({
                   value={oneClickPhone}
                   onChange={(e) => setOneClickPhone(e.target.value)}
                   placeholder={tCheckout("phonePlaceholder")}
-                  className="h-10 text-xs"
+                  className="h-10 text-base sm:text-xs"
                 />
               </div>
 

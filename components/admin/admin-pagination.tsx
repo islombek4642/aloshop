@@ -125,8 +125,15 @@ export function AdminPagination({
           <span className="hidden sm:inline">{t("prev")}</span>
         </Button>
 
-        {/* Page Number Buttons */}
-        <div className="flex items-center gap-1">
+        {/* Mobile Page Indicator */}
+        <div className="flex sm:hidden items-center px-2 text-xs font-mono font-medium text-foreground">
+          <span>{safeCurrentPage}</span>
+          <span className="text-muted-foreground mx-1">/</span>
+          <span className="text-muted-foreground">{safeTotalPages}</span>
+        </div>
+
+        {/* Desktop Page Number Buttons */}
+        <div className="hidden sm:flex items-center gap-1">
           {pageNumbers.map((page, idx) => {
             if (page === "dots") {
               return (

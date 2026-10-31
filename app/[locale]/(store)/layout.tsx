@@ -11,7 +11,7 @@ export default function StorefrontLayout({ children }: StorefrontLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <StoreHeader />
-      <main className="flex-1 pb-16 md:pb-0">{children}</main>
+      <main className="flex-1 pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">{children}</main>
       <StoreFooter />
       <MobileNav />
     </div>

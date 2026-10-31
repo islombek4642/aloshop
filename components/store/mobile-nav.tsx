@@ -25,6 +25,10 @@ export function MobileNav({ cartItemCount: propCount }: MobileNavProps) {
   const cartItemCount =
     propCount !== undefined ? propCount : mounted ? storeCartCount : 0;
 
+  if (pathname.startsWith("/product")) {
+    return null;
+  }
+
   const navItems = [
     {
       href: "/",

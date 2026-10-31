@@ -117,7 +117,7 @@ export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={tNav("searchPlaceholder")}
-              className="w-full pl-9 pr-4 h-9 bg-muted/40 text-sm focus-visible:bg-background"
+              className="w-full pl-9 pr-4 h-9 bg-muted/40 text-base sm:text-sm focus-visible:bg-background"
               aria-label={tNav("searchPlaceholder")}
             />
           </div>
@@ -165,7 +165,7 @@ export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={tNav("searchPlaceholder")}
-              className="w-full pl-9 pr-3 h-8 text-xs bg-muted/40 focus-visible:bg-background"
+              className="w-full pl-9 pr-3 h-9 sm:h-8 text-base sm:text-xs bg-muted/40 focus-visible:bg-background"
               aria-label={tNav("searchPlaceholder")}
             />
           </div>

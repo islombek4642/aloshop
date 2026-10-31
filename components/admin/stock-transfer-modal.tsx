@@ -227,7 +227,7 @@ export function StockTransferModal({
               <span>{t("selectVariant")}</span>
             </label>
             <Select value={variantId} onValueChange={setVariantId}>
-              <SelectTrigger className="text-xs h-9">
+              <SelectTrigger className="text-base sm:text-xs h-9">
                 <SelectValue placeholder={t("variantPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
@@ -253,7 +253,7 @@ export function StockTransferModal({
                 onValueChange={setFromBranchId}
                 disabled={isLockedFromBranch}
               >
-                <SelectTrigger className="text-xs h-9">
+                <SelectTrigger className="text-base sm:text-xs h-9">
                   <SelectValue placeholder={t("selectSourceBranch")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -273,7 +273,7 @@ export function StockTransferModal({
                 <span>{t("toBranch")}</span>
               </label>
               <Select value={toBranchId} onValueChange={setToBranchId}>
-                <SelectTrigger className="text-xs h-9">
+                <SelectTrigger className="text-base sm:text-xs h-9">
                   <SelectValue placeholder={t("selectDestBranch")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -315,7 +315,7 @@ export function StockTransferModal({
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
               placeholder={t("quantityPlaceholder")}
-              className="text-xs h-9"
+              className="text-base sm:text-xs h-9"
               required
             />
           </div>

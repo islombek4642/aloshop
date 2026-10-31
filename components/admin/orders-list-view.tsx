@@ -222,10 +222,13 @@ export function OrdersListView({
                       <span className="font-semibold text-foreground">
                         {ord.customerName}
                       </span>
-                      <span className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5">
+                      <a
+                        href={`tel:${ord.customerPhone.replace(/[^\d+]/g, "")}`}
+                        className="text-[11px] text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1 mt-0.5"
+                      >
                         <Phone className="w-3 h-3 text-muted-foreground/70 shrink-0" aria-hidden="true" />
                         <span>{ord.customerPhone}</span>
-                      </span>
+                      </a>
                     </div>
                   </TableCell>
 

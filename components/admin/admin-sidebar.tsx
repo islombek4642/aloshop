@@ -169,7 +169,7 @@ export function AdminSidebar({
       </nav>
 
       {/* Footer / Logout */}
-      <div className="p-4 border-t border-border shrink-0">
+      <div className="p-4 border-t border-border shrink-0 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <Button
           variant="outline"
           size="sm"

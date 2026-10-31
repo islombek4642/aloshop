@@ -201,7 +201,7 @@ export function ProductCard({
                   type="button"
                   onClick={() => handleStorageSelect(storage)}
                   className={cn(
-                    "rounded px-1.5 py-0.5 text-[11px] font-medium border transition-colors",
+                    "min-h-[36px] px-2 py-1 sm:min-h-0 sm:px-1.5 sm:py-0.5 rounded text-[11px] font-medium border transition-colors inline-flex items-center justify-center",
                     isSelected
                       ? "border-primary bg-primary text-primary-foreground font-semibold"
                       : "border-border/60 bg-muted/30 text-muted-foreground hover:bg-muted"
@@ -227,7 +227,7 @@ export function ProductCard({
                   type="button"
                   onClick={() => handleColorSelect(c.index)}
                   className={cn(
-                    "h-4 w-4 rounded-full border shadow-xs transition-transform",
+                    "relative h-4 w-4 rounded-full border shadow-xs transition-transform before:absolute before:inset-[-8px] before:content-['']",
                     isSelected
                       ? "ring-2 ring-primary ring-offset-2 scale-110"
                       : "border-black/20 hover:scale-105"
@@ -259,7 +259,7 @@ export function ProductCard({
           asChild
           variant="outline"
           size="sm"
-          className="w-full text-xs font-medium justify-between h-8"
+          className="w-full text-xs font-medium justify-between h-9 sm:h-8"
         >
           <Link href={`/product/${product.slug}`}>
             <span>{tProduct("viewDetails")}</span>

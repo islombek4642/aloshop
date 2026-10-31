@@ -251,7 +251,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder={t("usernamePlaceholder")}
-                className="text-xs h-9 font-mono"
+                className="text-base sm:text-xs h-9 font-mono"
                 required
               />
             </div>
@@ -265,7 +265,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder={t("fullNamePlaceholder")}
-                className="text-xs h-9"
+                className="text-base sm:text-xs h-9"
                 required
               />
             </div>
@@ -281,7 +281,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={t("passwordPlaceholder")}
-                className="text-xs h-9 font-mono"
+                className="text-base sm:text-xs h-9 font-mono"
                 required
               />
             </div>
@@ -293,7 +293,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 <span>{t("branchSelect")} *</span>
               </label>
               <Select value={branchId} onValueChange={setBranchId}>
-                <SelectTrigger className="text-xs h-9">
+                <SelectTrigger className="text-base sm:text-xs h-9">
                   <SelectValue placeholder={t("selectBranchPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>

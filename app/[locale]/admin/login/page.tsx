@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder={t("usernamePlaceholder")}
-                    className="pl-9 text-sm"
+                    className="pl-9 text-base sm:text-sm"
                     disabled={isPending}
                   />
                 </div>
@@ -146,7 +146,7 @@ export default function AdminLoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t("passwordPlaceholder")}
-                    className="pl-9 text-sm"
+                    className="pl-9 text-base sm:text-sm"
                     disabled={isPending}
                   />
                 </div>

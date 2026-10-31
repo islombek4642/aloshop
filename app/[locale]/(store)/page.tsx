@@ -364,15 +364,15 @@ export default async function HomePage({ params }: HomePageProps) {
             <ArrowRight className="h-3 w-3" aria-hidden="true" />
           </Link>
         </div>
-        <div className="grid grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
           {brandPills.map((b) => (
             <Link
               key={b.name}
               href={`/catalog?brand=${b.query}`}
-              className="flex items-center justify-center gap-2 rounded-xl border border-border/80 bg-card p-4 transition-all hover:border-primary hover:shadow-xs group"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl border border-border/80 bg-card p-2.5 sm:p-4 transition-all hover:border-primary hover:shadow-xs group min-w-0"
             >
-              <Smartphone className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
-              <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+              <Smartphone className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
+              <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                 {b.name}
               </span>
             </Link>

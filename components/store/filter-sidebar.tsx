@@ -278,7 +278,7 @@ export function FilterSidebar({
               placeholder={tCatalog("minPrice")}
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="h-8 text-xs bg-background"
+              className="h-9 sm:h-8 text-base sm:text-xs bg-background"
               aria-label={tCatalog("minPrice")}
             />
           </div>
@@ -288,7 +288,7 @@ export function FilterSidebar({
               placeholder={tCatalog("maxPrice")}
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="h-8 text-xs bg-background"
+              className="h-9 sm:h-8 text-base sm:text-xs bg-background"
               aria-label={tCatalog("maxPrice")}
             />
           </div>

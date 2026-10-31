@@ -133,10 +133,13 @@ export function BranchStockWidget({
                       </span>
                     )}
                     {branch.phone && (
-                      <span className="flex items-center gap-1">
+                      <a
+                        href={`tel:${branch.phone.replace(/[^\d+]/g, "")}`}
+                        className="flex items-center gap-1 hover:text-foreground hover:underline transition-colors py-0.5"
+                      >
                         <Phone className="h-3 w-3" aria-hidden="true" />
                         <span>{branch.phone}</span>
-                      </span>
+                      </a>
                     )}
                   </div>
                 )}

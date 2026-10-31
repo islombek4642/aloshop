@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Smartphone, ShieldCheck } from "lucide-react";
+import { Smartphone, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 
@@ -26,6 +26,10 @@ export function ProductGallery({
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [imageErrors, setImageErrors] = React.useState<Record<number, boolean>>({});
 
+  const touchStartX = React.useRef<number | null>(null);
+  const touchEndX = React.useRef<number | null>(null);
+  const minSwipeDistance = 40;
+
   // Reset selected image when images list changes (e.g. variant switched)
   const imageKey = images.join("|");
   React.useEffect(() => {
@@ -41,10 +45,46 @@ export function ProductGallery({
     setImageErrors((prev) => ({ ...prev, [index]: true }));
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (distance > minSwipeDistance && selectedIndex < safeImages.length - 1) {
+      setSelectedIndex((prev) => prev + 1);
+    } else if (distance < -minSwipeDistance && selectedIndex > 0) {
+      setSelectedIndex((prev) => prev - 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (selectedIndex > 0) {
+      setSelectedIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (selectedIndex < safeImages.length - 1) {
+      setSelectedIndex((prev) => prev + 1);
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      {/* Main Image Viewport */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border/80 bg-gradient-to-b from-muted/20 via-background to-muted/30 p-6 flex items-center justify-center shadow-xs">
+      {/* Main Image Viewport with touch swipe */}
+      <div
+        className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border/80 bg-gradient-to-b from-muted/20 via-background to-muted/30 p-6 flex items-center justify-center shadow-xs touch-pan-y select-none"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Floating Badges */}
         <div className="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-2">
           {condition === "NEW" ? (
@@ -82,6 +122,48 @@ export function ProductGallery({
           <div className="flex flex-col items-center justify-center text-muted-foreground/35 py-12">
             <Smartphone className="h-28 w-28 stroke-[1.2]" aria-hidden="true" />
           </div>
+        )}
+
+        {/* Previous / Next Arrow Controls for touch & mobile accessibility */}
+        {safeImages.length > 1 && (
+          <>
+            {selectedIndex > 0 && (
+              <button
+                type="button"
+                onClick={handlePrev}
+                className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-background/80 backdrop-blur-xs border border-border/60 shadow-xs flex items-center justify-center text-foreground hover:bg-background transition-opacity"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+
+            {selectedIndex < safeImages.length - 1 && (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-background/80 backdrop-blur-xs border border-border/60 shadow-xs flex items-center justify-center text-foreground hover:bg-background transition-opacity"
+                aria-label="Next image"
+              >
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+
+            {/* Pagination Dots indicator on Mobile */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-background/70 backdrop-blur-xs">
+              {safeImages.map((_, dotIdx) => (
+                <span
+                  key={dotIdx}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all",
+                    dotIdx === selectedIndex
+                      ? "w-4 bg-primary"
+                      : "w-1.5 bg-muted-foreground/40"
+                  )}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
 

@@ -312,7 +312,7 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                     }}
                     placeholder={tCheckout("fullNamePlaceholder")}
                     className={cn(
-                      "h-10 text-xs sm:text-sm",
+                      "h-10 text-base sm:text-sm",
                       fieldErrors.customerName && "border-destructive focus-visible:ring-destructive"
                     )}
                   />
@@ -349,7 +349,7 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                     }}
                     placeholder={tCheckout("phonePlaceholder")}
                     className={cn(
-                      "h-10 text-xs sm:text-sm tabular-nums",
+                      "h-10 text-base sm:text-sm tabular-nums",
                       fieldErrors.customerPhone && "border-destructive focus-visible:ring-destructive"
                     )}
                   />
@@ -422,11 +422,14 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                     {branches.map((b) => {
                       const isSelected = pickupBranchId === b.id;
                       return (
-                        <div
+                        <button
                           key={b.id}
+                          type="button"
                           onClick={() => setPickupBranchId(b.id)}
+                          role="radio"
+                          aria-checked={isSelected}
                           className={cn(
-                            "flex items-start justify-between gap-3 p-3 rounded-xl border cursor-pointer transition-all",
+                            "w-full text-left flex items-start justify-between gap-3 p-3 rounded-xl border cursor-pointer transition-all",
                             isSelected
                               ? "border-primary bg-primary/5 shadow-2xs"
                               : "border-border/70 bg-muted/10 hover:border-border hover:bg-muted/20"
@@ -468,7 +471,7 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                               <span className="h-1.5 w-1.5 rounded-full bg-white" />
                             )}
                           </div>
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
@@ -506,7 +509,7 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                     }}
                     placeholder={tCheckout("addressPlaceholder")}
                     className={cn(
-                      "h-10 text-xs sm:text-sm",
+                      "h-10 text-base sm:text-sm",
                       fieldErrors.deliveryAddress && "border-destructive focus-visible:ring-destructive"
                     )}
                   />
@@ -623,7 +626,7 @@ export function CheckoutForm({ branches, directItem }: CheckoutFormProps) {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder={tCheckout("notesPlaceholder")}
-                className="text-xs resize-none h-20"
+                className="text-base sm:text-xs resize-none h-20"
               />
             </div>
           </div>

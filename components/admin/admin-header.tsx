@@ -33,7 +33,7 @@ export function AdminHeader({ session }: AdminHeaderProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-9 w-9 text-muted-foreground"
+            className="md:hidden h-10 w-10 text-muted-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
           >

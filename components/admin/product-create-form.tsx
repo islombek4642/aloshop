@@ -305,7 +305,7 @@ export function ProductCreateForm({
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder={t("brandPlaceholder")}
-                className="text-xs h-9"
+                className="text-base sm:text-xs h-9"
                 required
               />
             </div>
@@ -319,7 +319,7 @@ export function ProductCreateForm({
                 value={modelName}
                 onChange={(e) => setModelName(e.target.value)}
                 placeholder={t("modelPlaceholder")}
-                className="text-xs h-9"
+                className="text-base sm:text-xs h-9"
                 required
               />
             </div>
@@ -330,7 +330,7 @@ export function ProductCreateForm({
                 {t("categoryLabel")} *
               </label>
               <Select value={categoryId} onValueChange={setCategoryId}>
-                <SelectTrigger className="text-xs h-9">
+                <SelectTrigger className="text-base sm:text-xs h-9">
                   <SelectValue placeholder={t("categorySelect")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -353,7 +353,7 @@ export function ProductCreateForm({
                 min={0}
                 value={warrantyMonths}
                 onChange={(e) => setWarrantyMonths(Number(e.target.value))}
-                className="text-xs h-9"
+                className="text-base sm:text-xs h-9"
               />
             </div>
           </div>
@@ -367,7 +367,7 @@ export function ProductCreateForm({
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               placeholder="apple-iphone-15-pro"
-              className="text-xs h-9 font-mono"
+              className="text-base sm:text-xs h-9 font-mono"
             />
           </div>
 
@@ -381,7 +381,7 @@ export function ProductCreateForm({
                 rows={2}
                 value={descriptionUz}
                 onChange={(e) => setDescriptionUz(e.target.value)}
-                className="text-xs resize-none"
+                className="text-base sm:text-xs resize-none"
                 required
               />
             </div>
@@ -394,7 +394,7 @@ export function ProductCreateForm({
                 rows={2}
                 value={descriptionRu}
                 onChange={(e) => setDescriptionRu(e.target.value)}
-                className="text-xs resize-none"
+                className="text-base sm:text-xs resize-none"
                 required
               />
             </div>
@@ -407,7 +407,7 @@ export function ProductCreateForm({
                 rows={2}
                 value={descriptionEn}
                 onChange={(e) => setDescriptionEn(e.target.value)}
-                className="text-xs resize-none"
+                className="text-base sm:text-xs resize-none"
                 required
               />
             </div>
@@ -467,7 +467,7 @@ export function ProductCreateForm({
                     value={v.sku}
                     onChange={(e) => updateVariant(v.id, "sku", e.target.value)}
                     placeholder="e.g. IP15P-BLK-128"
-                    className="text-xs h-8 font-mono uppercase"
+                    className="text-base sm:text-xs h-8 font-mono uppercase"
                     required
                   />
                 </div>
@@ -482,7 +482,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "storage", e.target.value)
                     }
                     placeholder={t("storagePlaceholder")}
-                    className="text-xs h-8"
+                    className="text-base sm:text-xs h-8"
                     required
                   />
                 </div>
@@ -497,7 +497,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "condition", val)
                     }
                   >
-                    <SelectTrigger className="text-xs h-8">
+                    <SelectTrigger className="text-base sm:text-xs h-8">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -524,7 +524,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "colorNameUz", e.target.value)
                     }
                     placeholder="Qora"
-                    className="text-xs h-8"
+                    className="text-base sm:text-xs h-8"
                     required
                   />
                 </div>
@@ -539,7 +539,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "colorNameRu", e.target.value)
                     }
                     placeholder="Черный"
-                    className="text-xs h-8"
+                    className="text-base sm:text-xs h-8"
                     required
                   />
                 </div>
@@ -554,7 +554,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "colorNameEn", e.target.value)
                     }
                     placeholder="Black"
-                    className="text-xs h-8"
+                    className="text-base sm:text-xs h-8"
                     required
                   />
                 </div>
@@ -577,7 +577,7 @@ export function ProductCreateForm({
                       onChange={(e) =>
                         updateVariant(v.id, "colorHex", e.target.value)
                       }
-                      className="text-xs h-8 font-mono"
+                      className="text-base sm:text-xs h-8 font-mono"
                       required
                     />
                   </div>
@@ -596,7 +596,7 @@ export function ProductCreateForm({
                     value={v.price}
                     onChange={(e) => updateVariant(v.id, "price", e.target.value)}
                     placeholder="12000000"
-                    className="text-xs h-8 font-mono"
+                    className="text-base sm:text-xs h-8 font-mono"
                     required
                   />
                 </div>
@@ -613,7 +613,7 @@ export function ProductCreateForm({
                       updateVariant(v.id, "oldPrice", e.target.value)
                     }
                     placeholder="13000000"
-                    className="text-xs h-8 font-mono"
+                    className="text-base sm:text-xs h-8 font-mono"
                   />
                 </div>
 
@@ -625,7 +625,7 @@ export function ProductCreateForm({
                     value={v.images}
                     onChange={(e) => updateVariant(v.id, "images", e.target.value)}
                     placeholder={t("imageUrlsPlaceholder")}
-                    className="text-xs h-8"
+                    className="text-base sm:text-xs h-8"
                   />
                 </div>
               </div>
@@ -649,7 +649,7 @@ export function ProductCreateForm({
                         onChange={(e) =>
                           updateVariantStock(v.id, b.id, e.target.value)
                         }
-                        className="text-xs h-8 font-mono"
+                        className="text-base sm:text-xs h-8 font-mono"
                       />
                     </div>
                   ))}
@@ -661,7 +661,7 @@ export function ProductCreateForm({
       </Card>
 
       {/* Footer Submit */}
-      <div className="flex justify-end gap-3 pt-2">
+      <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t sm:border-t-0 p-3 sm:p-0 -mx-4 sm:mx-0 flex justify-end gap-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pb-0 z-20">
         <Link href="/admin/products">
           <Button
             type="button"

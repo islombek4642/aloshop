@@ -153,7 +153,7 @@ export function ProductsListView({
               placeholder={t("searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 h-9 text-xs"
+              className="pl-9 h-9 text-base sm:text-xs"
             />
           </div>
 

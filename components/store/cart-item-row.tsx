@@ -111,9 +111,9 @@ export function CartItemRow({
             size="icon"
             onClick={() => onUpdateQuantity(item.variantId, item.quantity - 1)}
             aria-label={`${tCart("quantity")} - 1`}
-            className="h-7 w-7 rounded-md text-foreground hover:bg-background"
+            className="h-9 w-9 sm:h-7 sm:w-7 rounded-md text-foreground hover:bg-background"
           >
-            <Minus className="h-3.5 w-3.5" aria-hidden="true" />
+            <Minus className="h-4 w-4 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
           </Button>
 
           <span
@@ -130,9 +130,9 @@ export function CartItemRow({
             disabled={isMaxReached}
             onClick={() => onUpdateQuantity(item.variantId, item.quantity + 1)}
             aria-label={`${tCart("quantity")} + 1`}
-            className="h-7 w-7 rounded-md text-foreground hover:bg-background disabled:opacity-40"
+            className="h-9 w-9 sm:h-7 sm:w-7 rounded-md text-foreground hover:bg-background disabled:opacity-40"
           >
-            <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+            <Plus className="h-4 w-4 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
           </Button>
         </div>
 
@@ -153,7 +153,7 @@ export function CartItemRow({
           size="icon"
           onClick={() => onRemove(item.variantId)}
           aria-label={tCart("removeItem")}
-          className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg shrink-0"
+          className="h-9 w-9 sm:h-8 sm:w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg shrink-0"
         >
           <Trash2 className="h-4 w-4" aria-hidden="true" />
         </Button>

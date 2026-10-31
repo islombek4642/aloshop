@@ -356,7 +356,7 @@ export function BranchesListView({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="pl-9 h-10 text-xs rounded-lg"
+            className="pl-9 h-10 text-base sm:text-xs rounded-lg"
           />
         </div>
 
@@ -628,7 +628,7 @@ export function BranchesListView({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t("namePlaceholder")}
-                  className="h-9 text-xs"
+                  className="h-9 text-base sm:text-xs"
                   required
                 />
               </div>
@@ -642,7 +642,7 @@ export function BranchesListView({
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder={t("cityPlaceholder")}
-                  className="h-9 text-xs"
+                  className="h-9 text-base sm:text-xs"
                   required
                 />
               </div>
@@ -656,7 +656,7 @@ export function BranchesListView({
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder={t("addressPlaceholder")}
-                  className="h-9 text-xs"
+                  className="h-9 text-base sm:text-xs"
                   required
                 />
               </div>
@@ -670,7 +670,7 @@ export function BranchesListView({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder={t("phonePlaceholder")}
-                  className="h-9 text-xs"
+                  className="h-9 text-base sm:text-xs"
                   required
                 />
               </div>
@@ -684,7 +684,7 @@ export function BranchesListView({
                   value={workingHours}
                   onChange={(e) => setWorkingHours(e.target.value)}
                   placeholder={t("workingHoursPlaceholder")}
-                  className="h-9 text-xs"
+                  className="h-9 text-base sm:text-xs"
                   required
                 />
               </div>
