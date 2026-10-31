@@ -450,7 +450,7 @@ export default async function CatalogPage({
       {/* Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground"
+        className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"
       >
         <Link href="/" className="hover:text-foreground transition-colors">
           {tNav("home")}

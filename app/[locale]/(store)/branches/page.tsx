@@ -135,7 +135,7 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
       {/* Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className="flex items-center gap-1.5 text-xs text-muted-foreground"
+        className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"
       >
         <Link href="/" className="hover:text-foreground transition-colors">
           {tNav("home")}

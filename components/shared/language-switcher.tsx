@@ -97,12 +97,15 @@ export function LanguageSwitcher({
             className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-muted-foreground"
             aria-hidden="true"
           />
-          <SelectValue aria-label={LOCALE_LABELS[locale as Locale]}>
+          <SelectValue
+            aria-label={LOCALE_LABELS[locale as Locale] ?? locale}
+            placeholder={LOCALE_LABELS[locale as Locale] ?? locale}
+          >
             <span className="sm:hidden font-mono uppercase text-xs font-semibold">
-              {LOCALE_SHORT_LABELS[locale as Locale]}
+              {LOCALE_SHORT_LABELS[locale as Locale] ?? locale.toUpperCase()}
             </span>
             <span className="hidden sm:inline font-medium">
-              {LOCALE_LABELS[locale as Locale]}
+              {LOCALE_LABELS[locale as Locale] ?? locale}
             </span>
           </SelectValue>
         </SelectTrigger>
