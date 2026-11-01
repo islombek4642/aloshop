@@ -38,10 +38,10 @@ import {
   VariantSelector,
   type ProductVariantData,
 } from "@/components/store/variant-selector";
-import {
-  BranchStockWidget,
-  type BranchStockItem,
-} from "@/components/store/branch-stock-widget";
+import { BranchStockWidget, type BranchStockItem } from "@/components/store/branch-stock-widget";
+import { SnapshotSpecsView } from "@/components/store/snapshot-specs-view";
+import { MobileStickyBuyBar } from "@/components/store/mobile-sticky-buy-bar";
+import { inferDefaultRam, formatRam, getDeviceVitals } from "@/lib/utils/specs";
 import { formatCurrency } from "@/lib/utils/format-currency";
 import { cn } from "@/lib/utils/cn";
 import { useCart } from "@/lib/store/use-cart";
@@ -56,6 +56,9 @@ export interface SerializedProduct {
   descriptionRu: string;
   descriptionEn: string;
   warrantyMonths: number;
+  screenSize?: string | null;
+  processor?: string | null;
+  battery?: string | null;
   category?: {
     id: string;
     nameUz: string;
@@ -139,6 +142,54 @@ export function ProductDetailsClient({
     return activeVariant.inventory.reduce((sum, item) => sum + (item.quantity || 0), 0);
   }, [activeVariant]);
 
+  // Fallback device vitals if not directly in product model
+  const deviceVitals = React.useMemo(() => {
+    return getDeviceVitals(product.brand, product.modelName);
+  }, [product.brand, product.modelName]);
+
+  // Reactive RAM resolution with resilient fallback
+  const ramDisplay = React.useMemo(() => {
+    const formatted = formatRam(activeVariant?.ram);
+    if (formatted) return formatted;
+    return inferDefaultRam(product.brand, product.modelName, activeVariant?.storage);
+  }, [activeVariant?.ram, activeVariant?.storage, product.brand, product.modelName]);
+
+  // Map of stock by branch
+  const branchStockMap = React.useMemo(() => {
+    const map = new Map<string, number>();
+    if (!activeVariant?.inventory) return map;
+    for (const item of activeVariant.inventory) {
+      if (item.branchId) map.set(item.branchId, item.quantity);
+      if (item.branch?.id) map.set(item.branch.id, item.quantity);
+      if (item.branch?.slug) map.set(item.branch.slug.toLowerCase(), item.quantity);
+    }
+    return map;
+  }, [activeVariant]);
+
+  // Branches currently in stock
+  const inStockBranches = React.useMemo(() => {
+    return branches.filter((b) => {
+      const qty = branchStockMap.get(b.id) ?? branchStockMap.get(b.slug.toLowerCase()) ?? 0;
+      return qty > 0;
+    });
+  }, [branches, branchStockMap]);
+
+  const branchesInStockCount = inStockBranches.length;
+
+  // In-stock branch summary for mobile sticky bar
+  const inStockBranchSummary = React.useMemo(() => {
+    if (inStockBranches.length === 0) return undefined;
+    if (inStockBranches.length === 1) {
+      const b = inStockBranches[0];
+      const qty = branchStockMap.get(b.id) ?? branchStockMap.get(b.slug.toLowerCase()) ?? 0;
+      return tProduct("branchStockCount", { branch: b.name, count: qty });
+    }
+    return tProduct("branchesInStockSummary", {
+      branchCount: inStockBranches.length,
+      totalCount: totalStock,
+    });
+  }, [inStockBranches, branchStockMap, tProduct, totalStock]);
+
   const handleAddToCart = () => {
     if (!activeVariant) return;
     addItem({
@@ -198,7 +249,7 @@ export function ProductDetailsClient({
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl">
+    <div className="container mx-auto px-4 py-6 md:py-10 pb-28 sm:pb-32 md:pb-0 max-w-7xl">
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground overflow-x-auto whitespace-nowrap">
         <Link href="/" className="hover:text-foreground transition-colors">
@@ -321,6 +372,21 @@ export function ProductDetailsClient({
             onSelectVariant={(variant) => setSelectedVariantId(variant.id)}
           />
 
+          {/* Prominent Snapshot Specs View */}
+          {activeVariant && (
+            <SnapshotSpecsView
+              activeVariant={activeVariant}
+              brand={product.brand}
+              modelName={product.modelName}
+              warrantyMonths={product.warrantyMonths}
+              screenSize={product.screenSize || deviceVitals.screenSize}
+              processor={product.processor || deviceVitals.processor}
+              battery={product.battery || deviceVitals.battery}
+              branchesInStockCount={branchesInStockCount}
+              totalStockCount={totalStock}
+            />
+          )}
+
           {/* Primary Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Button
@@ -431,6 +497,14 @@ export function ProductDetailsClient({
                   </TableRow>
                   <TableRow>
                     <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
+                      {tProduct("ram")}
+                    </TableCell>
+                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
+                      {ramDisplay}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
                       {tProduct("storage")}
                     </TableCell>
                     <TableCell className="text-xs font-semibold text-foreground py-2.5">
@@ -449,6 +523,36 @@ export function ProductDetailsClient({
                       <span>{colorName}</span>
                     </TableCell>
                   </TableRow>
+                  {(product.screenSize || deviceVitals.screenSize) && (
+                    <TableRow>
+                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
+                        {tProduct("screen")}
+                      </TableCell>
+                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
+                        {product.screenSize || deviceVitals.screenSize}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {(product.processor || deviceVitals.processor) && (
+                    <TableRow>
+                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
+                        {tProduct("processor")}
+                      </TableCell>
+                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
+                        {product.processor || deviceVitals.processor}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {(product.battery || deviceVitals.battery) && (
+                    <TableRow>
+                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
+                        {tProduct("battery")}
+                      </TableCell>
+                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
+                        {product.battery || deviceVitals.battery}
+                      </TableCell>
+                    </TableRow>
+                  )}
                   <TableRow>
                     <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
                       {tProduct("sku")}
@@ -477,41 +581,17 @@ export function ProductDetailsClient({
       </div>
 
       {/* Sticky Bottom Bar on Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border/80 bg-background/95 backdrop-blur-md px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:hidden shadow-lg">
-        <div className="flex items-center justify-between gap-3">
-          <div className="space-y-0.5">
-            <span className="block text-[10px] text-muted-foreground font-medium">
-              {activeVariant?.storage} • {colorName}
-            </span>
-            <span className="block text-base font-black text-foreground">
-              {activeVariant ? formatCurrency(activeVariant.price) : "0 so'm"}
-            </span>
-          </div>
-
-          <Button
-            type="button"
-            size="sm"
-            onClick={handleAddToCart}
-            disabled={totalStock <= 0}
-            className={cn(
-              "h-10 px-4 text-xs font-semibold gap-1.5 shadow-xs transition-all",
-              isAddedToCart ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""
-            )}
-          >
-            {isAddedToCart ? (
-              <>
-                <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{tProduct("addedToCart")}</span>
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{tProduct("addToCart")}</span>
-              </>
-            )}
-          </Button>
-        </div>
-      </div>
+      {activeVariant && (
+        <MobileStickyBuyBar
+          activeVariant={activeVariant}
+          colorName={colorName}
+          totalStock={totalStock}
+          inStockBranchSummary={inStockBranchSummary}
+          isAddedToCart={isAddedToCart}
+          onAddToCart={handleAddToCart}
+          onOneClickBuy={() => setOneClickOpen(true)}
+        />
+      )}
 
       {/* 1-Click Fast Checkout Modal */}
       <Dialog open={oneClickOpen} onOpenChange={setOneClickOpen}>

@@ -113,6 +113,8 @@
     "processor": "Protsessor",
     "selectVariant": "Variantni tanlang",
     "availableInBranches": "Filiallardagi qoldiq",
+    "snapshotBadge": "Snapshot View",
+    "branchesInStockSummary": "{branchCount} ta filialda ({totalCount} dona)",
     "branchStockCount": "{branch}: {count} dona mavjud",
     "branchOutOfStock": "{branch}: mavjud emas",
     "pickupFromBranch": "Filialdan olib ketish",

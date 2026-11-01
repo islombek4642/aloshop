@@ -113,6 +113,8 @@
     "processor": "Processor",
     "selectVariant": "Select Variant",
     "availableInBranches": "Branch Stock",
+    "snapshotBadge": "Snapshot View",
+    "branchesInStockSummary": "In {branchCount} branches ({totalCount} pcs)",
     "branchStockCount": "{branch}: {count} pcs in stock",
     "branchOutOfStock": "{branch}: out of stock",
     "pickupFromBranch": "Pickup from branch",

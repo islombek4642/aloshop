@@ -25,6 +25,7 @@ export interface ProductVariantData {
   colorNameRu?: string;
   colorNameEn?: string;
   colorHex: string;
+  ram?: string | null;
   storage: string;
   condition: string;
   price: number;

@@ -153,7 +153,7 @@ export function BranchStockWidget({
                     className="text-[11px] px-2.5 py-1 font-medium gap-1"
                   >
                     <Check className="h-3 w-3" aria-hidden="true" />
-                    <span>{tProduct("availableInStock", { count: qty })}</span>
+                    <span>{tProduct("branchStockCount", { branch: branch.name, count: qty })}</span>
                   </Badge>
                 ) : (
                   <Badge
@@ -161,7 +161,7 @@ export function BranchStockWidget({
                     className="text-[11px] px-2.5 py-1 text-muted-foreground/90 gap-1 font-normal"
                   >
                     <X className="h-3 w-3" aria-hidden="true" />
-                    <span>{tProduct("outOfStock")}</span>
+                    <span>{tProduct("branchOutOfStock", { branch: branch.name })}</span>
                   </Badge>
                 )}
               </div>

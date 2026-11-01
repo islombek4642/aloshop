@@ -113,6 +113,8 @@
     "processor": "Процессор",
     "selectVariant": "Выберите вариант",
     "availableInBranches": "Остатки по филиалам",
+    "snapshotBadge": "Snapshot View",
+    "branchesInStockSummary": "В {branchCount} филиалах ({totalCount} шт.)",
     "branchStockCount": "{branch}: в наличии {count} шт.",
     "branchOutOfStock": "{branch}: нет в наличии",
     "pickupFromBranch": "Забрать из филиала",

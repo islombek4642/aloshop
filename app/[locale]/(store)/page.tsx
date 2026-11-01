@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductCard, type ProductCardData } from "@/components/store/product-card";
 import { prisma } from "@/lib/db/prisma";
+import { inferDefaultRam } from "@/lib/utils/specs";
 
 export const dynamic = "force-dynamic";
 
@@ -30,12 +31,16 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
     modelName: "iPhone 15 Pro",
     slug: "iphone-15-pro",
     warrantyMonths: 12,
+    screenSize: '6.1" Super Retina XDR OLED (120Hz ProMotion)',
+    processor: "Apple A17 Pro (3nm)",
+    battery: "3274 mAh",
     variants: [
       {
         id: "fb-v1",
         sku: "IP15P-128-NAT",
         colorNameUz: "Tabiiy titan",
         colorHex: "#9A958E",
+        ram: "8GB",
         storage: "128GB",
         condition: "NEW",
         price: 14850000,
@@ -50,6 +55,7 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
         sku: "IP15P-256-BLK",
         colorNameUz: "Qora titan",
         colorHex: "#393836",
+        ram: "8GB",
         storage: "256GB",
         condition: "NEW",
         price: 16200000,
@@ -67,12 +73,16 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
     modelName: "iPhone 15",
     slug: "iphone-15",
     warrantyMonths: 12,
+    screenSize: '6.1" Super Retina XDR OLED',
+    processor: "Apple A16 Bionic (4nm)",
+    battery: "3349 mAh",
     variants: [
       {
         id: "fb-v3",
         sku: "IP15-128-BLK",
         colorNameUz: "Qora",
         colorHex: "#34393D",
+        ram: "6GB",
         storage: "128GB",
         condition: "NEW",
         price: 10450000,
@@ -87,6 +97,7 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
         sku: "IP15-256-BLU",
         colorNameUz: "Moviy",
         colorHex: "#D0DCE5",
+        ram: "6GB",
         storage: "256GB",
         condition: "NEW",
         price: 11800000,
@@ -104,12 +115,16 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
     modelName: "Galaxy S24 Ultra",
     slug: "galaxy-s24-ultra",
     warrantyMonths: 12,
+    screenSize: '6.8" Dynamic AMOLED 2X (120Hz)',
+    processor: "Snapdragon 8 Gen 3 for Galaxy (4nm)",
+    battery: "5000 mAh",
     variants: [
       {
         id: "fb-v5",
         sku: "S24U-256-GRY",
         colorNameUz: "Titan kulrang",
         colorHex: "#686866",
+        ram: "12GB",
         storage: "256GB",
         condition: "NEW",
         price: 15200000,
@@ -124,6 +139,7 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
         sku: "S24U-512-BLK",
         colorNameUz: "Titan qora",
         colorHex: "#2C2C2B",
+        ram: "12GB",
         storage: "512GB",
         condition: "NEW",
         price: 17100000,
@@ -141,12 +157,16 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
     modelName: "Xiaomi 14",
     slug: "xiaomi-14",
     warrantyMonths: 12,
+    screenSize: '6.36" LTPO OLED (120Hz)',
+    processor: "Snapdragon 8 Gen 3 (4nm)",
+    battery: "4610 mAh",
     variants: [
       {
         id: "fb-v7",
         sku: "MI14-256-BLK",
         colorNameUz: "Qora",
         colorHex: "#1F1F1F",
+        ram: "12GB",
         storage: "256GB",
         condition: "NEW",
         price: 8900000,
@@ -161,6 +181,7 @@ const FALLBACK_PRODUCTS: ProductCardData[] = [
         sku: "MI14-512-WHT",
         colorNameUz: "Oq",
         colorHex: "#F2F2F2",
+        ram: "12GB",
         storage: "512GB",
         condition: "NEW",
         price: 9900000,
@@ -202,6 +223,9 @@ async function getFeaturedProducts(): Promise<ProductCardData[]> {
       modelName: p.modelName,
       slug: p.slug,
       warrantyMonths: p.warrantyMonths,
+      screenSize: p.screenSize,
+      processor: p.processor,
+      battery: p.battery,
       variants: p.variants.map((v) => ({
         id: v.id,
         sku: v.sku,
@@ -209,6 +233,7 @@ async function getFeaturedProducts(): Promise<ProductCardData[]> {
         colorNameRu: v.colorNameRu,
         colorNameEn: v.colorNameEn,
         colorHex: v.colorHex,
+        ram: v.ram || inferDefaultRam(p.brand, p.modelName, v.storage),
         storage: v.storage,
         condition: v.condition,
         price: v.price.toString(),
@@ -399,7 +424,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

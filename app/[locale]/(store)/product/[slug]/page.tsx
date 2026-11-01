@@ -9,6 +9,7 @@ import {
 } from "@/components/store/product-details-client";
 import type { BranchStockItem } from "@/components/store/branch-stock-widget";
 import type { ProductVariantData } from "@/components/store/variant-selector";
+import { inferDefaultRam } from "@/lib/utils/specs";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +54,9 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
     modelName: "iPhone 15 Pro",
     slug: "iphone-15-pro",
     warrantyMonths: 12,
+    screenSize: '6.1" Super Retina XDR OLED (120Hz ProMotion)',
+    processor: "Apple A17 Pro (3nm)",
+    battery: "3274 mAh",
     descriptionUz:
       "Apple A17 Pro 3nm protsessori, yengil va mustahkam aerokosmik titan korpus, Dynamic Island hamda yangi moslashtiriladigan Action tugmasiga ega eng ilg'or flagman smartfon.",
     descriptionRu:
@@ -74,6 +78,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Натуральный титан",
         colorNameEn: "Natural Titanium",
         colorHex: "#9A958E",
+        ram: "8GB",
         storage: "128GB",
         condition: "NEW",
         price: 14850000,
@@ -95,6 +100,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Натуральный титан",
         colorNameEn: "Natural Titanium",
         colorHex: "#9A958E",
+        ram: "8GB",
         storage: "256GB",
         condition: "NEW",
         price: 16200000,
@@ -115,6 +121,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Натуральный титан",
         colorNameEn: "Natural Titanium",
         colorHex: "#9A958E",
+        ram: "8GB",
         storage: "512GB",
         condition: "NEW",
         price: 18500000,
@@ -135,6 +142,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Черный титан",
         colorNameEn: "Black Titanium",
         colorHex: "#393836",
+        ram: "8GB",
         storage: "128GB",
         condition: "NEW",
         price: 14850000,
@@ -155,6 +163,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Черный титан",
         colorNameEn: "Black Titanium",
         colorHex: "#393836",
+        ram: "8GB",
         storage: "256GB",
         condition: "NEW",
         price: 16200000,
@@ -175,6 +184,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Синий титан",
         colorNameEn: "Blue Titanium",
         colorHex: "#2F3542",
+        ram: "8GB",
         storage: "256GB",
         condition: "NEW",
         price: 16200000,
@@ -196,6 +206,9 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
     modelName: "iPhone 15",
     slug: "iphone-15",
     warrantyMonths: 12,
+    screenSize: '6.1" Super Retina XDR OLED',
+    processor: "Apple A16 Bionic (4nm)",
+    battery: "3349 mAh",
     descriptionUz:
       "A16 Bionic protsessori, 48 MP asosiy kamera, Dynamic Island va rangli mat orqa oyna bilan yangilangan yorqin smartfon.",
     descriptionRu:
@@ -217,6 +230,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Черный",
         colorNameEn: "Black",
         colorHex: "#34393D",
+        ram: "6GB",
         storage: "128GB",
         condition: "NEW",
         price: 10450000,
@@ -237,6 +251,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Синий",
         colorNameEn: "Blue",
         colorHex: "#D4E0E8",
+        ram: "6GB",
         storage: "256GB",
         condition: "NEW",
         price: 11800000,
@@ -258,6 +273,9 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
     modelName: "Galaxy S24 Ultra",
     slug: "galaxy-s24-ultra",
     warrantyMonths: 12,
+    screenSize: '6.8" Dynamic AMOLED 2X (120Hz)',
+    processor: "Snapdragon 8 Gen 3 for Galaxy (4nm)",
+    battery: "5000 mAh",
     descriptionUz:
       "Galaxy AI intellektual imkoniyatlari, titan ramka, o'rnatilgan S Pen ruchkasi va 200 MP flagman kamera.",
     descriptionRu:
@@ -279,6 +297,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Титановый серый",
         colorNameEn: "Titanium Gray",
         colorHex: "#686561",
+        ram: "12GB",
         storage: "256GB",
         condition: "NEW",
         price: 15300000,
@@ -299,6 +318,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Титановый черный",
         colorNameEn: "Titanium Black",
         colorHex: "#2C2C2C",
+        ram: "12GB",
         storage: "512GB",
         condition: "NEW",
         price: 17200000,
@@ -320,6 +340,9 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
     modelName: "Xiaomi 14",
     slug: "xiaomi-14",
     warrantyMonths: 12,
+    screenSize: '6.36" LTPO OLED (120Hz)',
+    processor: "Snapdragon 8 Gen 3 (4nm)",
+    battery: "4610 mAh",
     descriptionUz:
       "Leica optikasi bilan jihozlangan ixcham flagman, Snapdragon 8 Gen 3 protsessori va yorqin AMOLED displey.",
     descriptionRu:
@@ -341,6 +364,7 @@ const FALLBACK_PRODUCTS: SerializedProduct[] = [
         colorNameRu: "Черный",
         colorNameEn: "Black",
         colorHex: "#222222",
+        ram: "12GB",
         storage: "256GB",
         condition: "NEW",
         price: 9200000,
@@ -410,6 +434,9 @@ async function getProductBySlug(slug: string): Promise<SerializedProduct | null>
         descriptionRu: dbProduct.descriptionRu,
         descriptionEn: dbProduct.descriptionEn,
         warrantyMonths: dbProduct.warrantyMonths,
+        screenSize: dbProduct.screenSize,
+        processor: dbProduct.processor,
+        battery: dbProduct.battery,
         category: dbProduct.category
           ? {
               id: dbProduct.category.id,
@@ -426,6 +453,7 @@ async function getProductBySlug(slug: string): Promise<SerializedProduct | null>
           colorNameRu: v.colorNameRu,
           colorNameEn: v.colorNameEn,
           colorHex: v.colorHex,
+          ram: v.ram || inferDefaultRam(dbProduct.brand, dbProduct.modelName, v.storage),
           storage: v.storage,
           condition: v.condition,
           price: Number(v.price.toString()),
