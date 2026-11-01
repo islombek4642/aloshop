@@ -27,12 +27,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@/components/ui/table";
 import { ProductGallery } from "@/components/store/product-gallery";
 import {
   VariantSelector,
@@ -388,25 +382,25 @@ export function ProductDetailsClient({
           )}
 
           {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
             <Button
               type="button"
               size="lg"
               onClick={handleAddToCart}
               disabled={totalStock <= 0}
               className={cn(
-                "flex-1 h-12 text-sm font-semibold gap-2 shadow-sm transition-all",
+                "h-13 w-full rounded-xl text-sm sm:text-base font-bold gap-2.5 shadow-sm transition-all",
                 isAddedToCart ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""
               )}
             >
               {isAddedToCart ? (
                 <>
-                  <Check className="h-4 w-4" aria-hidden="true" />
+                  <Check className="h-5 w-5 stroke-[2.5]" aria-hidden="true" />
                   <span>{tProduct("addedToCart")}</span>
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="h-4 w-4" aria-hidden="true" />
+                  <ShoppingBag className="h-5 w-5 stroke-[2]" aria-hidden="true" />
                   <span>{tProduct("addToCart")}</span>
                 </>
               )}
@@ -418,9 +412,9 @@ export function ProductDetailsClient({
               size="lg"
               disabled={totalStock <= 0}
               onClick={() => setOneClickOpen(true)}
-              className="flex-1 h-12 text-sm font-semibold gap-2 border-primary/40 hover:bg-primary/5 hover:text-primary transition-colors"
+              className="h-13 w-full rounded-xl text-sm sm:text-base font-bold gap-2.5 border-primary/40 hover:bg-primary/5 hover:text-primary transition-colors"
             >
-              <Zap className="h-4 w-4 text-primary" aria-hidden="true" />
+              <Zap className="h-5 w-5 stroke-[2.25] text-primary" aria-hidden="true" />
               <span>{tProduct("buyNow")}</span>
             </Button>
           </div>
@@ -451,120 +445,6 @@ export function ProductDetailsClient({
             branches={branches}
             inventory={activeVariant?.inventory}
           />
-
-          {/* Tech Specifications Table */}
-          <div className="rounded-2xl border border-border/80 bg-card p-4 sm:p-5 shadow-xs space-y-4">
-            <h3 className="text-base font-semibold text-foreground">
-              {tProduct("specs")}
-            </h3>
-
-            <div className="rounded-xl border border-border/60 overflow-hidden">
-              <Table>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("brand")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {product.brand}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("model")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {product.modelName}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("condition")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {activeVariant?.condition === "NEW"
-                        ? tProduct("conditions.new")
-                        : tProduct("conditions.used")}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("warranty")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {tProduct("warrantyMonths", { count: product.warrantyMonths })}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("ram")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {ramDisplay}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("storage")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                      {activeVariant?.storage}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("color")}
-                    </TableCell>
-                    <TableCell className="text-xs font-semibold text-foreground py-2.5 flex items-center gap-2">
-                      <span
-                        className="h-3 w-3 rounded-full border border-black/20"
-                        style={{ backgroundColor: activeVariant?.colorHex }}
-                      />
-                      <span>{colorName}</span>
-                    </TableCell>
-                  </TableRow>
-                  {(product.screenSize || deviceVitals.screenSize) && (
-                    <TableRow>
-                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                        {tProduct("screen")}
-                      </TableCell>
-                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                        {product.screenSize || deviceVitals.screenSize}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                  {(product.processor || deviceVitals.processor) && (
-                    <TableRow>
-                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                        {tProduct("processor")}
-                      </TableCell>
-                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                        {product.processor || deviceVitals.processor}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                  {(product.battery || deviceVitals.battery) && (
-                    <TableRow>
-                      <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                        {tProduct("battery")}
-                      </TableCell>
-                      <TableCell className="text-xs font-semibold text-foreground py-2.5">
-                        {product.battery || deviceVitals.battery}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                  <TableRow>
-                    <TableCell className="w-1/3 font-medium text-xs text-muted-foreground py-2.5">
-                      {tProduct("sku")}
-                    </TableCell>
-                    <TableCell className="text-xs font-mono text-muted-foreground py-2.5">
-                      {activeVariant?.sku}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
 
           {/* Description Section */}
           {description && (

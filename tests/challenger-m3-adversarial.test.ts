@@ -274,10 +274,9 @@ function testSnapshotSpecsView6Tiles(): void {
   assert.ok(htmlApple.includes(uzMessages.product.condition), "Tile 4 Condition must render localized label");
   assert.ok(htmlApple.includes(uzMessages.product.conditions.new), "Tile 4 Condition must render 'Yangi' for NEW");
 
-  // Tile 5: Warranty (ShieldCheck)
-  assert.ok(htmlApple.includes("lucide-shield-check"), "Tile 5 Warranty must render Lucide ShieldCheck icon");
-  assert.ok(htmlApple.includes(uzMessages.product.warranty), "Tile 5 Warranty must render localized label");
-  assert.ok(htmlApple.includes("12 oy"), "Tile 5 Warranty must render '12 oy'");
+  // Hardware Tiles (Display, Processor, Battery)
+  assert.ok(htmlApple.includes("lucide-smartphone"), "Tile Display must render Lucide Smartphone icon");
+  assert.ok(htmlApple.includes("lucide-battery-charging"), "Tile Battery must render Lucide BatteryCharging icon");
 
   // Tile 6: Live Branch Stock (Building2)
   assert.ok(
@@ -321,8 +320,8 @@ function testSnapshotSpecsView6Tiles(): void {
     "SnapshotSpecsView must render USED condition in Uzbek"
   );
   assert.ok(
-    htmlAppleFallback.includes("6 oy"),
-    "SnapshotSpecsView must render 6 months warranty"
+    htmlAppleFallback.includes("lucide-smartphone"),
+    "SnapshotSpecsView must render Smartphone icon"
   );
   assert.ok(
     htmlAppleFallback.includes(uzMessages.product.outOfStock),
@@ -400,7 +399,7 @@ function testSnapshotSpecsView6Tiles(): void {
   assert.ok(htmlRu.includes(ruMessages.product.color), "Ru Color label must be rendered");
   assert.ok(htmlRu.includes("Натуральный титан"), "Ru Color name must be rendered");
   assert.ok(htmlRu.includes(ruMessages.product.condition), "Ru Condition label must be rendered");
-  assert.ok(htmlRu.includes(ruMessages.product.warranty), "Ru Warranty label must be rendered");
+  assert.ok(htmlRu.includes(ruMessages.product.screen), "Ru Screen label must be rendered");
   assert.ok(htmlRu.includes(ruMessages.product.stockInBranches), "Ru Branch stock label must be rendered");
   assert.ok(htmlRu.includes("В 2 филиалах (7 шт.)"), "Ru Branch summary must be rendered");
 
@@ -421,7 +420,7 @@ function testSnapshotSpecsView6Tiles(): void {
   assert.ok(htmlEn.includes(enMessages.product.color), "En Color label must be rendered");
   assert.ok(htmlEn.includes("Natural Titanium"), "En Color name must be rendered");
   assert.ok(htmlEn.includes(enMessages.product.condition), "En Condition label must be rendered");
-  assert.ok(htmlEn.includes(enMessages.product.warranty), "En Warranty label must be rendered");
+  assert.ok(htmlEn.includes(enMessages.product.screen), "En Screen label must be rendered");
   assert.ok(htmlEn.includes(enMessages.product.stockInBranches), "En Branch stock label must be rendered");
   assert.ok(htmlEn.includes("In 2 branches (7 pcs)"), "En Branch summary must be rendered");
 
@@ -528,7 +527,7 @@ function testVariantReactiveSwitching(): void {
   assert.ok(stickyC.includes("1TB"), "State C Sticky: Storage updates to 1TB");
   assert.ok(stickyC.includes("Moviy titan"), "State C Sticky: Color updates to Blue Titanium");
   assert.ok(stickyC.includes("18 900 000 so&#x27;m") || stickyC.includes("18 900 000 so'm"), "State C Sticky: Price updates to 18,900,000");
-  assert.ok(stickyC.includes("20 000 000 so&#x27;m") || stickyC.includes("20 000 000 so'm"), "State C Sticky: Old Price updates to 20,000,000 with line-through");
+  assert.ok(!stickyC.includes("20 000 000"), "State C Sticky: Old Price is omitted to prevent overflow");
 
   // Full integration check on ProductDetailsClient
   const clientHtml = renderWithIntl(
@@ -715,12 +714,8 @@ function testMobileStickyBuyBarHarness(): void {
     "Price must be formatted via formatCurrency as '14 850 000 so\\'m'"
   );
   assert.ok(
-    htmlInStock.includes("15 500 000 so&#x27;m") || htmlInStock.includes("15 500 000 so'm"),
-    "Old price must be formatted and displayed with line-through"
-  );
-  assert.ok(
-    htmlInStock.includes("line-through"),
-    "Old price must have line-through class"
+    !htmlInStock.includes("line-through"),
+    "Old price must NOT be displayed with line-through in sticky bar to prevent overflow"
   );
 
   // Live branch availability indicator check

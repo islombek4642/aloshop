@@ -434,7 +434,7 @@ function testZeroEmojiAndLocaleParity(): void {
 
     // Verify key M3 terms are present and localized
     if (code === "uz") {
-      assert.ok(html.includes("Snapshot View"), "Uzbek contains Snapshot View badge");
+      assert.ok(html.includes("Texnik xususiyatlar"), "Uzbek contains Texnik xususiyatlar header");
       assert.ok(html.includes("1 bosishda xarid"), "Uzbek contains Buy Now / 1-Click CTA");
       assert.ok(html.includes("Savatchaga qo&#x27;shish") || html.includes("Savatchaga qo'shish"), "Uzbek contains Add to Cart CTA");
       assert.ok(html.includes("Operativ xotira"), "Uzbek contains RAM label");

@@ -5,20 +5,26 @@ import { useLocale, useTranslations } from "next-intl";
 import {
   Cpu,
   HardDrive,
+  Smartphone,
+  BatteryCharging,
   Palette,
   Sparkles,
-  ShieldCheck,
   Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
-import { inferDefaultRam, formatRam, formatStorage } from "@/lib/utils/specs";
+import {
+  getDeviceVitals,
+  inferDefaultRam,
+  formatRam,
+  formatStorage,
+} from "@/lib/utils/specs";
 import type { ProductVariantData } from "@/components/store/variant-selector";
 
 export interface SnapshotSpecsViewProps {
   activeVariant: ProductVariantData;
   brand: string;
   modelName: string;
-  warrantyMonths: number;
+  warrantyMonths?: number;
   screenSize?: string | null;
   processor?: string | null;
   battery?: string | null;
@@ -31,7 +37,9 @@ export function SnapshotSpecsView({
   activeVariant,
   brand,
   modelName,
-  warrantyMonths,
+  screenSize,
+  processor,
+  battery,
   branchesInStockCount,
   totalStockCount,
   className,
@@ -69,6 +77,15 @@ export function SnapshotSpecsView({
       ? tProduct("conditions.new")
       : tProduct("conditions.used");
 
+  // Device Vitals (Display, Processor, Battery) with resilient fallback
+  const vitals = React.useMemo(() => {
+    return getDeviceVitals(brand, modelName);
+  }, [brand, modelName]);
+
+  const displayScreen = screenSize || vitals.screenSize;
+  const displayProcessor = processor || vitals.processor;
+  const displayBattery = battery || vitals.battery;
+
   // Stock status
   const isStockAvailable = branchesInStockCount > 0 && totalStockCount > 0;
 
@@ -81,25 +98,17 @@ export function SnapshotSpecsView({
     >
       {/* Header with Title & SKU */}
       <div className="flex items-center justify-between border-b border-border/60 pb-2.5">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            {tProduct("specs")}
-          </span>
-          <span className="text-muted-foreground/40" aria-hidden="true">
-            •
-          </span>
-          <span className="text-xs font-semibold text-foreground">
-            {tProduct("snapshotBadge")}
-          </span>
-        </div>
+        <h3 className="text-xs font-bold uppercase tracking-wider text-primary">
+          {tProduct("specs")}
+        </h3>
         <span className="font-mono text-[11px] text-muted-foreground">
           {activeVariant?.sku}
         </span>
       </div>
 
-      {/* 2-column (mobile) to 3-column (sm+) high-density spec tiles */}
+      {/* 2-column (mobile) to 3-column (sm+) high-density spec tiles (8 tiles) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-        {/* RAM Tile */}
+        {/* 1. RAM Tile */}
         <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Cpu className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -114,7 +123,7 @@ export function SnapshotSpecsView({
           </div>
         </div>
 
-        {/* Storage / ROM Tile */}
+        {/* 2. Storage / ROM Tile */}
         <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <HardDrive className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -129,7 +138,52 @@ export function SnapshotSpecsView({
           </div>
         </div>
 
-        {/* Color Tile */}
+        {/* 3. Display / Screen Tile */}
+        <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Smartphone className="h-4 w-4 stroke-[2]" aria-hidden="true" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <span className="block text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+              {tProduct("screen")}
+            </span>
+            <span className="block text-xs font-bold text-foreground truncate" title={displayScreen}>
+              {displayScreen}
+            </span>
+          </div>
+        </div>
+
+        {/* 4. Processor Tile */}
+        <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <Cpu className="h-4 w-4 stroke-[2]" aria-hidden="true" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <span className="block text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+              {tProduct("processor")}
+            </span>
+            <span className="block text-xs font-bold text-foreground truncate" title={displayProcessor}>
+              {displayProcessor}
+            </span>
+          </div>
+        </div>
+
+        {/* 5. Battery Tile */}
+        <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <BatteryCharging className="h-4 w-4 stroke-[2]" aria-hidden="true" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <span className="block text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+              {tProduct("battery")}
+            </span>
+            <span className="block text-xs font-bold text-foreground truncate" title={displayBattery}>
+              {displayBattery}
+            </span>
+          </div>
+        </div>
+
+        {/* 6. Color Tile */}
         <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Palette className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -151,7 +205,7 @@ export function SnapshotSpecsView({
           </div>
         </div>
 
-        {/* Condition Tile */}
+        {/* 7. Condition Tile */}
         <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Sparkles className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -166,22 +220,7 @@ export function SnapshotSpecsView({
           </div>
         </div>
 
-        {/* Warranty Tile */}
-        <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <ShieldCheck className="h-4 w-4 stroke-[2]" aria-hidden="true" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <span className="block text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
-              {tProduct("warranty")}
-            </span>
-            <span className="block text-xs font-bold text-foreground truncate">
-              {tProduct("warrantyMonths", { count: warrantyMonths })}
-            </span>
-          </div>
-        </div>
-
-        {/* Live Branch Availability Tile */}
+        {/* 8. Live Branch Availability Tile */}
         <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-muted/20 p-2.5 transition-colors hover:bg-muted/40">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             <Building2 className="h-4 w-4 stroke-[2]" aria-hidden="true" />

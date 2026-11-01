@@ -205,9 +205,9 @@ function testSnapshotSpecsView(): void {
   assert.ok(htmlInStock.includes("Yangi"), "SnapshotSpecsView displays NEW condition");
   assert.ok(htmlInStock.includes("lucide-sparkles"), "SnapshotSpecsView uses Lucide Sparkles icon");
 
-  // Check Warranty tile
-  assert.ok(htmlInStock.includes("12 oy"), "SnapshotSpecsView displays warranty months");
-  assert.ok(htmlInStock.includes("lucide-shield-check"), "SnapshotSpecsView uses Lucide ShieldCheck icon");
+  // Check Hardware tiles (Display, Processor, Battery)
+  assert.ok(htmlInStock.includes("lucide-smartphone"), "SnapshotSpecsView uses Lucide Smartphone icon");
+  assert.ok(htmlInStock.includes("lucide-battery-charging"), "SnapshotSpecsView uses Lucide BatteryCharging icon");
 
   // Check Branch Availability tile (in-stock with pulse dot)
   assert.ok(htmlInStock.includes("animate-pulse"), "SnapshotSpecsView renders live pulse dot for in-stock branches");
@@ -348,9 +348,8 @@ function testMobileStickyBuyBar(): void {
   assert.ok(htmlInStock.includes("animate-pulse"), "MobileStickyBuyBar renders green pulse dot");
   assert.ok(htmlInStock.includes("2 ta filialda (6 dona)"), "MobileStickyBuyBar displays branch summary");
 
-  // Price formatting
+  // Price formatting: clean price without crowded old price
   assert.ok(htmlInStock.includes("14 850 000 so&#x27;m") || htmlInStock.includes("14 850 000 so'm"), "MobileStickyBuyBar displays formatted price");
-  assert.ok(htmlInStock.includes("15 500 000 so&#x27;m") || htmlInStock.includes("15 500 000 so'm"), "MobileStickyBuyBar displays old price line-through");
 
   // 4.2 Added to Cart state
   const htmlAdded = renderWithIntl(
@@ -404,20 +403,20 @@ function testProductDetailsClientIntegration(): void {
     "ProductDetailsClient container must include pb-28 sm:pb-32 md:pb-0 to prevent sticky bar overlap"
   );
 
-  // 5.2 SnapshotSpecsView is rendered
+  // 5.2 Unified specs card is rendered with "Texnik xususiyatlar" header
   assert.ok(
-    html.includes("Snapshot View"),
-    "ProductDetailsClient renders SnapshotSpecsView badge"
+    html.includes(uzMessages.product.specs),
+    "ProductDetailsClient renders unified specs header"
   );
 
-  // 5.3 Dedicated RAM row in full tech specs table
+  // 5.3 Dedicated RAM in unified specs view
   assert.ok(
-    html.includes("Operativ xotira"),
-    "ProductDetailsClient specs table contains dedicated RAM row label"
+    html.includes(uzMessages.product.ram),
+    "ProductDetailsClient specs contains dedicated RAM label"
   );
   assert.ok(
     html.includes("8GB"),
-    "ProductDetailsClient specs table contains RAM value (8GB)"
+    "ProductDetailsClient specs contains RAM value (8GB)"
   );
 
   // 5.4 Screen, Processor, Battery rows in specs table

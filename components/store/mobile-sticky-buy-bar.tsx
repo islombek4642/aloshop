@@ -50,15 +50,10 @@ export function MobileStickyBuyBar({
             <span className="truncate">{colorName}</span>
           </div>
 
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-base font-black text-foreground">
+          <div className="flex items-baseline">
+            <span className="text-base font-black text-foreground truncate">
               {activeVariant ? formatCurrency(activeVariant.price) : "0 so'm"}
             </span>
-            {activeVariant?.oldPrice && activeVariant.oldPrice > activeVariant.price && (
-              <span className="text-[11px] text-muted-foreground line-through">
-                {formatCurrency(activeVariant.oldPrice)}
-              </span>
-            )}
           </div>
 
           {/* Real-time Branch Stock summary chip */}
@@ -107,7 +102,7 @@ export function MobileStickyBuyBar({
             onClick={onAddToCart}
             disabled={isOutOfStock}
             className={cn(
-              "h-11 min-w-[124px] sm:min-w-[136px] rounded-xl px-3.5 text-xs font-semibold gap-1.5 shadow-xs transition-all shrink-0",
+              "h-11 min-w-[124px] rounded-xl px-3.5 text-xs font-semibold gap-1.5 shadow-xs transition-all shrink-0",
               isAddedToCart ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""
             )}
           >
