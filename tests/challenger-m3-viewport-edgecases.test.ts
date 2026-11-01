@@ -365,10 +365,11 @@ function testViewportResponsivenessAndContainerGeometry(): void {
   // 2.5 Snapshot Specs View responsive grid
   // 2 columns on mobile (<640px) to prevent crowded tile layout on 320px-414px viewports
   // 3 columns on sm+ (>=640px)
+  // 2.5 Snapshot Specs View responsive grid: 1 column on mobile (<640px) so long texts fit completely, 2 columns on sm+
   assert.match(
     snapshotCode,
-    /grid\s+grid-cols-2\s+sm:grid-cols-3\s+gap-2\.5/,
-    "SnapshotSpecsView must use 'grid grid-cols-2 sm:grid-cols-3 gap-2.5' responsive grid"
+    /grid\s+grid-cols-1\s+sm:grid-cols-2\s+gap-2\.5/,
+    "SnapshotSpecsView must use 'grid grid-cols-1 sm:grid-cols-2 gap-2.5' responsive grid"
   );
 
   // 2.6 Micro-viewport (320px) overflow safety: truncate & min-w-0 on text elements
@@ -397,7 +398,7 @@ function testViewportResponsivenessAndContainerGeometry(): void {
   );
   assert.ok(html.includes("pb-28 sm:pb-32 md:pb-0"), "Rendered HTML contains container padding classes");
   assert.ok(html.includes("sm:hidden fixed bottom-0"), "Rendered HTML contains responsive sticky bar classes");
-  assert.ok(html.includes("grid-cols-2 sm:grid-cols-3"), "Rendered HTML contains 2-col to 3-col snapshot grid classes");
+  assert.ok(html.includes("grid-cols-1 sm:grid-cols-2"), "Rendered HTML contains 1-col to 2-col snapshot grid classes");
 
   console.log("    [PASS] Viewport responsiveness and sticky bar clearance verified.");
 }

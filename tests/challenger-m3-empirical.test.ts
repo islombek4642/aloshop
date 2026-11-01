@@ -182,10 +182,10 @@ function testSnapshotSpecsView(): void {
     })
   );
 
-  // Check 2-column mobile to 3-column sm+ grid classes
+  // Check 1-column mobile to 2-column sm+ grid classes
   assert.ok(
-    htmlInStock.includes("grid-cols-2") && htmlInStock.includes("sm:grid-cols-3"),
-    "SnapshotSpecsView must feature grid-cols-2 sm:grid-cols-3 responsive classes"
+    htmlInStock.includes("grid-cols-1") && htmlInStock.includes("sm:grid-cols-2"),
+    "SnapshotSpecsView must feature grid-cols-1 sm:grid-cols-2 responsive classes"
   );
 
   // Check RAM tile

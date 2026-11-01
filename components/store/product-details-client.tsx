@@ -389,7 +389,7 @@ export function ProductDetailsClient({
               onClick={handleAddToCart}
               disabled={totalStock <= 0}
               className={cn(
-                "h-13 w-full rounded-xl text-sm sm:text-base font-bold gap-2.5 shadow-sm transition-all",
+                "h-14 min-h-[56px] w-full rounded-2xl text-base font-bold gap-2.5 shadow-sm transition-all",
                 isAddedToCart ? "bg-emerald-600 hover:bg-emerald-700 text-white" : ""
               )}
             >
@@ -412,7 +412,7 @@ export function ProductDetailsClient({
               size="lg"
               disabled={totalStock <= 0}
               onClick={() => setOneClickOpen(true)}
-              className="h-13 w-full rounded-xl text-sm sm:text-base font-bold gap-2.5 border-primary/40 hover:bg-primary/5 hover:text-primary transition-colors"
+              className="h-14 min-h-[56px] w-full rounded-2xl text-base font-bold gap-2.5 border-2 border-primary/50 hover:bg-primary/5 hover:text-primary transition-colors"
             >
               <Zap className="h-5 w-5 stroke-[2.25] text-primary" aria-hidden="true" />
               <span>{tProduct("buyNow")}</span>

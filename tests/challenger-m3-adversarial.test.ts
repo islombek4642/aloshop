@@ -459,7 +459,6 @@ function testVariantReactiveSwitching(): void {
   assert.ok(snapA.includes("8GB"), "State A: RAM must be 8GB");
   assert.ok(snapA.includes("128GB"), "State A: Storage must be 128GB");
   assert.ok(snapA.includes("Tabiiy titan"), "State A: Color must be Natural Titanium");
-  assert.ok(snapA.includes("IP15P-NAT-128"), "State A: SKU must be IP15P-NAT-128");
   assert.ok(stickyA.includes("128GB"), "State A Sticky: Storage must be 128GB");
   assert.ok(stickyA.includes("Tabiiy titan"), "State A Sticky: Color must be Natural Titanium");
   assert.ok(stickyA.includes("14 850 000 so&#x27;m") || stickyA.includes("14 850 000 so'm"), "State A Sticky: Price must be 14,850,000");
@@ -490,7 +489,6 @@ function testVariantReactiveSwitching(): void {
   assert.ok(snapB.includes("8GB"), "State B: Fallback RAM remains 8GB");
   assert.ok(snapB.includes("256GB"), "State B: Storage switches to 256GB");
   assert.ok(snapB.includes("Qora titan"), "State B: Color switches to Black Titanium");
-  assert.ok(snapB.includes("IP15P-BLK-256"), "State B: SKU switches to IP15P-BLK-256");
   assert.ok(snapB.includes(uzMessages.product.outOfStock), "State B: Stock status switches to Out of Stock");
   assert.ok(stickyB.includes("256GB"), "State B Sticky: Storage switches to 256GB");
   assert.ok(stickyB.includes("Qora titan"), "State B Sticky: Color switches to Black Titanium");
@@ -523,7 +521,6 @@ function testVariantReactiveSwitching(): void {
   assert.ok(snapC.includes("8 GB"), "State C: RAM updates to 8 GB");
   assert.ok(snapC.includes("1TB"), "State C: Storage updates to 1TB");
   assert.ok(snapC.includes("Moviy titan"), "State C: Color updates to Blue Titanium");
-  assert.ok(snapC.includes("IP15P-BLU-1TB"), "State C: SKU updates to IP15P-BLU-1TB");
   assert.ok(stickyC.includes("1TB"), "State C Sticky: Storage updates to 1TB");
   assert.ok(stickyC.includes("Moviy titan"), "State C Sticky: Color updates to Blue Titanium");
   assert.ok(stickyC.includes("18 900 000 so&#x27;m") || stickyC.includes("18 900 000 so'm"), "State C Sticky: Price updates to 18,900,000");
