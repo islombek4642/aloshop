@@ -18,3 +18,4 @@ assert.strictEqual(determineSeries("Galaxy A08"), "galaxy-a");
 assert.strictEqual(determineSeries("Galaxy M15"), "other");
 
 console.log("All samsung-api unit tests PASSED successfully!");
+
