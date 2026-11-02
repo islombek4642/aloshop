@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy S26 Ultra",
+  "slug": "galaxy-s26-ultra",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:34:01.582Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "174.9 мм (6.9\")",
+    "processor": "4.74 ГГц, 3.6 ГГц",
+    "battery": "До 31",
+    "ram": null,
+    "storage": "512",
+    "camera": "200.0 МП + 50.0 МП + 50.0 МП + 10.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S948BZVCSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "Cobalt Violet",
+      "colorCode": "#686884",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951572",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951553",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951554",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951555",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951556",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951557",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvcsoz-thumb-550951558"
+      ]
+    },
+    {
+      "modelCode": "SM-S948BZKBSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "Black",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951460",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951441",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951442",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951443",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951444",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951445",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkbsoz-thumb-550951446"
+      ]
+    },
+    {
+      "modelCode": "SM-S948BZKCSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "Black",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951498",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951480",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951481",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951482",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951483",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951484",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzkcsoz-thumb-550951485"
+      ]
+    },
+    {
+      "modelCode": "SM-S948BZKQSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "Black",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026977",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026958",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026959",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026960",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026961",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026962",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-579179-sm-s948bzkqsoz-thumb-551026963"
+      ]
+    },
+    {
+      "modelCode": "SM-S948BZVBSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "Cobalt Violet",
+      "colorCode": "#686884",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951535",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951530",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951531",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951532",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951517",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951518",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzvbsoz-thumb-550951519"
+      ]
+    },
+    {
+      "modelCode": "SM-S948BZWBSOZ",
+      "displayName": "Galaxy S26 Ultra",
+      "colorName": "White",
+      "colorCode": "#f3f4f5",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951629",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951610",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951611",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951612",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951613",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951614",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-ultra-s948-sm-s948bzwbsoz-thumb-550951615"
+      ]
+    }
+  ]
+}

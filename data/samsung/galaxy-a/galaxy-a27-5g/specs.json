@@ -1,0 +1,93 @@
+{
+  "marketingName": "Galaxy A27 5G",
+  "slug": "galaxy-a27-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:33:32.338Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "2.4 ГГц, 1.8 ГГц",
+    "battery": "До 23",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 5.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A276BZKHSOZ",
+      "displayName": "Galaxy A27 5G",
+      "colorName": "Black",
+      "colorCode": "#3e4043",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656660",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656650",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656651",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656652",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656653",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656654",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkhsoz-thumb-553656655"
+      ]
+    },
+    {
+      "modelCode": "SM-A276BZBDSOZ",
+      "displayName": "Galaxy A27 5G",
+      "colorName": "Blue",
+      "colorCode": "#395081",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656601",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656591",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656592",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656593",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656594",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656595",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbdsoz-thumb-553656596"
+      ]
+    },
+    {
+      "modelCode": "SM-A276BZBHSOZ",
+      "displayName": "Galaxy A27 5G",
+      "colorName": "Blue",
+      "colorCode": "#395081",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656620",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656612",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656613",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656614",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656615",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656616",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzbhsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzbhsoz-thumb-553656617"
+      ]
+    },
+    {
+      "modelCode": "SM-A276BZKDSOZ",
+      "displayName": "Galaxy A27 5G",
+      "colorName": "Black",
+      "colorCode": "#3e4043",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656641",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656631",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656632",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656633",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656634",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656635",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276bzkdsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276bzkdsoz-thumb-553656636"
+      ]
+    },
+    {
+      "modelCode": "SM-A276BLIDSOZ",
+      "displayName": "Galaxy A27 5G",
+      "colorName": "Light Pink",
+      "colorCode": "#f2dee9",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656580",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656570",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656571",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656572",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656573",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656574",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a276blidsoz/gallery/uz-ru-galaxy-a27-5g-sm-a276-sm-a276blidsoz-thumb-553656575"
+      ]
+    }
+  ]
+}

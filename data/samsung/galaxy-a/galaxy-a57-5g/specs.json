@@ -1,0 +1,123 @@
+{
+  "marketingName": "Galaxy A57 5G",
+  "slug": "galaxy-a57-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:33:41.185Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.1 мм (6.7\")",
+    "processor": "2.9 ГГц, 2.6 ГГц, 1.9 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 12.0 МП + 5.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A576BZVFSOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Lilac",
+      "colorCode": "#a7b2e7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731433",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731427",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731428",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731429",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731430",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731423",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvfsoz-thumb-551731424"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BDBESOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Navy",
+      "colorCode": "#383e4e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731267",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731257",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731258",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731259",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731260",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731261",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbesoz-thumb-551731262"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BDBFSOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Navy",
+      "colorCode": "#383e4e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731286",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731276",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731277",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731278",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731279",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731280",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbfsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbfsoz-thumb-551731281"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BDBKSOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Navy",
+      "colorCode": "#383e4e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731305",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731295",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731296",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731297",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731298",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731299",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bdbksoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bdbksoz-thumb-551731300"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BZAESOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Gray",
+      "colorCode": "#7e7d80",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731324",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731314",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731315",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731316",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731317",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731318",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzaesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzaesoz-thumb-551731319"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BZAFSOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Gray",
+      "colorCode": "#7e7d80",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731366",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731356",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731357",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731358",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731359",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731360",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzafsoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzafsoz-thumb-551731361"
+      ]
+    },
+    {
+      "modelCode": "SM-A576BZVESOZ",
+      "displayName": "Galaxy A57 5G",
+      "colorName": "Awesome Lilac",
+      "colorCode": "#a7b2e7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731413",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731403",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731404",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731405",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731406",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731407",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a576bzvesoz/gallery/uz-ru-galaxy-a57-5g-sm-a576-sm-a576bzvesoz-thumb-551731408"
+      ]
+    }
+  ]
+}

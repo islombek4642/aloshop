@@ -1,0 +1,78 @@
+{
+  "marketingName": "Galaxy S25 FE",
+  "slug": "galaxy-s25-fe",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:34:57.268Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.1 мм (6.7\")",
+    "processor": "3.2 ГГц, 2.9 ГГц, 2.6 ГГц, 1.95 ГГц",
+    "battery": "До 28",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 12.0 МП + 8.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S731BZKCSOZ",
+      "displayName": "Galaxy S25 FE",
+      "colorName": "Jetblack",
+      "colorCode": "#494a4d",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764496",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764486",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764487",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764488",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764489",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764490",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkcsoz-thumb-548764491"
+      ]
+    },
+    {
+      "modelCode": "SM-S731BDBBSOZ",
+      "displayName": "Galaxy S25 FE",
+      "colorName": "Navy",
+      "colorCode": "#3c5b8a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764425",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764415",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764416",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764417",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764418",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764419",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbbsoz-thumb-548764420"
+      ]
+    },
+    {
+      "modelCode": "SM-S731BDBCSOZ",
+      "displayName": "Galaxy S25 FE",
+      "colorName": "Navy",
+      "colorCode": "#3c5b8a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764449",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764444",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764445",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764446",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764439",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764440",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bdbcsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bdbcsoz-thumb-548764441"
+      ]
+    },
+    {
+      "modelCode": "SM-S731BZKBSOZ",
+      "displayName": "Galaxy S25 FE",
+      "colorName": "Jetblack",
+      "colorCode": "#494a4d",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764473",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764463",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764464",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764465",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764466",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764467",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s731bzkbsoz/gallery/uz-ru-galaxy-s25-fe-sm-s731-sm-s731bzkbsoz-thumb-548764468"
+      ]
+    }
+  ]
+}

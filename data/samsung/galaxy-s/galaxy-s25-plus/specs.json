@@ -1,0 +1,63 @@
+{
+  "marketingName": "Galaxy S25+",
+  "slug": "galaxy-s25-plus",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:36:21.797Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "4.47 ГГц, 3.5 ГГц",
+    "battery": "До 30",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 10.0 МП + 12.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S936BZKBSOZ",
+      "displayName": "Galaxy S25+",
+      "colorName": "Blueblack",
+      "colorCode": "#4c525c",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050648",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050638",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050639",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050640",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050641",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050642",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s936bzkbsoz/gallery/uz-ru-galaxy-s25-s936-534743-sm-s936bzkbsoz-thumb-548050643"
+      ]
+    },
+    {
+      "modelCode": "SM-S936BDBBSOZ",
+      "displayName": "Galaxy S25+",
+      "colorName": "Navy",
+      "colorCode": "#3c5b8a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762592",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762589",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762582",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762583",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762584",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762585",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bdbbsoz-thumb-544762586"
+      ]
+    },
+    {
+      "modelCode": "SM-S936BZSBSOZ",
+      "displayName": "Galaxy S25+",
+      "colorName": "Silver Shadow",
+      "colorCode": "#7f7f7e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762611",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762601",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762602",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762603",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762604",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762605",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s936-sm-s936bzsbsoz-thumb-544762606"
+      ]
+    }
+  ]
+}

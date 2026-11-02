@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy A26 5G",
+  "slug": "galaxy-a26-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:35:26.590Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "2.4 ГГц, 2 ГГц",
+    "battery": "До 17",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 8.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A266BZWHSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "White",
+      "colorCode": "#f3f4f4",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435807",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435798",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435799",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435800",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435801",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435803",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwhsoz-thumb-545435804"
+      ]
+    },
+    {
+      "modelCode": "SM-A266BZKDSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "Black",
+      "colorCode": "#2d2926",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435745",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435735",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435736",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435737",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435738",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435739",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkdsoz-thumb-545435740"
+      ]
+    },
+    {
+      "modelCode": "SM-A266BZKHSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "Black",
+      "colorCode": "#2d2926",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435765",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435755",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435756",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435757",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435758",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435759",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzkhsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzkhsoz-thumb-545435760"
+      ]
+    },
+    {
+      "modelCode": "SM-A266BLGDSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "Mint",
+      "colorCode": "#bce5df",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435706",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435696",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435697",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435698",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435699",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435700",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blgdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blgdsoz-thumb-545435701"
+      ]
+    },
+    {
+      "modelCode": "SM-A266BLGHSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "Mint",
+      "colorCode": "#bce5df",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435725",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435715",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435716",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435717",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435718",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435719",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266blghsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266blghsoz-thumb-545435720"
+      ]
+    },
+    {
+      "modelCode": "SM-A266BZWDSOZ",
+      "displayName": "Galaxy A26 5G",
+      "colorName": "White",
+      "colorCode": "#f3f4f4",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435788",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435778",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435779",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435780",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435781",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435782",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a266bzwdsoz/gallery/uz-ru-galaxy-a26-5g-sm-a266-sm-a266bzwdsoz-thumb-545435783"
+      ]
+    }
+  ]
+}

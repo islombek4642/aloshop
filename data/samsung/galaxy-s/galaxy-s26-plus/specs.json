@@ -1,0 +1,63 @@
+{
+  "marketingName": "Galaxy S26+",
+  "slug": "galaxy-s26-plus",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:34:13.988Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "3.8 ГГц, 3.26 ГГц, 2.76 ГГц",
+    "battery": "До 31",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 MP + 10.0 MP + 12.0 MP"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S947BZVBSOZ",
+      "displayName": "Galaxy S26+",
+      "colorName": "Cobalt Violet",
+      "colorCode": "#686884",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951736",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951726",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951727",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951728",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951729",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951730",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzvbsoz-thumb-550951731"
+      ]
+    },
+    {
+      "modelCode": "SM-S947BZKBSOZ",
+      "displayName": "Galaxy S26+",
+      "colorName": "Black",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951697",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951687",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951688",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951689",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951690",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951691",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkbsoz-thumb-550951692"
+      ]
+    },
+    {
+      "modelCode": "SM-S947BZKCSOZ",
+      "displayName": "Galaxy S26+",
+      "colorName": "Black",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951717",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951707",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951708",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951709",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951710",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951711",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/s2602/gallery/uz-ru-galaxy-s26-s947-sm-s947bzkcsoz-thumb-550951712"
+      ]
+    }
+  ]
+}

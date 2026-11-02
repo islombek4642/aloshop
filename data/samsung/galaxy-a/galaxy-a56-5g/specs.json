@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy A56 5G",
+  "slug": "galaxy-a56-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:35:54.563Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "170.1 мм (6.7\")",
+    "processor": "2.9 ГГц, 2.6 ГГц, 1.9 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 12.0 МП + 5.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A566EZGCSOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Olive",
+      "colorCode": "#a9bab7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437647",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437637",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437638",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437639",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437640",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437641",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgcsoz-thumb-545437642"
+      ]
+    },
+    {
+      "modelCode": "SM-A566EZKASOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Graphite",
+      "colorCode": "#53565a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437680",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437676",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437677",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437670",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437671",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437672",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkasoz-thumb-545437673"
+      ]
+    },
+    {
+      "modelCode": "SM-A566EZKCSOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Graphite",
+      "colorCode": "#53565a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437704",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437694",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437695",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437696",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437697",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437698",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezkcsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezkcsoz-thumb-545437699"
+      ]
+    },
+    {
+      "modelCode": "SM-A566EZGASOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Olive",
+      "colorCode": "#a9bab7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437623",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437613",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437614",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437615",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437616",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437617",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezgasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezgasoz-thumb-545437618"
+      ]
+    },
+    {
+      "modelCode": "SM-A566EZAASOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Lightgray",
+      "colorCode": "#c8caca",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437568",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437558",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437559",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437560",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437561",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437562",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezaasoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezaasoz-thumb-545437563"
+      ]
+    },
+    {
+      "modelCode": "SM-A566EZACSOZ",
+      "displayName": "Galaxy A56 5G",
+      "colorName": "Awesome Lightgray",
+      "colorCode": "#c8caca",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437599",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437589",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437590",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437591",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437592",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437593",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a566ezacsoz/gallery/uz-ru-galaxy-a56-5g-sm-a566-sm-a566ezacsoz-thumb-545437594"
+      ]
+    }
+  ]
+}

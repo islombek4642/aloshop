@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy S26 FE",
+  "slug": "galaxy-s26-fe",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:33:21.610Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.1 мм (6.7\")",
+    "processor": "3.3 ГГц, 2.74 ГГц, 2.36ГГц, 1.8 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 12.0 МП + 8.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S741BLGBSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Pistachio",
+      "colorCode": "#bdcfce",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425280",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425262",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425263",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425264",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425265",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425266",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgbsoz-thumb-554425267"
+      ]
+    },
+    {
+      "modelCode": "SM-S741BZKBSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Graphite",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425334",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425316",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425317",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425318",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425319",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425320",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkbsoz-thumb-554425321"
+      ]
+    },
+    {
+      "modelCode": "SM-S741BZKCSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Graphite",
+      "colorCode": "#494d53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425361",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425343",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425344",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425345",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425346",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425347",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzkcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzkcsoz-thumb-554425348"
+      ]
+    },
+    {
+      "modelCode": "SM-S741BZVBSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Blueberry",
+      "colorCode": "#666e91",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425388",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425370",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425371",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425372",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425373",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425374",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvbsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvbsoz-thumb-554425375"
+      ]
+    },
+    {
+      "modelCode": "SM-S741BZVCSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Blueberry",
+      "colorCode": "#666e91",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425415",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425397",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425398",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425399",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425400",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425401",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741bzvcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741bzvcsoz-thumb-554425402"
+      ]
+    },
+    {
+      "modelCode": "SM-S741BLGCSOZ",
+      "displayName": "Galaxy S26 FE",
+      "colorName": "Pistachio",
+      "colorCode": "#bdcfce",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425307",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425294",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425295",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425296",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425289",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425290",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s741blgcsoz/gallery/uz-ru-galaxy-s26-fe-sm-s741-sm-s741blgcsoz-thumb-554425291"
+      ]
+    }
+  ]
+}

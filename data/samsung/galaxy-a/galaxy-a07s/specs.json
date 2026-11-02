@@ -1,0 +1,48 @@
+{
+  "marketingName": "Galaxy A07s",
+  "slug": "galaxy-a07s",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:33:07.875Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.3мм (6.7\")",
+    "processor": "2.2 ГГц, 2 ГГц",
+    "battery": "5000",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A077FZGGSOZ",
+      "displayName": "Galaxy A07s",
+      "colorName": "Green",
+      "colorCode": "#304e53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238833",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238823",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238824",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238825",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238826",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238827",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzggsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzggsoz-thumb-554238828"
+      ]
+    },
+    {
+      "modelCode": "SM-A077FZKGSOZ",
+      "displayName": "Galaxy A07s",
+      "colorName": "Black",
+      "colorCode": "#4a4f59",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238852",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238843",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238844",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238845",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238846",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238847",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a077fzkgsoz/gallery/uz-ru-galaxy-a07s-sm-a077-sm-a077fzkgsoz-thumb-554238848"
+      ]
+    }
+  ]
+}

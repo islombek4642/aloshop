@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy A36 5G",
+  "slug": "galaxy-a36-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:35:40.759Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "170.1 мм (6.7\")",
+    "processor": "2.4 ГГц, 1.8 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 8.0 МП + 5.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A366ELVGSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome Lavender",
+      "colorCode": "#c6cce7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436628",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436624",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436625",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436618",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436619",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436620",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvgsoz-thumb-545436623"
+      ]
+    },
+    {
+      "modelCode": "SM-A366EZKDSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome Black",
+      "colorCode": "#404145",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436694",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436684",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436685",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436686",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436687",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436688",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkdsoz-thumb-545436689"
+      ]
+    },
+    {
+      "modelCode": "SM-A366EZKGSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome Black",
+      "colorCode": "#404145",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436713",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436704",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436705",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436706",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436707",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436708",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezkgsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezkgsoz-thumb-545436709"
+      ]
+    },
+    {
+      "modelCode": "SM-A366ELVDSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome Lavender",
+      "colorCode": "#c6cce7",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436609",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436599",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436600",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436601",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436602",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436603",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366elvdsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366elvdsoz-thumb-545436604"
+      ]
+    },
+    {
+      "modelCode": "SM-A366EZADSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome White",
+      "colorCode": "#dad9db",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436656",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436646",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436647",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436648",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436649",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436650",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezadsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezadsoz-thumb-545436651"
+      ]
+    },
+    {
+      "modelCode": "SM-A366EZAGSOZ",
+      "displayName": "Galaxy A36 5G",
+      "colorName": "Awesome White",
+      "colorCode": "#dad9db",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436675",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436665",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436666",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436667",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436668",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436669",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a366ezagsoz/gallery/uz-ru-galaxy-a36-5g-sm-a366-sm-a366ezagsoz-thumb-545436670"
+      ]
+    }
+  ]
+}

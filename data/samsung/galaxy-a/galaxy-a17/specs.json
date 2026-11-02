@@ -1,0 +1,93 @@
+{
+  "marketingName": "Galaxy A17",
+  "slug": "galaxy-a17",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:34:42.298Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "2.2 ГГц, 2 ГГц",
+    "battery": "До 18",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 5.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A175FLBCSOZ",
+      "displayName": "Galaxy A17",
+      "colorName": "Light Blue",
+      "colorCode": "#a4c8e1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347604",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347594",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347595",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347596",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347597",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347598",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175flbcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175flbcsoz-thumb-549347599"
+      ]
+    },
+    {
+      "modelCode": "SM-A175FZKCSOZ",
+      "displayName": "Galaxy A17",
+      "colorName": "Black",
+      "colorCode": "#404145",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347718",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347708",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347709",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347710",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347711",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347712",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkcsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkcsoz-thumb-549347713"
+      ]
+    },
+    {
+      "modelCode": "SM-A175FZKOSOZ",
+      "displayName": "Galaxy A17",
+      "colorName": "Black",
+      "colorCode": "#404145",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347738",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347728",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347729",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347730",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347731",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347732",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzkosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzkosoz-thumb-549347733"
+      ]
+    },
+    {
+      "modelCode": "SM-A175FZACSOZ",
+      "displayName": "Galaxy A17",
+      "colorName": "Gray",
+      "colorCode": "#9b9ca1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347680",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347673",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347674",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347675",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347676",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347677",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzacsoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzacsoz-thumb-549347670"
+      ]
+    },
+    {
+      "modelCode": "SM-A175FZAOSOZ",
+      "displayName": "Galaxy A17",
+      "colorName": "Gray",
+      "colorCode": "#9b9ca1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347699",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347696",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347689",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347690",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347691",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347692",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a175fzaosoz/gallery/uz-ru-galaxy-a17-sm-a175-sm-a175fzaosoz-thumb-549347693"
+      ]
+    }
+  ]
+}

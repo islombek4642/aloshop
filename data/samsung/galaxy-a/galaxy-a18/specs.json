@@ -1,0 +1,153 @@
+{
+  "marketingName": "Galaxy A18",
+  "slug": "galaxy-a18",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:32:57.489Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "169.1мм (6.7\")",
+    "processor": "2.4 ГГц, 2 ГГц",
+    "battery": "До 18",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 5.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A185FLBLSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Light Blue",
+      "colorCode": "#a4c8e1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551124",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551114",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551115",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551116",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551117",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551118",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flblsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flblsoz-thumb-554551119"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZKKSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Black",
+      "colorCode": "#40424b",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551162",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551155",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551156",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551157",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551158",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551159",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzkksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzkksoz-thumb-554551152"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZKLSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Black",
+      "colorCode": "#40424b",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551181",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551178",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551171",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551172",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551173",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551174",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzklsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzklsoz-thumb-554551175"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZKNSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Black",
+      "colorCode": "#40424b",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551200",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551190",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551191",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551192",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551193",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551194",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzknsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzknsoz-thumb-554551195"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FLBKSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Light Blue",
+      "colorCode": "#a4c8e1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551105",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551095",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551096",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551097",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551098",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551099",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbksoz-thumb-554551100"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FLBNSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Light Blue",
+      "colorCode": "#a4c8e1",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551143",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551133",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551134",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551135",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551136",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551137",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185flbnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185flbnsoz-thumb-554551138"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZSKSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Silver",
+      "colorCode": "#c2c7ca",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551219",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551209",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551210",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551211",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551212",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551213",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsksoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsksoz-thumb-554551214"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZSLSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Silver",
+      "colorCode": "#c2c7ca",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551238",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551228",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551229",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551230",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551231",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551232",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzslsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzslsoz-thumb-554551233"
+      ]
+    },
+    {
+      "modelCode": "SM-A185FZSNSOZ",
+      "displayName": "Galaxy A18",
+      "colorName": "Silver",
+      "colorCode": "#c2c7ca",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551257",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551247",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551248",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551249",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551250",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551251",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a185fzsnsoz/gallery/uz-ru-galaxy-a18-sm-a185-sm-a185fzsnsoz-thumb-554551252"
+      ]
+    }
+  ]
+}

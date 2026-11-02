@@ -1,0 +1,138 @@
+{
+  "marketingName": "Galaxy S25",
+  "slug": "galaxy-s25",
+  "series": "galaxy-s",
+  "categorySubTypeCode": "01010100",
+  "scrapedAt": "2026-11-02T09:36:34.795Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "156.4мм (6.2\")",
+    "processor": "4.47 ГГц, 3.5 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "256",
+    "camera": "50.0 МП + 10.0 МП + 12.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-S931BZKCSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Blueblack",
+      "colorCode": "#4c525c",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050742",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050732",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050733",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050734",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050735",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050736",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkcsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkcsoz-thumb-548050737"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BDBBSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Navy",
+      "colorCode": "#3c5b8a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762702",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762692",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762693",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762694",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762695",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762696",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbbsoz-thumb-544762697"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BDBCSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Navy",
+      "colorCode": "#3c5b8a",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762721",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762711",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762712",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762713",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762714",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762715",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bdbcsoz-thumb-544762716"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BZKBSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Blueblack",
+      "colorCode": "#4c525c",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050722",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050712",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050713",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050714",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050715",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050716",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-s931bzkbsoz/gallery/uz-ru-galaxy-s25-s931-534746-sm-s931bzkbsoz-thumb-548050717"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BZSBSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Silver Shadow",
+      "colorCode": "#7f7f7e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762778",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762768",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762769",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762770",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762771",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762772",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzsbsoz-thumb-544762773"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BZSCSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Silver Shadow",
+      "colorCode": "#7f7f7e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762797",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762787",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762788",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762789",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762790",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762791",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931bzscsoz-thumb-544762792"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BLBBSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Icyblue",
+      "colorCode": "#c8d3df",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762740",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762730",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762731",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762732",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762733",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762734",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbbsoz-thumb-544762735"
+      ]
+    },
+    {
+      "modelCode": "SM-S931BLBCSOZ",
+      "displayName": "Galaxy S25",
+      "colorName": "Icyblue",
+      "colorCode": "#c8d3df",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762759",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762749",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762750",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762751",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762752",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762753",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/2501/gallery/uz-ru-galaxy-s25-s931-sm-s931blbcsoz-thumb-544762754"
+      ]
+    }
+  ]
+}

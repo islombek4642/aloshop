@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy A08",
+  "slug": "galaxy-a08",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:32:55.396Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.3мм (6.7\")",
+    "processor": "2.2 ГГц, 2 ГГц",
+    "battery": "6000",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A085FDBGSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Dark Blue",
+      "colorCode": "#041e42",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524442",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524432",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524433",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524434",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524435",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524436",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbgsoz-thumb-554524437"
+      ]
+    },
+    {
+      "modelCode": "SM-A085FDBHSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Dark Blue",
+      "colorCode": "#041e42",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524462",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524452",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524453",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524454",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524455",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524456",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fdbhsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fdbhsoz-thumb-554524457"
+      ]
+    },
+    {
+      "modelCode": "SM-A085FZGGSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Green",
+      "colorCode": "#477a7b",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524481",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524471",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524472",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524473",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524474",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524475",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzggsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzggsoz-thumb-554524476"
+      ]
+    },
+    {
+      "modelCode": "SM-A085FZGHSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Green",
+      "colorCode": "#477a7b",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524500",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524490",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524491",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524492",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524493",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524494",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzghsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzghsoz-thumb-554524495"
+      ]
+    },
+    {
+      "modelCode": "SM-A085FZSGSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Silver",
+      "colorCode": "#cbd3ea",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524519",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524509",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524510",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524511",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524512",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524513",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzsgsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzsgsoz-thumb-554524514"
+      ]
+    },
+    {
+      "modelCode": "SM-A085FZSHSOZ",
+      "displayName": "Galaxy A08",
+      "colorName": "Silver",
+      "colorCode": "#cbd3ea",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524538",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524528",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524529",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524530",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524531",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524532",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a085fzshsoz/gallery/uz-ru-galaxy-a08-sm-a085-sm-a085fzshsoz-thumb-554524533"
+      ]
+    }
+  ]
+}

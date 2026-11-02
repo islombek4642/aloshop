@@ -1,0 +1,78 @@
+{
+  "marketingName": "Galaxy A07",
+  "slug": "galaxy-a07",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:35:12.617Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "171.3мм (6.7\")",
+    "processor": "2.2 ГГц, 2 ГГц",
+    "battery": "5000",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 2.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A075FLVHSOZ",
+      "displayName": "Galaxy A07",
+      "colorName": "Light Violet",
+      "colorCode": "#b6c0d6",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550387",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550383",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550384",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550377",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550378",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550379",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075flvhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075flvhsoz-thumb-548550380"
+      ]
+    },
+    {
+      "modelCode": "SM-A075FZGGSOZ",
+      "displayName": "Galaxy A07",
+      "colorName": "Green",
+      "colorCode": "#304e53",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550440",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550430",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550431",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550432",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550433",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550434",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzggsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzggsoz-thumb-548550435"
+      ]
+    },
+    {
+      "modelCode": "SM-A075FZKGSOZ",
+      "displayName": "Galaxy A07",
+      "colorName": "Black",
+      "colorCode": "#4a4f59",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550459",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550455",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550456",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550449",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550450",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550451",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkgsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkgsoz-thumb-548550452"
+      ]
+    },
+    {
+      "modelCode": "SM-A075FZKHSOZ",
+      "displayName": "Galaxy A07",
+      "colorName": "Black",
+      "colorCode": "#4a4f59",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550478",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550468",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550469",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550470",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550471",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550472",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a075fzkhsoz/gallery/uz-ru-galaxy-a07-sm-a075-sm-a075fzkhsoz-thumb-548550473"
+      ]
+    }
+  ]
+}

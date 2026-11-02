@@ -1,0 +1,108 @@
+{
+  "marketingName": "Galaxy A37 5G",
+  "slug": "galaxy-a37-5g",
+  "series": "galaxy-a",
+  "categorySubTypeCode": "01010400",
+  "scrapedAt": "2026-11-02T09:33:50.970Z",
+  "sourceUrl": "https://www.samsung.com/uz_ru/smartphones/all-smartphones/",
+  "specs": {
+    "screenSize": "170.1 мм (6.7\")",
+    "processor": "2.75 ГГц, 2 ГГц",
+    "battery": "До 29",
+    "ram": null,
+    "storage": "128",
+    "camera": "50.0 МП + 8.0 МП + 5.0 МП"
+  },
+  "variants": [
+    {
+      "modelCode": "SM-A376EDGDSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Graygreen",
+      "colorCode": "#5c707e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732262",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732252",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732253",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732254",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732255",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732256",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edgdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edgdsoz-thumb-551732257"
+      ]
+    },
+    {
+      "modelCode": "SM-A376EZADSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Charcoal",
+      "colorCode": "#525257",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732338",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732328",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732329",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732330",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732331",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732332",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezadsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezadsoz-thumb-551732333"
+      ]
+    },
+    {
+      "modelCode": "SM-A376EZAGSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Charcoal",
+      "colorCode": "#525257",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732357",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732347",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732348",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732349",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732350",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732351",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376ezagsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376ezagsoz-thumb-551732352"
+      ]
+    },
+    {
+      "modelCode": "SM-A376EDGGSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Graygreen",
+      "colorCode": "#5c707e",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732281",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732271",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732272",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732273",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732274",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732275",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376edggsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376edggsoz-thumb-551732276"
+      ]
+    },
+    {
+      "modelCode": "SM-A376ELVDSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Lavender",
+      "colorCode": "#bcbde2",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732300",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732290",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732291",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732292",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732293",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732294",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvdsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvdsoz-thumb-551732295"
+      ]
+    },
+    {
+      "modelCode": "SM-A376ELVGSOZ",
+      "displayName": "Galaxy A37 5G",
+      "colorName": "Awesome Lavender",
+      "colorCode": "#bcbde2",
+      "thumbUrl": "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732319",
+      "galleryImages": [
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732309",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732310",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732311",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732312",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732313",
+        "https://images.samsung.com/is/image/samsung/p6pim/uz_ru/sm-a376elvgsoz/gallery/uz-ru-galaxy-a37-5g-sm-a376-sm-a376elvgsoz-thumb-551732314"
+      ]
+    }
+  ]
+}
