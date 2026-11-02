@@ -4,19 +4,25 @@
   "model": "iPhone 17 Pro",
   "modelCode": "iphone-17-pro",
   "releaseYear": 2025,
-  "status": "upcoming",
+  "status": "available",
   "colors": [
     {
-      "name": "Dark Titanium",
-      "hex": "#2E2D2B",
-      "imageFile": "dark-titanium.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+      "name": "Cosmic Orange",
+      "hex": "#D96B43",
+      "imageFile": "cosmic-orange.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-finish-select-202509-6-3inch-cosmicorange?wid=940&hei=1112&fmt=png-alpha"
     },
     {
-      "name": "Silver Titanium",
+      "name": "Deep Blue",
+      "hex": "#2B3D54",
+      "imageFile": "deep-blue.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-finish-select-202509-6-3inch-deepblue?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Silver",
       "hex": "#D7D8D9",
-      "imageFile": "silver-titanium.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+      "imageFile": "silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-17-pro-finish-select-202509-6-3inch-silver?wid=940&hei=1112&fmt=png-alpha"
     }
   ],
   "storageOptions": [
@@ -25,16 +31,17 @@
     "1TB"
   ],
   "specs": {
-    "screenSize": "6.3 dyuym Super Retina XDR OLED, 120Hz ProMotion",
-    "processor": "Apple A19 Pro (3nm TSMC N3P)",
+    "screenSize": "6.3 dyuym Super Retina XDR OLED, 120Hz ProMotion, Dynamic Island, 3000 nits",
+    "processor": "Apple A19 Pro (6-core CPU, 6-core GPU, 16-core Neural Engine)",
     "ram": "12GB",
     "battery": "3700 mAh",
-    "camera": "48MP asosiy + 48MP ultra-keng + 48MP 5x telephoto",
+    "camera": "48MP Pro Fusion (f/1.78) + 48MP ultra-keng (f/2.2) + 48MP telephoto",
     "charging": "USB-C, 35W simli, 25W MagSafe",
     "os": "iOS 19"
   },
   "images": [
-    "dark-titanium.png",
-    "silver-titanium.png"
+    "cosmic-orange.png",
+    "deep-blue.png",
+    "silver.png"
   ]
 }

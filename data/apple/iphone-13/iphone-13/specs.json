@@ -29,6 +29,12 @@
       "hex": "#276787",
       "imageFile": "blue.png",
       "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-blue?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Product Red",
+      "hex": "#B81E29",
+      "imageFile": "product-red.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-product-red?wid=940&hei=1112&fmt=png-alpha"
     }
   ],
   "storageOptions": [
@@ -37,7 +43,7 @@
     "512GB"
   ],
   "specs": {
-    "screenSize": "6.1 dyuym Super Retina XDR OLED",
+    "screenSize": "6.1 dyuym Super Retina XDR OLED, Klassik cho‘ntak (notch)",
     "processor": "Apple A15 Bionic (4-core GPU)",
     "ram": "4GB",
     "battery": "3227 mAh",
@@ -49,6 +55,7 @@
     "midnight.png",
     "starlight.png",
     "pink.png",
-    "blue.png"
+    "blue.png",
+    "product-red.png"
   ]
 }

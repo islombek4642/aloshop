@@ -86,3 +86,4 @@ export async function downloadAppleImage(
 
   return false;
 }
+

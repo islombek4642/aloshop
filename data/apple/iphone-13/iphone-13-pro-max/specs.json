@@ -10,13 +10,31 @@
       "name": "Sierra Blue",
       "hex": "#9BB5CE",
       "imageFile": "sierra-blue.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-silver?wid=940&hei=1112&fmt=png-alpha"
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=940&hei=1112&fmt=png-alpha"
     },
     {
       "name": "Graphite",
       "hex": "#52514D",
       "imageFile": "graphite.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-spaceblack?wid=940&hei=1112&fmt=png-alpha"
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-graphite-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Gold",
+      "hex": "#F4E8CE",
+      "imageFile": "gold.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-gold-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Silver",
+      "hex": "#F0ECE8",
+      "imageFile": "silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-silver-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Alpine Green",
+      "hex": "#505E4C",
+      "imageFile": "alpine-green.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-green-select?wid=940&hei=1112&fmt=png-alpha"
     }
   ],
   "storageOptions": [
@@ -26,8 +44,8 @@
     "1TB"
   ],
   "specs": {
-    "screenSize": "6.7 dyuym Super Retina XDR OLED, 120Hz ProMotion",
-    "processor": "Apple A15 Bionic",
+    "screenSize": "6.7 dyuym Super Retina XDR OLED, 120Hz ProMotion, Klassik cho‘ntak (notch)",
+    "processor": "Apple A15 Bionic (5-core GPU)",
     "ram": "6GB",
     "battery": "4352 mAh",
     "camera": "12MP asosiy + 12MP ultra-keng + 12MP 3x telephoto",
@@ -36,6 +54,9 @@
   },
   "images": [
     "sierra-blue.png",
-    "graphite.png"
+    "graphite.png",
+    "gold.png",
+    "silver.png",
+    "alpine-green.png"
   ]
 }

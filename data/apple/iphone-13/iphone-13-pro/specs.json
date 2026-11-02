@@ -1,0 +1,62 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 13",
+  "model": "iPhone 13 Pro",
+  "modelCode": "iphone-13-pro",
+  "releaseYear": 2021,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Sierra Blue",
+      "hex": "#9BB5CE",
+      "imageFile": "sierra-blue.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-blue-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Graphite",
+      "hex": "#52514D",
+      "imageFile": "graphite.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-graphite-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Gold",
+      "hex": "#F4E8CE",
+      "imageFile": "gold.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-gold-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Silver",
+      "hex": "#F0ECE8",
+      "imageFile": "silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-silver-select?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Alpine Green",
+      "hex": "#505E4C",
+      "imageFile": "alpine-green.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-green-select?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.1 dyuym Super Retina XDR OLED, 120Hz ProMotion, Klassik cho‘ntak (notch)",
+    "processor": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6GB",
+    "battery": "3095 mAh",
+    "camera": "12MP asosiy + 12MP ultra-keng + 12MP 3x telephoto",
+    "charging": "Lightning, 20W simli, 15W MagSafe",
+    "os": "iOS 15"
+  },
+  "images": [
+    "sierra-blue.png",
+    "graphite.png",
+    "gold.png",
+    "silver.png",
+    "alpine-green.png"
+  ]
+}

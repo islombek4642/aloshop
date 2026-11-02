@@ -29,6 +29,18 @@
       "hex": "#FAF6F2",
       "imageFile": "starlight.png",
       "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-starlight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Product Red",
+      "hex": "#B81E29",
+      "imageFile": "product-red.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-product-red?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Yellow",
+      "hex": "#F7E7A9",
+      "imageFile": "yellow.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-yellow?wid=940&hei=1112&fmt=png-alpha"
     }
   ],
   "storageOptions": [
@@ -49,6 +61,8 @@
     "blue.png",
     "purple.png",
     "midnight.png",
-    "starlight.png"
+    "starlight.png",
+    "product-red.png",
+    "yellow.png"
   ]
 }

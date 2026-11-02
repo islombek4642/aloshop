@@ -22,3 +22,4 @@ for (const model of catalog) {
 }
 
 console.log('Apple API tests passed successfully');
+

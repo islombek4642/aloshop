@@ -4,19 +4,31 @@
   "model": "iPhone 18 Pro",
   "modelCode": "iphone-18-pro",
   "releaseYear": 2026,
-  "status": "upcoming",
+  "status": "available",
   "colors": [
     {
-      "name": "Cosmic Titanium",
-      "hex": "#2B2E3B",
-      "imageFile": "cosmic-titanium.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+      "name": "Black",
+      "hex": "#1E1F21",
+      "imageFile": "black.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-18-pro-finish-select-202609-6-3inch-black?wid=940&hei=1112&fmt=png-alpha"
     },
     {
-      "name": "Liquid Silver",
+      "name": "Silver",
       "hex": "#E3E4E6",
-      "imageFile": "liquid-silver.png",
-      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+      "imageFile": "silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-18-pro-finish-select-202609-6-3inch-silver?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Glacier",
+      "hex": "#D2DBE1",
+      "imageFile": "glacier.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-18-pro-finish-select-202609-6-3inch-glacier?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Burgundy",
+      "hex": "#5C2434",
+      "imageFile": "burgundy.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-18-pro-finish-select-202609-6-3inch-burgundy?wid=940&hei=1112&fmt=png-alpha"
     }
   ],
   "storageOptions": [
@@ -25,16 +37,18 @@
     "1TB"
   ],
   "specs": {
-    "screenSize": "6.3 dyuym LTPO Super Retina XDR OLED, 120Hz ProMotion",
-    "processor": "Apple A20 Pro (2nm GAA)",
+    "screenSize": "6.3 dyuym LTPO Super Retina XDR OLED, 120Hz ProMotion, Always-On, Dynamic Island, 3000 nits",
+    "processor": "Apple A20 Pro (6-core CPU, 7-core GPU, Dual 16-core Neural Engine)",
     "ram": "12GB LPDDR5X",
-    "battery": "3800 mAh",
-    "camera": "48MP asosiy + 48MP ultra-keng + 48MP 5x telephoto",
-    "charging": "USB-C, 40W simli, 25W MagSafe",
-    "os": "iOS 20"
+    "battery": "3950 mAh",
+    "camera": "48MP Pro Fusion (o‘zgaruvchan diafragma f/1.48-f/4.0) + 48MP ultra-keng + 48MP periscope telephoto",
+    "charging": "USB-C (USB 3), 60W tezkor simli, 25W MagSafe va Qi2 simsiz",
+    "os": "iOS 27"
   },
   "images": [
-    "cosmic-titanium.png",
-    "liquid-silver.png"
+    "black.png",
+    "silver.png",
+    "glacier.png",
+    "burgundy.png"
   ]
 }

@@ -71,3 +71,4 @@ main().catch((error) => {
   console.error('Kutilmagan xatolik yuz berdi:', error);
   process.exit(1);
 });
+

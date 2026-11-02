@@ -19,3 +19,4 @@ assert.strictEqual(written.series, sampleModel.series);
 
 fs.rmSync(testBaseDir, { recursive: true, force: true });
 console.log('Apple storage tests passed successfully');
+
