@@ -1,0 +1,54 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 14",
+  "model": "iPhone 14",
+  "modelCode": "iphone-14",
+  "releaseYear": 2022,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Blue",
+      "hex": "#A0B4C7",
+      "imageFile": "blue.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-blue?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Purple",
+      "hex": "#E6E0F1",
+      "imageFile": "purple.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-purple?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Midnight",
+      "hex": "#232A31",
+      "imageFile": "midnight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-midnight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Starlight",
+      "hex": "#FAF6F2",
+      "imageFile": "starlight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-starlight?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB"
+  ],
+  "specs": {
+    "screenSize": "6.1 dyuym Super Retina XDR OLED, 60Hz",
+    "processor": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6GB",
+    "battery": "3279 mAh",
+    "camera": "12MP asosiy + 12MP ultra-keng",
+    "charging": "Lightning, 20W simli, 15W MagSafe",
+    "os": "iOS 16"
+  },
+  "images": [
+    "blue.png",
+    "purple.png",
+    "midnight.png",
+    "starlight.png"
+  ]
+}

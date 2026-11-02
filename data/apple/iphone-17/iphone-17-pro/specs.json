@@ -1,0 +1,40 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 17",
+  "model": "iPhone 17 Pro",
+  "modelCode": "iphone-17-pro",
+  "releaseYear": 2025,
+  "status": "upcoming",
+  "colors": [
+    {
+      "name": "Dark Titanium",
+      "hex": "#2E2D2B",
+      "imageFile": "dark-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Silver Titanium",
+      "hex": "#D7D8D9",
+      "imageFile": "silver-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.3 dyuym Super Retina XDR OLED, 120Hz ProMotion",
+    "processor": "Apple A19 Pro (3nm TSMC N3P)",
+    "ram": "12GB",
+    "battery": "3700 mAh",
+    "camera": "48MP asosiy + 48MP ultra-keng + 48MP 5x telephoto",
+    "charging": "USB-C, 35W simli, 25W MagSafe",
+    "os": "iOS 19"
+  },
+  "images": [
+    "dark-titanium.png",
+    "silver-titanium.png"
+  ]
+}

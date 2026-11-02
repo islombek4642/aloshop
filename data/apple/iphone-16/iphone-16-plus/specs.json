@@ -1,0 +1,61 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 16",
+  "model": "iPhone 16 Plus",
+  "modelCode": "iphone-16-plus",
+  "releaseYear": 2024,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Ultramarine",
+      "hex": "#3E5C8B",
+      "imageFile": "ultramarine.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-7inch-ultramarine?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Teal",
+      "hex": "#4A7C74",
+      "imageFile": "teal.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-7inch-teal?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Pink",
+      "hex": "#E3A3B4",
+      "imageFile": "pink.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-7inch-pink?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "White",
+      "hex": "#F5F5F7",
+      "imageFile": "white.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-7inch-white?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Black",
+      "hex": "#2B2B2E",
+      "imageFile": "black.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-7inch-black?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB"
+  ],
+  "specs": {
+    "screenSize": "6.7 dyuym Super Retina XDR OLED, Dynamic Island",
+    "processor": "Apple A18 (3nm)",
+    "ram": "8GB",
+    "battery": "4674 mAh",
+    "camera": "48MP Fusion + 12MP ultra-keng (makro fotosurat), Camera Control tugmasi",
+    "charging": "USB-C, 27W simli, 25W MagSafe",
+    "os": "iOS 18"
+  },
+  "images": [
+    "ultramarine.png",
+    "teal.png",
+    "pink.png",
+    "white.png",
+    "black.png"
+  ]
+}

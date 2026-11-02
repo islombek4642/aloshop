@@ -1,0 +1,54 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 15",
+  "model": "iPhone 15 Pro Max",
+  "modelCode": "iphone-15-pro-max",
+  "releaseYear": 2023,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Natural Titanium",
+      "hex": "#9E9A95",
+      "imageFile": "natural-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Blue Titanium",
+      "hex": "#3B4454",
+      "imageFile": "blue-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-bluetitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "White Titanium",
+      "hex": "#F2F1ED",
+      "imageFile": "white-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Black Titanium",
+      "hex": "#3C3B3A",
+      "imageFile": "black-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.7 dyuym Super Retina XDR OLED, 120Hz ProMotion, Dynamic Island",
+    "processor": "Apple A17 Pro (3nm)",
+    "ram": "8GB",
+    "battery": "4422 mAh",
+    "camera": "48MP asosiy + 12MP ultra-keng + 12MP 5x periscope telephoto",
+    "charging": "USB-C (USB 3), 27W simli, 15W MagSafe",
+    "os": "iOS 17 (iOS 18 ga yangilanadi)"
+  },
+  "images": [
+    "natural-titanium.png",
+    "blue-titanium.png",
+    "white-titanium.png",
+    "black-titanium.png"
+  ]
+}

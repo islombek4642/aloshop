@@ -1,0 +1,41 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 13",
+  "model": "iPhone 13 Pro Max",
+  "modelCode": "iphone-13-pro-max",
+  "releaseYear": 2021,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Sierra Blue",
+      "hex": "#9BB5CE",
+      "imageFile": "sierra-blue.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-silver?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Graphite",
+      "hex": "#52514D",
+      "imageFile": "graphite.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-spaceblack?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.7 dyuym Super Retina XDR OLED, 120Hz ProMotion",
+    "processor": "Apple A15 Bionic",
+    "ram": "6GB",
+    "battery": "4352 mAh",
+    "camera": "12MP asosiy + 12MP ultra-keng + 12MP 3x telephoto",
+    "charging": "Lightning, 20W simli, 15W MagSafe",
+    "os": "iOS 15"
+  },
+  "images": [
+    "sierra-blue.png",
+    "graphite.png"
+  ]
+}

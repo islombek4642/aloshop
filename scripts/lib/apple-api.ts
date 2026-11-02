@@ -856,7 +856,7 @@ export function getAppleCatalog(): AppleModelEntry[] {
           name: 'Product Red',
           hex: '#B81E29',
           imageFile: 'product-red.png',
-          imageUrl: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-finish-select-202207-red?wid=940&hei=1112&fmt=png-alpha',
+          imageUrl: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-finish-select-202207-product-red?wid=940&hei=1112&fmt=png-alpha',
         },
       ],
       storageOptions: ['64GB', '128GB', '256GB'],

@@ -1,0 +1,54 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 13",
+  "model": "iPhone 13",
+  "modelCode": "iphone-13",
+  "releaseYear": 2021,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Midnight",
+      "hex": "#232A31",
+      "imageFile": "midnight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-midnight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Starlight",
+      "hex": "#FAF6F2",
+      "imageFile": "starlight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-starlight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Pink",
+      "hex": "#F9DFDC",
+      "imageFile": "pink.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-pink?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Blue",
+      "hex": "#276787",
+      "imageFile": "blue.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-blue?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB"
+  ],
+  "specs": {
+    "screenSize": "6.1 dyuym Super Retina XDR OLED",
+    "processor": "Apple A15 Bionic (4-core GPU)",
+    "ram": "4GB",
+    "battery": "3227 mAh",
+    "camera": "12MP keng + 12MP ultra-keng",
+    "charging": "Lightning, 20W simli, 15W MagSafe",
+    "os": "iOS 15"
+  },
+  "images": [
+    "midnight.png",
+    "starlight.png",
+    "pink.png",
+    "blue.png"
+  ]
+}

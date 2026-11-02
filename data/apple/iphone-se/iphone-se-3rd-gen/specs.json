@@ -1,0 +1,47 @@
+{
+  "brand": "Apple",
+  "series": "iPhone SE",
+  "model": "iPhone SE (3-avlod)",
+  "modelCode": "iphone-se-3rd-gen",
+  "releaseYear": 2022,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Midnight",
+      "hex": "#1F2022",
+      "imageFile": "midnight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-finish-select-202207-midnight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Starlight",
+      "hex": "#F2F1EC",
+      "imageFile": "starlight.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-finish-select-202207-starlight?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Product Red",
+      "hex": "#B81E29",
+      "imageFile": "product-red.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-finish-select-202207-product-red?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "64GB",
+    "128GB",
+    "256GB"
+  ],
+  "specs": {
+    "screenSize": "4.7 dyuym Retina HD displey, Touch ID Home tugmasi",
+    "processor": "Apple A15 Bionic",
+    "ram": "4GB",
+    "battery": "2018 mAh",
+    "camera": "12MP keng burchakli kamera",
+    "charging": "Lightning, 20W simli, Qi simsiz",
+    "os": "iOS 15"
+  },
+  "images": [
+    "midnight.png",
+    "starlight.png",
+    "product-red.png"
+  ]
+}

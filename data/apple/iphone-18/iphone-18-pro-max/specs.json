@@ -1,0 +1,48 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 18",
+  "model": "iPhone 18 Pro Max",
+  "modelCode": "iphone-18-pro-max",
+  "releaseYear": 2026,
+  "status": "upcoming",
+  "colors": [
+    {
+      "name": "Cosmic Titanium",
+      "hex": "#2B2E3B",
+      "imageFile": "cosmic-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Liquid Silver",
+      "hex": "#E3E4E6",
+      "imageFile": "liquid-silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Solar Amber Titanium",
+      "hex": "#C8A882",
+      "imageFile": "solar-amber-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-deserttitanium?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "256GB",
+    "512GB",
+    "1TB",
+    "2TB"
+  ],
+  "specs": {
+    "screenSize": "6.9 dyuym LTPO Super Retina XDR OLED, 1-120Hz ProMotion, Under-Display Face ID",
+    "processor": "Apple A20 Pro (2nm TSMC GAA)",
+    "ram": "12GB LPDDR5X",
+    "battery": "5000 mAh",
+    "camera": "48MP asosiy (variable aperture) + 48MP ultra-keng + 48MP periscope 10x",
+    "charging": "USB-C (Thunderbolt 4), 45W tezkor simli, 25W MagSafe",
+    "os": "iOS 20"
+  },
+  "images": [
+    "cosmic-titanium.png",
+    "liquid-silver.png",
+    "solar-amber-titanium.png"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 17",
+  "model": "iPhone 17",
+  "modelCode": "iphone-17",
+  "releaseYear": 2025,
+  "status": "upcoming",
+  "colors": [
+    {
+      "name": "Teal",
+      "hex": "#4A7C74",
+      "imageFile": "teal.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-teal?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Ultramarine",
+      "hex": "#3E5C8B",
+      "imageFile": "ultramarine.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-ultramarine?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "White",
+      "hex": "#F5F5F7",
+      "imageFile": "white.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-white?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB"
+  ],
+  "specs": {
+    "screenSize": "6.1 dyuym Super Retina XDR OLED, 120Hz ProMotion",
+    "processor": "Apple A19 (3nm)",
+    "ram": "8GB",
+    "battery": "3560 mAh",
+    "camera": "48MP asosiy + 24MP ultra-keng",
+    "charging": "USB-C, 27W simli, 25W MagSafe",
+    "os": "iOS 19"
+  },
+  "images": [
+    "teal.png",
+    "ultramarine.png",
+    "white.png"
+  ]
+}

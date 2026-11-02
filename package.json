@@ -10,7 +10,8 @@
     "check-types": "tsc --noEmit",
     "verify": "npx tsx scripts/verify-all.ts",
     "seed": "npx tsx prisma/seed.ts",
-    "download:samsung": "npx tsx scripts/download-samsung.ts"
+    "download:samsung": "npx tsx scripts/download-samsung.ts",
+    "download:apple": "npx tsx scripts/download-apple.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

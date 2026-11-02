@@ -1,0 +1,55 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 14",
+  "model": "iPhone 14 Pro Max",
+  "modelCode": "iphone-14-pro-max",
+  "releaseYear": 2022,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Deep Purple",
+      "hex": "#4F4356",
+      "imageFile": "deep-purple.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Gold",
+      "hex": "#F4E8CE",
+      "imageFile": "gold.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-gold?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Silver",
+      "hex": "#F0ECE8",
+      "imageFile": "silver.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-silver?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Space Black",
+      "hex": "#3B3A39",
+      "imageFile": "space-black.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-spaceblack?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.7 dyuym Super Retina XDR OLED, 120Hz ProMotion, Dynamic Island",
+    "processor": "Apple A16 Bionic (4nm)",
+    "ram": "6GB",
+    "battery": "4323 mAh",
+    "camera": "48MP asosiy + 12MP ultra-keng + 12MP 3x telephoto",
+    "charging": "Lightning, 20W simli, 15W MagSafe",
+    "os": "iOS 16"
+  },
+  "images": [
+    "deep-purple.png",
+    "gold.png",
+    "silver.png",
+    "space-black.png"
+  ]
+}

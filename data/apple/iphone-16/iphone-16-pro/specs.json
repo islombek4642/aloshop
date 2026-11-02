@@ -1,0 +1,55 @@
+{
+  "brand": "Apple",
+  "series": "iPhone 16",
+  "model": "iPhone 16 Pro",
+  "modelCode": "iphone-16-pro",
+  "releaseYear": 2024,
+  "status": "available",
+  "colors": [
+    {
+      "name": "Desert Titanium",
+      "hex": "#C5B6A5",
+      "imageFile": "desert-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-deserttitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Natural Titanium",
+      "hex": "#9E9A95",
+      "imageFile": "natural-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-naturaltitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "White Titanium",
+      "hex": "#F2F1ED",
+      "imageFile": "white-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
+      "name": "Black Titanium",
+      "hex": "#3C3B3A",
+      "imageFile": "black-titanium.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-blacktitanium?wid=940&hei=1112&fmt=png-alpha"
+    }
+  ],
+  "storageOptions": [
+    "128GB",
+    "256GB",
+    "512GB",
+    "1TB"
+  ],
+  "specs": {
+    "screenSize": "6.3 dyuym Super Retina XDR OLED, 120Hz ProMotion, Dynamic Island",
+    "processor": "Apple A18 Pro (3nm)",
+    "ram": "8GB",
+    "battery": "3582 mAh",
+    "camera": "48MP Fusion + 48MP ultra-keng + 12MP 5x telephoto, Camera Control tugmasi",
+    "charging": "USB-C (USB 3), 27W simli, 25W MagSafe",
+    "os": "iOS 18"
+  },
+  "images": [
+    "desert-titanium.png",
+    "natural-titanium.png",
+    "white-titanium.png",
+    "black-titanium.png"
+  ]
+}
