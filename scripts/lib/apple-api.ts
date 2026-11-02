@@ -1131,6 +1131,13 @@ export function getAppleCatalog(): AppleModelEntry[] {
             'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-blue?wid=940&hei=1112&fmt=png-alpha',
         },
         {
+          name: 'Green',
+          hex: '#3B4E3E',
+          imageFile: 'green.png',
+          imageUrl:
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-green?wid=940&hei=1112&fmt=png-alpha',
+        },
+        {
           name: 'Product Red',
           hex: '#B81E29',
           imageFile: 'product-red.png',
@@ -1153,6 +1160,7 @@ export function getAppleCatalog(): AppleModelEntry[] {
         'starlight.png',
         'pink.png',
         'blue.png',
+        'green.png',
         'product-red.png',
       ],
     },
@@ -1176,28 +1184,35 @@ export function getAppleCatalog(): AppleModelEntry[] {
           hex: '#FAF6F2',
           imageFile: 'starlight.png',
           imageUrl:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-starlight?wid=940&hei=1112&fmt=png-alpha',
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-starlight-select-2021?wid=940&hei=1112&fmt=png-alpha',
         },
         {
           name: 'Pink',
           hex: '#F9DFDC',
           imageFile: 'pink.png',
           imageUrl:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-pink?wid=940&hei=1112&fmt=png-alpha',
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-pink-select-2021?wid=940&hei=1112&fmt=png-alpha',
         },
         {
           name: 'Blue',
           hex: '#276787',
           imageFile: 'blue.png',
           imageUrl:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-blue?wid=940&hei=1112&fmt=png-alpha',
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-blue-select-2021?wid=940&hei=1112&fmt=png-alpha',
+        },
+        {
+          name: 'Green',
+          hex: '#3B4E3E',
+          imageFile: 'green.png',
+          imageUrl:
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-green-select?wid=940&hei=1112&fmt=png-alpha',
         },
         {
           name: 'Product Red',
           hex: '#B81E29',
           imageFile: 'product-red.png',
           imageUrl:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-product-red?wid=940&hei=1112&fmt=png-alpha',
+            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-product-red-select-2021?wid=940&hei=1112&fmt=png-alpha',
         },
       ],
       storageOptions: ['128GB', '256GB', '512GB'],
@@ -1215,6 +1230,7 @@ export function getAppleCatalog(): AppleModelEntry[] {
         'starlight.png',
         'pink.png',
         'blue.png',
+        'green.png',
         'product-red.png',
       ],
     },

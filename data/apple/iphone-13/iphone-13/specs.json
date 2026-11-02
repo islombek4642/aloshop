@@ -31,6 +31,12 @@
       "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-blue?wid=940&hei=1112&fmt=png-alpha"
     },
     {
+      "name": "Green",
+      "hex": "#3B4E3E",
+      "imageFile": "green.png",
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-202207-green?wid=940&hei=1112&fmt=png-alpha"
+    },
+    {
       "name": "Product Red",
       "hex": "#B81E29",
       "imageFile": "product-red.png",
@@ -56,6 +62,7 @@
     "starlight.png",
     "pink.png",
     "blue.png",
+    "green.png",
     "product-red.png"
   ]
 }
