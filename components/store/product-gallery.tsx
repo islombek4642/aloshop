@@ -7,6 +7,36 @@ import { Smartphone, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 
+export const CAROUSEL_AUTOPLAY_INTERVAL_MS = 4000;
+
+export function getNextGalleryIndex(currentIndex: number, totalImages: number): number {
+  if (totalImages <= 0) return 0;
+  return (currentIndex + 1) % totalImages;
+}
+
+export function getPrevGalleryIndex(currentIndex: number, totalImages: number): number {
+  if (totalImages <= 0) return 0;
+  return (currentIndex - 1 + totalImages) % totalImages;
+}
+
+export function computeAutoAdvanceState({
+  currentIndex,
+  totalImages,
+  isPaused,
+}: {
+  currentIndex: number;
+  totalImages: number;
+  isPaused: boolean;
+}): { nextIndex: number; shouldAdvance: boolean } {
+  if (isPaused || totalImages <= 1) {
+    return { nextIndex: currentIndex, shouldAdvance: false };
+  }
+  return {
+    nextIndex: getNextGalleryIndex(currentIndex, totalImages),
+    shouldAdvance: true,
+  };
+}
+
 export interface ProductGalleryProps {
   images: string[];
   alt: string;
@@ -24,7 +54,13 @@ export function ProductGallery({
 }: ProductGalleryProps) {
   const tProduct = useTranslations("product");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [isPaused, setIsPaused] = React.useState(false);
   const [imageErrors, setImageErrors] = React.useState<Record<number, boolean>>({});
+  const [timerResetKey, setTimerResetKey] = React.useState(0);
+
+  const resetTimer = React.useCallback(() => {
+    setTimerResetKey((prev) => prev + 1);
+  }, []);
 
   const touchStartX = React.useRef<number | null>(null);
   const touchEndX = React.useRef<number | null>(null);
@@ -37,17 +73,34 @@ export function ProductGallery({
   React.useEffect(() => {
     setSelectedIndex(0);
     setImageErrors({});
+    setIsPaused(false);
   }, [imageKey]);
 
   const safeImages = images && images.length > 0 ? images : [];
   const activeImage = safeImages[selectedIndex] || safeImages[0];
   const isCurrentError = imageErrors[selectedIndex];
 
+  // Auto-advance carousel timer every 4 seconds
+  React.useEffect(() => {
+    if (safeImages.length <= 1 || isPaused) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setSelectedIndex((prev) => getNextGalleryIndex(prev, safeImages.length));
+    }, CAROUSEL_AUTOPLAY_INTERVAL_MS);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [safeImages.length, isPaused, selectedIndex, timerResetKey]);
+
   const handleImageError = (index: number) => {
     setImageErrors((prev) => ({ ...prev, [index]: true }));
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    setIsPaused(true);
     touchEndX.current = null;
     touchEndY.current = null;
     touchStartX.current = e.targetTouches[0].clientX;
@@ -60,6 +113,9 @@ export function ProductGallery({
   };
 
   const handleTouchEnd = () => {
+    setIsPaused(false);
+    resetTimer();
+
     if (
       touchStartX.current === null ||
       touchEndX.current === null ||
@@ -91,26 +147,46 @@ export function ProductGallery({
     }
   };
 
+  const handleTouchCancel = () => {
+    setIsPaused(false);
+    touchStartX.current = null;
+    touchEndX.current = null;
+    touchStartY.current = null;
+    touchEndY.current = null;
+  };
+
   const handlePrev = () => {
     if (selectedIndex > 0) {
       setSelectedIndex((prev) => prev - 1);
     }
+    resetTimer();
   };
 
   const handleNext = () => {
     if (selectedIndex < safeImages.length - 1) {
       setSelectedIndex((prev) => prev + 1);
     }
+    resetTimer();
+  };
+
+  const handleSelectThumbnail = (index: number) => {
+    setSelectedIndex(index);
+    resetTimer();
   };
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
+    <div
+      className={cn("flex flex-col gap-4", className)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       {/* Main Image Viewport with touch swipe */}
       <div
         className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border/80 bg-gradient-to-b from-muted/20 via-background to-muted/30 p-6 flex items-center justify-center shadow-xs touch-pan-y select-none"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchCancel}
       >
         {/* Floating Badges */}
         <div className="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-2">
@@ -212,7 +288,7 @@ export function ProductGallery({
               <button
                 key={`${imgUrl}-${idx}`}
                 type="button"
-                onClick={() => setSelectedIndex(idx)}
+                onClick={() => handleSelectThumbnail(idx)}
                 className={cn(
                   "relative h-16 w-16 shrink-0 rounded-xl border bg-muted/20 p-1.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                   isSelected
