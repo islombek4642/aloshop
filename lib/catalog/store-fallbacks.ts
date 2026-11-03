@@ -242,3 +242,4 @@ export function getFallbackProductBySlug(slug: string): SerializedProduct | null
 
   return found ? presetToSerializedProduct(found) : null;
 }
+

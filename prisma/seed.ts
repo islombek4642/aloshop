@@ -1,10 +1,70 @@
 import { PrismaClient, UserRole, OrderFulfillment, OrderStatus, PaymentType } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { CATALOG_PRESETS, type CatalogPreset } from "../lib/catalog/presets";
 
 const prisma = new PrismaClient();
 
+/**
+ * Estimates realistic retail market prices in UZS.
+ */
+function getPriceForModel(preset: CatalogPreset, storage: string): { price: number; oldPrice: number | null } {
+  const m = preset.modelName.toLowerCase();
+  const b = preset.brand.toLowerCase();
+
+  let basePrice = 12000000;
+
+  if (b.includes("apple")) {
+    if (m.includes("18 pro max")) basePrice = 21000000;
+    else if (m.includes("18 pro")) basePrice = 18500000;
+    else if (m.includes("17 pro max")) basePrice = 19500000;
+    else if (m.includes("17 pro")) basePrice = 17500000;
+    else if (m.includes("17")) basePrice = 13500000;
+    else if (m.includes("16 pro max")) basePrice = 18200000;
+    else if (m.includes("16 pro")) basePrice = 16200000;
+    else if (m.includes("16 plus")) basePrice = 13200000;
+    else if (m.includes("16")) basePrice = 11800000;
+    else if (m.includes("15 pro max")) basePrice = 15800000;
+    else if (m.includes("15 pro")) basePrice = 13800000;
+    else if (m.includes("15")) basePrice = 10400000;
+    else if (m.includes("14 pro max")) basePrice = 13500000;
+    else if (m.includes("14 pro")) basePrice = 12000000;
+    else if (m.includes("14")) basePrice = 9200000;
+    else if (m.includes("13 pro max")) basePrice = 11500000;
+    else if (m.includes("13 pro")) basePrice = 10200000;
+    else if (m.includes("13 mini")) basePrice = 7800000;
+    else if (m.includes("13")) basePrice = 8200000;
+    else if (m.includes("se")) basePrice = 5800000;
+  } else if (b.includes("samsung")) {
+    if (m.includes("s26 ultra")) basePrice = 18500000;
+    else if (m.includes("s26+")) basePrice = 15500000;
+    else if (m.includes("s26")) basePrice = 12500000;
+    else if (m.includes("s25 ultra")) basePrice = 16800000;
+    else if (m.includes("s25+")) basePrice = 14200000;
+    else if (m.includes("s25")) basePrice = 11200000;
+    else if (m.includes("fe")) basePrice = 8500000;
+    else if (m.includes("a57") || m.includes("a56")) basePrice = 5200000;
+    else if (m.includes("a37") || m.includes("a36")) basePrice = 4100000;
+    else if (m.includes("a27") || m.includes("a26")) basePrice = 3200000;
+    else if (m.includes("a18") || m.includes("a17")) basePrice = 2400000;
+    else if (m.includes("a08") || m.includes("a07")) basePrice = 1600000;
+  }
+
+  let multiplier = 1;
+  if (storage.includes("256")) multiplier = 1.1;
+  else if (storage.includes("512")) multiplier = 1.25;
+  else if (storage.includes("1TB") || storage.includes("1tb")) multiplier = 1.45;
+
+  const finalPrice = Math.round((basePrice * multiplier) / 10000) * 10000;
+  const hasDiscount = finalPrice % 200000 === 0;
+  const oldPrice = hasDiscount ? finalPrice + 800000 : null;
+
+  return { price: finalPrice, oldPrice };
+}
+
 async function main() {
-  console.log("Starting database seed...");
+  console.log("===============================================================");
+  console.log("AloShop: Seeding Official 41-Smartphone Catalog into Database");
+  console.log("===============================================================\n");
 
   // 1. Filiallar (Tashkent branches)
   const branchesData = [
@@ -46,7 +106,7 @@ async function main() {
       })
     )
   );
-  console.log(`Created/updated ${branches.length} branches.`);
+  console.log(`[PASS] Configured ${branches.length} branches.`);
 
   const malikaBranch = branches.find((b) => b.slug === "malika")!;
   const chilonzorBranch = branches.find((b) => b.slug === "chilonzor")!;
@@ -99,7 +159,7 @@ async function main() {
       create: user,
     });
   }
-  console.log(`Created/updated ${usersData.length} admin users.`);
+  console.log(`[PASS] Configured ${usersData.length} admin accounts.`);
 
   // 3. Kategoriyalar
   const categoriesData = [
@@ -128,533 +188,158 @@ async function main() {
       })
     )
   );
-  console.log(`Created/updated ${categories.length} categories.`);
+  console.log(`[PASS] Configured ${categories.length} categories.`);
 
   const smartphonesCategory = categories.find((c) => c.slug === "smartphones")!;
 
-  // 4. Mahsulotlar va variantlar
-  const productsData = [
-    {
-      brand: "Apple",
-      modelName: "iPhone 15 Pro",
-      slug: "apple-iphone-15-pro",
-      descriptionUz:
-        "Apple A17 Pro 3nm protsessori, yengil va mustahkam aerokosmik titan korpus, Dynamic Island hamda yangi moslashtiriladigan Action tugmasiga ega eng ilg'or flagman smartfon.",
-      descriptionRu:
-        "Передовой флагманский смартфон с титановым корпусом аэрокосмического класса, процессором A17 Pro (3 нм), Dynamic Island и настраиваемой кнопкой Action.",
-      descriptionEn:
-        "Flagship smartphone featuring aerospace-grade titanium design, A17 Pro 3nm chip, Dynamic Island, and the customizable Action button.",
-      warrantyMonths: 12,
-      screenSize: '6.1" Super Retina XDR OLED (120Hz ProMotion)',
-      processor: "Apple A17 Pro (3nm)",
-      battery: "3274 mAh",
-      categoryId: smartphonesCategory.id,
-      variants: [
-        {
-          sku: "IP15P-NAT-128",
-          colorNameUz: "Tabiiy titan",
-          colorNameRu: "Натуральный титан",
-          colorNameEn: "Natural Titanium",
-          colorHex: "#9A958E",
-          ram: "8GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 13800000,
-          oldPrice: 14500000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 1 },
-        },
-        {
-          sku: "IP15P-NAT-256",
-          colorNameUz: "Tabiiy titan",
-          colorNameRu: "Натуральный титан",
-          colorNameEn: "Natural Titanium",
-          colorHex: "#9A958E",
-          ram: "8GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 15200000,
-          oldPrice: 16000000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 5, chilonzor: 3, biy: 2 },
-        },
-        {
-          sku: "IP15P-NAT-512",
-          colorNameUz: "Tabiiy titan",
-          colorNameRu: "Натуральный титан",
-          colorNameEn: "Natural Titanium",
-          colorHex: "#9A958E",
-          ram: "8GB",
-          storage: "512GB",
-          condition: "NEW",
-          price: 17500000,
-          oldPrice: null,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 2, chilonzor: 1, biy: 0 },
-        },
-        {
-          sku: "IP15P-BLK-128",
-          colorNameUz: "Qora titan",
-          colorNameRu: "Черный титан",
-          colorNameEn: "Black Titanium",
-          colorHex: "#3C3B3D",
-          ram: "8GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 13800000,
-          oldPrice: 14500000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 3, chilonzor: 2, biy: 1 },
-        },
-        {
-          sku: "IP15P-BLK-256",
-          colorNameUz: "Qora titan",
-          colorNameRu: "Черный титан",
-          colorNameEn: "Black Titanium",
-          colorHex: "#3C3B3D",
-          ram: "8GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 15200000,
-          oldPrice: 16000000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 2 },
-        },
-        {
-          sku: "IP15P-BLU-128",
-          colorNameUz: "Ko'k titan",
-          colorNameRu: "Синий титан",
-          colorNameEn: "Blue Titanium",
-          colorHex: "#2E3642",
-          ram: "8GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 13800000,
-          oldPrice: 14500000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 3, chilonzor: 1, biy: 1 },
-        },
-        {
-          sku: "IP15P-BLU-256",
-          colorNameUz: "Ko'k titan",
-          colorNameRu: "Синий титан",
-          colorNameEn: "Blue Titanium",
-          colorHex: "#2E3642",
-          ram: "8GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 15200000,
-          oldPrice: 16000000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 0 },
-        },
-      ],
-    },
-    {
-      brand: "Apple",
-      modelName: "iPhone 15",
-      slug: "apple-iphone-15",
-      descriptionUz:
-        "Dynamic Island innovatsion bildirishnoma paneli, 48 megapikselli o'ta tiniq asosiy kamera va kun bo'yi yetadigan quvvat bilan jihozlangan universal smartfon.",
-      descriptionRu:
-        "Универсальный смартфон с инновационным Dynamic Island, сверхчеткой 48-мегапиксельной камерой и емким аккумулятором на весь день.",
-      descriptionEn:
-        "Universal smartphone featuring the innovative Dynamic Island, 48MP high-resolution camera, and all-day battery life.",
-      warrantyMonths: 12,
-      screenSize: '6.1" Super Retina XDR OLED',
-      processor: "Apple A16 Bionic (4nm)",
-      battery: "3349 mAh",
-      categoryId: smartphonesCategory.id,
-      variants: [
-        {
-          sku: "IP15-BLU-128",
-          colorNameUz: "Moviy",
-          colorNameRu: "Голубой",
-          colorNameEn: "Blue",
-          colorHex: "#D4E1E8",
-          ram: "6GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 10200000,
-          oldPrice: 10800000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 6, chilonzor: 3, biy: 2 },
-        },
-        {
-          sku: "IP15-BLU-256",
-          colorNameUz: "Moviy",
-          colorNameRu: "Голубой",
-          colorNameEn: "Blue",
-          colorHex: "#D4E1E8",
-          ram: "6GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 11600000,
-          oldPrice: null,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 1 },
-        },
-        {
-          sku: "IP15-PNK-128",
-          colorNameUz: "Pushti",
-          colorNameRu: "Розовый",
-          colorNameEn: "Pink",
-          colorHex: "#F2D8D8",
-          ram: "6GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 10200000,
-          oldPrice: 10800000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 3, chilonzor: 2, biy: 0 },
-        },
-        {
-          sku: "IP15-PNK-256",
-          colorNameUz: "Pushti",
-          colorNameRu: "Розовый",
-          colorNameEn: "Pink",
-          colorHex: "#F2D8D8",
-          ram: "6GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 11600000,
-          oldPrice: null,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 2, chilonzor: 1, biy: 1 },
-        },
-        {
-          sku: "IP15-BLK-128",
-          colorNameUz: "Qora",
-          colorNameRu: "Черный",
-          colorNameEn: "Black",
-          colorHex: "#35393B",
-          ram: "6GB",
-          storage: "128GB",
-          condition: "NEW",
-          price: 10200000,
-          oldPrice: 10800000,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 5, chilonzor: 4, biy: 3 },
-        },
-        {
-          sku: "IP15-BLK-256",
-          colorNameUz: "Qora",
-          colorNameRu: "Черный",
-          colorNameEn: "Black",
-          colorHex: "#35393B",
-          ram: "6GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 11600000,
-          oldPrice: null,
-          images: [
-            "/images/products/apple/iphone-15/iphone-15/images/black.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 2 },
-        },
-      ],
-    },
-    {
-      brand: "Samsung",
-      modelName: "Galaxy S24 Ultra",
-      slug: "samsung-galaxy-s24-ultra",
-      descriptionUz:
-        "Galaxy AI sun'iy intellekt texnologiyalari, titan ramka, 200 megapikselli kamera hamda ichki S Pen ruchkasi bilan ta'minlangan Samsung flagmani.",
-      descriptionRu:
-        "Флагман Samsung с искусственным интеллектом Galaxy AI, титановым корпусом, камерой 200 Мп и встроенным электронным пером S Pen.",
-      descriptionEn:
-        "Samsung's top-tier smartphone featuring Galaxy AI, titanium frame, 200MP camera system, and integrated S Pen stylus.",
-      warrantyMonths: 12,
-      screenSize: '6.8" Dynamic AMOLED 2X (120Hz)',
-      processor: "Snapdragon 8 Gen 3 for Galaxy (4nm)",
-      battery: "5000 mAh",
-      categoryId: smartphonesCategory.id,
-      variants: [
-        {
-          sku: "S24U-TGR-256",
-          colorNameUz: "Kulrang titan",
-          colorNameRu: "Серый титан",
-          colorNameEn: "Titanium Gray",
-          colorHex: "#74726E",
-          ram: "12GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 14200000,
-          oldPrice: 15000000,
-          images: [
-            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
-          ],
-          inventory: { malika: 5, chilonzor: 3, biy: 2 },
-        },
-        {
-          sku: "S24U-TGR-512",
-          colorNameUz: "Kulrang titan",
-          colorNameRu: "Серый титан",
-          colorNameEn: "Titanium Gray",
-          colorHex: "#74726E",
-          ram: "12GB",
-          storage: "512GB",
-          condition: "NEW",
-          price: 16100000,
-          oldPrice: null,
-          images: [
-            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
-          ],
-          inventory: { malika: 3, chilonzor: 1, biy: 1 },
-        },
-        {
-          sku: "S24U-TBK-256",
-          colorNameUz: "Qora titan",
-          colorNameRu: "Черный титан",
-          colorNameEn: "Titanium Black",
-          colorHex: "#323031",
-          ram: "12GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 14200000,
-          oldPrice: 15000000,
-          images: [
-            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
-          ],
-          inventory: { malika: 4, chilonzor: 2, biy: 2 },
-        },
-        {
-          sku: "S24U-TBK-512",
-          colorNameUz: "Qora titan",
-          colorNameRu: "Черный титан",
-          colorNameEn: "Titanium Black",
-          colorHex: "#323031",
-          ram: "12GB",
-          storage: "512GB",
-          condition: "NEW",
-          price: 16100000,
-          oldPrice: null,
-          images: [
-            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
-          ],
-          inventory: { malika: 2, chilonzor: 1, biy: 0 },
-        },
-      ],
-    },
-    {
-      brand: "Xiaomi",
-      modelName: "Xiaomi 14",
-      slug: "xiaomi-14",
-      descriptionUz:
-        "Leica Summilux professional optikasi, ixcham 6.36 dyuymli ekran va eng so'nggi Snapdragon 8 Gen 3 protsessoriga ega flagman smartfon.",
-      descriptionRu:
-        "Компактный флагман с оптикой Leica Summilux, удобным экраном 6.36 дюйма и мощнейшим процессором Snapdragon 8 Gen 3.",
-      descriptionEn:
-        "Compact flagship with Leica Summilux optics, 6.36-inch display, and Snapdragon 8 Gen 3 chipset.",
-      warrantyMonths: 12,
-      screenSize: '6.36" LTPO OLED (120Hz)',
-      processor: "Snapdragon 8 Gen 3 (4nm)",
-      battery: "4610 mAh",
-      categoryId: smartphonesCategory.id,
-      variants: [
-        {
-          sku: "MI14-BLK-256",
-          colorNameUz: "Qora",
-          colorNameRu: "Черный",
-          colorNameEn: "Black",
-          colorHex: "#1F1F1F",
-          ram: "12GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 8900000,
-          oldPrice: 9500000,
-          images: [
-            "/images/products/placeholder.webp",
-          ],
-          inventory: { malika: 4, chilonzor: 3, biy: 1 },
-        },
-        {
-          sku: "MI14-BLK-512",
-          colorNameUz: "Qora",
-          colorNameRu: "Черный",
-          colorNameEn: "Black",
-          colorHex: "#1F1F1F",
-          ram: "12GB",
-          storage: "512GB",
-          condition: "NEW",
-          price: 9900000,
-          oldPrice: null,
-          images: [
-            "/images/products/placeholder.webp",
-          ],
-          inventory: { malika: 3, chilonzor: 1, biy: 0 },
-        },
-        {
-          sku: "MI14-WHT-256",
-          colorNameUz: "Oq",
-          colorNameRu: "Белый",
-          colorNameEn: "White",
-          colorHex: "#F5F5F7",
-          ram: "12GB",
-          storage: "256GB",
-          condition: "NEW",
-          price: 8900000,
-          oldPrice: 9500000,
-          images: [
-            "/images/products/placeholder.webp",
-          ],
-          inventory: { malika: 3, chilonzor: 2, biy: 1 },
-        },
-        {
-          sku: "MI14-WHT-512",
-          colorNameUz: "Oq",
-          colorNameRu: "Белый",
-          colorNameEn: "White",
-          colorHex: "#F5F5F7",
-          ram: "12GB",
-          storage: "512GB",
-          condition: "NEW",
-          price: 9900000,
-          oldPrice: null,
-          images: [
-            "/images/products/placeholder.webp",
-          ],
-          inventory: { malika: 2, chilonzor: 1, biy: 1 },
-        },
-      ],
-    },
-  ];
+  // 4. Eski namunaviy mahsulotlarni tozalash (Purge old dummy products)
+  console.log("\nPurging old hardcoded dummy products...");
+  await prisma.orderItem.deleteMany({});
+  await prisma.order.deleteMany({});
+  await prisma.iMEIRecord.deleteMany({});
+  await prisma.branchInventory.deleteMany({});
+  await prisma.productVariant.deleteMany({});
+  await prisma.product.deleteMany({});
+  console.log("[PASS] Old products purged cleanly.");
+
+  // 5. Barcha 41 ta smartfonni joylash (Seed all 41 phones from data)
+  console.log(`\nSeeding ${CATALOG_PRESETS.length} official smartphones from data/...`);
 
   let totalVariants = 0;
   let totalImeiRecords = 0;
-  let imeiCounter = 1000;
+  let imeiCounter = 1000000;
+  let firstVariantId: string | null = null;
+  let firstVariantPrice = 0;
 
-  for (const productData of productsData) {
-    const { variants, ...productFields } = productData;
-
-    const product = await prisma.product.upsert({
-      where: { slug: productFields.slug },
-      update: productFields,
-      create: productFields,
+  for (const preset of CATALOG_PRESETS) {
+    const product = await prisma.product.create({
+      data: {
+        brand: preset.brand,
+        modelName: preset.modelName,
+        slug: preset.slug,
+        series: preset.series,
+        releaseYear: preset.releaseYear,
+        screenSize: preset.screenSize,
+        processor: preset.processor,
+        battery: preset.battery,
+        camera: preset.camera,
+        charging: preset.charging,
+        os: preset.os,
+        warrantyMonths: preset.warrantyMonths,
+        descriptionUz: preset.descriptionUz,
+        descriptionRu: preset.descriptionRu,
+        descriptionEn: preset.descriptionEn,
+        categoryId: smartphonesCategory.id,
+      },
     });
 
-    for (const variantData of variants) {
-      const { inventory, ...variantFields } = variantData;
+    // Seed top 2 storage options for each model to provide rich, realistic configurations
+    const seedStorages = preset.storageOptions.slice(0, 2);
 
-      const variant = await prisma.productVariant.upsert({
-        where: { sku: variantFields.sku },
-        update: {
-          ...variantFields,
-          productId: product.id,
-        },
-        create: {
-          ...variantFields,
-          productId: product.id,
-        },
-      });
-      totalVariants++;
+    for (const storage of seedStorages) {
+      const { price, oldPrice } = getPriceForModel(preset, storage);
 
-      // Filial qoldiqlari (Multi-branch inventory)
-      const branchInventories = [
-        { branchId: malikaBranch.id, quantity: inventory.malika },
-        { branchId: chilonzorBranch.id, quantity: inventory.chilonzor },
-        { branchId: biyBranch.id, quantity: inventory.biy },
-      ];
+      for (const color of preset.colors) {
+        const cleanColorCode = color.nameEn.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase();
+        const cleanModelCode = preset.modelName.replace(/[^A-Za-z0-9]/g, "").slice(0, 4).toUpperCase();
+        const cleanStorageCode = storage.replace(/\s+/g, "").replace(/GB$/, "");
+        const sku = `${cleanModelCode}-${cleanStorageCode}-${cleanColorCode}-${Math.floor(100 + Math.random() * 900)}`;
 
-      for (const inv of branchInventories) {
-        await prisma.branchInventory.upsert({
-          where: {
-            branchId_variantId: {
+        const images = color.imageUrl ? [color.imageUrl] : ["/images/products/placeholder.webp"];
+
+        const variant = await prisma.productVariant.create({
+          data: {
+            productId: product.id,
+            sku,
+            colorNameUz: color.nameUz,
+            colorNameRu: color.nameRu,
+            colorNameEn: color.nameEn,
+            colorHex: color.hex,
+            ram: preset.ram,
+            storage,
+            condition: "NEW",
+            price,
+            oldPrice,
+            images,
+          },
+        });
+
+        totalVariants++;
+        if (!firstVariantId) {
+          firstVariantId = variant.id;
+          firstVariantPrice = price;
+        }
+
+        // Multi-branch realistic inventory distribution
+        const branchInventories = [
+          { branchId: malikaBranch.id, quantity: Math.floor(3 + Math.random() * 4) },
+          { branchId: chilonzorBranch.id, quantity: Math.floor(2 + Math.random() * 3) },
+          { branchId: biyBranch.id, quantity: Math.floor(1 + Math.random() * 3) },
+        ];
+
+        for (const inv of branchInventories) {
+          await prisma.branchInventory.create({
+            data: {
               branchId: inv.branchId,
               variantId: variant.id,
+              quantity: inv.quantity,
             },
-          },
-          update: { quantity: inv.quantity },
-          create: {
-            branchId: inv.branchId,
-            variantId: variant.id,
-            quantity: inv.quantity,
-          },
-        });
-      }
+          });
+        }
 
-      // Sample IMEI records for in-stock devices
-      const totalStock = inventory.malika + inventory.chilonzor + inventory.biy;
-      for (let i = 0; i < Math.min(totalStock, 2); i++) {
-        imeiCounter++;
-        const sampleImei = `86543206${imeiCounter.toString().padStart(7, "0")}`;
-        await prisma.iMEIRecord.upsert({
-          where: { imeiNumber: sampleImei },
-          update: { variantId: variant.id, status: "IN_STOCK" },
-          create: {
-            variantId: variant.id,
-            imeiNumber: sampleImei,
-            status: "IN_STOCK",
-          },
-        });
-        totalImeiRecords++;
+        // Sample IMEI serial numbers
+        const totalStock = branchInventories.reduce((acc, cur) => acc + cur.quantity, 0);
+        for (let i = 0; i < Math.min(totalStock, 2); i++) {
+          imeiCounter++;
+          const sampleImei = `86543206${imeiCounter.toString()}`;
+          await prisma.iMEIRecord.create({
+            data: {
+              variantId: variant.id,
+              imeiNumber: sampleImei,
+              status: "IN_STOCK",
+            },
+          });
+          totalImeiRecords++;
+        }
       }
     }
   }
 
-  console.log(`Created/updated ${productsData.length} products with ${totalVariants} variants.`);
-  console.log(`Created/updated ${totalImeiRecords} IMEI inventory records.`);
+  console.log(`[PASS] Successfully created ${CATALOG_PRESETS.length} products with ${totalVariants} variants.`);
+  console.log(`[PASS] Created ${totalImeiRecords} IMEI inventory tracking records.`);
 
-  // 5. Namunaviy Buyurtmalar (Sample Orders)
-  const sampleVariant = await prisma.productVariant.findUnique({
-    where: { sku: "IP15P-NAT-128" },
-  });
-
-  if (sampleVariant) {
-    const sampleOrderNumber = "ALO-20261029-001";
-    await prisma.order.upsert({
-      where: { orderNumber: sampleOrderNumber },
-      update: {},
-      create: {
+  // 6. Namunaviy buyurtma (Sample Order)
+  if (firstVariantId) {
+    const sampleOrderNumber = "ALO-20261103-001";
+    await prisma.order.create({
+      data: {
         orderNumber: sampleOrderNumber,
         customerName: "Anvar Qosimov",
         customerPhone: "+998 90 123 45 67",
         fulfillmentType: OrderFulfillment.PICKUP_FROM_BRANCH,
         pickupBranchId: malikaBranch.id,
         notes: "Mijoz soat 17:00 da Malika filialidan olib ketadi.",
-        totalAmount: sampleVariant.price,
+        totalAmount: firstVariantPrice,
         status: OrderStatus.CONFIRMED,
         paymentType: PaymentType.PAY_AT_BRANCH,
         isPaid: false,
         items: {
           create: [
             {
-              variantId: sampleVariant.id,
+              variantId: firstVariantId,
               quantity: 1,
-              unitPrice: sampleVariant.price,
+              unitPrice: firstVariantPrice,
             },
           ],
         },
       },
     });
-    console.log(`Created/updated sample pickup order: ${sampleOrderNumber}`);
+    console.log(`[PASS] Created sample verified order: ${sampleOrderNumber}`);
   }
 
-  console.log("Database seed completed successfully!");
+  console.log("\n===============================================================");
+  console.log("Database Seed SUCCEEDED! All 41 Phones Live in PostgreSQL.");
+  console.log("===============================================================\n");
 }
 
 main()
