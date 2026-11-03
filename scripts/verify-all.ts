@@ -65,6 +65,26 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "storefront-specs.test.ts")}"`,
   },
   {
+    id: "storefront-gallery",
+    name: "Storefront Gallery Auto-Carousel Suite",
+    command: `npx tsx "${path.join("tests", "storefront-gallery.test.ts")}"`,
+  },
+  {
+    id: "catalog-pricing",
+    name: "Catalog Pricing Engine Suite",
+    command: `npx tsx "${path.join("tests", "catalog-pricing.test.ts")}"`,
+  },
+  {
+    id: "admin-crud-actions",
+    name: "Admin Product CRUD Actions Suite",
+    command: `npx tsx "${path.join("tests", "admin-crud-actions.test.ts")}"`,
+  },
+  {
+    id: "admin-crud-ui",
+    name: "Admin Preset Matrix UI & Actions Suite",
+    command: `npx tsx "${path.join("tests", "admin-crud-ui.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
