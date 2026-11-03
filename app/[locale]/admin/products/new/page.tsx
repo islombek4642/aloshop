@@ -1,9 +1,8 @@
 import * as React from "react";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
 import { prisma } from "@/lib/db/prisma";
-import { ProductCreateForm } from "@/components/admin/product-create-form";
+import { ProductPresetMatrixForm } from "@/components/admin/product-preset-matrix-form";
 
 interface NewProductPageProps {
   params: Promise<{ locale: string }>;
@@ -24,58 +23,27 @@ export default async function AdminNewProductPage({
     redirect(`/${locale}/admin/products`);
   }
 
-  const t = await getTranslations({
-    locale,
-    namespace: "admin.productCreate",
-  });
-
   const branchWhere = isSuper
     ? { isActive: true }
     : { id: session.branchId! };
 
-  const [categories, branches] = await Promise.all([
-    prisma.category.findMany({
-      orderBy: { nameUz: "asc" },
-      select: {
-        id: true,
-        nameUz: true,
-        nameRu: true,
-        nameEn: true,
-      },
-    }),
-    prisma.branch.findMany({
-      where: branchWhere,
-      orderBy: { name: "asc" },
-      select: {
-        id: true,
-        name: true,
-      },
-    }),
-  ]);
-
-  const serializedCategories = categories.map((c) => ({
-    id: c.id,
-    name:
-      locale === "ru" ? c.nameRu : locale === "en" ? c.nameEn : c.nameUz,
-  }));
+  const branches = await prisma.branch.findMany({
+    where: branchWhere,
+    orderBy: { name: "asc" },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-border/60 pb-4">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          {t("title")}
-        </h1>
-        <p className="text-xs text-muted-foreground mt-0.5">
-          {t("subtitle")}
-        </p>
-      </div>
-
-      <ProductCreateForm
-        categories={serializedCategories}
+      <ProductPresetMatrixForm
         branches={branches}
         locale={locale}
+        isSuperAdmin={isSuper}
+        branchId={session.branchId}
       />
     </div>
   );
 }
-

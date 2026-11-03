@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import {
   Smartphone,
@@ -13,10 +14,22 @@ import {
   Package,
   Layers,
   Filter,
+  Pencil,
+  Trash2,
+  AlertTriangle,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -34,6 +47,7 @@ import {
 } from "@/components/ui/table";
 import { AdminPagination } from "./admin-pagination";
 import { formatCurrency } from "@/lib/utils/format-currency";
+import { deleteProductAction } from "@/app/actions/admin-products";
 
 export interface SerializedVariant {
   id: string;
@@ -73,7 +87,9 @@ export function ProductsListView({
   categories,
   isSuperAdmin,
 }: ProductsListViewProps) {
+  const router = useRouter();
   const t = useTranslations("admin.productsManagement");
+  const tCommon = useTranslations("common.actions");
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBrand, setSelectedBrand] = React.useState("ALL");
@@ -86,6 +102,11 @@ export function ProductsListView({
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(20);
 
+  // Delete modal state
+  const [productToDelete, setProductToDelete] = React.useState<SerializedProduct | null>(null);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState<string | null>(null);
+
   const toggleExpand = (productId: string) => {
     setExpandedProductIds((prev) => {
       const next = new Set(prev);
@@ -96,6 +117,31 @@ export function ProductsListView({
       }
       return next;
     });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
+    setIsDeleting(true);
+    setDeleteError(null);
+
+    try {
+      const res = await deleteProductAction(productToDelete.id);
+      if (res.success) {
+        setProductToDelete(null);
+        router.refresh();
+      } else {
+        if (res.error === "cannotDeleteWithActiveOrders") {
+          setDeleteError(t("cannotDeleteOrders"));
+        } else {
+          setDeleteError(t("deleteError"));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to delete product:", err);
+      setDeleteError(t("deleteError"));
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const filteredProducts = React.useMemo(() => {
@@ -225,6 +271,7 @@ export function ProductsListView({
                 <TableHead className="text-xs">{t("warranty")}</TableHead>
                 <TableHead className="text-xs">{t("variants")}</TableHead>
                 <TableHead className="text-xs text-right">{t("totalStock")}</TableHead>
+                <TableHead className="text-xs text-right w-24">{t("actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -288,12 +335,43 @@ export function ProductsListView({
                           {product.totalStock}
                         </Badge>
                       </TableCell>
+                      <TableCell
+                        className="text-xs text-right pr-4"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="flex items-center justify-end gap-1">
+                          <Link href={`/admin/products/${product.id}/edit`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                              title={t("edit")}
+                            >
+                              <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
+                              <span className="sr-only">{t("edit")}</span>
+                            </Button>
+                          </Link>
+
+                          {isSuperAdmin && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setProductToDelete(product)}
+                              className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                              title={t("delete")}
+                            >
+                              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                              <span className="sr-only">{t("delete")}</span>
+                            </Button>
+                          )}
+                        </div>
+                      </TableCell>
                     </TableRow>
 
                     {/* Expandable Variants Sub-Table */}
                     {isExpanded && (
                       <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={6} className="p-0 border-b border-border/60">
+                        <TableCell colSpan={7} className="p-0 border-b border-border/60">
                           <div className="px-6 py-3 space-y-2 bg-slate-50/50 dark:bg-slate-900/30">
                             <div className="text-[11px] font-semibold text-muted-foreground tracking-wider uppercase">
                               {product.modelName} &bull; {t("expandVariants")}
@@ -388,7 +466,83 @@ export function ProductsListView({
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={Boolean(productToDelete)}
+        onOpenChange={(open) => {
+          if (!open && !isDeleting) {
+            setProductToDelete(null);
+            setDeleteError(null);
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <div className="flex items-center gap-2 text-destructive mb-1">
+              <AlertTriangle className="w-5 h-5 shrink-0" aria-hidden="true" />
+              <DialogTitle className="text-base">
+                {t("deleteConfirmTitle")}
+              </DialogTitle>
+            </div>
+            <DialogDescription className="text-xs text-muted-foreground">
+              {t("deleteConfirmDescription")}
+            </DialogDescription>
+          </DialogHeader>
+
+          {productToDelete && (
+            <div className="p-3 rounded-lg border border-border/80 bg-muted/30 space-y-1 my-2">
+              <div className="text-xs font-semibold text-foreground">
+                {productToDelete.brand} {productToDelete.modelName}
+              </div>
+              <div className="text-[11px] text-muted-foreground">
+                {productToDelete.variants.length} ta variant &bull; {productToDelete.totalStock} dona qoldiq
+              </div>
+            </div>
+          )}
+
+          {deleteError && (
+            <div className="p-2.5 rounded-md bg-destructive/10 text-destructive text-xs">
+              {deleteError}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0 mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={isDeleting}
+              onClick={() => {
+                setProductToDelete(null);
+                setDeleteError(null);
+              }}
+            >
+              {tCommon("cancel")}
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              disabled={isDeleting}
+              onClick={handleConfirmDelete}
+              className="gap-1.5"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                  <span>{t("deleting")}</span>
+                </>
+              ) : (
+                <>
+                  <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>{t("delete")}</span>
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
-
