@@ -437,6 +437,11 @@ async function getProductBySlug(slug: string): Promise<SerializedProduct | null>
         screenSize: dbProduct.screenSize,
         processor: dbProduct.processor,
         battery: dbProduct.battery,
+        camera: dbProduct.camera,
+        charging: dbProduct.charging,
+        os: dbProduct.os,
+        series: dbProduct.series,
+        releaseYear: dbProduct.releaseYear,
         category: dbProduct.category
           ? {
               id: dbProduct.category.id,

@@ -53,6 +53,11 @@ export interface SerializedProduct {
   screenSize?: string | null;
   processor?: string | null;
   battery?: string | null;
+  camera?: string | null;
+  charging?: string | null;
+  os?: string | null;
+  series?: string | null;
+  releaseYear?: number | null;
   category?: {
     id: string;
     nameUz: string;
@@ -376,6 +381,9 @@ export function ProductDetailsClient({
               screenSize={product.screenSize || deviceVitals.screenSize}
               processor={product.processor || deviceVitals.processor}
               battery={product.battery || deviceVitals.battery}
+              camera={product.camera}
+              charging={product.charging}
+              os={product.os}
               branchesInStockCount={branchesInStockCount}
               totalStockCount={totalStock}
             />
