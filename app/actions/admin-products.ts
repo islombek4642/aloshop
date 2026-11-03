@@ -2,10 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
 
-const variantInputSchema = z.object({
+export const variantInputSchema = z.object({
   sku: z.string().min(2, "SKU is required"),
   colorNameUz: z.string().min(1, "Color name UZ required"),
   colorNameRu: z.string().min(1, "Color name RU required"),
@@ -13,6 +14,7 @@ const variantInputSchema = z.object({
   colorHex: z
     .string()
     .regex(/^#[0-9A-Fa-f]{6}$/, "Valid HEX color code required"),
+  ram: z.string().optional(),
   storage: z.string().min(1, "Storage is required"),
   condition: z.enum(["NEW", "USED"]).default("NEW"),
   price: z.number().positive("Price must be positive"),
@@ -21,12 +23,21 @@ const variantInputSchema = z.object({
   initialStock: z.record(z.string(), z.number().int().min(0)).optional(),
 });
 
-const createProductSchema = z.object({
+export const createProductSchema = z.object({
   brand: z.string().min(1, "Brand is required"),
   modelName: z.string().min(1, "Model name is required"),
   slug: z.string().optional(),
   categoryId: z.string().min(1, "Category is required"),
   warrantyMonths: z.number().int().min(0).default(12),
+  series: z.string().optional(),
+  releaseYear: z.number().int().optional(),
+  screenSize: z.string().optional(),
+  processor: z.string().optional(),
+  battery: z.string().optional(),
+  camera: z.string().optional(),
+  charging: z.string().optional(),
+  os: z.string().optional(),
+  specs: z.record(z.string(), z.unknown()).optional(),
   descriptionUz: z.string().min(1, "Description UZ required"),
   descriptionRu: z.string().min(1, "Description RU required"),
   descriptionEn: z.string().min(1, "Description EN required"),
@@ -94,6 +105,15 @@ export async function createProductAction(
           slug: finalSlug,
           categoryId: data.categoryId,
           warrantyMonths: data.warrantyMonths,
+          series: data.series?.trim() || null,
+          releaseYear: data.releaseYear ?? null,
+          screenSize: data.screenSize?.trim() || null,
+          processor: data.processor?.trim() || null,
+          battery: data.battery?.trim() || null,
+          camera: data.camera?.trim() || null,
+          charging: data.charging?.trim() || null,
+          os: data.os?.trim() || null,
+          specs: data.specs ? (data.specs as Prisma.InputJsonValue) : undefined,
           descriptionUz: data.descriptionUz.trim(),
           descriptionRu: data.descriptionRu.trim(),
           descriptionEn: data.descriptionEn.trim(),
@@ -120,6 +140,7 @@ export async function createProductAction(
             colorNameRu: v.colorNameRu.trim(),
             colorNameEn: v.colorNameEn.trim(),
             colorHex: v.colorHex.trim(),
+            ram: v.ram?.trim() || null,
             storage: v.storage.trim(),
             condition: v.condition,
             price: v.price,
@@ -157,4 +178,3 @@ export async function createProductAction(
     return { success: false, error: "failedToCreate" };
   }
 }
-
