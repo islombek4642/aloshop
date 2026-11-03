@@ -37,11 +37,36 @@ export function computeAutoAdvanceState({
   };
 }
 
+/**
+ * Aggregates all unique images across product variants into a unified model gallery.
+ * The active variant image is placed first so the user sees the currently selected color immediately.
+ */
+export function aggregateModelImages(
+  variants: Array<{ images?: string[] }>,
+  activeVariant?: { images?: string[] }
+): string[] {
+  const list: string[] = [];
+  if (activeVariant?.images?.[0]) {
+    list.push(activeVariant.images[0]);
+  }
+  for (const v of variants) {
+    if (Array.isArray(v.images)) {
+      for (const img of v.images) {
+        if (img && !list.includes(img)) {
+          list.push(img);
+        }
+      }
+    }
+  }
+  return list.length > 0 ? list : ["/images/products/placeholder.webp"];
+}
+
 export interface ProductGalleryProps {
   images: string[];
   alt: string;
   condition?: string;
   warrantyMonths?: number;
+  initialIndex?: number;
   className?: string;
 }
 
@@ -50,10 +75,11 @@ export function ProductGallery({
   alt,
   condition,
   warrantyMonths,
+  initialIndex,
   className,
 }: ProductGalleryProps) {
   const tProduct = useTranslations("product");
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(initialIndex ?? 0);
   const [isPaused, setIsPaused] = React.useState(false);
   const [imageErrors, setImageErrors] = React.useState<Record<number, boolean>>({});
   const [timerResetKey, setTimerResetKey] = React.useState(0);
@@ -68,17 +94,29 @@ export function ProductGallery({
   const touchEndY = React.useRef<number | null>(null);
   const minSwipeDistance = 40;
 
-  // Reset selected image when images list changes (e.g. variant switched)
-  const imageKey = images.join("|");
-  React.useEffect(() => {
-    setSelectedIndex(0);
-    setImageErrors({});
-    setIsPaused(false);
-  }, [imageKey]);
-
   const safeImages = images && images.length > 0 ? images : [];
   const activeImage = safeImages[selectedIndex] || safeImages[0];
   const isCurrentError = imageErrors[selectedIndex];
+
+  // Sync with initialIndex (e.g. user selected another color swatch)
+  React.useEffect(() => {
+    if (
+      typeof initialIndex === "number" &&
+      initialIndex >= 0 &&
+      initialIndex < safeImages.length
+    ) {
+      setSelectedIndex(initialIndex);
+      resetTimer();
+    }
+  }, [initialIndex, safeImages.length, resetTimer]);
+
+  // Reset selected index if current index is out of bounds
+  React.useEffect(() => {
+    if (selectedIndex >= safeImages.length) {
+      setSelectedIndex(0);
+    }
+    setImageErrors({});
+  }, [safeImages.length, selectedIndex]);
 
   // Auto-advance carousel timer every 4 seconds
   React.useEffect(() => {

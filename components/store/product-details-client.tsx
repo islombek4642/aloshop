@@ -27,7 +27,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { ProductGallery } from "@/components/store/product-gallery";
+import {
+  ProductGallery,
+  aggregateModelImages,
+} from "@/components/store/product-gallery";
 import {
   VariantSelector,
   type ProductVariantData,
@@ -175,6 +178,19 @@ export function ProductDetailsClient({
 
   const branchesInStockCount = inStockBranches.length;
 
+  // Aggregated images across all variants for multi-photo model carousel
+  const allImages = React.useMemo(() => {
+    return aggregateModelImages(product.variants, activeVariant);
+  }, [product.variants, activeVariant]);
+
+  // Active image index tracking active variant's primary image
+  const activeImageIndex = React.useMemo(() => {
+    const activeFirstImg = activeVariant?.images?.[0];
+    if (!activeFirstImg) return 0;
+    const idx = allImages.indexOf(activeFirstImg);
+    return idx >= 0 ? idx : 0;
+  }, [allImages, activeVariant]);
+
   // In-stock branch summary for mobile sticky bar
   const inStockBranchSummary = React.useMemo(() => {
     if (inStockBranches.length === 0) return undefined;
@@ -277,7 +293,8 @@ export function ProductDetailsClient({
         {/* Left Column: Interactive Image Gallery */}
         <div className="lg:col-span-6 lg:sticky lg:top-24">
           <ProductGallery
-            images={activeVariant?.images || []}
+            images={allImages}
+            initialIndex={activeImageIndex}
             alt={`${product.brand} ${product.modelName}`}
             condition={activeVariant?.condition}
             warrantyMonths={product.warrantyMonths}

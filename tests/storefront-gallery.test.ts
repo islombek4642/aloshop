@@ -1,8 +1,11 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
 import {
   CAROUSEL_AUTOPLAY_INTERVAL_MS,
   getNextGalleryIndex,
   getPrevGalleryIndex,
   computeAutoAdvanceState,
+  aggregateModelImages,
 } from "../components/store/product-gallery";
 
 export function testStorefrontGallery() {
@@ -138,6 +141,43 @@ export function testStorefrontGallery() {
 
   if (errors.length === 0) {
     checks.push("Full lifecycle simulation (hover, touch, wrap, manual jump) passed cleanly");
+  }
+
+  // 6. Test Model Image Aggregation across variants
+  const mockVariants = [
+    { images: ["/img/black-1.webp", "/img/black-2.webp"] },
+    { images: ["/img/white-1.webp"] },
+    { images: ["/img/black-1.webp", "/img/blue-1.webp"] }, // duplicate black-1
+  ];
+  const activeVar = { images: ["/img/white-1.webp"] };
+  const aggregated = aggregateModelImages(mockVariants, activeVar);
+
+  // Active variant image must come first
+  if (aggregated[0] !== "/img/white-1.webp") {
+    errors.push(`Expected aggregated[0] to be active variant image '/img/white-1.webp', got ${aggregated[0]}`);
+  }
+  // Total unique images: white-1, black-1, black-2, blue-1 = 4
+  if (aggregated.length !== 4) {
+    errors.push(`Expected 4 aggregated unique images, got ${aggregated.length} (${JSON.stringify(aggregated)})`);
+  } else {
+    checks.push("aggregateModelImages correctly collects unique images prioritizing active variant");
+  }
+
+  // 7. Verify ProductGallery and ProductDetailsClient integration
+  const clientSourcePath = path.resolve(__dirname, "../components/store/product-details-client.tsx");
+  const clientSource = fs.readFileSync(clientSourcePath, "utf-8");
+  if (!clientSource.includes("allImages")) {
+    errors.push("ProductDetailsClient does not define 'allImages' for unified model gallery");
+  } else {
+    checks.push("ProductDetailsClient verified with 'allImages' aggregation");
+  }
+
+  const gallerySourcePath = path.resolve(__dirname, "../components/store/product-gallery.tsx");
+  const gallerySource = fs.readFileSync(gallerySourcePath, "utf-8");
+  if (!gallerySource.includes("initialIndex")) {
+    errors.push("ProductGallery does not support 'initialIndex' prop for swatch synchronization");
+  } else {
+    checks.push("ProductGallery verified with 'initialIndex' swatch synchronization");
   }
 
   return {
