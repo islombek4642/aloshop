@@ -99,10 +99,23 @@ export function verifyStorefrontSpecs(): {
     checks.push("SnapshotSpecsView verified without rigid truncation ('truncate max-w-[50%]')");
   }
 
-  if (!snapshotViewSource.includes("min-h-[56px]")) {
-    errors.push("SnapshotSpecsView does not enforce uniform grid item height 'min-h-[56px]'");
+  if (!snapshotViewSource.includes("min-h-[72px]")) {
+    errors.push("SnapshotSpecsView does not enforce stacked card height 'min-h-[72px]'");
   } else {
-    checks.push("SnapshotSpecsView verified with uniform grid item height (min-h-[56px])");
+    checks.push("SnapshotSpecsView verified with stacked card height (min-h-[72px])");
+  }
+
+  if (!snapshotViewSource.includes("flex-col justify-between")) {
+    errors.push("SnapshotSpecsView does not enforce vertical stacked structure ('flex-col justify-between')");
+  } else {
+    checks.push("SnapshotSpecsView verified with vertical stacked structure ('flex-col justify-between')");
+  }
+
+  // Ensure NO label contains truncate
+  if (snapshotViewSource.includes("uppercase tracking-wider truncate")) {
+    errors.push("SnapshotSpecsView still contains 'truncate' on uppercase labels");
+  } else {
+    checks.push("SnapshotSpecsView verified: zero truncation on hardware vitals labels");
   }
 
   return {
@@ -127,4 +140,3 @@ if (require.main === module || process.argv[1]?.includes("storefront-specs.test"
     process.exit(1);
   }
 }
-
