@@ -116,7 +116,7 @@ export function SnapshotSpecsView({
       {/* Grid of specifications */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {/* 1. RAM Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Cpu className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -125,13 +125,13 @@ export function SnapshotSpecsView({
               {tProduct("ram")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {ramDisplay}
           </span>
         </div>
 
         {/* 2. Storage / ROM Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <HardDrive className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -140,13 +140,13 @@ export function SnapshotSpecsView({
               {tProduct("storage")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {storageDisplay}
           </span>
         </div>
 
         {/* 3. Display / Screen Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Smartphone className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -155,13 +155,13 @@ export function SnapshotSpecsView({
               {tProduct("screen")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {displayScreen}
           </span>
         </div>
 
         {/* 4. Processor Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Cpu className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -170,13 +170,13 @@ export function SnapshotSpecsView({
               {tProduct("processor")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {displayProcessor}
           </span>
         </div>
 
         {/* 5. Battery Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <BatteryCharging className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -185,14 +185,14 @@ export function SnapshotSpecsView({
               {tProduct("battery")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {displayBattery}
           </span>
         </div>
 
         {/* 6. Camera Row (Optional) */}
         {displayCamera && (
-          <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+          <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Camera className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -201,7 +201,7 @@ export function SnapshotSpecsView({
                 {tProduct("camera")}
               </span>
             </div>
-            <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0 truncate max-w-[50%]">
+            <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
               {displayCamera}
             </span>
           </div>
@@ -209,7 +209,7 @@ export function SnapshotSpecsView({
 
         {/* 7. Charging Row (Optional) */}
         {displayCharging && (
-          <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+          <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Zap className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -218,7 +218,7 @@ export function SnapshotSpecsView({
                 {tProduct("charging")}
               </span>
             </div>
-            <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0 truncate max-w-[50%]">
+            <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
               {displayCharging}
             </span>
           </div>
@@ -226,7 +226,7 @@ export function SnapshotSpecsView({
 
         {/* 8. Operating System Row (Optional) */}
         {os && (
-          <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+          <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
             <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Smartphone className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -235,14 +235,14 @@ export function SnapshotSpecsView({
                 {tProduct("os")}
               </span>
             </div>
-            <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+            <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
               {os}
             </span>
           </div>
         )}
 
         {/* 9. Color Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Palette className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -251,20 +251,20 @@ export function SnapshotSpecsView({
               {tProduct("color")}
             </span>
           </div>
-          <div className="flex items-center gap-2 pl-2 shrink-0">
+          <div className="flex items-center justify-end gap-2 pl-2 max-w-[60%] sm:max-w-[65%]">
             <span
               className="h-3.5 w-3.5 shrink-0 rounded-full border border-black/20 dark:border-white/20 shadow-2xs"
               style={{ backgroundColor: activeVariant?.colorHex }}
               aria-hidden="true"
             />
-            <span className="text-xs sm:text-sm font-bold text-foreground text-right">
+            <span className="text-xs sm:text-sm font-semibold text-foreground text-right leading-snug break-words">
               {colorName}
             </span>
           </div>
         </div>
 
         {/* 10. Condition Row */}
-        <div className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <Sparkles className="h-4 w-4 stroke-[2]" aria-hidden="true" />
@@ -273,13 +273,13 @@ export function SnapshotSpecsView({
               {tProduct("condition")}
             </span>
           </div>
-          <span className="text-xs sm:text-sm font-bold text-foreground text-right pl-2 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-foreground text-right pl-2 leading-snug break-words max-w-[60%] sm:max-w-[65%]">
             {conditionDisplay}
           </span>
         </div>
 
         {/* 11. Live Branch Availability Row */}
-        <div className="sm:col-span-2 flex items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
+        <div className="sm:col-span-2 flex min-h-[56px] items-center justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
           <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div
               className={cn(

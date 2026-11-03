@@ -1,3 +1,5 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
 import type { SnapshotSpecsViewProps } from "../components/store/snapshot-specs-view";
 import type { SerializedProduct } from "../components/store/product-details-client";
 
@@ -79,6 +81,28 @@ export function verifyStorefrontSpecs(): {
     errors.push("SerializedProduct interface omitted camera/charging/os/series/releaseYear");
   } else {
     checks.push("SerializedProduct interface verified with full hardware attribute set");
+  }
+
+  // 3. Verify SnapshotSpecsView layout classes for responsive typography and zero truncation
+  const snapshotViewPath = path.resolve(__dirname, "../components/store/snapshot-specs-view.tsx");
+  const snapshotViewSource = fs.readFileSync(snapshotViewPath, "utf-8");
+
+  if (!snapshotViewSource.includes("break-words")) {
+    errors.push("SnapshotSpecsView does not include 'break-words' for fluid text wrapping");
+  } else {
+    checks.push("SnapshotSpecsView verified with fluid text wrapping (break-words)");
+  }
+
+  if (snapshotViewSource.includes("truncate max-w-[50%]")) {
+    errors.push("SnapshotSpecsView still contains rigid truncation 'truncate max-w-[50%]'");
+  } else {
+    checks.push("SnapshotSpecsView verified without rigid truncation ('truncate max-w-[50%]')");
+  }
+
+  if (!snapshotViewSource.includes("min-h-[56px]")) {
+    errors.push("SnapshotSpecsView does not enforce uniform grid item height 'min-h-[56px]'");
+  } else {
+    checks.push("SnapshotSpecsView verified with uniform grid item height (min-h-[56px])");
   }
 
   return {
