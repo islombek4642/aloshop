@@ -1,3 +1,5 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
 import {
   createOrUpdateProductFromPresetAction,
   deleteProductAction,
@@ -150,6 +152,26 @@ export function testAdminCrudActions(): {
     recordError("deleteProductAction is not exported as a function");
   } else {
     recordCheck("deleteProductAction function exported");
+  }
+
+  // -------------------------------------------------------------
+  // 5. Audit: Isolated Path Revalidation & 500 Immunity
+  // -------------------------------------------------------------
+  const actionsPath = path.resolve(__dirname, "../app/actions/admin-products.ts");
+  const actionsSource = fs.readFileSync(actionsPath, "utf-8");
+
+  // Verify that root '/' is NOT revalidated inside createOrUpdateProductFromPresetAction (prevents 500 during RSC streaming)
+  if (actionsSource.includes('safeRevalidatePath("/")')) {
+    errors.push("createOrUpdateProductFromPresetAction still calls safeRevalidatePath(\"/\") which can cause 500 errors in Next.js RSC");
+  } else {
+    checks.push("createOrUpdateProductFromPresetAction avoids broad root revalidation ('/')");
+  }
+
+  // Verify specific isolated paths are revalidated
+  if (!actionsSource.includes('safeRevalidatePath("/admin/products")') || !actionsSource.includes('safeRevalidatePath("/catalog")')) {
+    errors.push("createOrUpdateProductFromPresetAction missing isolated revalidation for /admin/products or /catalog");
+  } else {
+    checks.push("createOrUpdateProductFromPresetAction isolates revalidations to /admin/products and /catalog");
   }
 
   return {

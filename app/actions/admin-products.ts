@@ -178,7 +178,7 @@ export async function createProductAction(
     });
 
     safeRevalidatePath("/admin/products");
-    safeRevalidatePath("/admin/branches");
+
     safeRevalidatePath("/catalog");
 
     return { success: true, productId: createdProduct.id };
@@ -486,14 +486,14 @@ export async function createOrUpdateProductFromPresetAction(
     });
 
     safeRevalidatePath("/admin/products");
-    safeRevalidatePath("/admin/branches");
+
     safeRevalidatePath("/catalog");
-    safeRevalidatePath("/");
+
 
     return { success: true, productId: resultProduct.id };
   } catch (err) {
     console.error("createOrUpdateProductFromPresetAction error:", err);
-    return { success: false, error: "failedToUpsert" };
+    return { success: false, error: err instanceof Error ? err.message : "failedToUpsert" };
   }
 }
 
@@ -585,7 +585,7 @@ export async function deleteProductAction(
 
     safeRevalidatePath("/admin/products");
     safeRevalidatePath("/catalog");
-    safeRevalidatePath("/");
+
 
     return { success: true };
   } catch (err) {
