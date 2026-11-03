@@ -30,6 +30,7 @@ export const variantInputSchema = z.object({
   oldPrice: z.number().positive().optional().nullable(),
   images: z.array(z.string()).default([]),
   initialStock: z.record(z.string(), z.number().int().min(0)).optional(),
+  imei: z.string().optional(),
 });
 
 export const createProductSchema = z.object({
@@ -161,6 +162,24 @@ export async function createProductAction(
           },
         });
 
+        // Create IMEI Record if provided (e.g. for USED individual device)
+        if (v.imei && v.imei.trim()) {
+          const cleanImei = v.imei.trim();
+          const existingImei = await tx.iMEIRecord.findUnique({
+            where: { imeiNumber: cleanImei },
+          });
+          if (existingImei) {
+            throw new Error(`IMEI "${cleanImei}" allaqachon ro'yxatga olingan`);
+          }
+          await tx.iMEIRecord.create({
+            data: {
+              variantId: variant.id,
+              imeiNumber: cleanImei,
+              status: "IN_STOCK",
+            },
+          });
+        }
+
         // Initialize branch inventory records
         for (const branch of allBranches) {
           const qty = filteredInitialStock[branch.id] ?? 0;
@@ -184,7 +203,10 @@ export async function createProductAction(
     return { success: true, productId: createdProduct.id };
   } catch (err) {
     console.error("createProductAction error:", err);
-    return { success: false, error: "failedToCreate" };
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "failedToCreate",
+    };
   }
 }
 
@@ -205,6 +227,7 @@ export const presetVariantInputSchema = z.object({
   oldPrice: z.number().positive().optional().nullable(),
   images: z.array(z.string()).optional(),
   initialStock: z.record(z.string(), z.number().int().min(0)).optional(),
+  imei: z.string().optional(),
 });
 
 export const presetProductInputSchema = z.object({
@@ -407,6 +430,22 @@ export async function createOrUpdateProductFromPresetAction(
             },
           });
           variantId = created.id;
+        }
+
+        if (v.imei && v.imei.trim()) {
+          const cleanImei = v.imei.trim();
+          await tx.iMEIRecord.upsert({
+            where: { imeiNumber: cleanImei },
+            update: {
+              variantId: variantId,
+              status: "IN_STOCK",
+            },
+            create: {
+              variantId: variantId,
+              imeiNumber: cleanImei,
+              status: "IN_STOCK",
+            },
+          });
         }
 
         // Branch inventory upsert with strict RBAC IDOR protection

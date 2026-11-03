@@ -85,6 +85,11 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "admin-crud-ui.test.ts")}"`,
   },
   {
+    id: "admin-product-wizard",
+    name: "Admin Product Wizard & Redesign Suite",
+    command: `npx tsx "${path.join("tests", "admin-product-wizard.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",

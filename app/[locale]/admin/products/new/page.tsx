@@ -2,16 +2,20 @@ import * as React from "react";
 import { redirect } from "next/navigation";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
 import { prisma } from "@/lib/db/prisma";
+import { ProductCreationWizard } from "@/components/admin/product-wizard/product-creation-wizard";
 import { ProductPresetMatrixForm } from "@/components/admin/product-preset-matrix-form";
 
 interface NewProductPageProps {
   params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ mode?: string }>;
 }
 
 export default async function AdminNewProductPage({
   params,
+  searchParams,
 }: NewProductPageProps) {
   const { locale } = await params;
+  const currentParams = searchParams ? await searchParams : {};
   const session = await getAdminSession();
 
   if (!session) {
@@ -27,19 +31,83 @@ export default async function AdminNewProductPage({
     ? { isActive: true }
     : { id: session.branchId! };
 
-  const branches = await prisma.branch.findMany({
-    where: branchWhere,
-    orderBy: { name: "asc" },
-    select: {
-      id: true,
-      name: true,
-    },
-  });
+  const [branches, rawCategories, existingProducts] = await Promise.all([
+    prisma.branch.findMany({
+      where: branchWhere,
+      orderBy: { name: "asc" },
+      select: {
+        id: true,
+        name: true,
+      },
+    }),
+    prisma.category.findMany({
+      orderBy: { nameUz: "asc" },
+      select: {
+        id: true,
+        nameUz: true,
+        nameRu: true,
+        nameEn: true,
+        slug: true,
+      },
+    }),
+    prisma.product.findMany({
+      orderBy: { modelName: "asc" },
+      select: {
+        id: true,
+        brand: true,
+        modelName: true,
+        slug: true,
+        categoryId: true,
+        warrantyMonths: true,
+        series: true,
+        releaseYear: true,
+        screenSize: true,
+        processor: true,
+        battery: true,
+        camera: true,
+        charging: true,
+        os: true,
+        descriptionUz: true,
+        descriptionRu: true,
+        descriptionEn: true,
+      },
+    }),
+  ]);
 
+  let categories = rawCategories;
+  if (categories.length === 0) {
+    const defaultCat = await prisma.category.create({
+      data: {
+        nameUz: "Smartfonlar",
+        nameRu: "Смартфоны",
+        nameEn: "Smartphones",
+        slug: "smartphones",
+      },
+    });
+    categories = [defaultCat];
+  }
+
+  // If URL explicitly requests raw matrix mode (?mode=matrix), render ProductPresetMatrixForm directly
+  if (currentParams.mode === "matrix") {
+    return (
+      <div className="space-y-6">
+        <ProductPresetMatrixForm
+          branches={branches}
+          locale={locale}
+          isSuperAdmin={isSuper}
+          branchId={session.branchId}
+        />
+      </div>
+    );
+  }
+
+  // Default: Render the redesigned intuitive ProductCreationWizard
   return (
     <div className="space-y-6">
-      <ProductPresetMatrixForm
+      <ProductCreationWizard
         branches={branches}
+        categories={categories}
+        existingProducts={existingProducts}
         locale={locale}
         isSuperAdmin={isSuper}
         branchId={session.branchId}
