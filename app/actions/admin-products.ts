@@ -2,9 +2,18 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import type { Prisma } from "@prisma/client";
+import { OrderStatus, type Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
+import { CATALOG_PRESETS, generateSku } from "@/lib/catalog/presets";
+
+function safeRevalidatePath(path: string): void {
+  try {
+    revalidatePath(path);
+  } catch {
+    // Gracefully ignore outside Next.js request context (e.g. unit tests)
+  }
+}
 
 export const variantInputSchema = z.object({
   sku: z.string().min(2, "SKU is required"),
@@ -168,13 +177,419 @@ export async function createProductAction(
       return product;
     });
 
-    revalidatePath("/admin/products");
-    revalidatePath("/admin/branches");
-    revalidatePath("/catalog");
+    safeRevalidatePath("/admin/products");
+    safeRevalidatePath("/admin/branches");
+    safeRevalidatePath("/catalog");
 
     return { success: true, productId: createdProduct.id };
   } catch (err) {
     console.error("createProductAction error:", err);
     return { success: false, error: "failedToCreate" };
+  }
+}
+
+// --------------------------------------------------------------------------
+// Preset-driven Product CRUD & Smart Matrix Actions
+// --------------------------------------------------------------------------
+
+export const presetVariantInputSchema = z.object({
+  colorNameUz: z.string().min(1, "Color name is required"),
+  colorNameRu: z.string().optional(),
+  colorNameEn: z.string().optional(),
+  colorHex: z.string().optional(),
+  sku: z.string().optional(),
+  ram: z.string().optional(),
+  storage: z.string().min(1, "Storage is required"),
+  condition: z.enum(["NEW", "USED"]).optional().default("NEW"),
+  price: z.number().positive("Price must be positive"),
+  oldPrice: z.number().positive().optional().nullable(),
+  images: z.array(z.string()).optional(),
+  initialStock: z.record(z.string(), z.number().int().min(0)).optional(),
+});
+
+export const presetProductInputSchema = z.object({
+  presetId: z.string().min(1, "Preset ID is required"),
+  variants: z
+    .array(presetVariantInputSchema)
+    .min(1, "At least one variant required"),
+});
+
+export type PresetVariantInput = z.input<typeof presetVariantInputSchema>;
+export type PresetProductInput = z.input<typeof presetProductInputSchema>;
+
+export type ActionResult =
+  | { success: true; productId?: string }
+  | { success: false; error: string };
+
+/**
+ * Creates or updates a smartphone from the official presets catalog.
+ * Upserts Product by slug, syncs hardware specs, and upserts variants and branch inventory.
+ * RBAC: SuperAdmin can set stock for any branch; BranchAdmin can only set stock for their own branch.
+ */
+export async function createOrUpdateProductFromPresetAction(
+  input: PresetProductInput
+): Promise<ActionResult> {
+  const session = await getAdminSession();
+  if (!session) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  const isSuper = isSuperAdmin(session);
+  const isBranch = session.role === "BRANCH_ADMIN";
+
+  if (!isSuper && !isBranch) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  if (isBranch && !session.branchId) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  const parsed = presetProductInputSchema.safeParse(input);
+  if (!parsed.success) {
+    return { success: false, error: "validationError" };
+  }
+
+  const data = parsed.data;
+
+  // Find preset by id or slug
+  const preset = CATALOG_PRESETS.find(
+    (p) => p.id === data.presetId || p.slug === data.presetId
+  );
+  if (!preset) {
+    return { success: false, error: "presetNotFound" };
+  }
+
+  try {
+    // Resolve smartphones category automatically
+    let category = await prisma.category.findUnique({
+      where: { slug: "smartphones" },
+    });
+    if (!category) {
+      category = await prisma.category.create({
+        data: {
+          nameUz: "Smartfonlar",
+          nameRu: "Смартфоны",
+          nameEn: "Smartphones",
+          slug: "smartphones",
+        },
+      });
+    }
+
+    const allBranches = await prisma.branch.findMany({
+      where: { isActive: true },
+      select: { id: true },
+    });
+
+    const resultProduct = await prisma.$transaction(async (tx) => {
+      // Upsert product by slug
+      const product = await tx.product.upsert({
+        where: { slug: preset.slug },
+        update: {
+          brand: preset.brand,
+          modelName: preset.modelName,
+          series: preset.series,
+          releaseYear: preset.releaseYear,
+          screenSize: preset.screenSize,
+          processor: preset.processor,
+          battery: preset.battery,
+          camera: preset.camera,
+          charging: preset.charging,
+          os: preset.os,
+          warrantyMonths: preset.warrantyMonths,
+          descriptionUz: preset.descriptionUz,
+          descriptionRu: preset.descriptionRu,
+          descriptionEn: preset.descriptionEn,
+          categoryId: category.id,
+        },
+        create: {
+          brand: preset.brand,
+          modelName: preset.modelName,
+          slug: preset.slug,
+          series: preset.series,
+          releaseYear: preset.releaseYear,
+          screenSize: preset.screenSize,
+          processor: preset.processor,
+          battery: preset.battery,
+          camera: preset.camera,
+          charging: preset.charging,
+          os: preset.os,
+          warrantyMonths: preset.warrantyMonths,
+          descriptionUz: preset.descriptionUz,
+          descriptionRu: preset.descriptionRu,
+          descriptionEn: preset.descriptionEn,
+          categoryId: category.id,
+        },
+      });
+
+      // Process each selected variant
+      for (const v of data.variants) {
+        // Resolve preset color metadata
+        const matchedColor =
+          preset.colors.find(
+            (c) =>
+              c.nameUz.trim().toLowerCase() === v.colorNameUz.trim().toLowerCase() ||
+              c.nameEn.trim().toLowerCase() === v.colorNameUz.trim().toLowerCase() ||
+              c.nameRu.trim().toLowerCase() === v.colorNameUz.trim().toLowerCase()
+          ) || preset.colors[0];
+
+        const colorNameUz = v.colorNameUz.trim();
+        const colorNameRu =
+          v.colorNameRu?.trim() || matchedColor?.nameRu || colorNameUz;
+        const colorNameEn =
+          v.colorNameEn?.trim() || matchedColor?.nameEn || colorNameUz;
+        const colorHex = v.colorHex?.trim() || matchedColor?.hex || "#000000";
+        const images =
+          v.images && v.images.length > 0
+            ? v.images
+            : matchedColor?.imageUrl
+              ? [matchedColor.imageUrl]
+              : ["/images/products/placeholder.webp"];
+
+        const generatedSku = generateSku(
+          preset.brand,
+          preset.modelName,
+          v.storage,
+          colorNameEn
+        );
+        const finalSku = (v.sku?.trim() || generatedSku).toUpperCase();
+
+        // Match existing variant by SKU or by (productId + colorNameUz + storage)
+        let existingVariant = await tx.productVariant.findUnique({
+          where: { sku: finalSku },
+        });
+
+        if (!existingVariant) {
+          existingVariant = await tx.productVariant.findFirst({
+            where: {
+              productId: product.id,
+              colorNameUz,
+              storage: v.storage.trim(),
+            },
+          });
+        }
+
+        let variantId: string;
+
+        if (existingVariant) {
+          const updated = await tx.productVariant.update({
+            where: { id: existingVariant.id },
+            data: {
+              sku: finalSku,
+              colorNameUz,
+              colorNameRu,
+              colorNameEn,
+              colorHex,
+              ram: v.ram?.trim() || preset.ram,
+              storage: v.storage.trim(),
+              condition: v.condition || "NEW",
+              price: v.price,
+              oldPrice: v.oldPrice ?? null,
+              images,
+            },
+          });
+          variantId = updated.id;
+        } else {
+          const created = await tx.productVariant.create({
+            data: {
+              productId: product.id,
+              sku: finalSku,
+              colorNameUz,
+              colorNameRu,
+              colorNameEn,
+              colorHex,
+              ram: v.ram?.trim() || preset.ram,
+              storage: v.storage.trim(),
+              condition: v.condition || "NEW",
+              price: v.price,
+              oldPrice: v.oldPrice ?? null,
+              images,
+            },
+          });
+          variantId = created.id;
+        }
+
+        // Branch inventory upsert with strict RBAC IDOR protection
+        for (const branch of allBranches) {
+          const existingInv = await tx.branchInventory.findUnique({
+            where: {
+              branchId_variantId: {
+                branchId: branch.id,
+                variantId: variantId,
+              },
+            },
+          });
+
+          if (isSuper) {
+            const qty =
+              v.initialStock && typeof v.initialStock[branch.id] === "number"
+                ? v.initialStock[branch.id]
+                : existingInv
+                  ? existingInv.quantity
+                  : 0;
+
+            await tx.branchInventory.upsert({
+              where: {
+                branchId_variantId: {
+                  branchId: branch.id,
+                  variantId: variantId,
+                },
+              },
+              update: { quantity: qty },
+              create: {
+                branchId: branch.id,
+                variantId: variantId,
+                quantity: qty,
+              },
+            });
+          } else if (isBranch && session.branchId) {
+            if (branch.id === session.branchId) {
+              const qty =
+                v.initialStock &&
+                typeof v.initialStock[session.branchId] === "number"
+                  ? v.initialStock[session.branchId]
+                  : existingInv
+                    ? existingInv.quantity
+                    : 0;
+
+              await tx.branchInventory.upsert({
+                where: {
+                  branchId_variantId: {
+                    branchId: branch.id,
+                    variantId: variantId,
+                  },
+                },
+                update: { quantity: qty },
+                create: {
+                  branchId: branch.id,
+                  variantId: variantId,
+                  quantity: qty,
+                },
+              });
+            } else {
+              // Foreign branch: only initialize if missing; never overwrite existing stock
+              if (!existingInv) {
+                await tx.branchInventory.create({
+                  data: {
+                    branchId: branch.id,
+                    variantId: variantId,
+                    quantity: 0,
+                  },
+                });
+              }
+            }
+          }
+        }
+      }
+
+      return product;
+    });
+
+    safeRevalidatePath("/admin/products");
+    safeRevalidatePath("/admin/branches");
+    safeRevalidatePath("/catalog");
+    safeRevalidatePath("/");
+
+    return { success: true, productId: resultProduct.id };
+  } catch (err) {
+    console.error("createOrUpdateProductFromPresetAction error:", err);
+    return { success: false, error: "failedToUpsert" };
+  }
+}
+
+/**
+ * Deletes a product, its variants, inventory, and serial records in a transaction.
+ * Requires SUPER_ADMIN role.
+ * Protects against deleting products with active unfulfilled orders (PENDING, CONFIRMED, SHIPPED).
+ */
+export async function deleteProductAction(
+  productIdOrInput: string | { productId: string }
+): Promise<ActionResult> {
+  const session = await getAdminSession();
+  if (!session || !isSuperAdmin(session)) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  const productId =
+    typeof productIdOrInput === "string"
+      ? productIdOrInput.trim()
+      : productIdOrInput?.productId?.trim();
+
+  if (!productId) {
+    return { success: false, error: "invalidProductId" };
+  }
+
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      select: { id: true },
+    });
+
+    if (!product) {
+      return { success: false, error: "productNotFound" };
+    }
+
+    // Active unfulfilled order check (PENDING, CONFIRMED, SHIPPED)
+    const activeStatuses = (
+      ["PENDING", "CONFIRMED", "PROCESSING", "SHIPPED"] as const
+    ).filter((s) => s in OrderStatus) as OrderStatus[];
+
+    const activeOrderCount = await prisma.orderItem.count({
+      where: {
+        variant: {
+          productId: product.id,
+        },
+        order: {
+          status: {
+            in: activeStatuses,
+          },
+        },
+      },
+    });
+
+    if (activeOrderCount > 0) {
+      return { success: false, error: "cannotDeleteWithActiveOrders" };
+    }
+
+    // Safe deletion in transaction
+    await prisma.$transaction(async (tx) => {
+      const variants = await tx.productVariant.findMany({
+        where: { productId: product.id },
+        select: { id: true },
+      });
+      const variantIds = variants.map((v) => v.id);
+
+      if (variantIds.length > 0) {
+        await tx.branchInventory.deleteMany({
+          where: { variantId: { in: variantIds } },
+        });
+
+        await tx.iMEIRecord.deleteMany({
+          where: { variantId: { in: variantIds } },
+        });
+
+        // Non-active order items (DELIVERED or CANCELLED) if any
+        await tx.orderItem.deleteMany({
+          where: { variantId: { in: variantIds } },
+        });
+
+        await tx.productVariant.deleteMany({
+          where: { id: { in: variantIds } },
+        });
+      }
+
+      await tx.product.delete({
+        where: { id: product.id },
+      });
+    });
+
+    safeRevalidatePath("/admin/products");
+    safeRevalidatePath("/catalog");
+    safeRevalidatePath("/");
+
+    return { success: true };
+  } catch (err) {
+    console.error("deleteProductAction error:", err);
+    return { success: false, error: "failedToDelete" };
   }
 }
