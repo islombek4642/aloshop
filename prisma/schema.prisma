@@ -70,9 +70,15 @@ model Product {
   descriptionRu  String           @db.Text
   descriptionEn  String           @db.Text
   warrantyMonths Int              @default(12)
+  series         String?          // Masalan: "iPhone 16", "Galaxy S25"
+  releaseYear    Int?             // Masalan: 2024
   screenSize     String?          // Masalan: "6.1\" Super Retina XDR OLED"
   processor      String?          // Masalan: "Apple A17 Pro (3nm)"
   battery        String?          // Masalan: "3274 mAh"
+  camera         String?          // Masalan: "48MP Fusion + 48MP Ultra Wide"
+  charging       String?          // Masalan: "USB-C, 25W MagSafe"
+  os             String?          // Masalan: "iOS 18"
+  specs          Json?            // Qo'shimcha texnik parametrlar
   categoryId     String
   category       Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   createdAt      DateTime         @default(now())

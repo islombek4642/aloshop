@@ -105,6 +105,46 @@ export function verifyPrismaSchema(): {
     }
   }
 
+  // 5. Verify hardware specification fields on Product model
+  const productModel = Prisma.dmmf.datamodel.models.find((m) => m.name === "Product");
+  if (!productModel) {
+    errors.push("Product model metadata not found in DMMF");
+  } else {
+    const productFields = productModel.fields.map((f) => f.name);
+    const requiredProductFields = [
+      "series",
+      "releaseYear",
+      "screenSize",
+      "processor",
+      "battery",
+      "camera",
+      "charging",
+      "os",
+      "specs",
+    ];
+
+    for (const field of requiredProductFields) {
+      if (!productFields.includes(field)) {
+        errors.push(`Product field '${field}' missing from Prisma datamodel`);
+      } else {
+        checks.push(`Product field '${field}' verified in datamodel`);
+      }
+    }
+  }
+
+  // 6. Verify RAM field on ProductVariant model
+  const variantModel = Prisma.dmmf.datamodel.models.find((m) => m.name === "ProductVariant");
+  if (!variantModel) {
+    errors.push("ProductVariant model metadata not found in DMMF");
+  } else {
+    const variantFields = variantModel.fields.map((f) => f.name);
+    if (!variantFields.includes("ram")) {
+      errors.push("ProductVariant field 'ram' missing from Prisma datamodel");
+    } else {
+      checks.push("ProductVariant field 'ram' verified in datamodel");
+    }
+  }
+
   return {
     success: errors.length === 0,
     modelCount: requiredDmmfModels.length,
