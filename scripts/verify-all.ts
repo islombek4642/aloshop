@@ -45,6 +45,26 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "prisma-schema.test.ts")}"`,
   },
   {
+    id: "static-assets",
+    name: "Static Assets Pipeline & CDN Whitelist Audit",
+    command: `npx tsx "${path.join("tests", "static-assets.test.ts")}"`,
+  },
+  {
+    id: "catalog-presets",
+    name: "Catalog Presets Engine & SKU Generator Suite",
+    command: `npx tsx "${path.join("tests", "catalog-presets.test.ts")}"`,
+  },
+  {
+    id: "admin-action",
+    name: "Admin Product Action & Hardware Validation Suite",
+    command: `npx tsx "${path.join("tests", "admin-products-action.test.ts")}"`,
+  },
+  {
+    id: "storefront-specs",
+    name: "Storefront Specifications & Vitals View Suite",
+    command: `npx tsx "${path.join("tests", "storefront-specs.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
@@ -98,40 +118,45 @@ function runMasterVerification(): void {
       console.error(
         `     STATUS: [FAIL] (Exit Code: ${child.status}, ${(durationMs / 1000).toFixed(2)}s)`
       );
-      if (child.stderr) {
-        console.error(`     STDERR:\n${child.stderr.trim()}`);
-      }
       if (child.stdout) {
-        console.error(`     STDOUT:\n${child.stdout.trim()}`);
+        console.log("--- STDOUT ---");
+        console.log(child.stdout.trim());
       }
-      console.log("");
+      if (child.stderr) {
+        console.error("--- STDERR ---");
+        console.error(child.stderr.trim());
+      }
+      console.log("\n");
     }
   }
 
-  const totalDuration = ((Date.now() - startTime) / 1000).toFixed(2);
+  const totalDurationMs = Date.now() - startTime;
+  const passedCount = results.filter((r) => r.passed).length;
+  const failedCount = results.filter((r) => !r.passed).length;
 
   console.log("===============================================================");
   console.log("VERIFICATION AUDIT SUMMARY REPORT");
   console.log("===============================================================");
   for (const r of results) {
-    const mark = r.passed ? "[PASS]" : "[FAIL]";
-    const padName = r.name.padEnd(50, ".");
-    const padTime = `${(r.durationMs / 1000).toFixed(2)}s`.padStart(7, " ");
-    console.log(` ${mark} ${padName} ${padTime}`);
+    const statusTag = r.passed ? "[PASS]" : "[FAIL]";
+    const line = ` ${statusTag} ${r.name.padEnd(46, ".")} ${(r.durationMs / 1000).toFixed(2).padStart(6, " ")}s`;
+    console.log(line);
   }
   console.log("---------------------------------------------------------------");
-  console.log(` Total Suites: ${results.length}`);
-  console.log(` Passed:       ${results.filter((r) => r.passed).length}`);
-  console.log(` Failed:       ${results.filter((r) => !r.passed).length}`);
-  console.log(` Time Elapsed: ${totalDuration}s`);
+  console.log(` Total Suites: ${SUITES.length}`);
+  console.log(` Passed:       ${passedCount}`);
+  console.log(` Failed:       ${failedCount}`);
+  console.log(` Time Elapsed: ${(totalDurationMs / 1000).toFixed(2)}s`);
   console.log("===============================================================\n");
 
   if (!allPassed) {
-    console.error("Master verification FAILED. Please review errors above.");
+    console.error("Master verification FAILED! Please resolve the errors above before shipping.");
     process.exit(1);
+  } else {
+    console.log("Master verification SUCCEEDED! All systems verified production-ready.\n");
   }
-
-  console.log("Master verification SUCCEEDED! All systems verified production-ready.");
 }
 
-runMasterVerification();
+if (require.main === module || process.argv[1]?.includes("verify-all")) {
+  runMasterVerification();
+}
