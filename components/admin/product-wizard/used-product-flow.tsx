@@ -335,7 +335,8 @@ export function UsedProductFlow({
       }
     } catch (err) {
       console.error("Used device submit error:", err);
-      setErrorMessage(t("unexpectedError"));
+      const msg = err instanceof Error ? err.message : t("unexpectedError");
+      setErrorMessage(msg);
     } finally {
       setIsPending(false);
     }

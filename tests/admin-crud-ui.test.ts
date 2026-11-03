@@ -206,10 +206,10 @@ export function testAdminCrudUI(): {
     recordError("app/[locale]/admin/products/new/page.tsx does not exist");
   } else {
     const newPageContent = fs.readFileSync(newPagePath, "utf-8");
-    if (!newPageContent.includes("ProductPresetMatrixForm")) {
-      recordError("app/[locale]/admin/products/new/page.tsx does not render ProductPresetMatrixForm");
+    if (!newPageContent.includes("ProductCreationWizard")) {
+      recordError("app/[locale]/admin/products/new/page.tsx does not render ProductCreationWizard");
     } else {
-      recordCheck("app/[locale]/admin/products/new/page.tsx renders ProductPresetMatrixForm");
+      recordCheck("app/[locale]/admin/products/new/page.tsx renders ProductCreationWizard");
     }
   }
 

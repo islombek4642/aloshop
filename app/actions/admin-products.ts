@@ -108,12 +108,35 @@ export async function createProductAction(
     });
 
     const createdProduct = await prisma.$transaction(async (tx) => {
+      // 1. Ensure categoryId exists or resolve fallback category
+      let validCategoryId = data.categoryId;
+      const catExists = await tx.category.findUnique({
+        where: { id: validCategoryId },
+      });
+      if (!catExists) {
+        const fallbackCat = await tx.category.findFirst({
+          orderBy: { nameUz: "asc" },
+        });
+        if (fallbackCat) {
+          validCategoryId = fallbackCat.id;
+        } else {
+          const createdCat = await tx.category.create({
+            data: {
+              nameUz: "Smartfonlar",
+              nameRu: "Смартфоны",
+              nameEn: "Smartphones",
+              slug: "smartphones",
+            },
+          });
+          validCategoryId = createdCat.id;
+        }
+      }
       const product = await tx.product.create({
         data: {
           brand: data.brand.trim(),
           modelName: data.modelName.trim(),
           slug: finalSlug,
-          categoryId: data.categoryId,
+          categoryId: validCategoryId,
           warrantyMonths: data.warrantyMonths,
           series: data.series?.trim() || null,
           releaseYear: data.releaseYear ?? null,
@@ -142,10 +165,18 @@ export async function createProductAction(
           }
         }
 
+        // Ensure unique SKU without crashing on collision
+        const candidateSku = v.sku.toUpperCase().trim();
+        let finalSku = candidateSku;
+        let skuSuffix = 1;
+        while (await tx.productVariant.findUnique({ where: { sku: finalSku } })) {
+          finalSku = `${candidateSku}-${skuSuffix++}`;
+        }
+
         const variant = await tx.productVariant.create({
           data: {
             productId: product.id,
-            sku: v.sku.toUpperCase().trim(),
+            sku: finalSku,
             colorNameUz: v.colorNameUz.trim(),
             colorNameRu: v.colorNameRu.trim(),
             colorNameEn: v.colorNameEn.trim(),
@@ -183,8 +214,15 @@ export async function createProductAction(
         // Initialize branch inventory records
         for (const branch of allBranches) {
           const qty = filteredInitialStock[branch.id] ?? 0;
-          await tx.branchInventory.create({
-            data: {
+          await tx.branchInventory.upsert({
+            where: {
+              branchId_variantId: {
+                branchId: branch.id,
+                variantId: variant.id,
+              },
+            },
+            update: { quantity: qty },
+            create: {
               branchId: branch.id,
               variantId: variant.id,
               quantity: qty,

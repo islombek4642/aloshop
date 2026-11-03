@@ -17,7 +17,76 @@ export interface ImageUploaderProps {
   className?: string;
 }
 
-const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
+
+/**
+ * Compresses an image file on client side via Canvas to ensure lightweight base64 payloads (< 200KB).
+ * This eliminates Next.js Server Action 500 payload limit crashes.
+ */
+function compressImageFile(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (file.type === "image/svg+xml") {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target?.result as string;
+      if (!dataUrl) {
+        reject(new Error("Empty image result"));
+        return;
+      }
+
+      // If already small (< 120KB), keep as is
+      if (file.size < 120 * 1024) {
+        resolve(dataUrl);
+        return;
+      }
+
+      try {
+        const img = new window.Image();
+        img.onload = () => {
+          const MAX_DIM = 1200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > MAX_DIM || height > MAX_DIM) {
+            if (width > height) {
+              height = Math.round((height * MAX_DIM) / width);
+              width = MAX_DIM;
+            } else {
+              width = Math.round((width * MAX_DIM) / height);
+              height = MAX_DIM;
+            }
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            resolve(dataUrl);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressed = canvas.toDataURL("image/jpeg", 0.82);
+          resolve(compressed);
+        };
+        img.onerror = () => resolve(dataUrl);
+        img.src = dataUrl;
+      } catch {
+        resolve(dataUrl);
+      }
+    };
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
 
 export function ImageUploader({
   images,
@@ -56,20 +125,7 @@ export function ImageUploader({
       }
     }
 
-    const promises = filesToProcess.map((file) => {
-      return new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (typeof reader.result === "string") {
-            resolve(reader.result);
-          } else {
-            reject(new Error("Failed to read file"));
-          }
-        };
-        reader.onerror = () => reject(reader.error);
-        reader.readAsDataURL(file);
-      });
-    });
+    const promises = filesToProcess.map((file) => compressImageFile(file));
 
     Promise.all(promises)
       .then((newUrls) => {

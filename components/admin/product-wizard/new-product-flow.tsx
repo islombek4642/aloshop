@@ -345,7 +345,8 @@ export function NewProductFlow({
       }
     } catch (err) {
       console.error("Submit error:", err);
-      setErrorMessage(t("unexpectedError"));
+      const msg = err instanceof Error ? err.message : t("unexpectedError");
+      setErrorMessage(msg);
     } finally {
       setIsPending(false);
     }
