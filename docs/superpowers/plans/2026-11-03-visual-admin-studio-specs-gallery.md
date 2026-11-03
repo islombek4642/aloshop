@@ -41,19 +41,19 @@
 - Consumes: `SnapshotSpecsViewProps`
 - Produces: Vertical stacked cards with `min-h-[72px]`, zero label truncation, and full width values.
 
-- [ ] **Step 1: Update `tests/storefront-specs.test.ts` to assert stacked card layout**
+- [x] **Step 1: Update `tests/storefront-specs.test.ts` to assert stacked card layout**
 
 Add test assertions verifying:
 1. `SnapshotSpecsView` source contains `min-h-[72px]`.
 2. `SnapshotSpecsView` source contains `flex-col justify-between`.
 3. Does NOT contain `truncate` on labels.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npx tsx tests/storefront-specs.test.ts`
 Expected: FAIL
 
-- [ ] **Step 3: Implement stacked layout in `components/store/snapshot-specs-view.tsx`**
+- [x] **Step 3: Implement stacked layout in `components/store/snapshot-specs-view.tsx`**
 
 - Change each item container to:
   `className="flex min-h-[72px] flex-col justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40"`
@@ -64,12 +64,12 @@ Expected: FAIL
   `<span className="text-xs sm:text-sm font-bold text-foreground leading-snug break-words">{value}</span>`
 - Ensure no label or value uses `truncate`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npx tsx tests/storefront-specs.test.ts`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/store/snapshot-specs-view.tsx tests/storefront-specs.test.ts
@@ -88,16 +88,16 @@ git commit -m "feat(storefront): redesign hardware vitals with stacked non-trunc
 **Interfaces:**
 - Produces: Aggregated multi-image array passed to `ProductGallery` with swatch-to-index jump support.
 
-- [ ] **Step 1: Write failing test in `tests/storefront-gallery.test.ts`**
+- [x] **Step 1: Write failing test in `tests/storefront-gallery.test.ts`**
 
 Assert that image aggregation collects unique images across all product variants and that selecting a variant image index updates the active index.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npx tsx tests/storefront-gallery.test.ts`
 Expected: FAIL
 
-- [ ] **Step 3: Implement image aggregation and swatch focus**
+- [x] **Step 3: Implement image aggregation and swatch focus**
 
 - In `product-details-client.tsx`:
   Aggregate all unique images across all variants:
@@ -117,12 +117,12 @@ Expected: FAIL
 - In `product-gallery.tsx`:
   Support `initialIndex?: number` to sync with variant changes without resetting the carousel.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npx tsx tests/storefront-gallery.test.ts`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/store/product-details-client.tsx components/store/product-gallery.tsx tests/storefront-gallery.test.ts
@@ -140,27 +140,27 @@ git commit -m "feat(storefront): aggregate all variant images into multi-photo c
 **Interfaces:**
 - Produces: Resilient `createOrUpdateProductFromPresetAction` with isolated revalidation and zero 500 crashes.
 
-- [ ] **Step 1: Write test asserting robust error handling and isolated revalidation**
+- [x] **Step 1: Write test asserting robust error handling and isolated revalidation**
 
 In `tests/admin-crud-actions.test.ts`, test that invalid inputs or unexpected server conditions return `{ success: false, error: ... }` rather than throwing unhandled rejections.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npx tsx tests/admin-crud-actions.test.ts`
 Expected: FAIL
 
-- [ ] **Step 3: Implement hardening in `app/actions/admin-products.ts`**
+- [x] **Step 3: Implement hardening in `app/actions/admin-products.ts`**
 
 - Wrap `revalidatePath` inside `try...catch` and avoid full root revalidations (`/`) that crash RSC renders on Vercel.
 - Isolate revalidations: only revalidate `/admin/products` and `/catalog`.
 - Catch all transaction errors and return `{ success: false, error: err instanceof Error ? err.message : "failedToUpsert" }`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npx tsx tests/admin-crud-actions.test.ts`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/actions/admin-products.ts tests/admin-crud-actions.test.ts
@@ -178,7 +178,7 @@ git commit -m "fix(admin): harden preset upsert action with isolated path revali
 **Interfaces:**
 - Produces: Intuitive Visual Device Studio with Hero Passport preview and responsive card grid for variants.
 
-- [ ] **Step 1: Write test in `tests/admin-crud-ui.test.ts` asserting Visual Device Studio elements**
+- [x] **Step 1: Write test in `tests/admin-crud-ui.test.ts` asserting Visual Device Studio elements**
 
 Verify presence of:
 1. Device Passport with Hero Image (`currentPreset.colors[0]?.imageUrl`).
@@ -186,12 +186,12 @@ Verify presence of:
 3. Interactive variant cards grid (`grid-cols-1 md:grid-cols-2 xl:grid-cols-3`).
 4. Toggle states and price/stock inputs.
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `npx tsx tests/admin-crud-ui.test.ts`
 Expected: FAIL
 
-- [ ] **Step 3: Implement Visual Device Studio in `product-preset-matrix-form.tsx`**
+- [x] **Step 3: Implement Visual Device Studio in `product-preset-matrix-form.tsx`**
 
 - **Device Passport Block:**
   - Card with background gradient, showing phone hero image (`Image` component with priority, 180px height), model name, release year, warranty, and 4 hardware chips (Chipset, Camera, Screen, Battery).
@@ -204,12 +204,12 @@ Expected: FAIL
 - Quick actions: "Select All" / "Deselect All".
 - Prominent CTA button: "Mahsulotni do'konga joylash" (Save Product to Store).
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `npx tsx tests/admin-crud-ui.test.ts`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/admin/product-preset-matrix-form.tsx tests/admin-crud-ui.test.ts
@@ -224,12 +224,12 @@ git commit -m "feat(admin): build visual device studio with hero passport and in
 - Modify: `scripts/verify-all.ts`
 - Run: `npm run verify`
 
-- [ ] **Step 1: Run comprehensive verification**
+- [x] **Step 1: Run comprehensive verification**
 
 Run: `npm run verify`
 Expected: All 14 suites pass with 0 errors and strict TypeScript passes.
 
-- [ ] **Step 2: Commit and push**
+- [x] **Step 2: Commit and push**
 
 ```bash
 git add .
