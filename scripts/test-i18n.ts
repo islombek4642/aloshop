@@ -113,6 +113,23 @@ function runI18nParityTest(): void {
     }
   }
 
+  // 4. Required critical keys check
+  const REQUIRED_KEYS = [
+    "admin.usersManagement.users",
+  ];
+
+  for (const locale of LOCALES) {
+    const currentKeys = new Set(dictionaries[locale].map((e) => e.path));
+    for (const requiredKey of REQUIRED_KEYS) {
+      if (!currentKeys.has(requiredKey)) {
+        hasErrors = true;
+        console.error(
+          `[FAIL] Required key "${requiredKey}" is missing in "${locale}"`
+        );
+      }
+    }
+  }
+
   if (hasErrors) {
     console.error("\n[RESULT] i18n parity check FAILED with errors above.");
     process.exit(1);

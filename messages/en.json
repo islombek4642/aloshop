@@ -512,6 +512,7 @@
     },
     "usersManagement": {
       "title": "Users & Branch Managers",
+      "users": "Users",
       "subtitle": "Manage administrator accounts and branch manager assignments",
       "createNewUser": "Add Branch Admin",
       "username": "Username",

@@ -512,6 +512,7 @@
     },
     "usersManagement": {
       "title": "Foydalanuvchilar va filial menejerlari",
+      "users": "Foydalanuvchilar",
       "subtitle": "Filial administratorlari hisoblarini yaratish va boshqarish",
       "createNewUser": "Yangi filial admini",
       "username": "Foydalanuvchi nomi",
