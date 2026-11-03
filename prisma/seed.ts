@@ -1,6 +1,6 @@
 import { PrismaClient, UserRole, OrderFulfillment, OrderStatus, PaymentType } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { CATALOG_PRESETS, type CatalogPreset } from "../lib/catalog/presets";
+import { CATALOG_PRESETS, type CatalogPreset, generateSku } from "../lib/catalog/presets";
 import { getSuggestedPriceForModel } from "../lib/catalog/pricing";
 
 const prisma = new PrismaClient();
@@ -154,6 +154,7 @@ async function main() {
   let imeiCounter = 1000000;
   let firstVariantId: string | null = null;
   let firstVariantPrice = 0;
+  const usedSkus = new Set<string>();
 
   for (const preset of CATALOG_PRESETS) {
     const product = await prisma.product.create({
@@ -188,10 +189,16 @@ async function main() {
       );
 
       for (const color of preset.colors) {
-        const cleanColorCode = color.nameEn.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase();
-        const cleanModelCode = preset.modelName.replace(/[^A-Za-z0-9]/g, "").slice(0, 4).toUpperCase();
-        const cleanStorageCode = storage.replace(/\s+/g, "").replace(/GB$/, "");
-        const sku = `${cleanModelCode}-${cleanStorageCode}-${cleanColorCode}-${Math.floor(100 + Math.random() * 900)}`;
+
+
+
+        const baseSku = generateSku(preset.brand, preset.modelName, storage, color.nameEn);
+        let sku = baseSku;
+        let suffix = 1;
+        while (usedSkus.has(sku)) {
+          sku = `${baseSku}-${suffix++}`;
+        }
+        usedSkus.add(sku);
 
         const images = color.imageUrl ? [color.imageUrl] : ["/images/products/placeholder.webp"];
 
