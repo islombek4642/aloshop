@@ -70,6 +70,19 @@ export function testAdminCrudUI(): {
       recordCheck("product-preset-matrix-form.tsx includes model specs summary card");
     }
 
+    // Check for Visual Device Studio elements: Hero image and responsive cards grid
+    if (!matrixFormContent.includes("grid-cols-1 md:grid-cols-2 xl:grid-cols-3")) {
+      recordError("product-preset-matrix-form.tsx does not use responsive variant cards grid ('grid-cols-1 md:grid-cols-2 xl:grid-cols-3')");
+    } else {
+      recordCheck("product-preset-matrix-form.tsx uses responsive variant cards grid ('grid-cols-1 md:grid-cols-2 xl:grid-cols-3')");
+    }
+
+    if (!matrixFormContent.includes("imageUrl") || !matrixFormContent.includes("<Image")) {
+      recordError("product-preset-matrix-form.tsx missing Device Passport hero preview image");
+    } else {
+      recordCheck("product-preset-matrix-form.tsx includes Device Passport hero preview image");
+    }
+
     // Check for zero emojis
     const emojiRegex = /(?:[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u;
     if (emojiRegex.test(matrixFormContent)) {

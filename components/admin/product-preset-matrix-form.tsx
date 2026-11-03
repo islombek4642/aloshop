@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -31,14 +32,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
-import {
   createOrUpdateProductFromPresetAction,
   type PresetProductInput,
 } from "@/app/actions/admin-products";
@@ -50,6 +43,7 @@ import {
 } from "@/lib/catalog/presets";
 import { getSuggestedPriceForModel } from "@/lib/catalog/pricing";
 import { formatCurrency } from "@/lib/utils/format-currency";
+import { cn } from "@/lib/utils/cn";
 
 export interface BranchItem {
   id: string;
@@ -322,6 +316,8 @@ export function ProductPresetMatrixForm({
     return row.colorNameUz;
   };
 
+  const heroImage = currentPreset?.colors[0]?.imageUrl || "/images/products/placeholder.webp";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Header / Brand & Model Selection */}
@@ -399,9 +395,9 @@ export function ProductPresetMatrixForm({
         </div>
       </div>
 
-      {/* Model Hardware Specs Summary Card */}
+      {/* Visual Device Studio: Device Passport Hero Card */}
       {currentPreset && (
-        <Card className="shadow-xs border-border/80">
+        <Card className="shadow-xs border-border/80 overflow-hidden">
           <CardHeader className="py-3 px-5 border-b border-border/60 bg-muted/20">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -415,61 +411,83 @@ export function ProductPresetMatrixForm({
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="p-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-            <div className="p-2.5 rounded-lg bg-background border border-border/60 space-y-1">
-              <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
-                <Cpu className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-                <span>{t("processor")}</span>
+          <CardContent className="p-5">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              {/* Phone Hero Image Preview */}
+              <div className="relative h-44 w-36 shrink-0 rounded-2xl border border-border/60 bg-gradient-to-b from-muted/30 to-background p-2 flex items-center justify-center shadow-2xs">
+                <Image
+                  src={heroImage}
+                  alt={`${currentPreset.brand} ${currentPreset.modelName}`}
+                  fill
+                  priority
+                  sizes="144px"
+                  className="object-contain p-2"
+                />
               </div>
-              <p className="font-semibold text-foreground truncate" title={currentPreset.processor}>
-                {currentPreset.processor}
-              </p>
-            </div>
 
-            <div className="p-2.5 rounded-lg bg-background border border-border/60 space-y-1">
-              <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
-                <Camera className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-                <span>{t("camera")}</span>
-              </div>
-              <p className="font-semibold text-foreground truncate" title={currentPreset.camera}>
-                {currentPreset.camera}
-              </p>
-            </div>
+              {/* Hardware Specifications Chips */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1 w-full text-xs">
+                <div className="p-3 rounded-xl bg-background border border-border/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
+                    <Cpu className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{t("processor")}</span>
+                  </div>
+                  <p className="font-semibold text-foreground truncate" title={currentPreset.processor}>
+                    {currentPreset.processor}
+                  </p>
+                </div>
 
-            <div className="p-2.5 rounded-lg bg-background border border-border/60 space-y-1">
-              <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
-                <Smartphone className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-                <span>{t("display")}</span>
-              </div>
-              <p className="font-semibold text-foreground truncate" title={currentPreset.screenSize}>
-                {currentPreset.screenSize}
-              </p>
-            </div>
+                <div className="p-3 rounded-xl bg-background border border-border/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
+                    <Camera className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{t("camera")}</span>
+                  </div>
+                  <p className="font-semibold text-foreground truncate" title={currentPreset.camera}>
+                    {currentPreset.camera}
+                  </p>
+                </div>
 
-            <div className="p-2.5 rounded-lg bg-background border border-border/60 space-y-1">
-              <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
-                <Battery className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
-                <span>{t("battery")}</span>
+                <div className="p-3 rounded-xl bg-background border border-border/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
+                    <Smartphone className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{t("display")}</span>
+                  </div>
+                  <p className="font-semibold text-foreground truncate" title={currentPreset.screenSize}>
+                    {currentPreset.screenSize}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-background border border-border/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-muted-foreground text-[11px]">
+                    <Battery className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{t("battery")}</span>
+                  </div>
+                  <p className="font-semibold text-foreground truncate" title={currentPreset.battery}>
+                    {currentPreset.battery}
+                  </p>
+                </div>
               </div>
-              <p className="font-semibold text-foreground truncate" title={currentPreset.battery}>
-                {currentPreset.battery}
-              </p>
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Configuration Matrix Table */}
-      <div className="rounded-xl border border-border bg-card overflow-hidden shadow-xs">
-        {/* Table Toolbar */}
-        <div className="p-4 border-b border-border bg-muted/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      {/* Visual Device Studio: Interactive Variant Cards Grid */}
+      <div className="rounded-xl border border-border bg-card overflow-hidden shadow-xs space-y-4 p-5">
+        {/* Toolbar with Quick Select Actions */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-border/60">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-foreground">
-              {t("selectedCount", { count: includedCount })}
-            </span>
-            <span className="text-xs text-muted-foreground">
-              / {rows.length}
-            </span>
+            <input
+              type="checkbox"
+              checked={isAllSelected}
+              onChange={toggleAll}
+              id="select-all-checkbox"
+              aria-label={t("selectAll")}
+              className="w-4 h-4 rounded border-border text-primary cursor-pointer align-middle"
+            />
+            <label htmlFor="select-all-checkbox" className="text-xs font-semibold text-foreground cursor-pointer">
+              {t("selectedCount", { count: includedCount })} / {rows.length}
+            </label>
           </div>
 
           <div className="flex items-center gap-2">
@@ -478,7 +496,7 @@ export function ProductPresetMatrixForm({
               variant="outline"
               size="sm"
               onClick={handleSelectAll}
-              className="h-8 text-xs gap-1"
+              className="h-8 text-xs gap-1.5"
             >
               <CheckSquare className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{t("selectAll")}</span>
@@ -488,7 +506,7 @@ export function ProductPresetMatrixForm({
               variant="outline"
               size="sm"
               onClick={handleDeselectAll}
-              className="h-8 text-xs gap-1"
+              className="h-8 text-xs gap-1.5"
             >
               <Square className="w-3.5 h-3.5" aria-hidden="true" />
               <span>{t("deselectAll")}</span>
@@ -496,179 +514,133 @@ export function ProductPresetMatrixForm({
           </div>
         </div>
 
-        {/* Matrix Table */}
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="hover:bg-transparent bg-muted/40">
-                <TableHead className="w-12 text-center">
+        {/* Responsive Variant Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {rows.map((row) => (
+            <div
+              key={row.key}
+              className={cn(
+                "rounded-2xl border p-4 transition-all space-y-3.5 flex flex-col justify-between",
+                row.included
+                  ? "border-primary/50 bg-card shadow-xs ring-1 ring-primary/20"
+                  : "border-border/60 bg-muted/15 opacity-60 hover:opacity-85"
+              )}
+            >
+              {/* Variant Card Header */}
+              <div className="flex items-center justify-between gap-2 border-b border-border/50 pb-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <input
                     type="checkbox"
-                    checked={isAllSelected}
-                    onChange={toggleAll}
-                    aria-label={t("selectAll")}
+                    checked={row.included}
+                    onChange={() => handleToggleRow(row.key)}
+                    aria-label={`${getColorName(row)} ${row.storage}`}
                     className="w-4 h-4 rounded border-border text-primary cursor-pointer align-middle"
                   />
-                </TableHead>
-                <TableHead className="text-xs">{t("color")}</TableHead>
-                <TableHead className="text-xs">{t("storage")}</TableHead>
-                <TableHead className="text-xs">{t("price")}</TableHead>
-                {branches.map((b) => (
-                  <TableHead
-                    key={b.id}
-                    className="text-xs text-center min-w-[90px]"
-                  >
-                    {b.name}
-                  </TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.key}
-                  className={`transition-colors ${
-                    row.included ? "hover:bg-muted/40" : "opacity-45 bg-muted/10 hover:bg-muted/20"
-                  }`}
-                >
-                  {/* Inclusion Checkbox */}
-                  <TableCell className="w-12 text-center py-2.5">
-                    <input
-                      type="checkbox"
-                      checked={row.included}
-                      onChange={() => handleToggleRow(row.key)}
-                      aria-label={`${getColorName(row)} ${row.storage}`}
-                      className="w-4 h-4 rounded border-border text-primary cursor-pointer align-middle"
+                  <span
+                    className="w-4 h-4 rounded-full border border-black/20 shrink-0 shadow-2xs"
+                    style={{ backgroundColor: row.colorHex }}
+                    aria-hidden="true"
+                  />
+                  <span className="text-xs font-bold text-foreground truncate">
+                    {getColorName(row)}
+                  </span>
+                </div>
+                <Badge variant="secondary" className="font-mono text-xs font-bold px-2 py-0.5 shrink-0">
+                  {row.storage}
+                </Badge>
+              </div>
+
+              {/* Price & Stock Controls (Active when included) */}
+              {row.included ? (
+                <div className="space-y-3 pt-0.5">
+                  {/* Suggested Price Input */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-medium text-muted-foreground">{t("price")}</span>
+                      <span className="font-semibold text-primary">{formatCurrency(row.price)}</span>
+                    </div>
+                    <Input
+                      type="number"
+                      value={row.price || ""}
+                      onChange={(e) => handlePriceChange(row.key, Number(e.target.value))}
+                      placeholder="0"
+                      className="h-8 text-xs font-mono"
                     />
-                  </TableCell>
+                  </div>
 
-                  {/* Color dot + localized name */}
-                  <TableCell className="text-xs py-2.5 font-medium">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="w-3.5 h-3.5 rounded-full border border-black/20 shrink-0 shadow-2xs"
-                        style={{ backgroundColor: row.colorHex }}
-                        aria-hidden="true"
-                      />
-                      <span>{getColorName(row)}</span>
+                  {/* Branch Stock Allocation Inputs */}
+                  <div className="space-y-1.5 pt-1 border-t border-border/40">
+                    <span className="text-[11px] font-medium text-muted-foreground block">
+                      {t("stock")}
+                    </span>
+                    <div className="grid grid-cols-2 gap-2">
+                      {branches.map((b) => (
+                        <div key={b.id} className="space-y-0.5">
+                          <span className="text-[10px] text-muted-foreground truncate block" title={b.name}>
+                            {b.name}
+                          </span>
+                          <Input
+                            type="number"
+                            min="0"
+                            value={row.stock[b.id] ?? 0}
+                            onChange={(e) => handleStockChange(row.key, b.id, Number(e.target.value))}
+                            className="h-7 text-xs font-mono text-center"
+                          />
+                        </div>
+                      ))}
                     </div>
-                  </TableCell>
-
-                  {/* Storage Badge */}
-                  <TableCell className="text-xs py-2.5">
-                    <Badge variant="outline" className="font-mono text-[11px] font-semibold">
-                      {row.storage}
-                    </Badge>
-                  </TableCell>
-
-                  {/* Price input */}
-                  <TableCell className="text-xs py-2.5">
-                    <div className="space-y-0.5">
-                      <Input
-                        type="number"
-                        min={0}
-                        step={100000}
-                        disabled={!row.included}
-                        value={row.price}
-                        onChange={(e) =>
-                          handlePriceChange(row.key, Number(e.target.value))
-                        }
-                        className="h-8 w-36 text-xs font-mono font-semibold"
-                      />
-                      <span className="text-[10px] text-muted-foreground block font-mono">
-                        {formatCurrency(row.price)}
-                      </span>
-                    </div>
-                  </TableCell>
-
-                  {/* Stock inputs per active branch */}
-                  {branches.map((b) => {
-                    const isEditable = isSuperAdmin || b.id === branchId;
-                    return (
-                      <TableCell key={b.id} className="text-xs py-2.5 text-center">
-                        <Input
-                          type="number"
-                          min={0}
-                          step={1}
-                          disabled={!row.included || !isEditable}
-                          value={row.stock[b.id] ?? 0}
-                          onChange={(e) =>
-                            handleStockChange(row.key, b.id, Number(e.target.value))
-                          }
-                          className="h-8 w-20 text-xs font-mono text-center mx-auto"
-                        />
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-
-        {/* Status Banners */}
-        {errorMessage && (
-          <div className="p-3 bg-destructive/10 border-t border-destructive/20 text-destructive text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
-            <span>{errorMessage}</span>
-          </div>
-        )}
-
-        {successMessage && (
-          <div className="p-3 bg-emerald-500/10 border-t border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0" aria-hidden="true" />
-            <span>{successMessage}</span>
-          </div>
-        )}
-
-        {/* Bottom Save Action Bar */}
-        <div className="p-4 border-t border-border bg-muted/20 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="text-xs text-muted-foreground">
-            {t("selectedCount", { count: includedCount })} &bull;{" "}
-            {includedCount > 0 ? (
-              <span className="text-foreground font-medium">
-                {t("saveProduct")}
-              </span>
-            ) : (
-              <span className="text-destructive font-medium">
-                {t("validationAtLeastOne")}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Link href="/admin/products">
-              <Button
-                variant="outline"
-                size="sm"
-                type="button"
-                className="h-9 text-xs"
-                disabled={isSubmitting}
-              >
-                {tCommon("cancel")}
-              </Button>
-            </Link>
-
-            <Button
-              type="submit"
-              size="sm"
-              disabled={isSubmitting || includedCount === 0}
-              className="h-9 gap-1.5 text-xs font-semibold px-4"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
-                  <span>{t("saving")}</span>
-                </>
+                  </div>
+                </div>
               ) : (
-                <>
-                  <Save className="w-4 h-4" aria-hidden="true" />
-                  <span>{t("saveProduct")}</span>
-                </>
+                <div className="py-6 text-center text-xs text-muted-foreground/70">
+                  <span>{t("disabledNotice") || "Variant tanlanmagan"}</span>
+                </div>
               )}
-            </Button>
-          </div>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* Messages */}
+      {errorMessage && (
+        <div className="p-3.5 rounded-xl border border-destructive/20 bg-destructive/10 text-destructive flex items-center gap-2 text-xs">
+          <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="p-3.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center gap-2 text-xs">
+          <CheckCircle2 className="w-4 h-4 shrink-0" aria-hidden="true" />
+          <span>{successMessage}</span>
+        </div>
+      )}
+
+      {/* Form Submission Actions */}
+      <div className="flex items-center justify-end gap-3 pt-2">
+        <Link href="/admin/products">
+          <Button variant="outline" type="button" disabled={isSubmitting} className="h-10 text-xs">
+            {tCommon("cancel")}
+          </Button>
+        </Link>
+
+        <Button
+          type="submit"
+          disabled={isSubmitting || includedCount === 0}
+          className="h-10 px-5 text-xs gap-1.5 font-bold"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+              <span>{t("saving")}</span>
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4" aria-hidden="true" />
+              <span>{t("saveProduct")}</span>
+            </>
+          )}
+        </Button>
       </div>
     </form>
   );
