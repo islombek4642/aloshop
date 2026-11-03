@@ -411,7 +411,7 @@ export function ProductPresetMatrixForm({
                 </CardTitle>
               </div>
               <Badge variant="outline" className="text-[11px] font-mono">
-                {currentPreset.releaseYear} &bull; {currentPreset.warrantyMonths} oy kafolat
+                {currentPreset.releaseYear} &bull; {t("warrantyMonths", { count: currentPreset.warrantyMonths })}
               </Badge>
             </div>
           </CardHeader>

@@ -496,7 +496,7 @@ export function ProductsListView({
                 {productToDelete.brand} {productToDelete.modelName}
               </div>
               <div className="text-[11px] text-muted-foreground">
-                {productToDelete.variants.length} ta variant &bull; {productToDelete.totalStock} dona qoldiq
+                {t("deleteProductMeta", { variants: productToDelete.variants.length, stock: productToDelete.totalStock })}
               </div>
             </div>
           )}

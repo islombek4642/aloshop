@@ -372,6 +372,7 @@
       "deleteSuccess": "Mahsulot muvaffaqiyatli o'chirildi",
       "deleteError": "Mahsulotni o'chirishda xatolik yuz berdi",
       "cannotDeleteOrders": "Faol buyurtmalari mavjud bo'lgan mahsulotni o'chirib bo'lmaydi",
+      "deleteProductMeta": "{variants} ta variant • {stock} dona qoldiq",
       "deleting": "O'chirilmoqda..."
     },
     "productMatrix": {
@@ -382,6 +383,7 @@
       "allBrands": "Barcha brendlar",
       "chooseModelNotice": "Matritsani ko'rish uchun smartfon modelini tanlang",
       "specsSummary": "Texnik parametrlar",
+      "warrantyMonths": "{count} oy kafolat",
       "processor": "Protsessor",
       "camera": "Kamera",
       "display": "Ekran",

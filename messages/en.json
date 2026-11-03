@@ -372,6 +372,7 @@
       "deleteSuccess": "Product deleted successfully",
       "deleteError": "Failed to delete product",
       "cannotDeleteOrders": "Cannot delete product with active unfulfilled orders",
+      "deleteProductMeta": "{variants} variants • {stock} in stock",
       "deleting": "Deleting..."
     },
     "productMatrix": {
@@ -382,6 +383,7 @@
       "allBrands": "All Brands",
       "chooseModelNotice": "Select a smartphone model to view the configuration matrix",
       "specsSummary": "Hardware Specifications",
+      "warrantyMonths": "{count} months warranty",
       "processor": "Processor",
       "camera": "Camera",
       "display": "Display",

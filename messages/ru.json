@@ -372,6 +372,7 @@
       "deleteSuccess": "Товар успешно удален",
       "deleteError": "Ошибка при удалении товара",
       "cannotDeleteOrders": "Нельзя удалить товар с активными заказами",
+      "deleteProductMeta": "{variants} вариантов • {stock} шт. остаток",
       "deleting": "Удаление..."
     },
     "productMatrix": {
@@ -382,6 +383,7 @@
       "allBrands": "Все бренды",
       "chooseModelNotice": "Выберите модель смартфона для отображения матрицы",
       "specsSummary": "Технические характеристики",
+      "warrantyMonths": "{count} мес. гарантия",
       "processor": "Процессор",
       "camera": "Камера",
       "display": "Экран",
