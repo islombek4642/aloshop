@@ -78,3 +78,4 @@ export function syncProductAssets(): {
 if (require.main === module || process.argv[1]?.includes("sync-product-assets")) {
   syncProductAssets();
 }
+

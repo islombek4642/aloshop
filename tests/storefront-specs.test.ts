@@ -103,3 +103,4 @@ if (require.main === module || process.argv[1]?.includes("storefront-specs.test"
     process.exit(1);
   }
 }
+

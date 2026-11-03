@@ -1,3 +1,4 @@
+import { CATALOG_PRESETS } from "@/lib/catalog/presets";
 /**
  * Hardware specifications helper for AloShop.
  * Strict TypeScript mode: no `any`, zero Unicode emojis, localized formatting support.
@@ -232,7 +233,19 @@ export function inferDefaultRam(
   const cleanModel = (modelName || "").trim().toLowerCase();
   const normalizedStorage = (storage || "").trim().toUpperCase();
 
-  // 1. Check known devices catalogue
+  // 1. Check verified official presets
+  const presetMatch = CATALOG_PRESETS.find(
+    (p) =>
+      p.brand.toLowerCase() === cleanBrand &&
+      (p.modelName.toLowerCase() === cleanModel ||
+       cleanModel.includes(p.modelName.toLowerCase()) ||
+       p.modelName.toLowerCase().includes(cleanModel))
+  );
+  if (presetMatch && presetMatch.ram) {
+    return presetMatch.ram;
+  }
+
+  // 2. Check legacy known devices catalogue
   const matched = KNOWN_DEVICES.find(
     (d) =>
       d.brand.toLowerCase() === cleanBrand &&
@@ -295,6 +308,24 @@ export function inferDefaultRam(
 export function getDeviceVitals(brand: string, modelName: string): DeviceVitals {
   const cleanBrand = (brand || "").trim().toLowerCase();
   const cleanModel = (modelName || "").trim().toLowerCase();
+
+  // 1. Check verified official presets
+  const preset = CATALOG_PRESETS.find(
+    (p) =>
+      p.brand.toLowerCase() === cleanBrand &&
+      (p.modelName.toLowerCase() === cleanModel ||
+       cleanModel.includes(p.modelName.toLowerCase()) ||
+       p.modelName.toLowerCase().includes(cleanModel))
+  );
+
+  if (preset) {
+    return {
+      screenSize: preset.screenSize,
+      processor: preset.processor,
+      battery: preset.battery,
+      defaultRam: preset.ram || "8GB",
+    };
+  }
 
   const matched = KNOWN_DEVICES.find(
     (d) =>

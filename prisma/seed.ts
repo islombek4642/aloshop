@@ -162,7 +162,7 @@ async function main() {
           price: 13800000,
           oldPrice: 14500000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 1 },
         },
@@ -178,7 +178,7 @@ async function main() {
           price: 15200000,
           oldPrice: 16000000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 5, chilonzor: 3, biy: 2 },
         },
@@ -194,7 +194,7 @@ async function main() {
           price: 17500000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 2, chilonzor: 1, biy: 0 },
         },
@@ -210,7 +210,7 @@ async function main() {
           price: 13800000,
           oldPrice: 14500000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 3, chilonzor: 2, biy: 1 },
         },
@@ -226,7 +226,7 @@ async function main() {
           price: 15200000,
           oldPrice: 16000000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 2 },
         },
@@ -242,7 +242,7 @@ async function main() {
           price: 13800000,
           oldPrice: 14500000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 3, chilonzor: 1, biy: 1 },
         },
@@ -258,7 +258,7 @@ async function main() {
           price: 15200000,
           oldPrice: 16000000,
           images: [
-            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15-pro/images/natural-titanium.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 0 },
         },
@@ -292,7 +292,7 @@ async function main() {
           price: 10200000,
           oldPrice: 10800000,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 6, chilonzor: 3, biy: 2 },
         },
@@ -308,7 +308,7 @@ async function main() {
           price: 11600000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 1 },
         },
@@ -324,7 +324,7 @@ async function main() {
           price: 10200000,
           oldPrice: 10800000,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 3, chilonzor: 2, biy: 0 },
         },
@@ -340,7 +340,7 @@ async function main() {
           price: 11600000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 2, chilonzor: 1, biy: 1 },
         },
@@ -356,7 +356,7 @@ async function main() {
           price: 10200000,
           oldPrice: 10800000,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 5, chilonzor: 4, biy: 3 },
         },
@@ -372,7 +372,7 @@ async function main() {
           price: 11600000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
+            "/images/products/apple/iphone-15/iphone-15/images/black.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 2 },
         },
@@ -406,7 +406,7 @@ async function main() {
           price: 14200000,
           oldPrice: 15000000,
           images: [
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
+            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
           ],
           inventory: { malika: 5, chilonzor: 3, biy: 2 },
         },
@@ -422,7 +422,7 @@ async function main() {
           price: 16100000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
+            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
           ],
           inventory: { malika: 3, chilonzor: 1, biy: 1 },
         },
@@ -438,7 +438,7 @@ async function main() {
           price: 14200000,
           oldPrice: 15000000,
           images: [
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
+            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
           ],
           inventory: { malika: 4, chilonzor: 2, biy: 2 },
         },
@@ -454,7 +454,7 @@ async function main() {
           price: 16100000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
+            "/images/products/samsung/galaxy-s/galaxy-s25-ultra/images/phantom-black-thumb.png",
           ],
           inventory: { malika: 2, chilonzor: 1, biy: 0 },
         },
@@ -488,7 +488,7 @@ async function main() {
           price: 8900000,
           oldPrice: 9500000,
           images: [
-            "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
+            "/images/products/placeholder.webp",
           ],
           inventory: { malika: 4, chilonzor: 3, biy: 1 },
         },
@@ -504,7 +504,7 @@ async function main() {
           price: 9900000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
+            "/images/products/placeholder.webp",
           ],
           inventory: { malika: 3, chilonzor: 1, biy: 0 },
         },
@@ -520,7 +520,7 @@ async function main() {
           price: 8900000,
           oldPrice: 9500000,
           images: [
-            "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
+            "/images/products/placeholder.webp",
           ],
           inventory: { malika: 3, chilonzor: 2, biy: 1 },
         },
@@ -536,7 +536,7 @@ async function main() {
           price: 9900000,
           oldPrice: null,
           images: [
-            "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
+            "/images/products/placeholder.webp",
           ],
           inventory: { malika: 2, chilonzor: 1, biy: 1 },
         },

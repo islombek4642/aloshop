@@ -121,3 +121,4 @@ if (require.main === module || process.argv[1]?.includes("catalog-presets.test")
     process.exit(1);
   }
 }
+

@@ -86,3 +86,4 @@ if (require.main === module || process.argv[1]?.includes("static-assets.test")) 
     process.exit(1);
   }
 }
+

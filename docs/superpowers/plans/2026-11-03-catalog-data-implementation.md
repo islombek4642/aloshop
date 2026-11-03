@@ -355,3 +355,4 @@ Expected: 0 errors.
 git add scripts/verify-all.ts
 git commit -m "chore: integrate catalog and asset suites into master verification"
 ```
+

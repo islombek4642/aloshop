@@ -330,3 +330,4 @@ export const CATALOG_PRESETS: CatalogPreset[] = ${JSON.stringify(presets, null, 
 if (require.main === module || process.argv[1]?.includes("generate-catalog-presets")) {
   writePresetsDataFile();
 }
+

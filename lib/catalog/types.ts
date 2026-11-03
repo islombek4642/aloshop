@@ -28,3 +28,4 @@ export interface CatalogPreset {
   colors: CatalogPresetColor[];
   storageOptions: string[];
 }
+

@@ -1,6 +1,7 @@
 import { CATALOG_PRESETS } from "./presets-data";
 import type { CatalogPreset, CatalogPresetColor } from "./types";
 
+export { CATALOG_PRESETS };
 export type { CatalogPreset, CatalogPresetColor };
 
 /**

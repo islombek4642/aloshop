@@ -9,6 +9,7 @@ import { ProductCard, type ProductCardData } from "@/components/store/product-ca
 import { FilterSidebar, type FilterBranch } from "@/components/store/filter-sidebar";
 import { prisma } from "@/lib/db/prisma";
 import { inferDefaultRam } from "@/lib/utils/specs";
+import { getAllFallbackProducts } from "@/lib/catalog/store-fallbacks";
 
 export const dynamic = "force-dynamic";
 
@@ -29,199 +30,6 @@ const FALLBACK_BRANCHES: FilterBranch[] = [
   { id: "b1", name: "Malika Filiali", slug: "malika" },
   { id: "b2", name: "Chilonzor Filiali", slug: "chilonzor" },
   { id: "b3", name: "Buyuk Ipak Yo'li Filiali", slug: "buyuk-ipak-yoli" },
-];
-
-const FALLBACK_CATALOG: ProductCardData[] = [
-  {
-    id: "fb-1",
-    brand: "Apple",
-    modelName: "iPhone 15 Pro",
-    slug: "iphone-15-pro",
-    warrantyMonths: 12,
-    screenSize: '6.1" Super Retina XDR OLED (120Hz ProMotion)',
-    processor: "Apple A17 Pro (3nm)",
-    battery: "3274 mAh",
-    variants: [
-      {
-        id: "fb-v1",
-        sku: "IP15P-128-NAT",
-        colorNameUz: "Tabiiy titan",
-        colorHex: "#9A958E",
-        ram: "8GB",
-        storage: "128GB",
-        condition: "NEW",
-        price: 14850000,
-        oldPrice: 15500000,
-        images: [
-          "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 3, branch: { name: "Malika", slug: "malika" } },
-        ],
-      },
-      {
-        id: "fb-v2",
-        sku: "IP15P-256-BLK",
-        colorNameUz: "Qora titan",
-        colorHex: "#393836",
-        ram: "8GB",
-        storage: "256GB",
-        condition: "NEW",
-        price: 16200000,
-        oldPrice: null,
-        images: [
-          "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 2, branch: { name: "Chilonzor", slug: "chilonzor" } },
-        ],
-      },
-    ],
-  },
-  {
-    id: "fb-2",
-    brand: "Apple",
-    modelName: "iPhone 15",
-    slug: "iphone-15",
-    warrantyMonths: 12,
-    screenSize: '6.1" Super Retina XDR OLED',
-    processor: "Apple A16 Bionic (4nm)",
-    battery: "3349 mAh",
-    variants: [
-      {
-        id: "fb-v3",
-        sku: "IP15-128-BLK",
-        colorNameUz: "Qora",
-        colorHex: "#34393D",
-        ram: "6GB",
-        storage: "128GB",
-        condition: "NEW",
-        price: 10450000,
-        oldPrice: 11000000,
-        images: [
-          "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 5, branch: { name: "Malika", slug: "malika" } },
-        ],
-      },
-      {
-        id: "fb-v4",
-        sku: "IP15-256-BLU",
-        colorNameUz: "Moviy",
-        colorHex: "#D0DCE5",
-        ram: "6GB",
-        storage: "256GB",
-        condition: "NEW",
-        price: 11800000,
-        oldPrice: null,
-        images: [
-          "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          {
-            quantity: 4,
-            branch: { name: "Buyuk Ipak Yo'li", slug: "buyuk-ipak-yoli" },
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "fb-3",
-    brand: "Samsung",
-    modelName: "Galaxy S24 Ultra",
-    slug: "galaxy-s24-ultra",
-    warrantyMonths: 12,
-    screenSize: '6.8" Dynamic AMOLED 2X (120Hz)',
-    processor: "Snapdragon 8 Gen 3 for Galaxy (4nm)",
-    battery: "5000 mAh",
-    variants: [
-      {
-        id: "fb-v5",
-        sku: "S24U-256-GRY",
-        colorNameUz: "Titan kulrang",
-        colorHex: "#686866",
-        ram: "12GB",
-        storage: "256GB",
-        condition: "NEW",
-        price: 15200000,
-        oldPrice: 16000000,
-        images: [
-          "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 2, branch: { name: "Malika", slug: "malika" } },
-        ],
-      },
-      {
-        id: "fb-v6",
-        sku: "S24U-512-BLK",
-        colorNameUz: "Titan qora",
-        colorHex: "#2C2C2B",
-        ram: "12GB",
-        storage: "512GB",
-        condition: "NEW",
-        price: 17100000,
-        oldPrice: null,
-        images: [
-          "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 3, branch: { name: "Chilonzor", slug: "chilonzor" } },
-        ],
-      },
-    ],
-  },
-  {
-    id: "fb-4",
-    brand: "Xiaomi",
-    modelName: "Xiaomi 14",
-    slug: "xiaomi-14",
-    warrantyMonths: 12,
-    screenSize: '6.36" LTPO OLED (120Hz)',
-    processor: "Snapdragon 8 Gen 3 (4nm)",
-    battery: "4610 mAh",
-    variants: [
-      {
-        id: "fb-v7",
-        sku: "MI14-256-BLK",
-        colorNameUz: "Qora",
-        colorHex: "#1F1F1F",
-        ram: "12GB",
-        storage: "256GB",
-        condition: "NEW",
-        price: 8900000,
-        oldPrice: 9400000,
-        images: [
-          "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          { quantity: 6, branch: { name: "Malika", slug: "malika" } },
-        ],
-      },
-      {
-        id: "fb-v8",
-        sku: "MI14-512-WHT",
-        colorNameUz: "Oq",
-        colorHex: "#F2F2F2",
-        ram: "12GB",
-        storage: "512GB",
-        condition: "NEW",
-        price: 9900000,
-        oldPrice: null,
-        images: [
-          "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80",
-        ],
-        inventory: [
-          {
-            quantity: 3,
-            branch: { name: "Buyuk Ipak Yo'li", slug: "buyuk-ipak-yoli" },
-          },
-        ],
-      },
-    ],
-  },
 ];
 
 async function getBranches(): Promise<FilterBranch[]> {
@@ -464,7 +272,7 @@ export default async function CatalogPage({
     }
   } catch {
     // If DB is offline or not migrated yet, use fallback filter engine
-    products = filterFallbackProducts(FALLBACK_CATALOG, queryParams);
+    products = filterFallbackProducts(getAllFallbackProducts(), queryParams);
   }
 
   const availableBrands = ["Apple", "Samsung", "Xiaomi"];
