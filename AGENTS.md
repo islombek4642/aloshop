@@ -95,4 +95,41 @@ Loyiha qatlamlari bir-biridan aniq ajratilishi shart:
 ### 5.5. Xavfsiz HTTP Sarlavhalari (Security Headers)
 - Next.js sozlamalarida `X-Frame-Options: DENY` (Clickjacking himoyasi), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` majburiy qilib o'rnatiladi.
 
+---
+
+## 6. Inson-Markazli Dizayn va Foydalanish Qulayligi Standartlari (Human-Centered UI/UX)
+
+AloShop oddiy xaridorlar (shu jumladan texnologiyani chuqur tushunmaydigan katta yoshdagi fuqarolar) uchun yaratilmoqda. AI agentlar har qanday interfeysni loyihalashda quyidagi qonuniyatlarga so'zsiz rioya qilishi shart:
+
+### 6.1. Jakob Qonuni va O'rnatilgan Mental Modellar (Zero Weird Layouts)
+- Foydalanuvchilar o'rgangan umumiy internet standartlaridan chetga chiqilmaydi.
+- Savatcha har doim o'ng yuqori burchakda yoki mobil pastki menyuda bo'ladi.
+- Qidiruv paneli ko'zga darhol tashlanadigan markaziy yoki yuqori o'rinda joylashadi.
+- Kutilmagan va g'alati navigatsiya mantiqlarini to'qib chiqarish qat'iyan taqiqlanadi.
+
+### 6.2. Mobil Bosh Barmoq Zonasi (Fitts's Law & Thumb Zone)
+- Asosiy harakat tugmalari (CTA: "Xarid qilish", "Filialdan olish", "Buyurtmani tasdiqlash") mobil ekranning pastki qismida, bir qo'l bilan bosh barmoq orqali qulay bosiladigan maydonda joylashadi.
+- Barcha bosiladigan elementlarning sensor maydoni (touch target) kamida 44x44px o'lchamda bo'lishi shart.
+- Mayda, bir-biriga yopishib ketgan va xato bosilish ehtimoli yuqori bo'lgan tugmalar taqiqlanadi.
+
+### 6.3. Hik Qonuni va Kognitiv Soddalik (Don't Make Me Think)
+- Foydalanuvchiga bir ekranda ortiqcha tanlov va ma'lumotlar uyumi berilmaydi.
+- Mahsulot kartasida faqat 4 ta asosiy narsa birinchi o'rinda turadi: Tovar surati, Aniq to'liq nomi, Narxi va Bosh harakat tugmasi.
+- Murakkab texnik parametrlar (Display PPI, Bluetooth versiyasi va h.k.) dastlab yashiriladi va "Barcha xususiyatlar" orqali bosqichma-bosqich ochiladi (Progressive Disclosure).
+
+### 6.4. Qat'iy Holat Aloqasi (Instant Visual Feedback & Zero Blind Clicks)
+- Har qanday bosish, so'rov yuborish yoki holat o'zgarishi foydalanuvchiga 100ms ichida vizual sezilishi shart:
+  - Tugma bosilganda yuklanish animatsiyasi (Loading state) va tugma qayta bosilmasligi uchun bloklanishi (`disabled`).
+  - Ma'lumot yuklanayotganda bo'sh oq sahifa emas, skeleton (xira kontur) ko'rsatilishi.
+  - Savatchaga mahsulot qo'shilganda darhol bildirishnoma (Toast / Badge soni oshishi).
+
+### 6.5. O'zbekiston Bozoriga Xos Mahalliy Foydalanish Odatlari
+- **Minimal ro'yxatdan o'tish to'sig'i:** Murakkab email, parol yoki 10 ta maydondan iborat ro'yxatdan o'tish formasi taqiqlanadi. Buyurtma berish uchun faqat Ism va Telefon raqami (`+998...`) kifoya qilishi kerak (1-bosqichli tezkor xarid).
+- **Filial mavjudligining ochiqligi:** Xaridor telefon qaysi do'konda borligini sahifadan chiqmasdan ko'rishi shart (masalan: "Malika filialida 2 dona bor").
+- **Tushunarli xalqona til:** Quruq texnik yoki dasturchi jargonlari ishlatilmaydi ("Xatolik 404", "Fetch failed" o'rniga "Kechirasiz, mahsulot topilmadi" yoki "Internet aloqasini tekshiring").
+
+### 6.6. Bo'sh Holatlar va Xatoliklar (Empty States & Recovery)
+- Hech bir sahifa "shunchaki bo'sh" ko'rinishda qolmasligi shart (masalan: Savatcha bo'sh bo'lsa, faqat "Bo'sh" demasdan, xaridorni katalogga qaytaruvchi "Mahsulotlarni ko'rish" tugmasi beriladi).
+- Formada xato kiritilganda butun sahifa tozalanmaydi, aynan qaysi maydonda qanday xato borligi qizil matn bilan aniq ko'rsatiladi.
+
 

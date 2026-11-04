@@ -90,6 +90,16 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "admin-product-wizard.test.ts")}"`,
   },
   {
+    id: "clean-apple-backgrounds",
+    name: "Apple PNG Background Transparency Suite",
+    command: `npx tsx "${path.join("tests", "clean-apple-backgrounds.test.ts")}"`,
+  },
+  {
+    id: "product-card-carousel",
+    name: "Catalog Product Card Hover Carousel Suite",
+    command: `npx tsx "${path.join("tests", "product-card-carousel.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
