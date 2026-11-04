@@ -324,7 +324,7 @@ export function ProductCard({
               alt={`${product.brand} ${product.modelName}`}
               fill
               sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 25vw"
-              className="object-contain p-1.5 sm:p-2 transition-transform duration-300 group-hover:scale-105"
+              className="object-contain p-1.5 sm:p-2 transition-transform duration-300 group-hover:scale-105 [image-rendering:-webkit-optimize-contrast]"
               onError={() => setImageError(true)}
             />
           ) : (

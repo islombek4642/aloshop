@@ -82,11 +82,6 @@ export function ProductGallery({
   const [selectedIndex, setSelectedIndex] = React.useState(initialIndex ?? 0);
   const [isPaused, setIsPaused] = React.useState(false);
   const [imageErrors, setImageErrors] = React.useState<Record<number, boolean>>({});
-  const [timerResetKey, setTimerResetKey] = React.useState(0);
-
-  const resetTimer = React.useCallback(() => {
-    setTimerResetKey((prev) => prev + 1);
-  }, []);
 
   const touchStartX = React.useRef<number | null>(null);
   const touchEndX = React.useRef<number | null>(null);
@@ -106,9 +101,8 @@ export function ProductGallery({
       initialIndex < safeImages.length
     ) {
       setSelectedIndex(initialIndex);
-      resetTimer();
     }
-  }, [initialIndex, safeImages.length, resetTimer]);
+  }, [initialIndex, safeImages.length]);
 
   // Reset selected index if current index is out of bounds
   React.useEffect(() => {
@@ -118,20 +112,7 @@ export function ProductGallery({
     setImageErrors({});
   }, [safeImages.length, selectedIndex]);
 
-  // Auto-advance carousel timer every 4 seconds
-  React.useEffect(() => {
-    if (safeImages.length <= 1 || isPaused) {
-      return;
-    }
 
-    const timer = setInterval(() => {
-      setSelectedIndex((prev) => getNextGalleryIndex(prev, safeImages.length));
-    }, CAROUSEL_AUTOPLAY_INTERVAL_MS);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [safeImages.length, isPaused, selectedIndex, timerResetKey]);
 
   const handleImageError = (index: number) => {
     setImageErrors((prev) => ({ ...prev, [index]: true }));
@@ -152,7 +133,6 @@ export function ProductGallery({
 
   const handleTouchEnd = () => {
     setIsPaused(false);
-    resetTimer();
 
     if (
       touchStartX.current === null ||
@@ -197,19 +177,16 @@ export function ProductGallery({
     if (selectedIndex > 0) {
       setSelectedIndex((prev) => prev - 1);
     }
-    resetTimer();
   };
 
   const handleNext = () => {
     if (selectedIndex < safeImages.length - 1) {
       setSelectedIndex((prev) => prev + 1);
     }
-    resetTimer();
   };
 
   const handleSelectThumbnail = (index: number) => {
     setSelectedIndex(index);
-    resetTimer();
   };
 
   return (
@@ -254,8 +231,9 @@ export function ProductGallery({
               alt={`${alt} - ${selectedIndex + 1}`}
               fill
               priority
+              quality={95}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className="object-contain p-2 transition-transform duration-300 hover:scale-105"
+              className="object-contain p-2 transition-transform duration-300 hover:scale-105 [image-rendering:-webkit-optimize-contrast]"
               onError={() => handleImageError(selectedIndex)}
             />
           </div>
@@ -342,7 +320,7 @@ export function ProductGallery({
                     alt=""
                     fill
                     sizes="64px"
-                    className="object-contain p-1 rounded-lg"
+                    className="object-contain p-1 rounded-lg [image-rendering:-webkit-optimize-contrast]"
                     onError={() => handleImageError(idx)}
                   />
                 ) : (
