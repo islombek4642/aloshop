@@ -30,6 +30,62 @@ export interface ProductCardVariant {
   }[];
 }
 
+export const CAROUSEL_INTERVAL_MS = 3000;
+export const MIN_SWIPE_DISTANCE_PX = 30;
+
+export interface CardImageItem {
+  url: string;
+  colorHex: string;
+  variantIndex: number;
+}
+
+/**
+ * Extracts unique photos across product variants with their associated color and variant index.
+ */
+export function extractCardImages(variants: ProductCardVariant[]): CardImageItem[] {
+  if (!Array.isArray(variants) || variants.length === 0) return [];
+  const items: CardImageItem[] = [];
+  const seenUrls = new Set<string>();
+
+  variants.forEach((v, vIdx) => {
+    if (Array.isArray(v.images)) {
+      v.images.forEach((img) => {
+        if (img && typeof img === "string" && !seenUrls.has(img)) {
+          seenUrls.add(img);
+          items.push({
+            url: img,
+            colorHex: v.colorHex || "",
+            variantIndex: vIdx,
+          });
+        }
+      });
+    }
+  });
+
+  return items;
+}
+
+export function getNextCarouselIndex(currentIndex: number, totalImages: number): number {
+  if (totalImages <= 0) return 0;
+  return (currentIndex + 1) % totalImages;
+}
+
+export function getPrevCarouselIndex(currentIndex: number, totalImages: number): number {
+  if (totalImages <= 0) return 0;
+  return (currentIndex - 1 + totalImages) % totalImages;
+}
+
+export function calculateSwipeAction(
+  touchStartX: number,
+  touchEndX: number,
+  minDistance: number = MIN_SWIPE_DISTANCE_PX
+): "next" | "prev" | "none" {
+  const diff = touchStartX - touchEndX;
+  if (diff > minDistance) return "next";
+  if (diff < -minDistance) return "prev";
+  return "none";
+}
+
 export interface ProductCardData {
   id: string;
   brand: string;
@@ -55,10 +111,18 @@ export function ProductCard({
 }: ProductCardProps) {
   const tProduct = useTranslations("product");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [activeImageIndex, setActiveImageIndex] = React.useState(0);
+  const [isHovered, setIsHovered] = React.useState(false);
   const [imageError, setImageError] = React.useState(false);
+
+  const touchStartXRef = React.useRef<number | null>(null);
+  const swipedRef = React.useRef(false);
+  const activeImageIndexRef = React.useRef(activeImageIndex);
+  activeImageIndexRef.current = activeImageIndex;
 
   const variants = product.variants && product.variants.length > 0 ? product.variants : [];
   const activeVariant = variants[selectedIndex] || variants[0];
+  const cardImages = React.useMemo(() => extractCardImages(variants), [variants]);
 
   // Distinct storages available
   const availableStorages = React.useMemo(() => {
@@ -97,10 +161,69 @@ export function ProductCard({
     return null;
   }, [activeVariant]);
 
+  // Reset image error on variant or active image change
+  React.useEffect(() => {
+    setImageError(false);
+  }, [selectedIndex, activeImageIndex]);
+
+  // Auto-cycle carousel every 3 seconds on hover
+  React.useEffect(() => {
+    if (!isHovered || cardImages.length <= 1) return;
+
+    const timer = setInterval(() => {
+      const next = (activeImageIndexRef.current + 1) % cardImages.length;
+      setActiveImageIndex(next);
+      setImageError(false);
+
+      const targetVariantIdx = cardImages[next]?.variantIndex;
+      if (typeof targetVariantIdx === "number" && targetVariantIdx >= 0) {
+        setSelectedIndex(targetVariantIdx);
+      }
+    }, CAROUSEL_INTERVAL_MS);
+
+    return () => clearInterval(timer);
+  }, [isHovered, cardImages]);
+
+  // Mobile touch gesture handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length > 0) {
+      touchStartXRef.current = e.touches[0].clientX;
+      swipedRef.current = false;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || cardImages.length <= 1) return;
+    const touchEndX = e.changedTouches[0]?.clientX;
+    if (typeof touchEndX !== "number") return;
+
+    const action = calculateSwipeAction(touchStartXRef.current, touchEndX, MIN_SWIPE_DISTANCE_PX);
+    touchStartXRef.current = null;
+
+    if (action === "next") {
+      swipedRef.current = true;
+      const next = getNextCarouselIndex(activeImageIndexRef.current, cardImages.length);
+      setActiveImageIndex(next);
+      setImageError(false);
+      const targetVariantIdx = cardImages[next]?.variantIndex;
+      if (typeof targetVariantIdx === "number" && targetVariantIdx >= 0) {
+        setSelectedIndex(targetVariantIdx);
+      }
+    } else if (action === "prev") {
+      swipedRef.current = true;
+      const prev = getPrevCarouselIndex(activeImageIndexRef.current, cardImages.length);
+      setActiveImageIndex(prev);
+      setImageError(false);
+      const targetVariantIdx = cardImages[prev]?.variantIndex;
+      if (typeof targetVariantIdx === "number" && targetVariantIdx >= 0) {
+        setSelectedIndex(targetVariantIdx);
+      }
+    }
+  };
+
   const primaryImage =
-    activeVariant?.images && activeVariant.images.length > 0
-      ? activeVariant.images[0]
-      : null;
+    cardImages[activeImageIndex]?.url ||
+    (activeVariant?.images && activeVariant.images.length > 0 ? activeVariant.images[0] : null);
 
   const displayRam =
     formatRam(activeVariant?.ram) ||
@@ -120,16 +243,26 @@ export function ProductCard({
     if (foundIdx !== -1) {
       setSelectedIndex(foundIdx);
       setImageError(false);
+      const imgIdx = cardImages.findIndex((item) => item.variantIndex === foundIdx);
+      if (imgIdx !== -1) {
+        setActiveImageIndex(imgIdx);
+      }
     }
   };
 
   const handleColorSelect = (idx: number) => {
     setSelectedIndex(idx);
     setImageError(false);
+    const imgIdx = cardImages.findIndex((item) => item.variantIndex === idx);
+    if (imgIdx !== -1) {
+      setActiveImageIndex(imgIdx);
+    }
   };
 
   return (
     <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 sm:p-3.5 md:p-4 transition-all duration-200 hover:border-primary/40 hover:shadow-md",
         className
@@ -168,26 +301,70 @@ export function ProductCard({
       </div>
 
       {/* Product Image Section */}
-      <Link
-        href={`/product/${product.slug}`}
+      <div
         className="relative my-1.5 sm:my-2.5 flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-muted/15 p-2 transition-colors group-hover:bg-muted/25"
-        aria-label={`${product.brand} ${product.modelName}`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-        {primaryImage && !imageError ? (
-          <Image
-            src={primaryImage}
-            alt={`${product.brand} ${product.modelName}`}
-            fill
-            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 25vw"
-            className="object-contain p-1.5 sm:p-2 transition-transform duration-300 group-hover:scale-105"
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div className="flex flex-col items-center justify-center text-muted-foreground/40">
-            <Smartphone className="h-12 w-12 sm:h-16 sm:w-16 stroke-[1.25]" aria-hidden="true" />
+        <Link
+          href={`/product/${product.slug}`}
+          onClick={(e) => {
+            if (swipedRef.current) {
+              e.preventDefault();
+              e.stopPropagation();
+              swipedRef.current = false;
+            }
+          }}
+          className="relative flex h-full w-full items-center justify-center"
+          aria-label={`${product.brand} ${product.modelName}`}
+        >
+          {primaryImage && !imageError ? (
+            <Image
+              src={primaryImage}
+              alt={`${product.brand} ${product.modelName}`}
+              fill
+              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 25vw"
+              className="object-contain p-1.5 sm:p-2 transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center text-muted-foreground/40">
+              <Smartphone className="h-12 w-12 sm:h-16 sm:w-16 stroke-[1.25]" aria-hidden="true" />
+            </div>
+          )}
+        </Link>
+
+        {/* Pagination Dots Indicator */}
+        {cardImages.length > 1 && (
+          <div className="absolute bottom-2 left-0 right-0 z-10 flex items-center justify-center gap-1.5 pointer-events-auto">
+            {cardImages.map((img, idx) => {
+              const isActive = idx === activeImageIndex;
+              return (
+                <button
+                  key={`${img.url}-${idx}`}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveImageIndex(idx);
+                    setImageError(false);
+                    if (typeof img.variantIndex === "number" && img.variantIndex >= 0) {
+                      setSelectedIndex(img.variantIndex);
+                    }
+                  }}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    isActive
+                      ? "w-4 bg-primary"
+                      : "w-1.5 bg-muted-foreground/35 hover:bg-muted-foreground/60"
+                  )}
+                  aria-label={`Slide ${idx + 1}`}
+                />
+              );
+            })}
           </div>
         )}
-      </Link>
+      </div>
 
       {/* Info & Specs */}
       <div className="flex flex-col space-y-1.5 sm:space-y-2">
@@ -307,4 +484,3 @@ export function ProductCard({
     </div>
   );
 }
-
