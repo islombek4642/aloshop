@@ -148,13 +148,12 @@ export function verifyAppleImagesTransparency(): VerificationResult {
       const decoded = decodePngRgba(buf);
       const relPath = path.relative(rootDir, file).replace(/\\/g, "/");
 
-      // Background test points:
-      // (10, 400), (decoded.width - 40, 400), (10, 600), (decoded.width - 40, 600)
+      // Dynamic boundary test points across all 4 corners
       const testPoints: [number, number][] = [
-        [10, 400],
-        [decoded.width - 40, 400],
-        [10, 600],
-        [decoded.width - 40, 600],
+        [2, 2],
+        [decoded.width - 3, 2],
+        [2, decoded.height - 3],
+        [decoded.width - 3, decoded.height - 3],
       ];
 
       let imageFailed = false;
@@ -176,6 +175,26 @@ export function verifyAppleImagesTransparency(): VerificationResult {
       if (centerPixel.a === 0) {
         errors.push(
           `Phone subject was accidentally cleared in ${relPath} at center (${centerX}, ${centerY}): alpha is 0`
+        );
+        imageFailed = true;
+      }
+
+      // Verify that phone fills at least 85% of image height (tightly cropped, no huge empty margins)
+      let minY = decoded.height;
+      let maxY = -1;
+      for (let y = 0; y < decoded.height; y++) {
+        for (let x = 0; x < decoded.width; x++) {
+          if (decoded.getPixel(x, y).a > 10) {
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      const phoneH = maxY >= minY ? maxY - minY + 1 : 0;
+      const heightPercent = phoneH / decoded.height;
+      if (heightPercent < 0.85) {
+        errors.push(
+          `Phone in ${relPath} is too small: occupies only ${(heightPercent * 100).toFixed(1)}% of canvas height (expected >= 85%)`
         );
         imageFailed = true;
       }

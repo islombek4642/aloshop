@@ -236,6 +236,78 @@ export function cleanBackgroundRgba(rawRgba: Buffer, width: number, height: numb
   return clearedCount;
 }
 
+export interface CropResult {
+  width: number;
+  height: number;
+  rawRgba: Buffer;
+  cropped: boolean;
+  phoneW: number;
+  phoneH: number;
+}
+
+export function cropRgbaToSubject(
+  rawRgba: Buffer,
+  width: number,
+  height: number,
+  paddingPercent = 0.04
+): CropResult {
+  let minX = width;
+  let maxX = -1;
+  let minY = height;
+  let maxY = -1;
+
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width * 4;
+    for (let x = 0; x < width; x++) {
+      const a = rawRgba[rowOffset + x * 4 + 3];
+      if (a > 10) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+
+  if (maxX < minX || maxY < minY) {
+    return { width, height, rawRgba, cropped: false, phoneW: 0, phoneH: 0 };
+  }
+
+  const phoneW = maxX - minX + 1;
+  const phoneH = maxY - minY + 1;
+
+  // If subject already occupies >= 88% of canvas height, no need to crop
+  if (phoneH / height >= 0.88) {
+    return { width, height, rawRgba, cropped: false, phoneW, phoneH };
+  }
+
+  const pad = Math.max(12, Math.round(phoneH * paddingPercent));
+  const cropMinX = Math.max(0, minX - pad);
+  const cropMaxX = Math.min(width - 1, maxX + pad);
+  const cropMinY = Math.max(0, minY - pad);
+  const cropMaxY = Math.min(height - 1, maxY + pad);
+
+  const newW = cropMaxX - cropMinX + 1;
+  const newH = cropMaxY - cropMinY + 1;
+
+  const newRgba = Buffer.alloc(newW * newH * 4);
+  for (let y = 0; y < newH; y++) {
+    const srcY = cropMinY + y;
+    const srcOffset = (srcY * width + cropMinX) * 4;
+    const destOffset = y * newW * 4;
+    rawRgba.copy(newRgba, destOffset, srcOffset, srcOffset + newW * 4);
+  }
+
+  return {
+    width: newW,
+    height: newH,
+    rawRgba: newRgba,
+    cropped: true,
+    phoneW,
+    phoneH,
+  };
+}
+
 export function encodePng(
   width: number,
   height: number,
@@ -282,23 +354,24 @@ export function encodePng(
   return Buffer.concat(chunks);
 }
 
-export function cleanApplePngFile(filePath: string): { changed: boolean; pixelsCleared: number } {
+export function cleanApplePngFile(filePath: string): { changed: boolean; pixelsCleared: number; cropped: boolean } {
   const originalBuf = fs.readFileSync(filePath);
   const decoded = decodePng(originalBuf);
   const pixelsCleared = cleanBackgroundRgba(decoded.rawRgba, decoded.width, decoded.height);
+  const crop = cropRgbaToSubject(decoded.rawRgba, decoded.width, decoded.height, 0.04);
 
-  if (pixelsCleared > 0) {
+  if (pixelsCleared > 0 || crop.cropped) {
     const cleanBuf = encodePng(
-      decoded.width,
-      decoded.height,
-      decoded.rawRgba,
+      crop.width,
+      crop.height,
+      crop.rawRgba,
       decoded.extraChunks
     );
     fs.writeFileSync(filePath, cleanBuf);
-    return { changed: true, pixelsCleared };
+    return { changed: true, pixelsCleared, cropped: crop.cropped };
   }
 
-  return { changed: false, pixelsCleared: 0 };
+  return { changed: false, pixelsCleared: 0, cropped: false };
 }
 
 function findPngFiles(dir: string): string[] {
@@ -340,10 +413,10 @@ export async function cleanAllAppleImages(directories: string[]): Promise<{
     if (result.changed) {
       cleanedFiles++;
       totalPixelsCleared += result.pixelsCleared;
-      process.stdout.write(`CLEANED (${result.pixelsCleared} px)\n`);
+      process.stdout.write(`PROCESSED (cleared: ${result.pixelsCleared} px, cropped: ${result.cropped})\n`);
     } else {
       skippedFiles++;
-      process.stdout.write("SKIPPED (already transparent)\n");
+      process.stdout.write("SKIPPED (already transparent & cropped)\n");
     }
   }
 
