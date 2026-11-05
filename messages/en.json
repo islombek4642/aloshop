@@ -749,7 +749,15 @@
       "allBranchesScope": "All Branches (Unrestricted)",
       "roleSuperAdmin": "Super Administrator",
       "roleBranchAdmin": "Branch Administrator",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "totalUsers": "{count} administrators",
+      "tableHeadUser": "User",
+      "tableHeadRole": "Role",
+      "tableHeadBranch": "Branch",
+      "tableHeadCreated": "Created",
+      "successCreated": "Branch administrator created successfully",
+      "branchNotFound": "Selected branch not found",
+      "unauthorized": "Unauthorized to perform this action"
     },
     "branchesManagement": {
       "title": "Branch Management",

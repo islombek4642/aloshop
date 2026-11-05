@@ -749,7 +749,15 @@
       "allBranchesScope": "Barcha filiallar (Cheklovsiz)",
       "roleSuperAdmin": "Super Administrator",
       "roleBranchAdmin": "Filial Administratori",
-      "cancel": "Bekor qilish"
+      "cancel": "Bekor qilish",
+      "totalUsers": "{count} ta admin",
+      "tableHeadUser": "Foydalanuvchi",
+      "tableHeadRole": "Rol",
+      "tableHeadBranch": "Filial",
+      "tableHeadCreated": "Yaratilgan",
+      "successCreated": "Filial admini muvaffaqiyatli yaratildi",
+      "branchNotFound": "Tanlangan filial topilmadi",
+      "unauthorized": "Bu amalni bajarish uchun ruxsat yo'q"
     },
     "branchesManagement": {
       "title": "Filiallarni boshqarish",

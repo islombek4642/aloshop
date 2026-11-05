@@ -749,7 +749,15 @@
       "allBranchesScope": "Все филиалы (Без ограничений)",
       "roleSuperAdmin": "Главный администратор",
       "roleBranchAdmin": "Администратор филиала",
-      "cancel": "Отмена"
+      "cancel": "Отмена",
+      "totalUsers": "{count} администраторов",
+      "tableHeadUser": "Пользователь",
+      "tableHeadRole": "Роль",
+      "tableHeadBranch": "Филиал",
+      "tableHeadCreated": "Создан",
+      "successCreated": "Администратор филиала успешно создан",
+      "branchNotFound": "Выбранный филиал не найден",
+      "unauthorized": "Недостаточно прав для выполнения действия"
     },
     "branchesManagement": {
       "title": "Управление филиалами",
