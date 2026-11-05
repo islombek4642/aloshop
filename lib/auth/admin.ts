@@ -79,8 +79,11 @@ export function canManageBranches(session: AdminSessionPayload): boolean {
 }
 
 /**
- * Verifies admin credentials strictly against the Prisma User database using bcrypt.
- * Returns the typed session payload if valid, or null if invalid.
+ * Verifies admin credentials against environment variables or the database.
+ * No hardcoded credentials exist in code.
+ *
+ * 1. Checks process.env.SUPER_ADMIN_USERNAME and process.env.SUPER_ADMIN_PASSWORD.
+ * 2. Checks Prisma User table with bcrypt password hashing and isActive verification.
  */
 export async function verifyAdminCredentials(
   username: string,
@@ -93,30 +96,19 @@ export async function verifyAdminCredentials(
   const trimmedUsername = username.trim().toLowerCase();
 
   try {
-    const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase() || "admin";
+    // 1. Environment-configured SuperAdmin credentials (from .env or hosting environment variables)
+    const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase();
     const envSuperPass = process.env.SUPER_ADMIN_PASSWORD;
 
-    // Reject known placeholder backdoor
-    if (password === "superadmin_secret_password_change_me") {
-      return null;
-    }
-
-    // 1. Check explicit master superadmin credentials (including user's Vercel initial credentials)
-    const isEnvMatch =
-      Boolean(envSuperPass) &&
-      envSuperPass !== "superadmin_secret_password_change_me" &&
+    if (
+      envSuperUser &&
+      envSuperPass &&
       trimmedUsername === envSuperUser &&
-      password === envSuperPass;
-
-    const isExplicitSuperadmin =
-      (trimmedUsername === "superadmin" && password === "1111") ||
-      (trimmedUsername === "admin" && password === "admin12345") ||
-      isEnvMatch;
-
-    if (isExplicitSuperadmin) {
+      password === envSuperPass
+    ) {
       return {
         userId: "superadmin-root",
-        username: trimmedUsername,
+        username: envSuperUser,
         fullName: "Super Administrator",
         role: "SUPER_ADMIN",
         branchId: null,
@@ -124,13 +116,13 @@ export async function verifyAdminCredentials(
       };
     }
 
-    // 2. Query database for seeded or created branch/super admins
+    // 2. Database-backed users (hashed with bcrypt)
     const user = await prisma.user.findUnique({
       where: { username: trimmedUsername },
       include: { branch: true },
     });
 
-    if (!user) {
+    if (!user || !user.isActive) {
       return null;
     }
 

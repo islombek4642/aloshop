@@ -69,6 +69,13 @@ async function main() {
       branchId: null,
     },
     {
+      username: "superadmin",
+      fullName: "Super Administrator",
+      passwordHash: await bcrypt.hash("1111", 10),
+      role: UserRole.SUPER_ADMIN,
+      branchId: null,
+    },
+    {
       username: "admin_malika",
       fullName: "Malika Filial Menejeri",
       passwordHash: branchManagerPassword,

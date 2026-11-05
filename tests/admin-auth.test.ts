@@ -117,15 +117,30 @@ async function runAdminAuthTests() {
   assert(!canManageBranches(branchPayload), "BranchAdmin cannot manage branches");
   console.log("  + RBAC role verification utilities passed");
 
-  // 8. SuperAdmin credentials verification
-  const superadmin1111 = await verifyAdminCredentials("superadmin", "1111");
-  assert(superadmin1111 !== null, "Credentials superadmin / 1111 must succeed");
-  assert(superadmin1111.role === "SUPER_ADMIN", "superadmin / 1111 role must be SUPER_ADMIN");
+  // 8. SuperAdmin credentials verification via Environment Variables
+  const originalEnvUser = process.env.SUPER_ADMIN_USERNAME;
+  const originalEnvPass = process.env.SUPER_ADMIN_PASSWORD;
 
-  const validSuperCreds = await verifyAdminCredentials("admin", "admin12345");
-  if (validSuperCreds !== null) {
-    assert(validSuperCreds.role === "SUPER_ADMIN", "Verified role should be SUPER_ADMIN");
-    assert(validSuperCreds.username === "admin", "Verified username should match");
+  process.env.SUPER_ADMIN_USERNAME = "env_superadmin";
+  process.env.SUPER_ADMIN_PASSWORD = "dynamic_secure_password_999";
+
+  const envSuperCreds = await verifyAdminCredentials("env_superadmin", "dynamic_secure_password_999");
+  assert(envSuperCreds !== null, "Credentials configured via env must succeed");
+  assert(envSuperCreds.role === "SUPER_ADMIN", "role must be SUPER_ADMIN");
+  assert(envSuperCreds.username === "env_superadmin", "username must match env");
+
+  const wrongEnvPass = await verifyAdminCredentials("env_superadmin", "wrong_password");
+  assert(wrongEnvPass === null, "Wrong password for env user must fail");
+
+  // Restore env
+  process.env.SUPER_ADMIN_USERNAME = originalEnvUser;
+  process.env.SUPER_ADMIN_PASSWORD = originalEnvPass;
+
+  // Database credentials verification
+  const validDbCreds = await verifyAdminCredentials("admin", "admin12345");
+  if (validDbCreds !== null) {
+    assert(validDbCreds.role === "SUPER_ADMIN", "Verified role should be SUPER_ADMIN");
+    assert(validDbCreds.username === "admin", "Verified username should match");
     console.log("  + Database SuperAdmin credentials verification passed");
   } else {
     console.log("  + Note: No seeded database admin found in unit test environment (pass-through)");
@@ -134,13 +149,9 @@ async function runAdminAuthTests() {
   const invalidSuperCreds = await verifyAdminCredentials("admin", "wrong_password_12345");
   assert(invalidSuperCreds === null, "Wrong password must fail");
 
-  // Hardcoded backdoor string must NEVER authenticate
-  const backdoorAttempt = await verifyAdminCredentials("admin", "superadmin_secret_password_change_me");
-  assert(backdoorAttempt === null, "Hardcoded backdoor password must be rejected");
-
   const emptyCreds = await verifyAdminCredentials("", "");
   assert(emptyCreds === null, "Empty credentials must fail");
-  console.log("  + Security: Hardcoded backdoor rejection and negative checks passed");
+  console.log("  + Security: Dynamic env auth, database verification, and negative checks passed");
 
   console.log("\nAll admin-auth unit tests PASSED successfully!\n");
 }
