@@ -76,9 +76,9 @@ export function OrdersListView({
   const [selectedStatus, setSelectedStatus] = React.useState<string>("ALL");
   const [selectedBranch, setSelectedBranch] = React.useState<string>("ALL");
 
-  // Pagination state (default: 20 per page)
+  // Pagination state (default: 10 per page)
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(20);
+  const [pageSize, setPageSize] = React.useState(10);
 
   const filteredOrders = React.useMemo(() => {
     return orders.filter((ord) => {
@@ -287,6 +287,7 @@ export function OrdersListView({
               <Table>
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
+                    <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
                     <TableHead className="text-xs">{t("orderNumber")}</TableHead>
                     <TableHead className="text-xs">{t("customer")}</TableHead>
                     <TableHead className="text-xs">{t("fulfillment")}</TableHead>
@@ -297,8 +298,13 @@ export function OrdersListView({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {paginatedOrders.map((ord) => (
+                  {paginatedOrders.map((ord, index) => (
                     <TableRow key={ord.id} className="hover:bg-muted/30">
+                      {/* Row Index */}
+                      <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
+                        {(currentPage - 1) * pageSize + index + 1}
+                      </TableCell>
+
                       {/* Order Number */}
                       <TableCell className="font-mono text-xs font-semibold text-primary">
                         {ord.orderNumber}

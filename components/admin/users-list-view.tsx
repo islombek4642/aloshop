@@ -51,6 +51,7 @@ import {
   deleteBranchAdminAction,
   type CreateBranchAdminInput,
 } from "@/app/actions/admin-users";
+import { AdminPagination } from "./admin-pagination";
 
 export interface SerializedAdminUser {
   id: string;
@@ -100,6 +101,24 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
   const [isPending, setIsPending] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
+
+  // Pagination state (default: 10 per page)
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(10);
+
+  const totalPages = Math.max(1, Math.ceil(users.length / pageSize));
+
+  React.useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
+  const paginatedUsers = React.useMemo(() => {
+    const safePage = Math.min(Math.max(1, currentPage), totalPages);
+    const startIndex = (safePage - 1) * pageSize;
+    return users.slice(startIndex, startIndex + pageSize);
+  }, [users, currentPage, pageSize, totalPages]);
 
   const resetCreateForm = () => {
     setUsername("");
@@ -301,6 +320,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
             <Table>
               <TableHeader className="bg-muted/40">
                 <TableRow className="hover:bg-transparent">
+                  <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
                   <TableHead className="text-xs font-semibold">{t("tableHeadUser")}</TableHead>
                   <TableHead className="text-xs font-semibold">{t("tableHeadRole")}</TableHead>
                   <TableHead className="text-xs font-semibold">{t("tableHeadBranch")}</TableHead>
@@ -310,8 +330,11 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((u) => (
+                {paginatedUsers.map((u, index) => (
                   <TableRow key={u.id} className="hover:bg-muted/20">
+                    <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
+                      {(currentPage - 1) * pageSize + index + 1}
+                    </TableCell>
                     <TableCell>
                       <div className="flex flex-col">
                         <span className="text-xs font-semibold text-foreground">
@@ -412,7 +435,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
           {/* MOBILE LIST VIEW (visible on mobile, hidden on md and up) */}
           <div className="block md:hidden space-y-2">
-            {users.map((u) => (
+            {paginatedUsers.map((u, index) => (
               <button
                 key={u.id}
                 type="button"
@@ -420,6 +443,9 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 className="w-full text-left p-3.5 rounded-xl border border-border/80 bg-card hover:bg-muted/30 active:bg-muted/50 transition-colors shadow-2xs flex items-center justify-between gap-3 focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-xs font-mono font-semibold text-muted-foreground w-5 text-center shrink-0">
+                    {(currentPage - 1) * pageSize + index + 1}
+                  </span>
                   <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 font-semibold text-xs">
                     {u.fullName.charAt(0).toUpperCase()}
                   </div>
@@ -456,6 +482,23 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               </button>
             ))}
           </div>
+
+          {/* Pagination */}
+          {users.length > 0 && (
+            <div className="rounded-xl border border-border/80 bg-card p-3 shadow-2xs">
+              <AdminPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                pageSize={pageSize}
+                totalItems={users.length}
+                onPageChange={setCurrentPage}
+                onPageSizeChange={(newSize) => {
+                  setPageSize(newSize);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
+          )}
         </>
       )}
 

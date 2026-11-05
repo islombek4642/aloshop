@@ -100,7 +100,7 @@ export function ProductsListView({
 
   // Pagination state (default: 20 per page)
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(20);
+  const [pageSize, setPageSize] = React.useState(10);
 
   // Delete modal state
   const [productToDelete, setProductToDelete] = React.useState<SerializedProduct | null>(null);
@@ -266,6 +266,7 @@ export function ProductsListView({
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead className="w-8"></TableHead>
+                <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
                 <TableHead className="text-xs">{t("title")}</TableHead>
                 <TableHead className="text-xs">{t("filterCategory")}</TableHead>
                 <TableHead className="text-xs">{t("warranty")}</TableHead>
@@ -275,7 +276,7 @@ export function ProductsListView({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedProducts.map((product) => {
+              {paginatedProducts.map((product, index) => {
                 const isExpanded = expandedProductIds.has(product.id);
                 const minPrice = Math.min(...product.variants.map((v) => v.price));
                 const maxPrice = Math.max(...product.variants.map((v) => v.price));
@@ -293,6 +294,9 @@ export function ProductsListView({
                         ) : (
                           <ChevronRight className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
                         )}
+                      </TableCell>
+                      <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
+                        {(currentPage - 1) * pageSize + index + 1}
                       </TableCell>
                       <TableCell className="text-xs font-medium">
                         <div className="flex items-center gap-2.5">
@@ -371,7 +375,7 @@ export function ProductsListView({
                     {/* Expandable Variants Sub-Table */}
                     {isExpanded && (
                       <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={7} className="p-0 border-b border-border/60">
+                        <TableCell colSpan={8} className="p-0 border-b border-border/60">
                           <div className="px-6 py-3 space-y-2 bg-slate-50/50 dark:bg-slate-900/30">
                             <div className="text-[11px] font-semibold text-muted-foreground tracking-wider uppercase">
                               {product.modelName} &bull; {t("expandVariants")}
@@ -380,6 +384,7 @@ export function ProductsListView({
                               <Table>
                                 <TableHeader>
                                   <TableRow className="hover:bg-transparent bg-muted/40">
+                                    <TableHead className="w-10 text-[11px] h-8 text-center">№</TableHead>
                                     <TableHead className="text-[11px] h-8">{t("sku")}</TableHead>
                                     <TableHead className="text-[11px] h-8">{t("color")}</TableHead>
                                     <TableHead className="text-[11px] h-8">{t("storage")}</TableHead>
@@ -389,8 +394,11 @@ export function ProductsListView({
                                   </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                  {product.variants.map((v) => (
+                                  {product.variants.map((v, vIndex) => (
                                     <TableRow key={v.id} className="hover:bg-muted/20">
+                                      <TableCell className="w-10 text-[11px] font-mono text-muted-foreground text-center">
+                                        {vIndex + 1}
+                                      </TableCell>
                                       <TableCell className="text-xs font-mono font-medium text-primary">
                                         {v.sku}
                                       </TableCell>

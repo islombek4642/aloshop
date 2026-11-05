@@ -88,9 +88,9 @@ export function BranchInventoryView({
   // Search filter
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  // Pagination state (default: 20 per page)
+  // Pagination state (default: 10 per page)
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(20);
+  const [pageSize, setPageSize] = React.useState(10);
 
   // Transfer modal state
   const [isTransferOpen, setIsTransferOpen] = React.useState(false);
@@ -317,6 +317,7 @@ export function BranchInventoryView({
             <Table>
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
+                  <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
                   <TableHead className="text-xs">SKU</TableHead>
                   <TableHead className="text-xs">{t("product")}</TableHead>
                   <TableHead className="text-xs">{t("colorAndStorage")}</TableHead>
@@ -326,7 +327,7 @@ export function BranchInventoryView({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedBranchItems.map((item) => {
+                {paginatedBranchItems.map((item, index) => {
                   const currentQty =
                     editedStock[item.variantId] !== undefined
                       ? editedStock[item.variantId]
@@ -342,6 +343,9 @@ export function BranchInventoryView({
 
                   return (
                     <TableRow key={item.id} className="hover:bg-muted/30">
+                      <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
+                        {(currentPage - 1) * pageSize + index + 1}
+                      </TableCell>
                       <TableCell className="font-mono text-xs font-semibold text-primary">
                         {item.sku}
                       </TableCell>
