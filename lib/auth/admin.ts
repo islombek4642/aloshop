@@ -79,8 +79,8 @@ export function canManageBranches(session: AdminSessionPayload): boolean {
 }
 
 /**
- * Verifies admin credentials against the database using bcrypt,
- * or against environment variables (SUPER_ADMIN_USERNAME, SUPER_ADMIN_PASSWORD).
+ * Verifies admin credentials against environment variables (SUPER_ADMIN_USERNAME, SUPER_ADMIN_PASSWORD),
+ * or against the database using bcrypt.
  *
  * Strictly follows AGENTS.md Rule 6.1: No hardcoded credentials exist in source code.
  */
@@ -94,14 +94,34 @@ export async function verifyAdminCredentials(
 
   const trimmedUsername = username.trim().toLowerCase();
 
+  // 1. Check environment-configured SuperAdmin credentials (from .env or hosting environment variables like Vercel)
+  const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase();
+  const envSuperPass = process.env.SUPER_ADMIN_PASSWORD;
+
+  if (
+    envSuperUser &&
+    envSuperPass &&
+    trimmedUsername === envSuperUser &&
+    password === envSuperPass
+  ) {
+    return {
+      userId: "superadmin-root",
+      username: envSuperUser,
+      fullName: "Super Administrator",
+      role: "SUPER_ADMIN",
+      branchId: null,
+      branchName: null,
+    };
+  }
+
+  // 2. Check database-backed users (hashed with bcrypt)
   try {
-    // 1. Check database-backed users (hashed with bcrypt)
     const user = await prisma.user.findUnique({
       where: { username: trimmedUsername },
       include: { branch: true },
     });
 
-    if (user && user.isActive) {
+    if (user && (user.isActive ?? true)) {
       const isValid = await bcrypt.compare(password, user.passwordHash);
       if (isValid) {
         return {
@@ -114,32 +134,11 @@ export async function verifyAdminCredentials(
         };
       }
     }
-
-    // 2. Check environment-configured SuperAdmin credentials (from .env or hosting environment variables)
-    const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase();
-    const envSuperPass = process.env.SUPER_ADMIN_PASSWORD;
-
-    if (
-      envSuperUser &&
-      envSuperPass &&
-      trimmedUsername === envSuperUser &&
-      password === envSuperPass
-    ) {
-      return {
-        userId: "superadmin-root",
-        username: envSuperUser,
-        fullName: "Super Administrator",
-        role: "SUPER_ADMIN",
-        branchId: null,
-        branchName: null,
-      };
-    }
-
-    return null;
   } catch (error) {
     if (process.env.NODE_ENV !== "test") {
       console.error("Database user verification error:", error);
     }
-    return null;
   }
+
+  return null;
 }
