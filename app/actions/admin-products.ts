@@ -628,7 +628,28 @@ export async function deleteProductAction(
       return { success: false, error: "cannotDeleteWithActiveOrders" };
     }
 
-    // Safe deletion in transaction
+    // Check if historical orders (DELIVERED, CANCELLED) exist for this product
+    const totalOrderCount = await prisma.orderItem.count({
+      where: {
+        variant: {
+          productId: product.id,
+        },
+      },
+    });
+
+    if (totalOrderCount > 0) {
+      // Historical orders exist! Soft-delete (archive) product to strictly preserve financial & sales history
+      await prisma.product.update({
+        where: { id: product.id },
+        data: { isArchived: true },
+      });
+
+      safeRevalidatePath("/admin/products");
+      safeRevalidatePath("/catalog");
+      return { success: true };
+    }
+
+    // No historical orders: safe hard deletion in transaction without touching orderItem table
     await prisma.$transaction(async (tx) => {
       const variants = await tx.productVariant.findMany({
         where: { productId: product.id },
@@ -642,11 +663,6 @@ export async function deleteProductAction(
         });
 
         await tx.iMEIRecord.deleteMany({
-          where: { variantId: { in: variantIds } },
-        });
-
-        // Non-active order items (DELIVERED or CANCELLED) if any
-        await tx.orderItem.deleteMany({
           where: { variantId: { in: variantIds } },
         });
 

@@ -35,25 +35,80 @@ export async function updateOrderStatusAction(
   }
 
   try {
-    const order = await prisma.order.findUnique({
+    const currentOrder = await prisma.order.findUnique({
       where: { id: orderId },
-      select: { id: true, pickupBranchId: true },
+      include: {
+        items: {
+          select: {
+            variantId: true,
+            quantity: true,
+          },
+        },
+      },
     });
 
-    if (!order) {
+    if (!currentOrder) {
       return { success: false, error: "orderNotFound" };
     }
 
     // RBAC: Branch admin can only update orders for their assigned branch
     if (session.role === "BRANCH_ADMIN") {
-      if (!order.pickupBranchId || !canAccessBranch(session, order.pickupBranchId)) {
+      if (!currentOrder.pickupBranchId || !canAccessBranch(session, currentOrder.pickupBranchId)) {
         return { success: false, error: "accessDenied" };
       }
     }
 
-    await prisma.order.update({
-      where: { id: orderId },
-      data: { status },
+    // Prevent re-cancelling or duplicate inventory restoration
+    if (status === OrderStatus.CANCELLED && currentOrder.status === OrderStatus.CANCELLED) {
+      return { success: false, error: "orderAlreadyCancelled" };
+    }
+
+    // State Machine validation: cannot transition directly from CANCELLED to active states
+    if (currentOrder.status === OrderStatus.CANCELLED && status !== OrderStatus.CANCELLED) {
+      return { success: false, error: "cannotReactivateCancelledOrder" };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // If cancelling from non-cancelled status, restore variant stock in branch inventory
+      if (status === OrderStatus.CANCELLED && currentOrder.status !== OrderStatus.CANCELLED) {
+        let targetBranchId = currentOrder.pickupBranchId;
+        if (!targetBranchId) {
+          const defaultBranch = await tx.branch.findFirst({
+            where: { isActive: true },
+            select: { id: true },
+            orderBy: { createdAt: "asc" },
+          });
+          targetBranchId = defaultBranch?.id || null;
+        }
+
+        if (targetBranchId) {
+          for (const item of currentOrder.items) {
+            await tx.branchInventory.upsert({
+              where: {
+                branchId_variantId: {
+                  branchId: targetBranchId,
+                  variantId: item.variantId,
+                },
+              },
+              create: {
+                branchId: targetBranchId,
+                variantId: item.variantId,
+                quantity: item.quantity,
+              },
+              update: {
+                quantity: {
+                  increment: item.quantity,
+                },
+              },
+            });
+          }
+        }
+      }
+
+      await tx.order.update({
+        where: { id: orderId },
+        data: { status },
+      });
     });
 
     revalidatePath("/admin/orders");

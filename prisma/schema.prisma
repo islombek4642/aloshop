@@ -79,6 +79,7 @@ model Product {
   charging       String?          // Masalan: "USB-C, 25W MagSafe"
   os             String?          // Masalan: "iOS 18"
   specs          Json?            // Qo'shimcha texnik parametrlar
+  isArchived     Boolean          @default(false)
   categoryId     String
   category       Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   createdAt      DateTime         @default(now())
