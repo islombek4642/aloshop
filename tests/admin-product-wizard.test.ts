@@ -203,17 +203,17 @@ export function testAdminProductWizard(): {
     }
   }
 
-  // 7. Verify new page renders ProductCreationWizard
+  // 7. Verify new page renders UnifiedProductEditor or ProductCreationWizard
   const newPagePath = path.resolve(
     __dirname,
     "../app/[locale]/admin/products/new/page.tsx"
   );
   if (fs.existsSync(newPagePath)) {
     const content = fs.readFileSync(newPagePath, "utf-8");
-    if (!content.includes("ProductCreationWizard")) {
-      recordError("new/page.tsx does not render ProductCreationWizard");
+    if (!content.includes("UnifiedProductEditor") && !content.includes("ProductCreationWizard")) {
+      recordError("new/page.tsx does not render UnifiedProductEditor or ProductCreationWizard");
     } else {
-      recordCheck("new/page.tsx renders ProductCreationWizard");
+      recordCheck("new/page.tsx renders UnifiedProductEditor");
     }
   }
 

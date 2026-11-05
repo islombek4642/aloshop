@@ -2,7 +2,7 @@ import * as React from "react";
 import { redirect } from "next/navigation";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
 import { prisma } from "@/lib/db/prisma";
-import { ProductCreationWizard } from "@/components/admin/product-wizard/product-creation-wizard";
+import { UnifiedProductEditor } from "@/components/admin/product-editor/unified-product-editor";
 
 interface NewProductPageProps {
   params: Promise<{ locale: string }>;
@@ -27,7 +27,7 @@ export default async function AdminNewProductPage({
     ? { isActive: true }
     : { id: session.branchId! };
 
-  const [branches, rawCategories, existingProducts] = await Promise.all([
+  const [branches, rawCategories] = await Promise.all([
     prisma.branch.findMany({
       where: branchWhere,
       orderBy: { name: "asc" },
@@ -44,28 +44,6 @@ export default async function AdminNewProductPage({
         nameRu: true,
         nameEn: true,
         slug: true,
-      },
-    }),
-    prisma.product.findMany({
-      orderBy: { modelName: "asc" },
-      select: {
-        id: true,
-        brand: true,
-        modelName: true,
-        slug: true,
-        categoryId: true,
-        warrantyMonths: true,
-        series: true,
-        releaseYear: true,
-        screenSize: true,
-        processor: true,
-        battery: true,
-        camera: true,
-        charging: true,
-        os: true,
-        descriptionUz: true,
-        descriptionRu: true,
-        descriptionEn: true,
       },
     }),
   ]);
@@ -85,10 +63,9 @@ export default async function AdminNewProductPage({
 
   return (
     <div className="space-y-6">
-      <ProductCreationWizard
+      <UnifiedProductEditor
         branches={branches}
         categories={categories}
-        existingProducts={existingProducts}
         locale={locale}
         isSuperAdmin={isSuper}
         branchId={session.branchId}
