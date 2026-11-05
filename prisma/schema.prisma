@@ -38,6 +38,7 @@ model User {
   passwordHash String
   fullName     String
   role         UserRole  @default(BRANCH_ADMIN)
+  isActive     Boolean   @default(true)
   branchId     String?
   branch       Branch?   @relation(fields: [branchId], references: [id], onDelete: SetNull)
   createdAt    DateTime  @default(now())

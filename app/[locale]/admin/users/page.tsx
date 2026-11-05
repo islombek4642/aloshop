@@ -51,7 +51,9 @@ export default async function AdminUsersPage({
     username: u.username,
     fullName: u.fullName,
     role: u.role,
+    branchId: u.branchId,
     branchName: u.branch?.name || null,
+    isActive: u.isActive,
     createdAt: u.createdAt.toISOString(),
   }));
 

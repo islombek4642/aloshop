@@ -433,6 +433,10 @@ export async function createOrUpdateProductFromPresetAction(
         let variantId: string;
 
         if (existingVariant) {
+          // RBAC guard: Branch admin cannot alter global retail price or oldPrice
+          const effectivePrice = isBranch ? existingVariant.price : v.price;
+          const effectiveOldPrice = isBranch ? existingVariant.oldPrice : (v.oldPrice ?? null);
+
           const updated = await tx.productVariant.update({
             where: { id: existingVariant.id },
             data: {
@@ -444,13 +448,16 @@ export async function createOrUpdateProductFromPresetAction(
               ram: v.ram?.trim() || preset.ram,
               storage: v.storage.trim(),
               condition: v.condition || "NEW",
-              price: v.price,
-              oldPrice: v.oldPrice ?? null,
+              price: effectivePrice,
+              oldPrice: effectiveOldPrice,
               images,
             },
           });
           variantId = updated.id;
         } else {
+          if (isBranch) {
+            throw new Error("UNAUTHORIZED_BRANCH_PRICE_EDIT");
+          }
           const created = await tx.productVariant.create({
             data: {
               productId: product.id,

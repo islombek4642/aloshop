@@ -12,6 +12,11 @@ import {
   AlertCircle,
   Check,
   Loader2,
+  Pencil,
+  KeyRound,
+  Trash2,
+  UserCheck,
+  UserX,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +46,9 @@ import {
 } from "@/components/ui/table";
 import {
   createBranchAdminAction,
+  updateBranchAdminAction,
+  resetBranchAdminPasswordAction,
+  deleteBranchAdminAction,
   type CreateBranchAdminInput,
 } from "@/app/actions/admin-users";
 
@@ -49,7 +57,9 @@ export interface SerializedAdminUser {
   username: string;
   fullName: string;
   role: string;
+  branchId?: string | null;
   branchName: string | null;
+  isActive?: boolean;
   createdAt: string;
 }
 
@@ -63,17 +73,31 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
   const t = useTranslations("admin.usersManagement");
   const router = useRouter();
 
+  // Create User State
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [fullName, setFullName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [branchId, setBranchId] = React.useState(branches[0]?.id || "");
 
+  // Edit User State
+  const [editingUser, setEditingUser] = React.useState<SerializedAdminUser | null>(null);
+  const [editFullName, setEditFullName] = React.useState("");
+  const [editBranchId, setEditBranchId] = React.useState<string | null>(null);
+  const [editIsActive, setEditIsActive] = React.useState(true);
+
+  // Reset Password State
+  const [resetUser, setResetUser] = React.useState<SerializedAdminUser | null>(null);
+  const [newPassword, setNewPassword] = React.useState("");
+
+  // Delete User State
+  const [deletingUser, setDeletingUser] = React.useState<SerializedAdminUser | null>(null);
+
   const [isPending, setIsPending] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
 
-  const resetForm = () => {
+  const resetCreateForm = () => {
     setUsername("");
     setFullName("");
     setPassword("");
@@ -107,11 +131,15 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
         branchId,
       };
 
-      const res = await createBranchAdminAction(payload);
+      const result = await createBranchAdminAction(payload);
 
-      if (!res.success) {
-        if (res.error === "usernameTaken") {
+      if (!result.success) {
+        if (result.error === "usernameTaken") {
           setErrorMessage(t("usernameTaken"));
+        } else if (result.error === "branchNotFound") {
+          setErrorMessage(t("branchNotFound"));
+        } else if (result.error === "unauthorized") {
+          setErrorMessage(t("unauthorized"));
         } else {
           setErrorMessage(t("error"));
         }
@@ -119,82 +147,178 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
         return;
       }
 
-      setSuccessMessage(t("success"));
+      setSuccessMessage(t("successCreated"));
+      setIsPending(false);
+      resetCreateForm();
+      setIsModalOpen(false);
       router.refresh();
-
-      setTimeout(() => {
-        setIsPending(false);
-        setIsModalOpen(false);
-        resetForm();
-      }, 900);
     } catch {
       setErrorMessage(t("error"));
       setIsPending(false);
     }
   };
 
+  const handleOpenEdit = (user: SerializedAdminUser) => {
+    setEditingUser(user);
+    setEditFullName(user.fullName);
+    setEditBranchId(user.branchId || null);
+    setEditIsActive(user.isActive !== false);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+  };
+
+  const handleUpdateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingUser) return;
+    setErrorMessage(null);
+
+    setIsPending(true);
+    try {
+      const result = await updateBranchAdminAction({
+        userId: editingUser.id,
+        fullName: editFullName.trim(),
+        branchId: editBranchId,
+        isActive: editIsActive,
+      });
+
+      if (!result.success) {
+        setErrorMessage(result.error);
+        setIsPending(false);
+        return;
+      }
+
+      setIsPending(false);
+      setEditingUser(null);
+      router.refresh();
+    } catch {
+      setErrorMessage("Xatolik yuz berdi");
+      setIsPending(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!resetUser) return;
+    setErrorMessage(null);
+
+    if (newPassword.length < 6) {
+      setErrorMessage("Parol kamida 6 ta belgidan iborat bo'lishi kerak");
+      return;
+    }
+
+    setIsPending(true);
+    try {
+      const result = await resetBranchAdminPasswordAction({
+        userId: resetUser.id,
+        newPassword,
+      });
+
+      if (!result.success) {
+        setErrorMessage(result.error);
+        setIsPending(false);
+        return;
+      }
+
+      setIsPending(false);
+      setResetUser(null);
+      setNewPassword("");
+      router.refresh();
+    } catch {
+      setErrorMessage("Xatolik yuz berdi");
+      setIsPending(false);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (!deletingUser) return;
+    setErrorMessage(null);
+
+    setIsPending(true);
+    try {
+      const result = await deleteBranchAdminAction({
+        userId: deletingUser.id,
+      });
+
+      if (!result.success) {
+        setErrorMessage(result.error);
+        setIsPending(false);
+        return;
+      }
+
+      setIsPending(false);
+      setDeletingUser(null);
+      router.refresh();
+    } catch {
+      setErrorMessage("Xatolik yuz berdi");
+      setIsPending(false);
+    }
+  };
+
   return (
     <div className="space-y-4">
-      {/* Top action row */}
-      <div className="flex items-center justify-between">
-        <div className="text-xs text-muted-foreground">
-          {t("users")} ({users.length})
+      {/* Action Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs px-2.5 py-1 gap-1.5 font-medium">
+            <Users className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
+            <span>{t("totalUsers", { count: users.length })}</span>
+          </Badge>
         </div>
+
         <Button
-          size="sm"
           onClick={() => {
-            resetForm();
+            resetCreateForm();
             setIsModalOpen(true);
           }}
-          className="gap-1.5 text-xs h-9 shrink-0"
+          size="sm"
+          className="text-xs gap-1.5 h-9 font-medium"
         >
           <UserPlus className="w-4 h-4" aria-hidden="true" />
-          <span>{t("createNewUser")}</span>
+          <span>{t("createUserBtn")}</span>
         </Button>
       </div>
 
       {/* Users Table */}
-      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-xs">
+      <div className="rounded-xl border border-border/80 bg-card overflow-hidden shadow-2xs">
         {users.length === 0 ? (
-          <div className="p-12 text-center text-xs text-muted-foreground">
-            <Users className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" aria-hidden="true" />
-            <p className="font-medium text-foreground">{t("noUsers")}</p>
+          <div className="flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
+            <Users className="w-10 h-10 mb-2 stroke-[1.2] opacity-40" aria-hidden="true" />
+            <p className="text-xs">{t("noUsers")}</p>
           </div>
         ) : (
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-muted/40">
               <TableRow className="hover:bg-transparent">
-                <TableHead className="text-xs">{t("username")}</TableHead>
-                <TableHead className="text-xs">{t("fullName")}</TableHead>
-                <TableHead className="text-xs">{t("role")}</TableHead>
-                <TableHead className="text-xs">{t("assignedBranch")}</TableHead>
-                <TableHead className="text-xs text-right">{t("created")}</TableHead>
+                <TableHead className="text-xs font-semibold">{t("tableHeadUser")}</TableHead>
+                <TableHead className="text-xs font-semibold">{t("tableHeadRole")}</TableHead>
+                <TableHead className="text-xs font-semibold">{t("tableHeadBranch")}</TableHead>
+                <TableHead className="text-xs font-semibold">Holat</TableHead>
+                <TableHead className="text-xs font-semibold text-right">{t("tableHeadCreated")}</TableHead>
+                <TableHead className="text-xs font-semibold text-right">Amallar</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {users.map((u) => (
-                <TableRow key={u.id} className="hover:bg-muted/30">
-                  <TableCell className="font-mono text-xs font-semibold text-primary">
-                    @{u.username}
+                <TableRow key={u.id} className="hover:bg-muted/20">
+                  <TableCell>
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold text-foreground">
+                        {u.fullName}
+                      </span>
+                      <span className="text-[11px] font-mono text-muted-foreground">
+                        @{u.username}
+                      </span>
+                    </div>
                   </TableCell>
-                  <TableCell className="text-xs font-medium text-foreground">
-                    {u.fullName}
-                  </TableCell>
-                  <TableCell className="text-xs">
+                  <TableCell>
                     {u.role === "SUPER_ADMIN" ? (
-                      <Badge
-                        variant="outline"
-                        className="text-[10px] px-2 py-0 border-primary/30 bg-primary/10 text-primary font-medium"
-                      >
-                        <ShieldCheck className="w-3 h-3 mr-1" aria-hidden="true" />
+                      <Badge variant="default" className="text-[10px] px-2 py-0.5 gap-1 font-medium bg-amber-500 hover:bg-amber-600 text-white">
+                        <ShieldCheck className="w-3 h-3" aria-hidden="true" />
                         <span>{t("roleSuperAdmin")}</span>
                       </Badge>
                     ) : (
-                      <Badge
-                        variant="secondary"
-                        className="text-[10px] px-2 py-0 bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium"
-                      >
-                        <Building2 className="w-3 h-3 mr-1" aria-hidden="true" />
+                      <Badge variant="secondary" className="text-[10px] px-2 py-0.5 gap-1 font-medium">
+                        <Building2 className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
                         <span>{t("roleBranchAdmin")}</span>
                       </Badge>
                     )}
@@ -202,10 +326,71 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                   <TableCell className="text-xs text-muted-foreground">
                     {u.branchName || t("allBranchesScope")}
                   </TableCell>
+                  <TableCell>
+                    {u.isActive !== false ? (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                        <span>Faol</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                        <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true" />
+                        <span>Nofaol</span>
+                      </span>
+                    )}
+                  </TableCell>
                   <TableCell className="text-xs text-muted-foreground text-right">
                     {new Intl.DateTimeFormat(locale, {
                       dateStyle: "short",
                     }).format(new Date(u.createdAt))}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-1">
+                      {/* Edit Button */}
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleOpenEdit(u)}
+                        className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                        title="Tahrirlash"
+                      >
+                        <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
+                      </Button>
+
+                      {/* Reset Password Button */}
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setResetUser(u);
+                          setNewPassword("");
+                          setErrorMessage(null);
+                        }}
+                        className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                        title="Parolni yangilash"
+                      >
+                        <KeyRound className="w-3.5 h-3.5" aria-hidden="true" />
+                      </Button>
+
+                      {/* Delete Button (disabled for Super Admin) */}
+                      {u.role !== "SUPER_ADMIN" && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setDeletingUser(u);
+                            setErrorMessage(null);
+                          }}
+                          className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                          title="O'chirish"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -336,7 +521,213 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Edit User Modal */}
+      <Dialog open={editingUser !== null} onOpenChange={(open) => !open && setEditingUser(null)}>
+        <DialogContent className="sm:max-w-[440px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold">
+              <Pencil className="w-4 h-4 text-primary" aria-hidden="true" />
+              <span>Adminni tahrirlash</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              {editingUser?.username} hisob ma&apos;lumotlarini yangilash
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleUpdateUser} className="space-y-4 pt-1">
+            {errorMessage && (
+              <div className="flex items-center gap-2 p-3 text-xs text-destructive bg-destructive/10 rounded-md border border-destructive/20">
+                <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-foreground">
+                To&apos;liq ism *
+              </label>
+              <Input
+                value={editFullName}
+                onChange={(e) => setEditFullName(e.target.value)}
+                className="text-base sm:text-xs h-9"
+                required
+              />
+            </div>
+
+            {editingUser?.role !== "SUPER_ADMIN" && (
+              <>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
+                    <span>Filial</span>
+                  </label>
+                  <Select value={editBranchId || ""} onValueChange={(val) => setEditBranchId(val || null)}>
+                    <SelectTrigger className="text-base sm:text-xs h-9">
+                      <SelectValue placeholder="Filialni tanlang" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {branches.map((b) => (
+                        <SelectItem key={b.id} value={b.id} className="text-xs">
+                          {b.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground">
+                    Faollik holati
+                  </label>
+                  <Select
+                    value={editIsActive ? "active" : "inactive"}
+                    onValueChange={(val) => setEditIsActive(val === "active")}
+                  >
+                    <SelectTrigger className="text-base sm:text-xs h-9">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active" className="text-xs text-emerald-600">
+                        Faol
+                      </SelectItem>
+                      <SelectItem value="inactive" className="text-xs text-muted-foreground">
+                        Nofaol
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </>
+            )}
+
+            <DialogFooter className="pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setEditingUser(null)}
+                disabled={isPending}
+                className="text-xs"
+              >
+                Bekor qilish
+              </Button>
+              <Button
+                type="submit"
+                size="sm"
+                disabled={isPending}
+                className="text-xs"
+              >
+                {isPending ? "Saqlanmoqda..." : "Saqlash"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reset Password Modal */}
+      <Dialog open={resetUser !== null} onOpenChange={(open) => !open && setResetUser(null)}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold">
+              <KeyRound className="w-4 h-4 text-primary" aria-hidden="true" />
+              <span>Parolni yangilash</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              @{resetUser?.username} uchun yangi parol o&apos;rnating
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleResetPassword} className="space-y-4 pt-1">
+            {errorMessage && (
+              <div className="flex items-center gap-2 p-3 text-xs text-destructive bg-destructive/10 rounded-md border border-destructive/20">
+                <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-foreground">
+                Yangi parol (kamida 6 belgi) *
+              </label>
+              <Input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Yangi parol"
+                className="text-base sm:text-xs h-9 font-mono"
+                required
+                minLength={6}
+              />
+            </div>
+
+            <DialogFooter className="pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setResetUser(null)}
+                disabled={isPending}
+                className="text-xs"
+              >
+                Bekor qilish
+              </Button>
+              <Button
+                type="submit"
+                size="sm"
+                disabled={isPending}
+                className="text-xs"
+              >
+                {isPending ? "O'zgartirilmoqda..." : "Parolni yangilash"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Modal */}
+      <Dialog open={deletingUser !== null} onOpenChange={(open) => !open && setDeletingUser(null)}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base font-semibold text-destructive">
+              <Trash2 className="w-4 h-4" aria-hidden="true" />
+              <span>Adminni o&apos;chirish</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              Haqiqatan ham @{deletingUser?.username} ({deletingUser?.fullName}) hisobini o&apos;chirmoqchimisiz?
+            </DialogDescription>
+          </DialogHeader>
+
+          {errorMessage && (
+            <div className="flex items-center gap-2 p-3 text-xs text-destructive bg-destructive/10 rounded-md border border-destructive/20">
+              <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          <DialogFooter className="pt-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setDeletingUser(null)}
+              disabled={isPending}
+              className="text-xs"
+            >
+              Bekor qilish
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              onClick={handleDeleteUser}
+              disabled={isPending}
+              className="text-xs"
+            >
+              {isPending ? "O'chirilmoqda..." : "O'chirish"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
-
