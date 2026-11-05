@@ -264,7 +264,7 @@ export function ProductDetailsClient({
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 md:py-10 pb-32 sm:pb-36 md:pb-24 lg:pb-32 max-w-7xl">
+    <div className="container mx-auto px-4 py-6 md:py-10 pb-28 sm:pb-32 md:pb-0 max-w-7xl">
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground overflow-x-auto whitespace-nowrap">
         <Link href="/" className="hover:text-foreground transition-colors">

@@ -117,7 +117,7 @@ export function SnapshotSpecsView({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {/* 1. RAM Row */}
         <div className="flex min-h-[72px] flex-col justify-between rounded-xl border border-border/70 bg-muted/20 p-3 transition-colors hover:bg-muted/40">
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex items-center gap-2 mb-1.5 min-w-0 flex-1">
             <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
               <Cpu className="h-3.5 w-3.5 stroke-[2]" aria-hidden="true" />
             </div>
@@ -298,12 +298,18 @@ export function SnapshotSpecsView({
             </div>
             <span
               className={cn(
-                "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold shrink-0",
+                "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-bold shrink-0",
                 isStockAvailable
                   ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800"
                   : "bg-destructive/10 text-destructive border border-destructive/20"
               )}
             >
+              {isStockAvailable && (
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"
+                  aria-hidden="true"
+                />
+              )}
               {isStockAvailable ? tProduct("inStock") : tProduct("outOfStock")}
             </span>
           </div>

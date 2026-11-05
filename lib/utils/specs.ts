@@ -224,31 +224,73 @@ const ABSOLUTE_FALLBACK_VITALS: DeviceVitals = {
  * @param storage Optional storage string (e.g. "128GB", "256GB", "512GB", "1TB")
  * @returns Normalized RAM string (e.g. "8GB", "6GB", "12GB", "16GB")
  */
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function inferDefaultRam(
   brand: string,
   modelName: string,
   storage?: string
 ): string {
   const cleanBrand = (brand || "").trim().toLowerCase();
-  const cleanModel = (modelName || "").trim().toLowerCase();
+  const cleanModel = (modelName || "").trim().toLowerCase().replace(/\s+/g, " ");
   const normalizedStorage = (storage || "").trim().toUpperCase();
 
-  // 1. Check verified official presets
-  const presetMatch = CATALOG_PRESETS.find(
+  // If model name is empty or whitespace, return brand-specific generic defaults
+  if (!cleanModel) {
+    if (cleanBrand === "apple" || cleanBrand.includes("iphone")) {
+      return "6GB";
+    }
+    if (cleanBrand === "samsung" || cleanBrand.includes("galaxy")) {
+      return "8GB";
+    }
+    if (
+      cleanBrand === "xiaomi" ||
+      cleanBrand.includes("redmi") ||
+      cleanBrand.includes("poco")
+    ) {
+      return "8GB";
+    }
+    return "8GB";
+  }
+
+  // 1. Check verified official presets: Exact match first
+  let presetMatch = CATALOG_PRESETS.find(
     (p) =>
-      p.brand.toLowerCase() === cleanBrand &&
-      (p.modelName.toLowerCase() === cleanModel ||
-       cleanModel.includes(p.modelName.toLowerCase()) ||
-       p.modelName.toLowerCase().includes(cleanModel))
+      (!cleanBrand || p.brand.toLowerCase() === cleanBrand) &&
+      p.modelName.toLowerCase().replace(/\s+/g, " ") === cleanModel
   );
+
+  // If no exact match, search presets ordered by descending modelName length
+  // to ensure "iPhone 15 Pro Max" matches before "iPhone 15"
+  if (!presetMatch) {
+    const sortedPresets = [...CATALOG_PRESETS].sort(
+      (a, b) => b.modelName.length - a.modelName.length
+    );
+    for (const p of sortedPresets) {
+      if (cleanBrand && p.brand.toLowerCase() !== cleanBrand) continue;
+      const cleanPresetModel = p.modelName.toLowerCase().replace(/\s+/g, " ");
+      const rx = new RegExp(`(?:^|\\b)${escapeRegExp(cleanPresetModel)}(?:\\b|$)`, "i");
+      if (rx.test(cleanModel)) {
+        presetMatch = p;
+        break;
+      }
+    }
+  }
+
   if (presetMatch && presetMatch.ram) {
+    const ramMatch = presetMatch.ram.match(/(\d+\s*GB)/i);
+    if (ramMatch) {
+      return ramMatch[1].replace(/\s+/g, "").toUpperCase();
+    }
     return presetMatch.ram;
   }
 
   // 2. Check legacy known devices catalogue
   const matched = KNOWN_DEVICES.find(
     (d) =>
-      d.brand.toLowerCase() === cleanBrand &&
+      (!cleanBrand || d.brand.toLowerCase() === cleanBrand) &&
       d.modelMatch.test(cleanModel)
   );
 
@@ -259,12 +301,21 @@ export function inferDefaultRam(
     return matched.defaultRam;
   }
 
-  // 2. Brand-specific heuristics
+  // 3. Brand-specific heuristics
   if (cleanBrand === "apple" || cleanModel.includes("iphone")) {
     if (cleanModel.includes("16") || cleanModel.includes("15 pro")) {
       return "8GB";
     }
-    if (cleanModel.includes("pro") || cleanModel.includes("plus") || cleanModel.includes("15")) {
+    if (cleanModel.includes("13 mini") || cleanModel === "iphone 13") {
+      return "4GB";
+    }
+    if (
+      cleanModel.includes("15") ||
+      cleanModel.includes("14 pro") ||
+      cleanModel.includes("13 pro") ||
+      cleanModel.includes("pro") ||
+      cleanModel.includes("plus")
+    ) {
       return "6GB";
     }
     return "6GB";
@@ -280,7 +331,12 @@ export function inferDefaultRam(
     return "8GB";
   }
 
-  if (cleanBrand === "xiaomi" || cleanModel.includes("xiaomi") || cleanModel.includes("redmi") || cleanModel.includes("poco")) {
+  if (
+    cleanBrand === "xiaomi" ||
+    cleanModel.includes("xiaomi") ||
+    cleanModel.includes("redmi") ||
+    cleanModel.includes("poco")
+  ) {
     if (cleanModel.includes("ultra")) {
       return "16GB";
     }
@@ -290,7 +346,7 @@ export function inferDefaultRam(
     return "8GB";
   }
 
-  // 3. Storage-based fallback heuristic for high tier capacities
+  // 4. Storage-based fallback heuristic for high tier capacities
   if (normalizedStorage.includes("1TB")) {
     return "16GB";
   }
@@ -307,29 +363,57 @@ export function inferDefaultRam(
  */
 export function getDeviceVitals(brand: string, modelName: string): DeviceVitals {
   const cleanBrand = (brand || "").trim().toLowerCase();
-  const cleanModel = (modelName || "").trim().toLowerCase();
+  const cleanModel = (modelName || "").trim().toLowerCase().replace(/\s+/g, " ");
 
-  // 1. Check verified official presets
-  const preset = CATALOG_PRESETS.find(
+  if (!cleanModel) {
+    for (const [key, vitals] of Object.entries(GENERIC_VITALS)) {
+      if (key.toLowerCase() === cleanBrand) {
+        return vitals;
+      }
+    }
+    return ABSOLUTE_FALLBACK_VITALS;
+  }
+
+  // 1. Check verified official presets: Exact match first
+  let preset = CATALOG_PRESETS.find(
     (p) =>
-      p.brand.toLowerCase() === cleanBrand &&
-      (p.modelName.toLowerCase() === cleanModel ||
-       cleanModel.includes(p.modelName.toLowerCase()) ||
-       p.modelName.toLowerCase().includes(cleanModel))
+      (!cleanBrand || p.brand.toLowerCase() === cleanBrand) &&
+      p.modelName.toLowerCase().replace(/\s+/g, " ") === cleanModel
   );
 
+  // If no exact match, search presets ordered by descending modelName length
+  if (!preset) {
+    const sortedPresets = [...CATALOG_PRESETS].sort(
+      (a, b) => b.modelName.length - a.modelName.length
+    );
+    for (const p of sortedPresets) {
+      if (cleanBrand && p.brand.toLowerCase() !== cleanBrand) continue;
+      const cleanPresetModel = p.modelName.toLowerCase().replace(/\s+/g, " ");
+      const rx = new RegExp(`(?:^|\\b)${escapeRegExp(cleanPresetModel)}(?:\\b|$)`, "i");
+      if (rx.test(cleanModel)) {
+        preset = p;
+        break;
+      }
+    }
+  }
+
   if (preset) {
+    const ramMatch = preset.ram ? preset.ram.match(/(\d+\s*GB)/i) : null;
+    const formattedRam = ramMatch
+      ? ramMatch[1].replace(/\s+/g, "").toUpperCase()
+      : formatRam(preset.ram) || "8GB";
+
     return {
       screenSize: preset.screenSize,
       processor: preset.processor,
       battery: preset.battery,
-      defaultRam: preset.ram || "8GB",
+      defaultRam: formattedRam,
     };
   }
 
   const matched = KNOWN_DEVICES.find(
     (d) =>
-      d.brand.toLowerCase() === cleanBrand &&
+      (!cleanBrand || d.brand.toLowerCase() === cleanBrand) &&
       d.modelMatch.test(cleanModel)
   );
 

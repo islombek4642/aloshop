@@ -67,6 +67,7 @@ function estimatePrice(preset: CatalogPreset, storage: string): { price: number;
 export function presetToProductCard(preset: CatalogPreset): ProductCardData {
   const defaultStorage = preset.storageOptions[0] || "128GB";
   const { price, oldPrice } = estimatePrice(preset, defaultStorage);
+  const normalizedRam = preset.ram?.match(/(\d+\s*GB)/i)?.[1].replace(/\s+/g, "").toUpperCase() || preset.ram;
 
   const variants: ProductCardVariant[] = preset.colors.map((c, i) => {
     const images = c.imageUrl ? [c.imageUrl] : ["/images/products/placeholder.webp"];
@@ -77,7 +78,7 @@ export function presetToProductCard(preset: CatalogPreset): ProductCardData {
       colorNameRu: c.nameRu,
       colorNameEn: c.nameEn,
       colorHex: c.hex,
-      ram: preset.ram,
+      ram: normalizedRam,
       storage: defaultStorage,
       condition: "NEW",
       price,
@@ -109,6 +110,7 @@ export function presetToProductCard(preset: CatalogPreset): ProductCardData {
  */
 export function presetToSerializedProduct(preset: CatalogPreset): SerializedProduct {
   const allVariants: ProductVariantData[] = [];
+  const normalizedRam = preset.ram?.match(/(\d+\s*GB)/i)?.[1].replace(/\s+/g, "").toUpperCase() || preset.ram;
 
   for (const storage of preset.storageOptions) {
     const { price, oldPrice } = estimatePrice(preset, storage);
@@ -122,7 +124,7 @@ export function presetToSerializedProduct(preset: CatalogPreset): SerializedProd
         colorNameRu: c.nameRu,
         colorNameEn: c.nameEn,
         colorHex: c.hex,
-        ram: preset.ram,
+        ram: normalizedRam,
         storage,
         condition: "NEW",
         price,

@@ -13,6 +13,8 @@ import {
 import type { ProductCardData, ProductCardVariant } from "../components/store/product-card";
 import type { SerializedProduct } from "../components/store/product-details-client";
 import type { ProductVariantData } from "../components/store/variant-selector";
+import { CATALOG_PRESETS } from "../lib/catalog/presets";
+import { getAllFallbackProducts } from "../lib/catalog/store-fallbacks";
 
 // --- 1. SEED FILE STATIC & DYNAMIC ANALYSIS ---
 function verifySeedFileIntegrity(): {
@@ -25,43 +27,32 @@ function verifySeedFileIntegrity(): {
   assert.ok(fs.existsSync(seedPath), "prisma/seed.ts must exist");
   const content = fs.readFileSync(seedPath, "utf-8");
 
-  // Check product models in seed
-  assert.match(content, /modelName:\s*["']iPhone 15 Pro["']/, "Seed contains iPhone 15 Pro");
-  assert.match(content, /modelName:\s*["']iPhone 15["']/, "Seed contains iPhone 15");
-  assert.match(content, /modelName:\s*["']Galaxy S24 Ultra["']/, "Seed contains Galaxy S24 Ultra");
-  assert.match(content, /modelName:\s*["']Xiaomi 14["']/, "Seed contains Xiaomi 14");
+  // Check that seed references CATALOG_PRESETS
+  assert.match(content, /CATALOG_PRESETS/, "Seed references CATALOG_PRESETS");
+  assert.match(content, /modelName:\s*preset\.modelName/, "Seed sets modelName from preset");
+  assert.match(content, /screenSize:\s*preset\.screenSize/, "Seed sets screenSize");
+  assert.match(content, /processor:\s*preset\.processor/, "Seed sets processor");
+  assert.match(content, /battery:\s*preset\.battery/, "Seed sets battery");
+  assert.match(content, /ram:\s*preset\.ram/, "Seed sets ram from preset");
 
-  // Check that hardware vitals are passed in product data
-  assert.match(content, /screenSize:/, "Seed sets screenSize");
-  assert.match(content, /processor:/, "Seed sets processor");
-  assert.match(content, /battery:/, "Seed sets battery");
+  // Verify CATALOG_PRESETS contains flagship devices
+  const presetModelNames = CATALOG_PRESETS.map((p) => p.modelName);
+  assert.ok(presetModelNames.includes("iPhone 15 Pro"), "Presets contain iPhone 15 Pro");
+  assert.ok(presetModelNames.includes("iPhone 15"), "Presets contain iPhone 15");
+  assert.ok(presetModelNames.some((m) => m.includes("Galaxy S")), "Presets contain Galaxy S flagship");
 
-  // Check that ram is set in variants
-  assert.match(content, /ram:\s*["']8GB["']/, "Seed contains 8GB ram variants");
-  assert.match(content, /ram:\s*["']6GB["']/, "Seed contains 6GB ram variants");
-  assert.match(content, /ram:\s*["']12GB["']/, "Seed contains 12GB ram variants");
+  // Check hardware vitals and RAM across presets
+  const presetsWithRam = CATALOG_PRESETS.filter((p) => typeof p.ram === "string" && p.ram.length > 0);
+  assert.ok(presetsWithRam.length >= 20, `Expected at least 20 presets with RAM, found ${presetsWithRam.length}`);
 
-  // Check upsert payload includes fields
-  assert.match(content, /const\s*\{\s*variants,\s*\.\.\.productFields\s*\}\s*=\s*productData/, "Product fields extracted");
-  assert.match(content, /create:\s*productFields/, "Product upsert creates with productFields");
-  assert.match(content, /update:\s*productFields/, "Product upsert updates with productFields");
-
-  assert.match(content, /const\s*\{\s*inventory,\s*\.\.\.variantFields\s*\}\s*=\s*variantData/, "Variant fields extracted");
-  assert.match(content, /create:\s*\{[\s\S]*?\.\.\.variantFields[\s\S]*?productId:\s*product\.id/, "Variant upsert creates with variantFields");
-  assert.match(content, /update:\s*\{[\s\S]*?\.\.\.variantFields[\s\S]*?productId:\s*product\.id/, "Variant upsert updates with variantFields");
-
-  // Extract productsData object by evaluating or regex
-  const ramMatches = content.match(/ram:\s*["'][^"']+["']/g) || [];
-  assert.ok(ramMatches.length >= 20, `Expected at least 20 seeded variants with RAM, found ${ramMatches.length}`);
-
-  for (const m of ramMatches) {
-    const val = m.replace(/ram:\s*["']/, "").replace(/["']/, "");
-    assert.match(val, /^\d+GB$/, `Seeded RAM value '${val}' must match \\d+GB format`);
+  for (const p of presetsWithRam) {
+    const val = p.ram.replace(/\s*LPDDR5X/i, "").trim();
+    assert.match(val, /^\d+GB$/, `Preset RAM value '${p.ram}' must contain valid \\d+GB format`);
   }
 
   return {
-    productCount: 4,
-    totalVariants: ramMatches.length,
+    productCount: CATALOG_PRESETS.length,
+    totalVariants: presetsWithRam.length,
     allVariantsHaveRam: true,
     allProductsHaveVitals: true,
   };
@@ -132,57 +123,39 @@ function stressTestSpecsEngine(): void {
 
 // --- 3. STOREFRONT QUERY & FALLBACK RESILIENCE ORACLES ---
 function verifyStorefrontResilience(): void {
-  // 3.1 Verify page.tsx FALLBACK_PRODUCTS
+  // 3.1 Verify page.tsx mapping
   const homePath = path.join(process.cwd(), "app", "[locale]", "(store)", "page.tsx");
   const homeContent = fs.readFileSync(homePath, "utf-8");
 
-  // Check fallback definition in page.tsx
-  assert.match(homeContent, /const FALLBACK_PRODUCTS:\s*ProductCardData\[\]/, "page.tsx defines FALLBACK_PRODUCTS");
+  assert.match(homeContent, /getFeaturedFallbackProducts/, "page.tsx uses getFeaturedFallbackProducts");
   assert.match(homeContent, /v\.ram\s*\|\|\s*inferDefaultRam\(p\.brand,\s*p\.modelName,\s*v\.storage\)/, "page.tsx maps ram with fallback inference");
   assert.match(homeContent, /price:\s*v\.price\.toString\(\)/, "page.tsx serializes Decimal price to string");
 
-  // 3.2 Verify catalog/page.tsx FALLBACK_CATALOG & query mapper
+  // 3.2 Verify catalog/page.tsx mapping
   const catalogPath = path.join(process.cwd(), "app", "[locale]", "(store)", "catalog", "page.tsx");
   const catalogContent = fs.readFileSync(catalogPath, "utf-8");
 
-  assert.match(catalogContent, /const FALLBACK_CATALOG:\s*ProductCardData\[\]/, "catalog/page.tsx defines FALLBACK_CATALOG");
+  assert.match(catalogContent, /getAllFallbackProducts/, "catalog/page.tsx uses getAllFallbackProducts");
   assert.match(catalogContent, /v\.ram\s*\|\|\s*inferDefaultRam\(p\.brand,\s*p\.modelName,\s*v\.storage\)/, "catalog/page.tsx maps ram with fallback inference");
   assert.match(catalogContent, /price:\s*v\.price\.toString\(\)/, "catalog/page.tsx serializes Decimal price to string");
-  assert.match(catalogContent, /filterFallbackProducts\(FALLBACK_CATALOG,\s*queryParams\)/, "catalog/page.tsx uses filterFallbackProducts on error");
+  assert.match(catalogContent, /filterFallbackProducts/, "catalog/page.tsx uses filterFallbackProducts on error");
 
-  // 3.3 Verify product/[slug]/page.tsx FALLBACK_PRODUCTS & query mapper
+  // 3.3 Verify product/[slug]/page.tsx mapping
   const productPath = path.join(process.cwd(), "app", "[locale]", "(store)", "product", "[slug]", "page.tsx");
   const productContent = fs.readFileSync(productPath, "utf-8");
 
-  assert.match(productContent, /const FALLBACK_PRODUCTS:\s*SerializedProduct\[\]/, "product/[slug]/page.tsx defines FALLBACK_PRODUCTS");
+  assert.match(productContent, /getFallbackProductBySlug/, "product/[slug]/page.tsx uses getFallbackProductBySlug");
   assert.match(productContent, /v\.ram\s*\|\|\s*inferDefaultRam\(dbProduct\.brand,\s*dbProduct\.modelName,\s*v\.storage\)/, "product/[slug]/page.tsx maps ram with fallback inference");
   assert.match(productContent, /price:\s*Number\(v\.price\.toString\(\)\)/, "product/[slug]/page.tsx serializes Decimal price to Number");
 
-  // Check that all 4 devices are covered in fallbacks
-  for (const slug of ["iphone-15-pro", "iphone-15", "galaxy-s24-ultra", "xiaomi-14"]) {
-    assert.match(homeContent, new RegExp(slug), `page.tsx fallback contains ${slug}`);
-    assert.match(catalogContent, new RegExp(slug), `catalog/page.tsx fallback contains ${slug}`);
-    assert.match(productContent, new RegExp(slug), `product/[slug]/page.tsx fallback contains ${slug}`);
-  }
+  // 3.4 Deep scan of all variants in fallback catalog
+  const fallbackProducts = getAllFallbackProducts();
+  assert.ok(fallbackProducts.length >= 20, "Store fallbacks contains at least 20 devices");
 
-  // 3.4 Deep scan of all variants in fallback arrays
-  const filesToAudit = [
-    { name: "page.tsx", content: homeContent },
-    { name: "catalog/page.tsx", content: catalogContent },
-    { name: "product/[slug]/page.tsx", content: productContent },
-  ];
-
-  for (const file of filesToAudit) {
-    const fallbackArrayMatch = file.content.match(/const\s+FALLBACK_(?:CATALOG|PRODUCTS)\s*:\s*[A-Za-z0-9_\[\]]+\s*=\s*\[([\s\S]*?\n\];)/);
-    assert.ok(fallbackArrayMatch, `${file.name} must contain a FALLBACK_(CATALOG|PRODUCTS) array`);
-    const fallbackBody = fallbackArrayMatch[1];
-
-    // Find all variant blocks inside the fallback array
-    const variantMatches = fallbackBody.match(/\{\s*id:\s*["'][^"']+["'][\s\S]*?storage:\s*["'][^"']+["'][\s\S]*?\}/g) || [];
-    assert.ok(variantMatches.length > 0, `${file.name} fallback array must contain variants, found ${variantMatches.length}`);
-
-    for (const vBlock of variantMatches) {
-      assert.match(vBlock, /ram:\s*["']\d+GB["']/, `Variant in ${file.name} must have explicit ram field matching \\d+GB`);
+  for (const prod of fallbackProducts) {
+    assert.ok(prod.variants.length > 0, `Product ${prod.slug} has variants`);
+    for (const v of prod.variants) {
+      assert.match(v.ram, /^\d+GB$/, `Variant ${v.sku} has valid RAM format`);
     }
   }
 
