@@ -47,7 +47,7 @@ export type CreateOrderResult =
  * Generates a collision-resistant, date-prefixed human-readable order number.
  * Format: ALO-YYYYMMDD-XXXX where date is anchored in Tashkent timezone (UTC+5).
  */
-export function generateOrderNumber(date: Date = new Date()): string {
+export async function generateOrderNumber(date: Date = new Date()): Promise<string> {
   const tashkentOffsetMs = 5 * 60 * 60 * 1000;
   const utcMs = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
   const tDate = new Date(utcMs + tashkentOffsetMs);
@@ -140,7 +140,7 @@ export async function createOrderAction(
 
     for (let attempt = 1; attempt <= 5; attempt++) {
       try {
-        const orderNumber = generateOrderNumber();
+        const orderNumber = await generateOrderNumber();
 
         createdOrder = await prisma.$transaction(async (tx) => {
       let fulfillingBranchId: string | null = null;

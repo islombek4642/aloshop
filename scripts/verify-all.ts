@@ -145,6 +145,26 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "challenger-m3-viewport-edgecases.test.ts")}"`,
   },
   {
+    id: "checkout-concurrency",
+    name: "Checkout Concurrency & Order Number Collision Guard",
+    command: `npx tsx "${path.join("tests", "checkout-concurrency-ordernumber.test.ts")}"`,
+  },
+  {
+    id: "admin-branch-stock",
+    name: "Branch Deletion Active Inventory Protection Guard",
+    command: `npx tsx "${path.join("tests", "admin-branch-stock-guard.test.ts")}"`,
+  },
+  {
+    id: "admin-users-crud",
+    name: "Admin User Management CRUD, Password Reset & RBAC Price Guard",
+    command: `npx tsx "${path.join("tests", "admin-users-crud.test.ts")}"`,
+  },
+  {
+    id: "admin-dashboard-metrics",
+    name: "Admin Dashboard Revenue & Accounting Calculation Suite",
+    command: `npx tsx "${path.join("tests", "admin-dashboard-metrics.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
