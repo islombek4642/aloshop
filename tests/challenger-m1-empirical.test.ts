@@ -155,7 +155,7 @@ function verifyStorefrontResilience(): void {
   for (const prod of fallbackProducts) {
     assert.ok(prod.variants.length > 0, `Product ${prod.slug} has variants`);
     for (const v of prod.variants) {
-      assert.match(v.ram, /^\d+GB$/, `Variant ${v.sku} has valid RAM format`);
+      assert.match(v.ram || "", /^\d+GB$/, `Variant ${v.sku} has valid RAM format`);
     }
   }
 

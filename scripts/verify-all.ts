@@ -100,6 +100,51 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "product-card-carousel.test.ts")}"`,
   },
   {
+    id: "build-safety",
+    name: "Production Build Safety & Zero-Wipe Audit",
+    command: `npx tsx "${path.join("tests", "build-safety.test.ts")}"`,
+  },
+  {
+    id: "order-cancellation",
+    name: "Order Cancellation Stock Restoral & Historical Data Audit",
+    command: `npx tsx "${path.join("tests", "order-cancellation-inventory.test.ts")}"`,
+  },
+  {
+    id: "specs-stress",
+    name: "Hardware Specs Adversarial Fuzzing & Stress Suite",
+    command: `npx tsx "${path.join("tests", "specs-stress.test.ts")}"`,
+  },
+  {
+    id: "vitrina-m2",
+    name: "M2 2-Column Mobile Vitrina & Product Card Suite",
+    command: `npx tsx "${path.join("tests", "vitrina-m2.test.ts")}"`,
+  },
+  {
+    id: "challenger-m1",
+    name: "M1 Empirical Challenger Verification Harness",
+    command: `npx tsx "${path.join("tests", "challenger-m1-empirical.test.ts")}"`,
+  },
+  {
+    id: "challenger-m2-1",
+    name: "M2 Empirical Stress & Layout Verification Harness",
+    command: `npx tsx "${path.join("tests", "challenger-m2-1-empirical.test.ts")}"`,
+  },
+  {
+    id: "challenger-m3-adv",
+    name: "M3 Adversarial Empirical Challenge Suite",
+    command: `npx tsx "${path.join("tests", "challenger-m3-adversarial.test.ts")}"`,
+  },
+  {
+    id: "challenger-m3-emp",
+    name: "M3 Empirical Verification Harness",
+    command: `npx tsx "${path.join("tests", "challenger-m3-empirical.test.ts")}"`,
+  },
+  {
+    id: "challenger-m3-vp",
+    name: "M3 Viewport Responsiveness & Edge Cases Harness",
+    command: `npx tsx "${path.join("tests", "challenger-m3-viewport-edgecases.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
