@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { variantInputSchema, createProductSchema } from "../app/actions/admin-products";
+import { variantInputSchema, createProductSchema } from "../lib/validations/admin-products";
 
 export function testAdminProductWizard(): {
   success: boolean;

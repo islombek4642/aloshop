@@ -3,10 +3,12 @@ import * as path from "node:path";
 import {
   createOrUpdateProductFromPresetAction,
   deleteProductAction,
-  presetProductInputSchema,
-  presetVariantInputSchema,
   type PresetProductInput,
 } from "../app/actions/admin-products";
+import {
+  presetProductInputSchema,
+  presetVariantInputSchema,
+} from "../lib/validations/admin-products";
 import { CATALOG_PRESETS, generateSku } from "../lib/catalog/presets";
 import { OrderStatus } from "@prisma/client";
 

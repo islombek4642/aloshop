@@ -1,4 +1,4 @@
-import { createProductSchema, variantInputSchema } from "../app/actions/admin-products";
+import { createProductSchema, variantInputSchema } from "../lib/validations/admin-products";
 
 export function verifyAdminProductAction(): {
   success: boolean;

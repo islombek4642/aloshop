@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import * as fs from "node:fs";
-import { createProductSchema } from "../app/actions/admin-products";
+import { createProductSchema } from "../lib/validations/admin-products";
 
 export function testReviewerFixes() {
   console.log("Testing Reviewer Findings Fixes...");
