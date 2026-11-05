@@ -94,6 +94,17 @@ model ProductVariant {
 }
 ```
 
+### 5.2. Arxitekturaviy Qarorlar va Chegara Qoidalari (Reviewer Audit Clarifications)
+1. **Ishlatilgan (USED) telefonlar qoidasi:**
+   - Har bir ishlatilgan telefon o'zining unikal IMEI raqami va batareya holatiga ega bo'lgan 1 dona jismoniy qurilma hisoblanadi. Shuning uchun "Ishlatilgan" holati tanlanganda variantlar soni qat'iy 1 dona bilan chegaralanadi, ombor qoldig'i 1 ga tenglanadi va kiritilgan IMEI `IMEIRecord` modeliga saqlanadi.
+2. **Qoralama (isDraft: true) xavfsizligi:**
+   - Bazadagi mavjud `NOT NULL` ustunlarni buzmaslik va storefrontda xatolik chiqmasligi uchun qoralama saqlashda minimal talab — Mahsulot nomi va Brend. Qolgan to'ldirilmagan maydonlar serverda xavfsiz bo'sh qiymatlar bilan to'ldirilib, `isDraft: true` belgilanadi. Storefront vitrinasi barcha so'rovlarda `where: { isDraft: false, isArchived: false }` filtrini qo'llaydi.
+3. **Media va Rasmlar taqsimoti:**
+   - Yon paneldagi asosiy rasm (Thumbnail) asosiy variantning 1-rasmi bo'lib xizmat qiladi va vitrina kartochkasi qopqog'i (cover) bo'ladi. Ranglar bo'yicha yuklangan rasmlar esa aynan shu rang variantining `images` massiviga biriktiriladi.
+4. **Yon panel (Sticky Sidebar) va Variantlar bog'liqligi:**
+   - Variantlarga ega mahsulotlarda alohida narxlar va har bir filial bo'yicha qoldiqlar aynan variantlar jadvalida kiritiladi.
+   - O'ng tarafdagi 30% sticky yon panel esa jonli hisob-kitob (Live Computed Summary) vazifasini bajaradi: eng arzon variant narxini ("... so'mdan"), barcha filiallar bo'yicha jami qoldiqni hamda variantlar sonini dinamik ko'rsatib turadi. Agar mahsulotda faqat 1 ta variant bo'lsa (yoki Ishlatilgan telefon bo'lsa), yon panel to'g'ridan-to'g'ri tahrirlanadigan rejimda ishlaydi. Bu operatorni tasodifiy ma'lumotlarni o'chirib yuborishdan asraydi.
+
 ### 5.2. Bloklar Tuzilishi va Maydonlari
 
 #### Blok 1: Asosiy ma'lumotlar (Basic Information)
@@ -260,3 +271,4 @@ export interface CreateProductInput {
    - Ko'p filialli qoldiqlar (`BranchInventory`) to'g'ri taqsimlanishi.
 3. **i18n Parity Audit:** `npx tsx scripts/test-i18n.ts` - 3 ta tilda 100% kalitlar mosligi va 0 ta emoji.
 4. **Build Safety Audit:** `npx tsx tests/build-safety.test.ts` - ishlab chiqarish muhiti xavfsizligi.
+
