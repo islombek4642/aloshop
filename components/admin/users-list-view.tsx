@@ -15,8 +15,6 @@ import {
   Pencil,
   KeyRound,
   Trash2,
-  UserCheck,
-  UserX,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -198,7 +196,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
       setEditingUser(null);
       router.refresh();
     } catch {
-      setErrorMessage("Xatolik yuz berdi");
+      setErrorMessage(t("error"));
       setIsPending(false);
     }
   };
@@ -209,7 +207,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
     setErrorMessage(null);
 
     if (newPassword.length < 6) {
-      setErrorMessage("Parol kamida 6 ta belgidan iborat bo'lishi kerak");
+      setErrorMessage(t("passwordPlaceholder"));
       return;
     }
 
@@ -231,7 +229,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
       setNewPassword("");
       router.refresh();
     } catch {
-      setErrorMessage("Xatolik yuz berdi");
+      setErrorMessage(t("error"));
       setIsPending(false);
     }
   };
@@ -256,7 +254,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
       setDeletingUser(null);
       router.refresh();
     } catch {
-      setErrorMessage("Xatolik yuz berdi");
+      setErrorMessage(t("error"));
       setIsPending(false);
     }
   };
@@ -299,9 +297,9 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 <TableHead className="text-xs font-semibold">{t("tableHeadUser")}</TableHead>
                 <TableHead className="text-xs font-semibold">{t("tableHeadRole")}</TableHead>
                 <TableHead className="text-xs font-semibold">{t("tableHeadBranch")}</TableHead>
-                <TableHead className="text-xs font-semibold">Holat</TableHead>
+                <TableHead className="text-xs font-semibold">{t("tableHeadStatus")}</TableHead>
                 <TableHead className="text-xs font-semibold text-right">{t("tableHeadCreated")}</TableHead>
-                <TableHead className="text-xs font-semibold text-right">Amallar</TableHead>
+                <TableHead className="text-xs font-semibold text-right">{t("tableHeadActions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -337,12 +335,12 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                     {u.isActive !== false ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                        <span>Faol</span>
+                        <span>{t("statusActive")}</span>
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
                         <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true" />
-                        <span>Nofaol</span>
+                        <span>{t("statusInactive")}</span>
                       </span>
                     )}
                   </TableCell>
@@ -360,7 +358,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                         size="sm"
                         onClick={() => handleOpenEdit(u)}
                         className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                        title="Tahrirlash"
+                        title={t("actionEdit")}
                       >
                         <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
                       </Button>
@@ -376,7 +374,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                           setErrorMessage(null);
                         }}
                         className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                        title="Parolni yangilash"
+                        title={t("actionResetPassword")}
                       >
                         <KeyRound className="w-3.5 h-3.5" aria-hidden="true" />
                       </Button>
@@ -392,7 +390,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                             setErrorMessage(null);
                           }}
                           className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
-                          title="O'chirish"
+                          title={t("actionDelete")}
                         >
                           <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                         </Button>
@@ -535,10 +533,10 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-base font-semibold">
               <Pencil className="w-4 h-4 text-primary" aria-hidden="true" />
-              <span>Adminni tahrirlash</span>
+              <span>{t("editModalTitle")}</span>
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              {editingUser?.username} hisob ma&apos;lumotlarini yangilash
+              {t("editModalSubtitle", { username: editingUser?.username || "" })}
             </DialogDescription>
           </DialogHeader>
 
@@ -552,7 +550,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">
-                Foydalanuvchi nomi (username) *
+                {t("username")} *
               </label>
               <Input
                 value={editUsername}
@@ -565,7 +563,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">
-                To&apos;liq ism *
+                {t("fullName")} *
               </label>
               <Input
                 value={editFullName}
@@ -580,11 +578,11 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 <div className="space-y-1.5">
                   <label className="text-xs font-medium text-foreground flex items-center gap-1.5">
                     <Building2 className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
-                    <span>Filial</span>
+                    <span>{t("branchLabel")}</span>
                   </label>
                   <Select value={editBranchId || ""} onValueChange={(val) => setEditBranchId(val || null)}>
                     <SelectTrigger className="text-base sm:text-xs h-9">
-                      <SelectValue placeholder="Filialni tanlang" />
+                      <SelectValue placeholder={t("selectBranchPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       {branches.map((b) => (
@@ -598,7 +596,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
                 <div className="space-y-1.5">
                   <label className="text-xs font-medium text-foreground">
-                    Faollik holati
+                    {t("activityStatus")}
                   </label>
                   <Select
                     value={editIsActive ? "active" : "inactive"}
@@ -609,10 +607,10 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="active" className="text-xs text-emerald-600">
-                        Faol
+                        {t("statusActive")}
                       </SelectItem>
                       <SelectItem value="inactive" className="text-xs text-muted-foreground">
-                        Nofaol
+                        {t("statusInactive")}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -629,7 +627,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 disabled={isPending}
                 className="text-xs"
               >
-                Bekor qilish
+                {t("cancel")}
               </Button>
               <Button
                 type="submit"
@@ -637,7 +635,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 disabled={isPending}
                 className="text-xs"
               >
-                {isPending ? "Saqlanmoqda..." : "Saqlash"}
+                {isPending ? t("saving") : t("save")}
               </Button>
             </DialogFooter>
           </form>
@@ -650,10 +648,10 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-base font-semibold">
               <KeyRound className="w-4 h-4 text-primary" aria-hidden="true" />
-              <span>Parolni yangilash</span>
+              <span>{t("resetPasswordModalTitle")}</span>
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              @{resetUser?.username} uchun yangi parol o&apos;rnating
+              {t("resetPasswordModalSubtitle", { username: resetUser?.username || "" })}
             </DialogDescription>
           </DialogHeader>
 
@@ -667,13 +665,13 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">
-                Yangi parol (kamida 6 belgi) *
+                {t("newPasswordLabel")} *
               </label>
               <Input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Yangi parol"
+                placeholder={t("newPasswordPlaceholder")}
                 className="text-base sm:text-xs h-9 font-mono"
                 required
                 minLength={6}
@@ -689,7 +687,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 disabled={isPending}
                 className="text-xs"
               >
-                Bekor qilish
+                {t("cancel")}
               </Button>
               <Button
                 type="submit"
@@ -697,7 +695,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 disabled={isPending}
                 className="text-xs"
               >
-                {isPending ? "O'zgartirilmoqda..." : "Parolni yangilash"}
+                {isPending ? t("resettingPassword") : t("resetPasswordBtn")}
               </Button>
             </DialogFooter>
           </form>
@@ -710,10 +708,10 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-base font-semibold text-destructive">
               <Trash2 className="w-4 h-4" aria-hidden="true" />
-              <span>Adminni o&apos;chirish</span>
+              <span>{t("deleteModalTitle")}</span>
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Haqiqatan ham @{deletingUser?.username} ({deletingUser?.fullName}) hisobini o&apos;chirmoqchimisiz?
+              {t("deleteModalSubtitle", { username: deletingUser?.username || "", fullName: deletingUser?.fullName || "" })}
             </DialogDescription>
           </DialogHeader>
 
@@ -733,7 +731,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               disabled={isPending}
               className="text-xs"
             >
-              Bekor qilish
+              {t("cancel")}
             </Button>
             <Button
               type="button"
@@ -743,7 +741,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               disabled={isPending}
               className="text-xs"
             >
-              {isPending ? "O'chirilmoqda..." : "O'chirish"}
+              {isPending ? t("deleting") : t("deleteBtn")}
             </Button>
           </DialogFooter>
         </DialogContent>
