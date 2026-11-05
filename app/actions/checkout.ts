@@ -43,6 +43,26 @@ export type CreateOrderResult =
       error: string;
     };
 
+/**
+ * Generates a collision-resistant, date-prefixed human-readable order number.
+ * Format: ALO-YYYYMMDD-XXXX where date is anchored in Tashkent timezone (UTC+5).
+ */
+export function generateOrderNumber(date: Date = new Date()): string {
+  const tashkentOffsetMs = 5 * 60 * 60 * 1000;
+  const utcMs = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
+  const tDate = new Date(utcMs + tashkentOffsetMs);
+
+  const yyyy = tDate.getFullYear().toString();
+  const mm = String(tDate.getMonth() + 1).padStart(2, "0");
+  const dd = String(tDate.getDate()).padStart(2, "0");
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let rand = "";
+  for (let i = 0; i < 4; i++) {
+    rand += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return `ALO-${yyyy}${mm}${dd}-${rand}`;
+}
+
 export async function createOrderAction(
   rawInput: CheckoutInput
 ): Promise<CreateOrderResult> {
@@ -114,12 +134,15 @@ export async function createOrderAction(
       calculatedTotal += Number(v.price) * item.quantity;
     }
 
-    // 5. Generate human-readable unique order number
-    const randomDigits = Math.floor(100000 + Math.random() * 900000);
-    const orderNumber = `ALO-${randomDigits}`;
+    // 5. DB Transaction with Collision Retry Loop (up to 5 attempts)
+    let createdOrder: { id: string; orderNumber: string } | null = null;
+    let lastError: unknown = null;
 
-    // 6. DB Transaction to create Order + OrderItems and decrement inventory
-    const createdOrder = await prisma.$transaction(async (tx) => {
+    for (let attempt = 1; attempt <= 5; attempt++) {
+      try {
+        const orderNumber = generateOrderNumber();
+
+        createdOrder = await prisma.$transaction(async (tx) => {
       let fulfillingBranchId: string | null = null;
 
       if (data.fulfillmentType === "PICKUP_FROM_BRANCH") {
@@ -185,15 +208,23 @@ export async function createOrderAction(
           throw new Error("OUT_OF_STOCK_DELIVERY");
         }
 
-        // Atomically decrement stock from the assigned fulfillment branch
+        // Atomically decrement stock from the assigned fulfillment branch with concurrency guard
         for (const item of data.items) {
-          await tx.branchInventory.update({
+          const currentInv = await tx.branchInventory.findUnique({
             where: {
               branchId_variantId: {
                 branchId: fulfillingBranchId,
                 variantId: item.variantId,
               },
             },
+          });
+
+          if (!currentInv || currentInv.quantity < item.quantity) {
+            throw new Error("INSUFFICIENT_BRANCH_STOCK");
+          }
+
+          await tx.branchInventory.update({
+            where: { id: currentInv.id },
             data: {
               quantity: { decrement: item.quantity },
             },
@@ -226,7 +257,30 @@ export async function createOrderAction(
       });
 
       return order;
-    });
+        });
+
+        // Succeeded without collision
+        break;
+      } catch (err) {
+        lastError = err;
+        // Check for Prisma unique constraint collision (P2002 on orderNumber)
+        if (
+          err &&
+          typeof err === "object" &&
+          "code" in err &&
+          err.code === "P2002" &&
+          attempt < 5
+        ) {
+          continue; // Retry with next order number
+        }
+        // Non-collision errors (like INSUFFICIENT_BRANCH_STOCK) should re-throw immediately
+        throw err;
+      }
+    }
+
+    if (!createdOrder) {
+      throw lastError || new Error("ORDER_CREATION_FAILED");
+    }
 
     return {
       success: true,
