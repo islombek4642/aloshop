@@ -39,7 +39,7 @@ export const createProductSchema = z
     brand: z.string().min(1, "Brand is required"),
     modelName: z.string().min(1, "Model name is required"),
     slug: z.string().optional(),
-    categoryId: z.string().min(1, "Category is required"),
+    categoryId: z.string().optional().default(""),
     warrantyMonths: z.number().int().min(0).default(12),
     series: z.string().optional(),
     releaseYear: z.number().int().optional(),
@@ -66,6 +66,13 @@ export const createProductSchema = z
   })
   .superRefine((data, ctx) => {
     if (!data.isDraft) {
+      if (!data.categoryId || !data.categoryId.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Category is required",
+          path: ["categoryId"],
+        });
+      }
       if (!data.descriptionUz || !data.descriptionUz.trim()) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -162,9 +169,11 @@ export async function createProductAction(
     const createdProduct = await prisma.$transaction(async (tx) => {
       // 1. Ensure categoryId exists or resolve fallback category
       let validCategoryId = data.categoryId;
-      const catExists = await tx.category.findUnique({
-        where: { id: validCategoryId },
-      });
+      const catExists = validCategoryId
+        ? await tx.category.findUnique({
+            where: { id: validCategoryId },
+          })
+        : null;
       if (!catExists) {
         const fallbackCat = await tx.category.findFirst({
           orderBy: { nameUz: "asc" },

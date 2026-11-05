@@ -28,6 +28,7 @@ interface HomePageProps {
 async function getFeaturedProducts(): Promise<ProductCardData[]> {
   try {
     const products = await prisma.product.findMany({
+      where: { isDraft: false, isArchived: false },
       include: {
         variants: {
           include: {

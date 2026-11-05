@@ -210,3 +210,4 @@ export function MediaSection({ state, onChange }: MediaSectionProps) {
     </Card>
   );
 }
+

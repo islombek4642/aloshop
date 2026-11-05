@@ -198,3 +198,4 @@ export function SpecsSection({ state, onChange }: SpecsSectionProps) {
     </Card>
   );
 }
+

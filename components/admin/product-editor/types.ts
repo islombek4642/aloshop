@@ -63,3 +63,4 @@ export interface ProductEditorState {
   isActive: boolean;
   isDraft: boolean;
 }
+

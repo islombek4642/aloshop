@@ -225,26 +225,27 @@ export function StickySidebarSummary({
           variant="outline"
           onClick={() => onSave(true)}
           disabled={isPending}
-          className="flex-1 h-11 text-xs font-medium gap-1.5"
+          className="flex-1 min-w-0 h-11 text-xs font-medium gap-1.5"
         >
-          <FileDown className="w-4 h-4 text-muted-foreground" />
-          <span>{t("saveDraft")}</span>
+          <FileDown className="w-4 h-4 shrink-0 text-muted-foreground" />
+          <span className="truncate">{t("saveDraft")}</span>
         </Button>
 
         <Button
           type="button"
           onClick={() => onSave(false)}
           disabled={isPending}
-          className="flex-1 h-11 text-xs font-bold gap-1.5 shadow-sm"
+          className="flex-1 min-w-0 h-11 text-xs font-bold gap-1.5 shadow-sm"
         >
           {isPending ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className="w-4 h-4 shrink-0" />
           )}
-          <span>{isPending ? t("saving") : t("saveProduct")}</span>
+          <span className="truncate">{isPending ? t("saving") : t("saveProduct")}</span>
         </Button>
       </div>
     </>
   );
 }
+

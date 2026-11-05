@@ -90,7 +90,7 @@ async function getProductBySlug(slug: string): Promise<SerializedProduct | null>
       },
     });
 
-    if (dbProduct && dbProduct.variants.length > 0) {
+    if (dbProduct && !dbProduct.isDraft && !dbProduct.isArchived && dbProduct.variants.length > 0) {
       return {
         id: dbProduct.id,
         brand: dbProduct.brand,

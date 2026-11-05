@@ -150,7 +150,7 @@ export default async function CatalogPage({
   // Try DB query with full relational filters
   let products: ProductCardData[] = [];
   try {
-    const where: Prisma.ProductWhereInput = {};
+    const where: Prisma.ProductWhereInput = { isDraft: false, isArchived: false };
 
     if (queryParams.brand) {
       where.brand = { equals: queryParams.brand, mode: "insensitive" };

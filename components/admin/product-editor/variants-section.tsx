@@ -55,7 +55,7 @@ export function VariantsSection({
     }
 
     const newVar: EditorVariant = {
-      id: `var-${Date.now()}-${idx}`,
+      id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `var-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       sku: newSku,
       colorNameUz: newColorUz,
       colorNameRu: `Цвет ${idx}`,
@@ -82,10 +82,25 @@ export function VariantsSection({
       initialStock[b.id] = src.stockByBranch[b.id] ?? 0;
     }
 
+    const baseSku = src.sku.replace(/-COPY\d+$/i, "");
+    const copyRegex = new RegExp(`^${baseSku}-COPY(\\d+)$`, "i");
+    let maxCopy = 0;
+    for (const item of state.variants) {
+      const match = item.sku.match(copyRegex);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        if (num > maxCopy) maxCopy = num;
+      }
+    }
+    const nextSku = `${baseSku}-COPY${maxCopy + 1}`;
+    const uniqueId = typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `var-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+
     const duplicated: EditorVariant = {
       ...src,
-      id: `var-${Date.now()}-${nextIdx}`,
-      sku: `${src.sku}-COPY${nextIdx}`,
+      id: uniqueId,
+      sku: nextSku,
       colorNameUz: `${src.colorNameUz} (Nusxa)`,
       colorNameRu: `${src.colorNameRu} (Копия)`,
       colorNameEn: `${src.colorNameEn} (Copy)`,
@@ -141,7 +156,7 @@ export function VariantsSection({
               variant="outline"
               size="sm"
               onClick={handleAddVariant}
-              className="h-10 sm:h-8 text-xs font-medium gap-1.5"
+              className="h-11 sm:h-8 text-xs font-medium gap-1.5"
             >
               <Plus className="w-3.5 h-3.5 text-primary" />
               <span>{t("addVariantManual")}</span>
@@ -157,7 +172,7 @@ export function VariantsSection({
           >
             {/* Variant Top Bar: Sku, Color Preview, Actions */}
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/50 pb-3">
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2 min-w-0">
                 <div
                   className="w-5 h-5 rounded-full border border-border/80 shrink-0 shadow-2xs"
                   style={{ backgroundColor: v.colorHex }}
@@ -177,7 +192,7 @@ export function VariantsSection({
                     variant="ghost"
                     size="sm"
                     onClick={() => handleDuplicateVariant(idx)}
-                    className="h-9 sm:h-8 px-2.5 text-xs text-muted-foreground hover:text-foreground gap-1"
+                    className="h-11 sm:h-8 px-2.5 text-xs text-muted-foreground hover:text-foreground gap-1"
                     title={t("duplicateVariant")}
                   >
                     <Copy className="w-3.5 h-3.5" />
@@ -189,7 +204,7 @@ export function VariantsSection({
                       variant="ghost"
                       size="sm"
                       onClick={() => handleRemoveVariant(idx)}
-                      className="h-9 sm:h-8 px-2 text-destructive hover:bg-destructive/10"
+                      className="h-11 sm:h-8 px-2 text-destructive hover:bg-destructive/10"
                       title={t("removeVariant")}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -378,3 +393,4 @@ export function VariantsSection({
     </Card>
   );
 }
+
