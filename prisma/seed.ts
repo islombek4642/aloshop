@@ -136,15 +136,23 @@ async function main() {
 
   const smartphonesCategory = categories.find((c) => c.slug === "smartphones")!;
 
-  // 4. Eski namunaviy mahsulotlarni tozalash (Purge old dummy products)
-  console.log("\nPurging old hardcoded dummy products...");
-  await prisma.orderItem.deleteMany({});
-  await prisma.order.deleteMany({});
-  await prisma.iMEIRecord.deleteMany({});
-  await prisma.branchInventory.deleteMany({});
-  await prisma.productVariant.deleteMany({});
-  await prisma.product.deleteMany({});
-  console.log("[PASS] Old products purged cleanly.");
+  const isProduction = process.env.NODE_ENV === "production";
+  const forceClean = process.argv.includes("--force-clean");
+
+  if (isProduction && !forceClean) {
+    console.warn("[SAFETY GUARD] Seed script running in production without --force-clean flag.");
+    console.warn("[SAFETY GUARD] Skipping destructive deletion to protect customer orders, inventory, and IMEI records.");
+  } else {
+    // 4. Eski namunaviy mahsulotlarni tozalash (Purge old dummy products in development)
+    console.log("\nPurging old hardcoded dummy products...");
+    await prisma.orderItem.deleteMany({});
+    await prisma.order.deleteMany({});
+    await prisma.iMEIRecord.deleteMany({});
+    await prisma.branchInventory.deleteMany({});
+    await prisma.productVariant.deleteMany({});
+    await prisma.product.deleteMany({});
+    console.log("[PASS] Old products purged cleanly.");
+  }
 
   // 5. Barcha 41 ta smartfonni joylash (Seed all 41 phones from data)
   console.log(`\nSeeding ${CATALOG_PRESETS.length} official smartphones from data/...`);
