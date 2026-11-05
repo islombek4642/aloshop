@@ -8,7 +8,7 @@ export function verifyAdminProductAction(): {
   const checks: string[] = [];
   const errors: string[] = [];
 
-  // 1. Verify variantInputSchema includes RAM
+  // 1. Verify variantInputSchema includes RAM & costPrice
   const variantTest = variantInputSchema.safeParse({
     sku: "TEST-SKU",
     colorNameUz: "Qora",
@@ -19,6 +19,7 @@ export function verifyAdminProductAction(): {
     storage: "128GB",
     condition: "NEW",
     price: 10000000,
+    costPrice: 8500000,
     images: ["/images/products/test.png"],
   });
 
@@ -27,12 +28,14 @@ export function verifyAdminProductAction(): {
   } else {
     if (variantTest.data.ram !== "8GB") {
       errors.push("variantInputSchema did not capture 'ram' field");
+    } else if (variantTest.data.costPrice !== 8500000) {
+      errors.push("variantInputSchema did not capture 'costPrice' field");
     } else {
-      checks.push("variantInputSchema successfully validates and captures 'ram'");
+      checks.push("variantInputSchema successfully validates and captures 'ram' and 'costPrice'");
     }
   }
 
-  // 2. Verify createProductSchema accepts hardware specification fields
+  // 2. Verify createProductSchema accepts hardware specification fields & costPrice & shortDesc
   const productTest = createProductSchema.safeParse({
     brand: "Apple",
     modelName: "iPhone 16 Pro",
@@ -47,6 +50,11 @@ export function verifyAdminProductAction(): {
     specs: { ipRating: "IP68", nitsPeak: 2000 },
     categoryId: "cat-123",
     warrantyMonths: 12,
+    costPrice: 12000000,
+    isDraft: false,
+    shortDescUz: "Ajoyib flagman telefon",
+    shortDescRu: "Отличный флагманский телефон",
+    shortDescEn: "Great flagship phone",
     descriptionUz: "Test tavsif",
     descriptionRu: "Тестовое описание",
     descriptionEn: "Test description",
@@ -61,6 +69,7 @@ export function verifyAdminProductAction(): {
         storage: "256GB",
         condition: "NEW",
         price: 15000000,
+        costPrice: 13000000,
         images: ["/images/products/test.png"],
       },
     ],
@@ -71,46 +80,95 @@ export function verifyAdminProductAction(): {
   } else {
     const data = productTest.data;
     if (
-      data.camera !== "48MP Fusion + 48MP Ultra Wide" ||
-      data.charging !== "USB-C, 25W MagSafe" ||
-      data.os !== "iOS 18" ||
-      data.series !== "iPhone 16" ||
-      data.releaseYear !== 2024 ||
-      data.screenSize !== '6.3" Super Retina XDR OLED' ||
-      data.processor !== "Apple A18 Pro (3nm)" ||
-      data.battery !== "3582 mAh"
+      data.costPrice !== 12000000 ||
+      data.isDraft !== false ||
+      data.shortDescUz !== "Ajoyib flagman telefon"
     ) {
-      errors.push("createProductSchema omitted one or more hardware fields from parsed output");
+      errors.push("createProductSchema omitted costPrice, isDraft or shortDescUz");
     } else {
-      checks.push("createProductSchema successfully validates all 8 hardware & series fields");
+      checks.push("createProductSchema successfully validates costPrice, isDraft, and shortDesc");
     }
   }
 
-  // 3. Verify resilient fallback when optional hardware specs are omitted
-  const minimalProductTest = createProductSchema.safeParse({
-    brand: "Generic",
-    modelName: "Basic Phone",
+  // 3. Verify draft mode with minimal fields (Title, Brand, Category)
+  const draftTest = createProductSchema.safeParse({
+    brand: "Apple",
+    modelName: "iPhone 17 Draft",
     categoryId: "cat-123",
-    descriptionUz: "Oddiy telefon",
-    descriptionRu: "Простой телефон",
-    descriptionEn: "Basic phone",
+    isDraft: true,
+  });
+
+  if (!draftTest.success) {
+    errors.push(`createProductSchema failed to accept draft with minimal fields: ${JSON.stringify(draftTest.error.issues)}`);
+  } else {
+    if (draftTest.data.isDraft !== true) {
+      errors.push("createProductSchema did not preserve isDraft=true flag");
+    } else {
+      checks.push("createProductSchema successfully accepts minimal draft payload");
+    }
+  }
+
+  // 4. Verify USED condition accepts valid 15-digit IMEI and battery health
+  const usedValidTest = createProductSchema.safeParse({
+    brand: "Apple",
+    modelName: "iPhone 13 B/U",
+    categoryId: "cat-123",
+    condition: "USED",
+    imei: "123456789012345",
+    batteryHealth: 88,
+    usedConditionGrade: "A",
+    descriptionUz: "Yaxshi holatda",
+    descriptionRu: "В хорошем состоянии",
+    descriptionEn: "Good condition",
     variants: [
       {
-        sku: "GEN-64-BLK",
-        colorNameUz: "Qora",
-        colorNameRu: "Черный",
-        colorNameEn: "Black",
-        colorHex: "#000000",
-        storage: "64GB",
-        price: 1000000,
+        sku: "IP13-128-USED",
+        colorNameUz: "Ko'k",
+        colorNameRu: "Синий",
+        colorNameEn: "Blue",
+        colorHex: "#0000FF",
+        storage: "128GB",
+        condition: "USED",
+        price: 5000000,
       },
     ],
   });
 
-  if (!minimalProductTest.success) {
-    errors.push(`createProductSchema failed on minimal payload: ${JSON.stringify(minimalProductTest.error.issues)}`);
+  if (!usedValidTest.success) {
+    errors.push(`createProductSchema failed on valid USED phone: ${JSON.stringify(usedValidTest.error.issues)}`);
   } else {
-    checks.push("createProductSchema accepts minimal payload with optional hardware specs omitted");
+    checks.push("createProductSchema accepts valid USED device with 15-digit IMEI and battery health");
+  }
+
+  // 5. Verify USED condition rejects invalid IMEI when not a draft
+  const usedInvalidTest = createProductSchema.safeParse({
+    brand: "Apple",
+    modelName: "iPhone 13 B/U",
+    categoryId: "cat-123",
+    condition: "USED",
+    imei: "short-imei", // invalid, not 15 digits
+    isDraft: false,
+    descriptionUz: "Tavsif",
+    descriptionRu: "Описание",
+    descriptionEn: "Description",
+    variants: [
+      {
+        sku: "IP13-128-USED",
+        colorNameUz: "Ko'k",
+        colorNameRu: "Синий",
+        colorNameEn: "Blue",
+        colorHex: "#0000FF",
+        storage: "128GB",
+        condition: "USED",
+        price: 5000000,
+      },
+    ],
+  });
+
+  if (usedInvalidTest.success) {
+    errors.push("createProductSchema erroneously accepted non-15-digit IMEI for published USED device");
+  } else {
+    checks.push("createProductSchema strictly rejects invalid IMEI for published USED device");
   }
 
   return {
@@ -135,4 +193,3 @@ if (require.main === module || process.argv[1]?.includes("admin-products-action.
     process.exit(1);
   }
 }
-

@@ -27,32 +27,84 @@ export const variantInputSchema = z.object({
   storage: z.string().min(1, "Storage is required"),
   condition: z.enum(["NEW", "USED"]).default("NEW"),
   price: z.number().positive("Price must be positive"),
+  costPrice: z.number().positive().optional().nullable(),
   oldPrice: z.number().positive().optional().nullable(),
   images: z.array(z.string()).default([]),
   initialStock: z.record(z.string(), z.number().int().min(0)).optional(),
   imei: z.string().optional(),
 });
 
-export const createProductSchema = z.object({
-  brand: z.string().min(1, "Brand is required"),
-  modelName: z.string().min(1, "Model name is required"),
-  slug: z.string().optional(),
-  categoryId: z.string().min(1, "Category is required"),
-  warrantyMonths: z.number().int().min(0).default(12),
-  series: z.string().optional(),
-  releaseYear: z.number().int().optional(),
-  screenSize: z.string().optional(),
-  processor: z.string().optional(),
-  battery: z.string().optional(),
-  camera: z.string().optional(),
-  charging: z.string().optional(),
-  os: z.string().optional(),
-  specs: z.record(z.string(), z.unknown()).optional(),
-  descriptionUz: z.string().min(1, "Description UZ required"),
-  descriptionRu: z.string().min(1, "Description RU required"),
-  descriptionEn: z.string().min(1, "Description EN required"),
-  variants: z.array(variantInputSchema).min(1, "At least one variant required"),
-});
+export const createProductSchema = z
+  .object({
+    brand: z.string().min(1, "Brand is required"),
+    modelName: z.string().min(1, "Model name is required"),
+    slug: z.string().optional(),
+    categoryId: z.string().min(1, "Category is required"),
+    warrantyMonths: z.number().int().min(0).default(12),
+    series: z.string().optional(),
+    releaseYear: z.number().int().optional(),
+    screenSize: z.string().optional(),
+    processor: z.string().optional(),
+    battery: z.string().optional(),
+    camera: z.string().optional(),
+    charging: z.string().optional(),
+    os: z.string().optional(),
+    specs: z.record(z.string(), z.unknown()).optional(),
+    condition: z.enum(["NEW", "USED"]).default("NEW"),
+    imei: z.string().optional(),
+    batteryHealth: z.number().int().min(1).max(100).optional().nullable(),
+    usedConditionGrade: z.string().optional(),
+    costPrice: z.number().positive().optional().nullable(),
+    isDraft: z.boolean().default(false),
+    shortDescUz: z.string().optional(),
+    shortDescRu: z.string().optional(),
+    shortDescEn: z.string().optional(),
+    descriptionUz: z.string().default(""),
+    descriptionRu: z.string().default(""),
+    descriptionEn: z.string().default(""),
+    variants: z.array(variantInputSchema).default([]),
+  })
+  .superRefine((data, ctx) => {
+    if (!data.isDraft) {
+      if (!data.descriptionUz || !data.descriptionUz.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Description UZ required",
+          path: ["descriptionUz"],
+        });
+      }
+      if (!data.descriptionRu || !data.descriptionRu.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Description RU required",
+          path: ["descriptionRu"],
+        });
+      }
+      if (!data.descriptionEn || !data.descriptionEn.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Description EN required",
+          path: ["descriptionEn"],
+        });
+      }
+      if (!data.variants || data.variants.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "At least one variant required",
+          path: ["variants"],
+        });
+      }
+      if (data.condition === "USED") {
+        if (!data.imei || !/^\d{15}$/.test(data.imei.trim())) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "15-digit numeric IMEI is required for USED device",
+            path: ["imei"],
+          });
+        }
+      }
+    }
+  });
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 
@@ -147,13 +199,39 @@ export async function createProductAction(
           charging: data.charging?.trim() || null,
           os: data.os?.trim() || null,
           specs: data.specs ? (data.specs as Prisma.InputJsonValue) : undefined,
+          costPrice: data.costPrice ?? null,
+          isDraft: data.isDraft,
+          shortDescUz: data.shortDescUz?.trim() || null,
+          shortDescRu: data.shortDescRu?.trim() || null,
+          shortDescEn: data.shortDescEn?.trim() || null,
           descriptionUz: data.descriptionUz.trim(),
           descriptionRu: data.descriptionRu.trim(),
           descriptionEn: data.descriptionEn.trim(),
         },
       });
 
-      for (const v of data.variants) {
+      // Prepare effective variants (fallback placeholder if draft has 0 variants)
+      const effectiveVariants = data.variants.length > 0
+        ? data.variants
+        : [
+            {
+              sku: `${data.brand.slice(0, 3)}-${data.modelName.slice(0, 5)}-DRAFT`.toUpperCase().replace(/[^A-Z0-9-]/g, ""),
+              colorNameUz: "Qora",
+              colorNameRu: "Черный",
+              colorNameEn: "Black",
+              colorHex: "#000000",
+              storage: "128GB",
+              condition: data.condition,
+              price: 1000000,
+              costPrice: data.costPrice ?? null,
+              oldPrice: null,
+              images: ["/images/products/placeholder.webp"],
+              initialStock: {},
+              imei: data.imei,
+            },
+          ];
+
+      for (const v of effectiveVariants) {
         // IDOR / Stock safety: Filter initialStock so BRANCH_ADMIN only modifies their own branch
         let filteredInitialStock: Record<string, number> = {};
         if (isSuper && v.initialStock) {
@@ -184,6 +262,7 @@ export async function createProductAction(
             ram: v.ram?.trim() || null,
             storage: v.storage.trim(),
             condition: v.condition,
+            costPrice: v.costPrice ?? null,
             price: v.price,
             oldPrice: v.oldPrice ?? null,
             images:
@@ -384,7 +463,7 @@ export async function createOrUpdateProductFromPresetAction(
       });
 
       // Process each selected variant
-      for (const v of data.variants) {
+      for (const v of effectiveVariants) {
         // Resolve preset color metadata
         const matchedColor =
           preset.colors.find(
