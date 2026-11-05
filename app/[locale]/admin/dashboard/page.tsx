@@ -81,7 +81,10 @@ export default async function AdminDashboardPage({
     const [ordersAgg, ordersCount, branches, lowStockItems, recentDbOrders] =
       await Promise.all([
         prisma.order.aggregate({
-          where: orderWhere,
+          where: {
+            ...orderWhere,
+            status: { not: "CANCELLED" },
+          },
           _sum: { totalAmount: true },
         }),
         prisma.order.count({
