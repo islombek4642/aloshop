@@ -81,6 +81,11 @@ model Product {
   os             String?          // Masalan: "iOS 18"
   specs          Json?            // Qo'shimcha texnik parametrlar
   isArchived     Boolean          @default(false)
+  costPrice      Decimal?         @db.Decimal(12, 2)
+  isDraft        Boolean          @default(false)
+  shortDescUz    String?
+  shortDescRu    String?
+  shortDescEn    String?
   categoryId     String
   category       Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   createdAt      DateTime         @default(now())
@@ -104,6 +109,7 @@ model ProductVariant {
   ram         String?           // Masalan: "8GB", "12GB", "16GB"
   storage     String            // 128GB, 256GB, 512GB, 1TB
   condition   String            @default("NEW") // NEW, USED (B/U)
+  costPrice   Decimal?          @db.Decimal(12, 2)
   price       Decimal           @db.Decimal(12, 2) // So'mda
   oldPrice    Decimal?          @db.Decimal(12, 2)
   images      String[]          // Rasm URL manzillari
