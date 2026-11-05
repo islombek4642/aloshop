@@ -15,8 +15,16 @@ export const ADMIN_SESSION_COOKIE = "aloshop_admin_session";
 export const SESSION_DURATION_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
 export function getAuthSecret(): Uint8Array {
-  const secret =
-    process.env.AUTH_SECRET || "dev-secret-key-32-chars-long-for-aloshop";
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("AUTH_SECRET environment variable is missing in production");
+    }
+    return new TextEncoder().encode("dev-secret-key-32-chars-long-for-aloshop");
+  }
+  if (secret.length < 32 && process.env.NODE_ENV === "production") {
+    throw new Error("AUTH_SECRET must be at least 32 characters long in production");
+  }
   return new TextEncoder().encode(secret);
 }
 

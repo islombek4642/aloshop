@@ -79,7 +79,7 @@ export function canManageBranches(session: AdminSessionPayload): boolean {
 }
 
 /**
- * Verifies admin credentials against .env SuperAdmin and Prisma User database.
+ * Verifies admin credentials strictly against the Prisma User database using bcrypt.
  * Returns the typed session payload if valid, or null if invalid.
  */
 export async function verifyAdminCredentials(
@@ -92,26 +92,6 @@ export async function verifyAdminCredentials(
 
   const trimmedUsername = username.trim();
 
-  // 1. Verify against SuperAdmin .env credentials
-  const envSuperUsername = process.env.SUPER_ADMIN_USERNAME || "admin";
-  const envSuperPassword =
-    process.env.SUPER_ADMIN_PASSWORD || "superadmin_secret_password_change_me";
-
-  if (
-    trimmedUsername === envSuperUsername &&
-    password === envSuperPassword
-  ) {
-    return {
-      userId: "superadmin-root",
-      username: envSuperUsername,
-      fullName: "Super Administrator",
-      role: "SUPER_ADMIN",
-      branchId: null,
-      branchName: null,
-    };
-  }
-
-  // 2. Verify against Prisma database users
   try {
     const user = await prisma.user.findUnique({
       where: { username: trimmedUsername },
