@@ -25,7 +25,7 @@ export const variantInputSchema = z.object({
     .regex(/^#[0-9A-Fa-f]{6}$/, "Valid HEX color code required"),
   ram: z.string().optional(),
   storage: z.string().min(1, "Storage is required"),
-  condition: z.enum(["NEW", "USED"]).default("NEW"),
+  condition: z.enum(["NEW", "USED"]).optional().default("NEW"),
   price: z.number().positive("Price must be positive"),
   costPrice: z.number().positive().optional().nullable(),
   oldPrice: z.number().positive().optional().nullable(),
@@ -50,12 +50,12 @@ export const createProductSchema = z
     charging: z.string().optional(),
     os: z.string().optional(),
     specs: z.record(z.string(), z.unknown()).optional(),
-    condition: z.enum(["NEW", "USED"]).default("NEW"),
+    condition: z.enum(["NEW", "USED"]).optional().default("NEW"),
     imei: z.string().optional(),
     batteryHealth: z.number().int().min(1).max(100).optional().nullable(),
     usedConditionGrade: z.string().optional(),
     costPrice: z.number().positive().optional().nullable(),
-    isDraft: z.boolean().default(false),
+    isDraft: z.boolean().optional().default(false),
     shortDescUz: z.string().optional(),
     shortDescRu: z.string().optional(),
     shortDescEn: z.string().optional(),
@@ -106,7 +106,7 @@ export const createProductSchema = z
     }
   });
 
-export type CreateProductInput = z.infer<typeof createProductSchema>;
+export type CreateProductInput = z.input<typeof createProductSchema>;
 
 export type CreateProductResult =
   | { success: true; productId: string }
@@ -463,7 +463,7 @@ export async function createOrUpdateProductFromPresetAction(
       });
 
       // Process each selected variant
-      for (const v of effectiveVariants) {
+      for (const v of data.variants) {
         // Resolve preset color metadata
         const matchedColor =
           preset.colors.find(
