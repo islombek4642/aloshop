@@ -250,6 +250,7 @@ export type DeleteBranchResult =
         | "validationError"
         | "notFound"
         | "hasOrders"
+        | "hasActiveStock"
         | "failedToDelete";
     };
 
@@ -284,6 +285,17 @@ export async function deleteBranchAction(
 
     if (branch._count.orders > 0) {
       return { success: false, error: "hasOrders" };
+    }
+
+    // Active stock protection: reject deletion if branch contains active physical inventory
+    const stockAggregate = await prisma.branchInventory.aggregate({
+      where: { branchId: id },
+      _sum: { quantity: true },
+    });
+
+    const totalActiveStock = stockAggregate._sum.quantity || 0;
+    if (totalActiveStock > 0) {
+      return { success: false, error: "hasActiveStock" };
     }
 
     // Disassociate any assigned users

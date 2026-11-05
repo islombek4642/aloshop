@@ -239,6 +239,8 @@ export function BranchesListView({
       if (!result.success) {
         if (result.error === "hasOrders") {
           setDeleteError(t("cannotDeleteWithOrders"));
+        } else if (result.error === "hasActiveStock") {
+          setDeleteError(t("cannotDeleteWithActiveStock") || "Filialda faol tovar qoldig'i mavjud. O'chirishdan oldin tovarlarni boshqa filialga o'tkazing.");
         } else if (result.error === "unauthorized") {
           setDeleteError(t("superAdminOnlyNotice"));
         } else {
