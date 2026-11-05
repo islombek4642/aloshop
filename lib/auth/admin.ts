@@ -117,10 +117,37 @@ export async function verifyAdminCredentials(
     }
 
     // 2. Database-backed users (hashed with bcrypt)
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { username: trimmedUsername },
       include: { branch: true },
     });
+
+    // Auto-bootstrap default superadmin on first database launch if no superadmin exists yet
+    if (!user && (trimmedUsername === "superadmin" || trimmedUsername === "admin")) {
+      const isSuperadminDefault = trimmedUsername === "superadmin" && password === "1111";
+      const isAdminDefault = trimmedUsername === "admin" && password === "admin12345";
+
+      if (isSuperadminDefault || isAdminDefault) {
+        const existingSuperAdminCount = await prisma.user.count({
+          where: { role: "SUPER_ADMIN" },
+        });
+
+        if (existingSuperAdminCount === 0) {
+          const rawPassword = isSuperadminDefault ? "1111" : "admin12345";
+          const passwordHash = await bcrypt.hash(rawPassword, 10);
+          user = await prisma.user.create({
+            data: {
+              username: trimmedUsername,
+              fullName: isSuperadminDefault ? "Super Administrator" : "Bosh Administrator",
+              passwordHash,
+              role: "SUPER_ADMIN",
+              isActive: true,
+            },
+            include: { branch: true },
+          });
+        }
+      }
+    }
 
     if (!user || !user.isActive) {
       return null;

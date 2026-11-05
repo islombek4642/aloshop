@@ -26,6 +26,14 @@ const createBranchAdminSchema = z.object({
 
 const updateBranchAdminSchema = z.object({
   userId: z.string().min(1, "User ID is required"),
+  username: z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .regex(
+      /^[a-zA-Z0-9_]+$/,
+      "Username can only contain letters, numbers, and underscores"
+    )
+    .optional(),
   fullName: z.string().min(2, "Full name is required"),
   branchId: z.string().nullable().optional(),
   isActive: z.boolean().optional(),
@@ -129,7 +137,7 @@ export async function updateBranchAdminAction(
     return { success: false, error: "validationError" };
   }
 
-  const { userId, fullName, branchId, isActive } = parsed.data;
+  const { userId, username, fullName, branchId, isActive } = parsed.data;
 
   try {
     const user = await prisma.user.findUnique({
@@ -145,6 +153,20 @@ export async function updateBranchAdminAction(
       return { success: false, error: "cannotDeactivateSelf" };
     }
 
+    let finalUsername = user.username;
+    if (username) {
+      const trimmedUsername = username.trim().toLowerCase();
+      if (trimmedUsername !== user.username) {
+        const existing = await prisma.user.findUnique({
+          where: { username: trimmedUsername },
+        });
+        if (existing) {
+          return { success: false, error: "usernameTaken" };
+        }
+        finalUsername = trimmedUsername;
+      }
+    }
+
     if (branchId) {
       const branch = await prisma.branch.findUnique({
         where: { id: branchId },
@@ -157,6 +179,7 @@ export async function updateBranchAdminAction(
     await prisma.user.update({
       where: { id: userId },
       data: {
+        username: finalUsername,
         fullName: fullName.trim(),
         branchId: branchId === undefined ? user.branchId : branchId,
         isActive: isActive === undefined ? user.isActive : isActive,

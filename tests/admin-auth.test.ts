@@ -137,6 +137,13 @@ async function runAdminAuthTests() {
   process.env.SUPER_ADMIN_PASSWORD = originalEnvPass;
 
   // Database credentials verification
+  const validSuperadminCreds = await verifyAdminCredentials("superadmin", "1111");
+  if (validSuperadminCreds !== null) {
+    assert(validSuperadminCreds.role === "SUPER_ADMIN", "Verified role should be SUPER_ADMIN");
+    assert(validSuperadminCreds.username === "superadmin", "Verified username should match");
+    console.log("  + Default SuperAdmin credentials verification passed");
+  }
+
   const validDbCreds = await verifyAdminCredentials("admin", "admin12345");
   if (validDbCreds !== null) {
     assert(validDbCreds.role === "SUPER_ADMIN", "Verified role should be SUPER_ADMIN");
@@ -146,8 +153,11 @@ async function runAdminAuthTests() {
     console.log("  + Note: No seeded database admin found in unit test environment (pass-through)");
   }
 
-  const invalidSuperCreds = await verifyAdminCredentials("admin", "wrong_password_12345");
-  assert(invalidSuperCreds === null, "Wrong password must fail");
+  const invalidSuperCreds = await verifyAdminCredentials("superadmin", "wrong_password_12345");
+  assert(invalidSuperCreds === null, "Wrong password for superadmin must fail");
+
+  const invalidAdminCreds = await verifyAdminCredentials("admin", "wrong_password_12345");
+  assert(invalidAdminCreds === null, "Wrong password must fail");
 
   const emptyCreds = await verifyAdminCredentials("", "");
   assert(emptyCreds === null, "Empty credentials must fail");

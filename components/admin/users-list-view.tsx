@@ -82,6 +82,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
   // Edit User State
   const [editingUser, setEditingUser] = React.useState<SerializedAdminUser | null>(null);
+  const [editUsername, setEditUsername] = React.useState("");
   const [editFullName, setEditFullName] = React.useState("");
   const [editBranchId, setEditBranchId] = React.useState<string | null>(null);
   const [editIsActive, setEditIsActive] = React.useState(true);
@@ -160,6 +161,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
   const handleOpenEdit = (user: SerializedAdminUser) => {
     setEditingUser(user);
+    setEditUsername(user.username);
     setEditFullName(user.fullName);
     setEditBranchId(user.branchId || null);
     setEditIsActive(user.isActive !== false);
@@ -176,13 +178,18 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
     try {
       const result = await updateBranchAdminAction({
         userId: editingUser.id,
+        username: editUsername.trim(),
         fullName: editFullName.trim(),
         branchId: editBranchId,
         isActive: editIsActive,
       });
 
       if (!result.success) {
-        setErrorMessage(result.error);
+        if (result.error === "usernameTaken") {
+          setErrorMessage(t("usernameTaken"));
+        } else {
+          setErrorMessage(result.error);
+        }
         setIsPending(false);
         return;
       }
@@ -542,6 +549,19 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 <span>{errorMessage}</span>
               </div>
             )}
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-medium text-foreground">
+                Foydalanuvchi nomi (username) *
+              </label>
+              <Input
+                value={editUsername}
+                onChange={(e) => setEditUsername(e.target.value)}
+                className="text-base sm:text-xs h-9 font-mono"
+                required
+                minLength={3}
+              />
+            </div>
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">

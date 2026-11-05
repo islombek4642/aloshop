@@ -160,6 +160,11 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "admin-users-crud.test.ts")}"`,
   },
   {
+    id: "admin-bootstrap-lifecycle",
+    name: "SuperAdmin Auto-Bootstrap & Database Bcrypt Lifecycle Suite",
+    command: `npx tsx "${path.join("tests", "admin-bootstrap-lifecycle.test.ts")}"`,
+  },
+  {
     id: "admin-dashboard-metrics",
     name: "Admin Dashboard Revenue & Accounting Calculation Suite",
     command: `npx tsx "${path.join("tests", "admin-dashboard-metrics.test.ts")}"`,
