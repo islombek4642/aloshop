@@ -21,6 +21,7 @@ const createBranchSchema = z.object({
     }),
   workingHours: z.string().trim().min(3, "Working hours are required"),
   isActive: z.boolean().default(true),
+  assignedAdminId: z.string().nullable().optional(),
 });
 
 export type CreateBranchInput = z.infer<typeof createBranchSchema>;
@@ -48,7 +49,7 @@ export async function createBranchAction(
     };
   }
 
-  const { name, city, address, phone, workingHours, isActive } = parsed.data;
+  const { name, city, address, phone, workingHours, isActive, assignedAdminId } = parsed.data;
 
   try {
     // Generate unique URL-safe slug with Cyrillic & Uzbek support
@@ -78,6 +79,14 @@ export async function createBranchAction(
         isActive,
       },
     });
+
+    // If an assigned branch admin is provided, bind them to this branch
+    if (assignedAdminId) {
+      await prisma.user.update({
+        where: { id: assignedAdminId },
+        data: { branchId: newBranch.id },
+      });
+    }
 
     // Populate initial zero-inventory for all existing product variants
     const allVariants = await prisma.productVariant.findMany({
@@ -120,6 +129,7 @@ const updateBranchSchema = z.object({
     }),
   workingHours: z.string().trim().min(3, "Working hours are required"),
   isActive: z.boolean(),
+  assignedAdminId: z.string().nullable().optional(),
 });
 
 export type UpdateBranchInput = z.infer<typeof updateBranchSchema>;
@@ -155,7 +165,7 @@ export async function updateBranchAction(
     };
   }
 
-  const { id, name, city, address, phone, workingHours, isActive } = parsed.data;
+  const { id, name, city, address, phone, workingHours, isActive, assignedAdminId } = parsed.data;
 
   try {
     const existing = await prisma.branch.findUnique({
@@ -177,6 +187,28 @@ export async function updateBranchAction(
         isActive,
       },
     });
+
+    // Handle assigned branch admin update
+    if (assignedAdminId !== undefined) {
+      if (assignedAdminId) {
+        // Clear branch from previous admins of this branch who were not selected
+        await prisma.user.updateMany({
+          where: { branchId: id, id: { not: assignedAdminId } },
+          data: { branchId: null },
+        });
+        // Bind selected admin to this branch
+        await prisma.user.update({
+          where: { id: assignedAdminId },
+          data: { branchId: id },
+        });
+      } else {
+        // Unbind any admin currently assigned to this branch
+        await prisma.user.updateMany({
+          where: { branchId: id },
+          data: { branchId: null },
+        });
+      }
+    }
 
     revalidatePath("/admin/branches");
     revalidatePath("/admin/inventory");

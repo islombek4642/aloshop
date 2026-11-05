@@ -56,16 +56,34 @@ export interface BranchListItem {
   totalVariants: number;
   ordersCount: number;
   createdAt: string;
+  assignedAdmin?: {
+    id: string;
+    fullName: string;
+    username: string;
+  } | null;
+}
+
+export interface AvailableAdminItem {
+  id: string;
+  fullName: string;
+  username: string;
+  branchId: string | null;
 }
 
 interface BranchesListViewProps {
   branches: BranchListItem[];
+  availableAdmins?: AvailableAdminItem[];
+  todaySalesTotal?: number;
+  topBranchName?: string;
   isSuperAdmin: boolean;
   locale: string;
 }
 
 export function BranchesListView({
   branches,
+  availableAdmins = [],
+  todaySalesTotal = 0,
+  topBranchName = "-",
   isSuperAdmin,
   locale,
 }: BranchesListViewProps) {
