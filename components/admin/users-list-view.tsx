@@ -15,6 +15,8 @@ import {
   Pencil,
   KeyRound,
   Trash2,
+  ChevronRight,
+  Calendar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -91,6 +93,9 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
 
   // Delete User State
   const [deletingUser, setDeletingUser] = React.useState<SerializedAdminUser | null>(null);
+
+  // Mobile Bottom Sheet State
+  const [selectedMobileUser, setSelectedMobileUser] = React.useState<SerializedAdminUser | null>(null);
 
   const [isPending, setIsPending] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
@@ -283,126 +288,324 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
         </Button>
       </div>
 
-      {/* Users Table */}
-      <div className="rounded-xl border border-border/80 bg-card overflow-hidden shadow-2xs">
-        {users.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
-            <Users className="w-10 h-10 mb-2 stroke-[1.2] opacity-40" aria-hidden="true" />
-            <p className="text-xs">{t("noUsers")}</p>
-          </div>
-        ) : (
-          <Table>
-            <TableHeader className="bg-muted/40">
-              <TableRow className="hover:bg-transparent">
-                <TableHead className="text-xs font-semibold">{t("tableHeadUser")}</TableHead>
-                <TableHead className="text-xs font-semibold">{t("tableHeadRole")}</TableHead>
-                <TableHead className="text-xs font-semibold">{t("tableHeadBranch")}</TableHead>
-                <TableHead className="text-xs font-semibold">{t("tableHeadStatus")}</TableHead>
-                <TableHead className="text-xs font-semibold text-right">{t("tableHeadCreated")}</TableHead>
-                <TableHead className="text-xs font-semibold text-right">{t("tableHeadActions")}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((u) => (
-                <TableRow key={u.id} className="hover:bg-muted/20">
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="text-xs font-semibold text-foreground">
-                        {u.fullName}
-                      </span>
-                      <span className="text-[11px] font-mono text-muted-foreground">
-                        @{u.username}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    {u.role === "SUPER_ADMIN" ? (
-                      <Badge variant="default" className="text-[10px] px-2 py-0.5 gap-1 font-medium bg-amber-500 hover:bg-amber-600 text-white">
-                        <ShieldCheck className="w-3 h-3" aria-hidden="true" />
-                        <span>{t("roleSuperAdmin")}</span>
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary" className="text-[10px] px-2 py-0.5 gap-1 font-medium">
-                        <Building2 className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
-                        <span>{t("roleBranchAdmin")}</span>
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-xs text-muted-foreground">
-                    {u.branchName || t("allBranchesScope")}
-                  </TableCell>
-                  <TableCell>
-                    {u.isActive !== false ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                        <span>{t("statusActive")}</span>
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
-                        <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true" />
-                        <span>{t("statusInactive")}</span>
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-xs text-muted-foreground text-right">
-                    {new Intl.DateTimeFormat(locale, {
-                      dateStyle: "short",
-                    }).format(new Date(u.createdAt))}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex items-center justify-end gap-1">
-                      {/* Edit Button */}
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleOpenEdit(u)}
-                        className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                        title={t("actionEdit")}
-                      >
-                        <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
-                      </Button>
+      {/* Empty State */}
+      {users.length === 0 ? (
+        <div className="rounded-xl border border-border/80 bg-card flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
+          <Users className="w-10 h-10 mb-2 stroke-[1.2] opacity-40" aria-hidden="true" />
+          <p className="text-xs">{t("noUsers")}</p>
+        </div>
+      ) : (
+        <>
+          {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md and up) */}
+          <div className="hidden md:block rounded-xl border border-border/80 bg-card overflow-hidden shadow-2xs">
+            <Table>
+              <TableHeader className="bg-muted/40">
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="text-xs font-semibold">{t("tableHeadUser")}</TableHead>
+                  <TableHead className="text-xs font-semibold">{t("tableHeadRole")}</TableHead>
+                  <TableHead className="text-xs font-semibold">{t("tableHeadBranch")}</TableHead>
+                  <TableHead className="text-xs font-semibold">{t("tableHeadStatus")}</TableHead>
+                  <TableHead className="text-xs font-semibold text-right">{t("tableHeadCreated")}</TableHead>
+                  <TableHead className="text-xs font-semibold text-right">{t("tableHeadActions")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((u) => (
+                  <TableRow key={u.id} className="hover:bg-muted/20">
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="text-xs font-semibold text-foreground">
+                          {u.fullName}
+                        </span>
+                        <span className="text-[11px] font-mono text-muted-foreground">
+                          @{u.username}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {u.role === "SUPER_ADMIN" ? (
+                        <Badge variant="default" className="text-[10px] px-2 py-0.5 gap-1 font-medium bg-amber-500 hover:bg-amber-600 text-white">
+                          <ShieldCheck className="w-3 h-3" aria-hidden="true" />
+                          <span>{t("roleSuperAdmin")}</span>
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5 gap-1 font-medium">
+                          <Building2 className="w-3 h-3 text-muted-foreground" aria-hidden="true" />
+                          <span>{t("roleBranchAdmin")}</span>
+                        </Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground">
+                      {u.branchName || t("allBranchesScope")}
+                    </TableCell>
+                    <TableCell>
+                      {u.isActive !== false ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                          <span>{t("statusActive")}</span>
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                          <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true" />
+                          <span>{t("statusInactive")}</span>
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground text-right">
+                      {new Intl.DateTimeFormat(locale, {
+                        dateStyle: "short",
+                      }).format(new Date(u.createdAt))}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex items-center justify-end gap-1">
+                        {/* Edit Button */}
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleOpenEdit(u)}
+                          className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                          title={t("actionEdit")}
+                        >
+                          <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
+                        </Button>
 
-                      {/* Reset Password Button */}
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setResetUser(u);
-                          setNewPassword("");
-                          setErrorMessage(null);
-                        }}
-                        className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
-                        title={t("actionResetPassword")}
-                      >
-                        <KeyRound className="w-3.5 h-3.5" aria-hidden="true" />
-                      </Button>
-
-                      {/* Delete Button (disabled for Super Admin) */}
-                      {u.role !== "SUPER_ADMIN" && (
+                        {/* Reset Password Button */}
                         <Button
                           type="button"
                           variant="ghost"
                           size="sm"
                           onClick={() => {
-                            setDeletingUser(u);
+                            setResetUser(u);
+                            setNewPassword("");
                             setErrorMessage(null);
                           }}
-                          className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
-                          title={t("actionDelete")}
+                          className="h-7 w-7 p-0 text-muted-foreground hover:text-foreground"
+                          title={t("actionResetPassword")}
                         >
-                          <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                          <KeyRound className="w-3.5 h-3.5" aria-hidden="true" />
                         </Button>
+
+                        {/* Delete Button (disabled for Super Admin) */}
+                        {u.role !== "SUPER_ADMIN" && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setDeletingUser(u);
+                              setErrorMessage(null);
+                            }}
+                            className="h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                            title={t("actionDelete")}
+                          >
+                            <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* MOBILE LIST VIEW (visible on mobile, hidden on md and up) */}
+          <div className="block md:hidden space-y-2">
+            {users.map((u) => (
+              <button
+                key={u.id}
+                type="button"
+                onClick={() => setSelectedMobileUser(u)}
+                className="w-full text-left p-3.5 rounded-xl border border-border/80 bg-card hover:bg-muted/30 active:bg-muted/50 transition-colors shadow-2xs flex items-center justify-between gap-3 focus:outline-none focus:ring-2 focus:ring-primary/20"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 font-semibold text-xs">
+                    {u.fullName.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-foreground truncate">
+                        {u.fullName}
+                      </span>
+                      {u.isActive !== false ? (
+                        <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" title={t("statusActive")} />
+                      ) : (
+                        <span className="h-2 w-2 rounded-full bg-muted-foreground/40 shrink-0" title={t("statusInactive")} />
                       )}
                     </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </div>
+                    <p className="text-xs text-muted-foreground font-mono truncate">
+                      @{u.username}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 shrink-0">
+                  {u.role === "SUPER_ADMIN" ? (
+                    <Badge variant="default" className="text-[10px] px-1.5 py-0.5 bg-amber-500 text-white font-medium">
+                      <ShieldCheck className="w-2.5 h-2.5 mr-0.5 inline" />
+                      {t("roleSuperAdmin")}
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5 font-medium max-w-[110px] truncate">
+                      {u.branchName || t("allBranchesScope")}
+                    </Badge>
+                  )}
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/60 shrink-0" />
+                </div>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* MOBILE BOTTOM SHEET (ACTION DRAWER) */}
+      <Dialog
+        open={selectedMobileUser !== null}
+        onOpenChange={(open) => !open && setSelectedMobileUser(null)}
+      >
+        <DialogContent className="fixed inset-x-0 bottom-0 top-auto translate-y-0 rounded-t-3xl rounded-b-none border-t border-border/80 bg-background p-6 shadow-2xl max-h-[85vh] overflow-y-auto sm:max-w-none sm:rounded-t-3xl">
+          {/* Drag Handle Indicator */}
+          <div className="w-12 h-1.5 rounded-full bg-muted-foreground/20 mx-auto mb-4 shrink-0" aria-hidden="true" />
+
+          <DialogHeader className="text-left pb-2 space-y-1">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <DialogTitle className="text-lg font-bold text-foreground truncate">
+                  {selectedMobileUser?.fullName}
+                </DialogTitle>
+                <DialogDescription className="text-xs font-mono text-muted-foreground truncate">
+                  @{selectedMobileUser?.username}
+                </DialogDescription>
+              </div>
+              <div className="shrink-0 flex items-center gap-1.5">
+                {selectedMobileUser?.role === "SUPER_ADMIN" ? (
+                  <Badge variant="default" className="text-[10px] px-2 py-0.5 bg-amber-500 text-white font-medium">
+                    <ShieldCheck className="w-3 h-3 mr-1 inline" />
+                    {t("roleSuperAdmin")}
+                  </Badge>
+                ) : (
+                  <Badge variant="secondary" className="text-[10px] px-2 py-0.5 font-medium">
+                    <Building2 className="w-3 h-3 mr-1 inline text-muted-foreground" />
+                    {t("roleBranchAdmin")}
+                  </Badge>
+                )}
+              </div>
+            </div>
+          </DialogHeader>
+
+          {/* Details Grid */}
+          <div className="grid grid-cols-2 gap-2.5 py-3 border-y border-border/60 my-2">
+            <div className="p-2.5 rounded-lg bg-muted/30 space-y-1">
+              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                <Building2 className="w-3 h-3" />
+                {t("tableHeadBranch")}
+              </span>
+              <p className="text-xs font-semibold text-foreground truncate">
+                {selectedMobileUser?.branchName || t("allBranchesScope")}
+              </p>
+            </div>
+
+            <div className="p-2.5 rounded-lg bg-muted/30 space-y-1">
+              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {t("tableHeadCreated")}
+              </span>
+              <p className="text-xs font-semibold text-foreground">
+                {selectedMobileUser?.createdAt &&
+                  new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
+                    new Date(selectedMobileUser.createdAt)
+                  )}
+              </p>
+            </div>
+
+            <div className="col-span-2 p-2.5 rounded-lg bg-muted/30 flex items-center justify-between">
+              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                {t("tableHeadStatus")}
+              </span>
+              {selectedMobileUser?.isActive !== false ? (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  {t("statusActive")}
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                  <span className="h-2 w-2 rounded-full bg-muted-foreground/50" />
+                  {t("statusInactive")}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-2 pt-2">
+            {/* Edit Button */}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                const user = selectedMobileUser;
+                setSelectedMobileUser(null);
+                if (user) handleOpenEdit(user);
+              }}
+              className="w-full h-11 text-xs font-medium justify-start gap-2.5 px-4"
+            >
+              <Pencil className="w-4 h-4 text-primary" />
+              <span>{t("actionEdit")}</span>
+            </Button>
+
+            {/* Reset Password Button */}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                const user = selectedMobileUser;
+                setSelectedMobileUser(null);
+                if (user) {
+                  setResetUser(user);
+                  setNewPassword("");
+                  setErrorMessage(null);
+                }
+              }}
+              className="w-full h-11 text-xs font-medium justify-start gap-2.5 px-4"
+            >
+              <KeyRound className="w-4 h-4 text-amber-500" />
+              <span>{t("actionResetPassword")}</span>
+            </Button>
+
+            {/* Delete Button (disabled for Super Admin) */}
+            {selectedMobileUser?.role !== "SUPER_ADMIN" && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  const user = selectedMobileUser;
+                  setSelectedMobileUser(null);
+                  if (user) {
+                    setDeletingUser(user);
+                    setErrorMessage(null);
+                  }
+                }}
+                className="w-full h-11 text-xs font-medium justify-start gap-2.5 px-4 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>{t("actionDelete")}</span>
+              </Button>
+            )}
+
+            {/* Close Button */}
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setSelectedMobileUser(null)}
+              className="w-full h-10 text-xs text-muted-foreground mt-2"
+            >
+              {t("close")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Create User Dialog Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

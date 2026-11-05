@@ -780,7 +780,10 @@
       "deleting": "O'chirilmoqda...",
       "deleteBtn": "O'chirish",
       "branchLabel": "Filial",
-      "activityStatus": "Faollik holati"
+      "activityStatus": "Faollik holati",
+      "mobileDetailsTitle": "Admin ma'lumotlari",
+      "close": "Yopish",
+      "userDetails": "Foydalanuvchi profili"
     },
     "branchesManagement": {
       "title": "Filiallarni boshqarish",

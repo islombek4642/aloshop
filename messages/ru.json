@@ -780,7 +780,10 @@
       "deleting": "Удаление...",
       "deleteBtn": "Удалить",
       "branchLabel": "Филиал",
-      "activityStatus": "Статус активности"
+      "activityStatus": "Статус активности",
+      "mobileDetailsTitle": "Данные администратора",
+      "close": "Закрыть",
+      "userDetails": "Профиль пользователя"
     },
     "branchesManagement": {
       "title": "Управление филиалами",

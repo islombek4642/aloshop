@@ -780,7 +780,10 @@
       "deleting": "Deleting...",
       "deleteBtn": "Delete",
       "branchLabel": "Branch",
-      "activityStatus": "Activity Status"
+      "activityStatus": "Activity Status",
+      "mobileDetailsTitle": "Administrator Details",
+      "close": "Close",
+      "userDetails": "User Profile"
     },
     "branchesManagement": {
       "title": "Branch Management",
