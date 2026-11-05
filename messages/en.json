@@ -831,7 +831,18 @@
       "deleteConfirmTitle": "Confirm Branch Deletion",
       "deleteConfirmDescription": "Are you sure you want to permanently delete this branch? If the branch has orders, deletion is prohibited.",
       "cannotDeleteWithOrders": "This branch has associated orders. It cannot be deleted; deactivate it instead.",
-      "deleteSuccess": "Branch successfully deleted"
+      "deleteSuccess": "Branch successfully deleted",
+      "todaySales": "Today's sales",
+      "topBranch": "Most active branch",
+      "responsibleAdmin": "Responsible admin",
+      "noAssignedAdmin": "No admin assigned",
+      "selectAdminPlaceholder": "Select responsible admin",
+      "unassignedOption": "Unassigned",
+      "goToInventory": "Go to inventory",
+      "quickActions": "Quick actions",
+      "callBranch": "Call branch",
+      "branchDetails": "Branch details",
+      "close": "Close"
     }
   },
   "errors": {

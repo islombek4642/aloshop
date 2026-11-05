@@ -831,7 +831,18 @@
       "deleteConfirmTitle": "Filialni o'chirishni tasdiqlang",
       "deleteConfirmDescription": "Haqiqatan ham ushbu filialni butunlay o'chirmoqchimisiz? Agar filialda buyurtmalar mavjud bo'lsa, uni o'chirish taqiqlanadi.",
       "cannotDeleteWithOrders": "Ushbu filialda buyurtmalar mavjud. Uni o'chirib bo'lmaydi, nofaol holatga o'tkazing.",
-      "deleteSuccess": "Filial muvaffaqiyatli o'chirildi"
+      "deleteSuccess": "Filial muvaffaqiyatli o'chirildi",
+      "todaySales": "Bugungi savdo",
+      "topBranch": "Eng faol filial",
+      "responsibleAdmin": "Mas'ul admin",
+      "noAssignedAdmin": "Admin biriktirilmagan",
+      "selectAdminPlaceholder": "Mas'ul adminni tanlang",
+      "unassignedOption": "Biriktirilmagan",
+      "goToInventory": "Omborga o'tish",
+      "quickActions": "Tezkor amallar",
+      "callBranch": "Qo'ng'iroq qilish",
+      "branchDetails": "Filial ma'lumotlari",
+      "close": "Yopish"
     }
   },
   "errors": {

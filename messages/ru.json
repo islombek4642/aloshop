@@ -831,7 +831,18 @@
       "deleteConfirmTitle": "Подтвердите удаление филиала",
       "deleteConfirmDescription": "Вы уверены, что хотите удалить этот филиал? Если у филиала есть заказы, его удаление запрещено.",
       "cannotDeleteWithOrders": "У этого филиала есть связанные заказы. Его нельзя удалить, переведите его в неактивный статус.",
-      "deleteSuccess": "Филиал успешно удален"
+      "deleteSuccess": "Филиал успешно удален",
+      "todaySales": "Сегодняшние продажи",
+      "topBranch": "Самый активный филиал",
+      "responsibleAdmin": "Ответственный администратор",
+      "noAssignedAdmin": "Администратор не назначен",
+      "selectAdminPlaceholder": "Выберите администратора",
+      "unassignedOption": "Не назначен",
+      "goToInventory": "Перейти на склад",
+      "quickActions": "Быстрые действия",
+      "callBranch": "Позвонить",
+      "branchDetails": "Информация о филиале",
+      "close": "Закрыть"
     }
   },
   "errors": {
