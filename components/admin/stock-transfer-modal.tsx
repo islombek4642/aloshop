@@ -320,14 +320,14 @@ export function StockTransferModal({
             />
           </div>
 
-          <DialogFooter className="pt-2">
+          <DialogFooter className="pt-2 gap-2 sm:gap-2">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => onOpenChange(false)}
               disabled={isPending}
-              className="text-xs"
+              className="h-10 sm:h-9 text-xs w-full sm:w-auto"
             >
               {t("cancel")}
             </Button>
@@ -335,7 +335,7 @@ export function StockTransferModal({
               type="submit"
               size="sm"
               disabled={isPending || availableStock === 0 || destBranchOptions.length === 0}
-              className="text-xs"
+              className="h-10 sm:h-9 text-xs w-full sm:w-auto"
             >
               {isPending ? (
                 <>

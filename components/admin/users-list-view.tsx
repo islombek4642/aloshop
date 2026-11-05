@@ -696,14 +696,14 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               </Select>
             </div>
 
-            <DialogFooter className="pt-2">
+            <DialogFooter className="pt-2 gap-2 sm:gap-2">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setIsModalOpen(false)}
                 disabled={isPending}
-                className="text-xs"
+                className="h-10 sm:h-9 text-xs w-full sm:w-auto"
               >
                 {t("cancel")}
               </Button>
@@ -711,7 +711,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 type="submit"
                 size="sm"
                 disabled={isPending}
-                className="text-xs gap-1.5"
+                className="h-10 sm:h-9 text-xs gap-1.5 w-full sm:w-auto"
               >
                 {isPending ? (
                   <>
@@ -818,14 +818,14 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               </>
             )}
 
-            <DialogFooter className="pt-2">
+            <DialogFooter className="pt-2 gap-2 sm:gap-2">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setEditingUser(null)}
                 disabled={isPending}
-                className="text-xs"
+                className="h-10 sm:h-9 text-xs w-full sm:w-auto"
               >
                 {t("cancel")}
               </Button>
@@ -833,7 +833,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 type="submit"
                 size="sm"
                 disabled={isPending}
-                className="text-xs"
+                className="h-10 sm:h-9 text-xs w-full sm:w-auto"
               >
                 {isPending ? t("saving") : t("save")}
               </Button>
@@ -878,14 +878,14 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               />
             </div>
 
-            <DialogFooter className="pt-2">
+            <DialogFooter className="pt-2 gap-2 sm:gap-2">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setResetUser(null)}
                 disabled={isPending}
-                className="text-xs"
+                className="h-10 sm:h-9 text-xs w-full sm:w-auto"
               >
                 {t("cancel")}
               </Button>
@@ -893,7 +893,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 type="submit"
                 size="sm"
                 disabled={isPending}
-                className="text-xs"
+                className="h-10 sm:h-9 text-xs w-full sm:w-auto"
               >
                 {isPending ? t("resettingPassword") : t("resetPasswordBtn")}
               </Button>
@@ -922,14 +922,14 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
             </div>
           )}
 
-          <DialogFooter className="pt-2">
+          <DialogFooter className="pt-2 gap-2 sm:gap-2">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => setDeletingUser(null)}
               disabled={isPending}
-              className="text-xs"
+              className="h-10 sm:h-9 text-xs w-full sm:w-auto"
             >
               {t("cancel")}
             </Button>
@@ -939,7 +939,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               size="sm"
               onClick={handleDeleteUser}
               disabled={isPending}
-              className="text-xs"
+              className="h-10 sm:h-9 text-xs w-full sm:w-auto"
             >
               {isPending ? t("deleting") : t("deleteBtn")}
             </Button>
