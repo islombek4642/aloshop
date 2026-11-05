@@ -117,7 +117,11 @@ async function runAdminAuthTests() {
   assert(!canManageBranches(branchPayload), "BranchAdmin cannot manage branches");
   console.log("  + RBAC role verification utilities passed");
 
-  // 8. SuperAdmin database credentials verification
+  // 8. SuperAdmin credentials verification
+  const superadmin1111 = await verifyAdminCredentials("superadmin", "1111");
+  assert(superadmin1111 !== null, "Credentials superadmin / 1111 must succeed");
+  assert(superadmin1111.role === "SUPER_ADMIN", "superadmin / 1111 role must be SUPER_ADMIN");
+
   const validSuperCreds = await verifyAdminCredentials("admin", "admin12345");
   if (validSuperCreds !== null) {
     assert(validSuperCreds.role === "SUPER_ADMIN", "Verified role should be SUPER_ADMIN");
