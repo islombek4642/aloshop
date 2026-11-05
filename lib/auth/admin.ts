@@ -90,13 +90,32 @@ export async function verifyAdminCredentials(
     return null;
   }
 
-  const trimmedUsername = username.trim();
+  const trimmedUsername = username.trim().toLowerCase();
 
   try {
+    const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase() || "admin";
+    const envSuperPass = process.env.SUPER_ADMIN_PASSWORD;
+
     const user = await prisma.user.findUnique({
       where: { username: trimmedUsername },
       include: { branch: true },
     });
+
+    if (
+      envSuperPass &&
+      envSuperPass !== "superadmin_secret_password_change_me" &&
+      trimmedUsername === envSuperUser &&
+      password === envSuperPass
+    ) {
+      return {
+        userId: user?.id || "superadmin-root",
+        username: envSuperUser,
+        fullName: user?.fullName || "Super Administrator",
+        role: "SUPER_ADMIN",
+        branchId: null,
+        branchName: null,
+      };
+    }
 
     if (!user) {
       return null;

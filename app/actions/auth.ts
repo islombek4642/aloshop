@@ -61,11 +61,11 @@ export async function loginAdminAction(
     const data =
       rawInput instanceof FormData
         ? {
-            username: String(rawInput.get("username") || "").trim(),
+            username: String(rawInput.get("username") || "").trim().toLowerCase(),
             password: String(rawInput.get("password") || ""),
           }
         : {
-            username: (rawInput.username || "").trim(),
+            username: (rawInput.username || "").trim().toLowerCase(),
             password: rawInput.password || "",
           };
 
