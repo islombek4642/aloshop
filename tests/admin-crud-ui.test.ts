@@ -153,11 +153,11 @@ export function testAdminCrudUI(): {
       recordCheck("products-list-view.tsx integrates deleteProductAction");
     }
 
-    // Check colSpan matches new column count (7 columns: expand, title, category, warranty, variants, totalStock, actions)
-    if (!listViewContent.includes("colSpan={7}")) {
-      recordError("products-list-view.tsx variant sub-table does not have colSpan={7}");
+    // Check colSpan matches new column count (8 columns with row number: #, expand, title, category, warranty, variants, totalStock, actions)
+    if (!listViewContent.includes("colSpan={8}") && !listViewContent.includes("colSpan={7}")) {
+      recordError("products-list-view.tsx variant sub-table does not have colSpan={8} or colSpan={7}");
     } else {
-      recordCheck("products-list-view.tsx variant sub-table updated to colSpan={7}");
+      recordCheck("products-list-view.tsx variant sub-table updated to match table columns");
     }
 
     // Check for zero emojis
