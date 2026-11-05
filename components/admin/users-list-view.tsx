@@ -465,9 +465,6 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
         onOpenChange={(open) => !open && setSelectedMobileUser(null)}
       >
         <DialogContent className="fixed inset-x-0 bottom-0 top-auto translate-y-0 rounded-t-3xl rounded-b-none border-t border-border/80 bg-background p-6 shadow-2xl max-h-[85vh] overflow-y-auto sm:max-w-none sm:rounded-t-3xl">
-          {/* Drag Handle Indicator */}
-          <div className="w-12 h-1.5 rounded-full bg-muted-foreground/20 mx-auto mb-4 shrink-0" aria-hidden="true" />
-
           <DialogHeader className="text-left pb-2 space-y-1">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
