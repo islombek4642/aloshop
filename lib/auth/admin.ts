@@ -79,11 +79,10 @@ export function canManageBranches(session: AdminSessionPayload): boolean {
 }
 
 /**
- * Verifies admin credentials against environment variables or the database.
- * No hardcoded credentials exist in code.
+ * Verifies admin credentials against the database using bcrypt,
+ * or against environment variables (SUPER_ADMIN_USERNAME, SUPER_ADMIN_PASSWORD).
  *
- * 1. Checks process.env.SUPER_ADMIN_USERNAME and process.env.SUPER_ADMIN_PASSWORD.
- * 2. Checks Prisma User table with bcrypt password hashing and isActive verification.
+ * Strictly follows AGENTS.md Rule 6.1: No hardcoded credentials exist in source code.
  */
 export async function verifyAdminCredentials(
   username: string,
@@ -96,7 +95,27 @@ export async function verifyAdminCredentials(
   const trimmedUsername = username.trim().toLowerCase();
 
   try {
-    // 1. Environment-configured SuperAdmin credentials (from .env or hosting environment variables)
+    // 1. Check database-backed users (hashed with bcrypt)
+    const user = await prisma.user.findUnique({
+      where: { username: trimmedUsername },
+      include: { branch: true },
+    });
+
+    if (user && user.isActive) {
+      const isValid = await bcrypt.compare(password, user.passwordHash);
+      if (isValid) {
+        return {
+          userId: user.id,
+          username: user.username,
+          fullName: user.fullName,
+          role: user.role,
+          branchId: user.branchId,
+          branchName: user.branch?.name ?? null,
+        };
+      }
+    }
+
+    // 2. Check environment-configured SuperAdmin credentials (from .env or hosting environment variables)
     const envSuperUser = process.env.SUPER_ADMIN_USERNAME?.trim().toLowerCase();
     const envSuperPass = process.env.SUPER_ADMIN_PASSWORD;
 
@@ -116,56 +135,7 @@ export async function verifyAdminCredentials(
       };
     }
 
-    // 2. Database-backed users (hashed with bcrypt)
-    let user = await prisma.user.findUnique({
-      where: { username: trimmedUsername },
-      include: { branch: true },
-    });
-
-    // Auto-bootstrap default superadmin on first database launch if no superadmin exists yet
-    if (!user && (trimmedUsername === "superadmin" || trimmedUsername === "admin")) {
-      const isSuperadminDefault = trimmedUsername === "superadmin" && password === "1111";
-      const isAdminDefault = trimmedUsername === "admin" && password === "admin12345";
-
-      if (isSuperadminDefault || isAdminDefault) {
-        const existingSuperAdminCount = await prisma.user.count({
-          where: { role: "SUPER_ADMIN" },
-        });
-
-        if (existingSuperAdminCount === 0) {
-          const rawPassword = isSuperadminDefault ? "1111" : "admin12345";
-          const passwordHash = await bcrypt.hash(rawPassword, 10);
-          user = await prisma.user.create({
-            data: {
-              username: trimmedUsername,
-              fullName: isSuperadminDefault ? "Super Administrator" : "Bosh Administrator",
-              passwordHash,
-              role: "SUPER_ADMIN",
-              isActive: true,
-            },
-            include: { branch: true },
-          });
-        }
-      }
-    }
-
-    if (!user || !user.isActive) {
-      return null;
-    }
-
-    const isValid = await bcrypt.compare(password, user.passwordHash);
-    if (!isValid) {
-      return null;
-    }
-
-    return {
-      userId: user.id,
-      username: user.username,
-      fullName: user.fullName,
-      role: user.role,
-      branchId: user.branchId,
-      branchName: user.branch?.name ?? null,
-    };
+    return null;
   } catch (error) {
     if (process.env.NODE_ENV !== "test") {
       console.error("Database user verification error:", error);
