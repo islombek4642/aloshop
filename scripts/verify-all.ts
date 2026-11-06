@@ -170,6 +170,11 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "admin-dashboard-metrics.test.ts")}"`,
   },
   {
+    id: "admin-products-bulk-delete",
+    name: "Admin Products Bulk Delete & Mobile Cards Suite",
+    command: `npx tsx "${path.join("tests", "admin-products-bulk-delete.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",
