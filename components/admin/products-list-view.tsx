@@ -18,6 +18,7 @@ import {
   Trash2,
   AlertTriangle,
   Loader2,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +48,10 @@ import {
 } from "@/components/ui/table";
 import { AdminPagination } from "./admin-pagination";
 import { formatCurrency } from "@/lib/utils/format-currency";
-import { deleteProductAction } from "@/app/actions/admin-products";
+import {
+  deleteProductAction,
+  bulkDeleteProductsAction,
+} from "@/app/actions/admin-products";
 
 export interface SerializedVariant {
   id: string;
@@ -106,6 +110,34 @@ export function ProductsListView({
   const [productToDelete, setProductToDelete] = React.useState<SerializedProduct | null>(null);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [deleteError, setDeleteError] = React.useState<string | null>(null);
+
+  // Bulk selection & deletion state
+  const [selectedProductIds, setSelectedProductIds] = React.useState<Set<string>>(
+    new Set()
+  );
+  const [isBulkModalOpen, setIsBulkModalOpen] = React.useState(false);
+  const [isBulkDeleting, setIsBulkDeleting] = React.useState(false);
+  const [bulkFeedback, setBulkFeedback] = React.useState<{
+    message: string;
+    type: "success" | "warning";
+  } | null>(null);
+  const [bulkError, setBulkError] = React.useState<string | null>(null);
+
+  const toggleSelectProduct = (productId: string) => {
+    setSelectedProductIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(productId)) {
+        next.delete(productId);
+      } else {
+        next.add(productId);
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = React.useCallback(() => {
+    setSelectedProductIds(new Set());
+  }, []);
 
   const toggleExpand = (productId: string) => {
     setExpandedProductIds((prev) => {
@@ -182,8 +214,92 @@ export function ProductsListView({
     return filteredProducts.slice(startIndex, startIndex + pageSize);
   }, [filteredProducts, currentPage, pageSize, totalPages]);
 
+  // Reset selection when search, brand, category, or page changes
+  React.useEffect(() => {
+    clearSelection();
+  }, [clearSelection, searchTerm, selectedBrand, selectedCategory, currentPage]);
+
+  const isAllPageSelected =
+    paginatedProducts.length > 0 &&
+    paginatedProducts.every((p) => selectedProductIds.has(p.id));
+
+  const toggleSelectAllOnPage = () => {
+    setSelectedProductIds((prev) => {
+      const next = new Set(prev);
+      if (isAllPageSelected) {
+        for (const p of paginatedProducts) {
+          next.delete(p.id);
+        }
+      } else {
+        for (const p of paginatedProducts) {
+          next.add(p.id);
+        }
+      }
+      return next;
+    });
+  };
+
+  const handleConfirmBulkDelete = async () => {
+    if (selectedProductIds.size === 0) return;
+    setIsBulkDeleting(true);
+    setBulkError(null);
+
+    try {
+      const res = await bulkDeleteProductsAction({
+        productIds: Array.from(selectedProductIds),
+      });
+
+      if (res.success) {
+        let msg = t("bulkDeleteSuccess", {
+          deleted: res.deletedCount,
+          archived: res.archivedCount,
+        });
+        if (res.skippedActiveCount > 0) {
+          msg += ` ${t("bulkDeleteSkipped", { skipped: res.skippedActiveCount })}`;
+        }
+        setBulkFeedback({
+          message: msg,
+          type: res.skippedActiveCount > 0 ? "warning" : "success",
+        });
+        clearSelection();
+        setIsBulkModalOpen(false);
+        router.refresh();
+      } else {
+        setBulkError(t("deleteError"));
+      }
+    } catch (err) {
+      console.error("Failed to bulk delete products:", err);
+      setBulkError(t("deleteError"));
+    } finally {
+      setIsBulkDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-4">
+      {/* Bulk Delete Feedback Banner */}
+      {bulkFeedback && (
+        <div
+          className={`p-3 rounded-lg text-xs flex items-center justify-between gap-2 border ${
+            bulkFeedback.type === "warning"
+              ? "bg-amber-500/10 text-amber-900 dark:text-amber-200 border-amber-500/30"
+              : "bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 border-emerald-500/30"
+          }`}
+        >
+          <span>{bulkFeedback.message}</span>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setBulkFeedback(null)}
+            className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
+          >
+            <X className="w-3.5 h-3.5" aria-hidden="true" />
+            <span className="sr-only">Close</span>
+          </Button>
+        </div>
+      )}
+
       {/* Top action row & Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         {/* Search & Filters */}
@@ -266,32 +382,53 @@ export function ProductsListView({
             {/* Desktop Table View */}
             <div className="hidden md:block">
               <Table>
-            <TableHeader>
-              <TableRow className="hover:bg-transparent">
-                <TableHead className="w-8"></TableHead>
-                <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
-                <TableHead className="text-xs">{t("title")}</TableHead>
-                <TableHead className="text-xs">{t("filterCategory")}</TableHead>
-                <TableHead className="text-xs">{t("warranty")}</TableHead>
-                <TableHead className="text-xs">{t("variants")}</TableHead>
-                <TableHead className="text-xs text-right">{t("totalStock")}</TableHead>
-                <TableHead className="text-xs text-right w-24">{t("actions")}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {paginatedProducts.map((product, index) => {
-                const isExpanded = expandedProductIds.has(product.id);
-                const minPrice = Math.min(...product.variants.map((v) => v.price));
-                const maxPrice = Math.max(...product.variants.map((v) => v.price));
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="w-10 text-center">
+                      <input
+                        type="checkbox"
+                        checked={isAllPageSelected}
+                        onChange={toggleSelectAllOnPage}
+                        aria-label={t("selectAll")}
+                        className="w-4 h-4 rounded border-border text-primary cursor-pointer accent-primary align-middle"
+                      />
+                    </TableHead>
+                    <TableHead className="w-8"></TableHead>
+                    <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
+                    <TableHead className="text-xs">{t("title")}</TableHead>
+                    <TableHead className="text-xs">{t("filterCategory")}</TableHead>
+                    <TableHead className="text-xs">{t("warranty")}</TableHead>
+                    <TableHead className="text-xs">{t("variants")}</TableHead>
+                    <TableHead className="text-xs text-right">{t("totalStock")}</TableHead>
+                    <TableHead className="text-xs text-right w-24">{t("actions")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {paginatedProducts.map((product, index) => {
+                    const isExpanded = expandedProductIds.has(product.id);
+                    const minPrice = Math.min(...product.variants.map((v) => v.price));
+                    const maxPrice = Math.max(...product.variants.map((v) => v.price));
 
-                return (
-                  <React.Fragment key={product.id}>
-                    {/* Parent Row */}
-                    <TableRow
-                      onClick={() => toggleExpand(product.id)}
-                      className="cursor-pointer hover:bg-muted/50 transition-colors"
-                    >
-                      <TableCell className="w-8 pr-0">
+                    return (
+                      <React.Fragment key={product.id}>
+                        {/* Parent Row */}
+                        <TableRow
+                          onClick={() => toggleExpand(product.id)}
+                          className="cursor-pointer hover:bg-muted/50 transition-colors"
+                        >
+                          <TableCell
+                            className="w-10 text-center"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedProductIds.has(product.id)}
+                              onChange={() => toggleSelectProduct(product.id)}
+                              aria-label={`${product.brand} ${product.modelName}`}
+                              className="w-4 h-4 rounded border-border text-primary cursor-pointer accent-primary align-middle"
+                            />
+                          </TableCell>
+                          <TableCell className="w-8 pr-0">
                         {isExpanded ? (
                           <ChevronDown className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
                         ) : (
@@ -378,7 +515,7 @@ export function ProductsListView({
                     {/* Expandable Variants Sub-Table */}
                     {isExpanded && (
                       <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={8} className="p-0 border-b border-border/60">
+                        <TableCell colSpan={9} /* colSpan={8} */ className="p-0 border-b border-border/60">
                           <div className="px-6 py-3 space-y-2 bg-slate-50/50 dark:bg-slate-900/30">
                             <div className="text-[11px] font-semibold text-muted-foreground tracking-wider uppercase">
                               {product.modelName} &bull; {t("expandVariants")}
@@ -473,9 +610,21 @@ export function ProductsListView({
                 key={product.id}
                 className="border border-border/80 rounded-xl bg-card p-3.5 space-y-3 shadow-2xs"
               >
-                {/* Card Header: Icon, Brand/Model, Category Badge, Stock Badge */}
+                {/* Card Header: Checkbox, Icon, Brand/Model, Category Badge, Stock Badge */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">
+                    <div
+                      className="flex items-center justify-center p-1 shrink-0"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedProductIds.has(product.id)}
+                        onChange={() => toggleSelectProduct(product.id)}
+                        aria-label={`${product.brand} ${product.modelName}`}
+                        className="w-4 h-4 rounded border-border text-primary cursor-pointer accent-primary align-middle"
+                      />
+                    </div>
                     <div className="p-1.5 rounded-md bg-primary/10 text-primary shrink-0">
                       <Smartphone className="w-4 h-4" aria-hidden="true" />
                     </div>
@@ -693,6 +842,110 @@ export function ProductsListView({
               className="gap-1.5"
             >
               {isDeleting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                  <span>{t("deleting")}</span>
+                </>
+              ) : (
+                <>
+                  <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>{t("delete")}</span>
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Floating Batch Action Bar */}
+      {selectedProductIds.size > 0 && (
+        <div
+          role="region"
+          aria-label="Batch actions"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-full shadow-2xl px-4 py-2.5 flex items-center gap-3 border border-border/40 animate-in fade-in slide-in-from-bottom-4 duration-200"
+        >
+          <span className="text-xs font-semibold whitespace-nowrap">
+            {t("selectedCount", { count: selectedProductIds.size })}
+          </span>
+          <div className="h-4 w-px bg-white/20 dark:bg-slate-900/20" aria-hidden="true" />
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={clearSelection}
+            className="h-8 px-2.5 text-xs text-white/80 hover:text-white hover:bg-white/10 dark:text-slate-900/80 dark:hover:text-slate-900 dark:hover:bg-slate-900/10 rounded-full"
+          >
+            {t("cancelSelection")}
+          </Button>
+          {isSuperAdmin && (
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              onClick={() => {
+                setIsBulkModalOpen(true);
+                setBulkError(null);
+              }}
+              className="h-8 px-3 text-xs rounded-full gap-1.5 shrink-0"
+            >
+              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>{t("bulkDeleteBtn")}</span>
+            </Button>
+          )}
+        </div>
+      )}
+
+      {/* Bulk Delete Confirmation Dialog */}
+      <Dialog
+        open={isBulkModalOpen}
+        onOpenChange={(open) => {
+          if (!open && !isBulkDeleting) {
+            setIsBulkModalOpen(false);
+            setBulkError(null);
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <div className="flex items-center gap-2 text-destructive mb-1">
+              <AlertTriangle className="w-5 h-5 shrink-0" aria-hidden="true" />
+              <DialogTitle className="text-base">
+                {t("bulkDeleteModalTitle")}
+              </DialogTitle>
+            </div>
+            <DialogDescription className="text-xs text-muted-foreground">
+              {t("bulkDeleteModalDesc", { count: selectedProductIds.size })}
+            </DialogDescription>
+          </DialogHeader>
+
+          {bulkError && (
+            <div className="p-2.5 rounded-md bg-destructive/10 text-destructive text-xs">
+              {bulkError}
+            </div>
+          )}
+
+          <DialogFooter className="gap-2 sm:gap-0 mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={isBulkDeleting}
+              onClick={() => {
+                setIsBulkModalOpen(false);
+                setBulkError(null);
+              }}
+            >
+              {tCommon("cancel")}
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              disabled={isBulkDeleting}
+              onClick={handleConfirmBulkDelete}
+              className="gap-1.5"
+            >
+              {isBulkDeleting ? (
                 <>
                   <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
                   <span>{t("deleting")}</span>
