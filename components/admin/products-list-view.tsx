@@ -262,7 +262,10 @@ export function ProductsListView({
             <p className="font-medium text-foreground">{t("noProducts")}</p>
           </div>
         ) : (
-          <Table>
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden md:block">
+              <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead className="w-8"></TableHead>
@@ -456,7 +459,160 @@ export function ProductsListView({
               })}
             </TableBody>
           </Table>
-        )}
+        </div>
+
+        {/* Mobile Cards View */}
+        <div className="md:hidden space-y-3 p-3">
+          {paginatedProducts.map((product) => {
+            const isExpanded = expandedProductIds.has(product.id);
+            const minPrice = Math.min(...product.variants.map((v) => v.price));
+            const maxPrice = Math.max(...product.variants.map((v) => v.price));
+
+            return (
+              <div
+                key={product.id}
+                className="border border-border/80 rounded-xl bg-card p-3.5 space-y-3 shadow-2xs"
+              >
+                {/* Card Header: Icon, Brand/Model, Category Badge, Stock Badge */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-1.5 rounded-md bg-primary/10 text-primary shrink-0">
+                      <Smartphone className="w-4 h-4" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-sm text-foreground truncate">
+                        {product.brand} {product.modelName}
+                      </div>
+                      <Badge variant="outline" className="text-[11px] font-normal py-0 px-1.5 mt-0.5">
+                        {product.categoryName}
+                      </Badge>
+                    </div>
+                  </div>
+                  <Badge
+                    variant={product.totalStock > 0 ? "secondary" : "destructive"}
+                    className="font-mono text-xs shrink-0"
+                  >
+                    {product.totalStock}
+                  </Badge>
+                </div>
+
+                {/* Price & Warranty Row */}
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-border/50">
+                  <div className="font-mono font-medium text-foreground">
+                    {formatCurrency(minPrice)}
+                    {minPrice !== maxPrice && ` - ${formatCurrency(maxPrice)}`}
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground text-[11px]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-primary" aria-hidden="true" />
+                    <span>{t("warrantyMonths", { count: product.warrantyMonths })}</span>
+                  </div>
+                </div>
+
+                {/* Action Row: Accordion toggle, Edit, Delete */}
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleExpand(product.id)}
+                    className="flex-1 justify-between min-h-[44px] text-xs font-medium"
+                  >
+                    <span>{t("viewVariants", { count: product.variants.length })}</span>
+                    {isExpanded ? (
+                      <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0 ml-2" aria-hidden="true" />
+                    ) : (
+                      <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 ml-2" aria-hidden="true" />
+                    )}
+                  </Button>
+
+                  <div className="flex items-center gap-1 shrink-0">
+                    <Link href={`/admin/products/${product.id}/edit`}>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-10 w-10 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                        title={t("edit")}
+                      >
+                        <Pencil className="w-4 h-4" aria-hidden="true" />
+                        <span className="sr-only">{t("edit")}</span>
+                      </Button>
+                    </Link>
+
+                    {isSuperAdmin && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setProductToDelete(product)}
+                        className="h-10 w-10 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                        title={t("delete")}
+                      >
+                        <Trash2 className="w-4 h-4" aria-hidden="true" />
+                        <span className="sr-only">{t("delete")}</span>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Expandable Variant Accordion */}
+                {isExpanded && (
+                  <div className="pt-2 border-t border-border/60 space-y-2">
+                    <div className="text-[11px] font-semibold text-muted-foreground tracking-wider uppercase">
+                      {product.modelName} &bull; {t("expandVariants")}
+                    </div>
+                    <div className="space-y-1.5">
+                      {product.variants.map((v) => (
+                        <div
+                          key={v.id}
+                          className="p-2.5 rounded-lg bg-muted/40 border border-border/60 space-y-1.5 text-xs"
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span
+                                className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
+                                style={{ backgroundColor: v.colorHex }}
+                                aria-hidden="true"
+                              />
+                              <span className="font-medium text-foreground truncate">{v.colorName}</span>
+                            </div>
+                            <Badge
+                              variant={v.totalStock > 0 ? "secondary" : "destructive"}
+                              className="font-mono text-[10px] py-0 px-1.5 shrink-0"
+                            >
+                              {v.totalStock}
+                            </Badge>
+                          </div>
+
+                          <div className="flex items-center justify-between gap-2 text-[11px]">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono font-medium text-primary">{v.sku}</span>
+                              <span className="font-medium">{v.storage}</span>
+                              <Badge
+                                variant="outline"
+                                className="text-[10px] py-0 px-1 font-normal"
+                              >
+                                {v.condition === "NEW" ? t("conditionNew") : t("conditionUsed")}
+                              </Badge>
+                            </div>
+                            <div className="font-semibold text-right">
+                              <span>{formatCurrency(v.price)}</span>
+                              {v.oldPrice && (
+                                <span className="text-[10px] text-muted-foreground line-through ml-1 font-normal">
+                                  {formatCurrency(v.oldPrice)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )}
 
         {filteredProducts.length > 0 && (
           <div className="border-t border-border px-4 py-2">
