@@ -373,7 +373,16 @@
       "deleteError": "Failed to delete product",
       "cannotDeleteOrders": "Cannot delete product with active unfulfilled orders",
       "deleteProductMeta": "{variants} variants • {stock} in stock",
-      "deleting": "Deleting..."
+      "deleting": "Deleting...",
+      "selectAll": "Select all",
+      "selectedCount": "{count} selected",
+      "bulkDeleteBtn": "Delete selected",
+      "bulkDeleteModalTitle": "Delete selected products",
+      "bulkDeleteModalDesc": "Are you sure you want to delete {count} selected products? Products with active orders will be preserved.",
+      "bulkDeleteSuccess": "{deleted} products deleted, {archived} archived.",
+      "bulkDeleteSkipped": "{skipped} products were not deleted due to active orders.",
+      "cancelSelection": "Cancel selection",
+      "viewVariants": "Variants ({count})"
     },
     "productMatrix": {
       "matrixTitle": "Smartphone Configuration Matrix",

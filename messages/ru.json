@@ -373,7 +373,16 @@
       "deleteError": "Ошибка при удалении товара",
       "cannotDeleteOrders": "Нельзя удалить товар с активными заказами",
       "deleteProductMeta": "{variants} вариантов • {stock} шт. остаток",
-      "deleting": "Удаление..."
+      "deleting": "Удаление...",
+      "selectAll": "Выбрать все",
+      "selectedCount": "Выбрано: {count}",
+      "bulkDeleteBtn": "Удалить выбранные",
+      "bulkDeleteModalTitle": "Удаление выбранных товаров",
+      "bulkDeleteModalDesc": "Вы действительно хотите удалить выбранные товары ({count} шт.)? Товары с активными заказами будут сохранены.",
+      "bulkDeleteSuccess": "Удалено товаров: {deleted}, архивировано: {archived}.",
+      "bulkDeleteSkipped": "{skipped} товаров не удалены из-за активных заказов.",
+      "cancelSelection": "Отменить выбор",
+      "viewVariants": "Варианты ({count})"
     },
     "productMatrix": {
       "matrixTitle": "Матрица конфигураций смартфона",

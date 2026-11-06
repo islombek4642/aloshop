@@ -373,7 +373,16 @@
       "deleteError": "Mahsulotni o'chirishda xatolik yuz berdi",
       "cannotDeleteOrders": "Faol buyurtmalari mavjud bo'lgan mahsulotni o'chirib bo'lmaydi",
       "deleteProductMeta": "{variants} ta variant • {stock} dona qoldiq",
-      "deleting": "O'chirilmoqda..."
+      "deleting": "O'chirilmoqda...",
+      "selectAll": "Barchasini tanlash",
+      "selectedCount": "{count} ta tanlandi",
+      "bulkDeleteBtn": "Tanlanganlarni o'chirish",
+      "bulkDeleteModalTitle": "Tanlangan mahsulotlarni o'chirish",
+      "bulkDeleteModalDesc": "Haqiqatan ham {count} ta tanlangan mahsulotni o'chirmoqchimisiz? Faol buyurtmasi mavjud tovarlar saqlab qolinadi.",
+      "bulkDeleteSuccess": "{deleted} ta tovar o'chirildi, {archived} ta arxivlandi.",
+      "bulkDeleteSkipped": "{skipped} ta tovar faol buyurtmada bo'lgani sababli o'chirilmadi.",
+      "cancelSelection": "Tanlovni bekor qilish",
+      "viewVariants": "Variantlar ({count})"
     },
     "productMatrix": {
       "matrixTitle": "Smartfon konfiguratsiya matritsasi",
