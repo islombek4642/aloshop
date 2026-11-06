@@ -153,9 +153,9 @@ export function testAdminCrudUI(): {
       recordCheck("products-list-view.tsx integrates deleteProductAction");
     }
 
-    // Check colSpan matches new column count (8 columns with row number: #, expand, title, category, warranty, variants, totalStock, actions)
-    if (!listViewContent.includes("colSpan={8}") && !listViewContent.includes("colSpan={7}")) {
-      recordError("products-list-view.tsx variant sub-table does not have colSpan={8} or colSpan={7}");
+    // Check colSpan matches new column count (9 columns with checkbox: select, expand, #, title, category, warranty, variants, totalStock, actions)
+    if (!listViewContent.includes("colSpan={9}") && !listViewContent.includes("colSpan={8}") && !listViewContent.includes("colSpan={7}")) {
+      recordError("products-list-view.tsx variant sub-table does not have colSpan={9}, colSpan={8} or colSpan={7}");
     } else {
       recordCheck("products-list-view.tsx variant sub-table updated to match table columns");
     }

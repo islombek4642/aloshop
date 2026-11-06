@@ -515,7 +515,7 @@ export function ProductsListView({
                     {/* Expandable Variants Sub-Table */}
                     {isExpanded && (
                       <TableRow className="bg-muted/30 hover:bg-muted/30">
-                        <TableCell colSpan={9} /* colSpan={8} */ className="p-0 border-b border-border/60">
+                        <TableCell colSpan={9} className="p-0 border-b border-border/60">
                           <div className="px-6 py-3 space-y-2 bg-slate-50/50 dark:bg-slate-900/30">
                             <div className="text-[11px] font-semibold text-muted-foreground tracking-wider uppercase">
                               {product.modelName} &bull; {t("expandVariants")}
@@ -600,6 +600,27 @@ export function ProductsListView({
 
         {/* Mobile Cards View */}
         <div className="md:hidden space-y-3 p-3">
+          {paginatedProducts.length > 0 && (
+            <div className="flex items-center justify-between px-1 py-1 text-xs text-muted-foreground border-b border-border/50 pb-2">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <div className="flex items-center justify-center p-2.5 -m-1.5 min-w-[40px] min-h-[40px] shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={isAllPageSelected}
+                    onChange={toggleSelectAllOnPage}
+                    aria-label={t("selectAll")}
+                    className="w-4 h-4 rounded border-border text-primary cursor-pointer accent-primary align-middle"
+                  />
+                </div>
+                <span className="font-medium text-foreground text-xs">{t("selectAll")}</span>
+              </label>
+              {selectedProductIds.size > 0 && (
+                <span className="text-[11px] font-mono text-primary font-medium">
+                  {t("selectedCount", { count: selectedProductIds.size })}
+                </span>
+              )}
+            </div>
+          )}
           {paginatedProducts.map((product) => {
             const isExpanded = expandedProductIds.has(product.id);
             const minPrice = Math.min(...product.variants.map((v) => v.price));
@@ -614,7 +635,7 @@ export function ProductsListView({
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div
-                      className="flex items-center justify-center p-1 shrink-0"
+                      className="flex items-center justify-center p-2.5 -m-1.5 shrink-0 min-w-[40px] min-h-[40px]"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <input
