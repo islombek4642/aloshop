@@ -126,3 +126,12 @@ export type VariantInput = z.input<typeof variantInputSchema>;
 export type PresetVariantInput = z.input<typeof presetVariantInputSchema>;
 export type PresetProductInput = z.input<typeof presetProductInputSchema>;
 
+export const bulkDeleteProductsSchema = z.object({
+  productIds: z
+    .array(z.string().min(1))
+    .min(1, "Kamida bitta mahsulot tanlanishi shart"),
+});
+
+export type BulkDeleteProductsInput = z.infer<typeof bulkDeleteProductsSchema>;
+
+

@@ -10,10 +10,12 @@ import {
   createProductSchema,
   presetVariantInputSchema,
   presetProductInputSchema,
+  bulkDeleteProductsSchema,
   type CreateProductInput,
   type VariantInput,
   type PresetVariantInput,
   type PresetProductInput,
+  type BulkDeleteProductsInput,
 } from "@/lib/validations/admin-products";
 
 export type {
@@ -21,6 +23,7 @@ export type {
   VariantInput,
   PresetVariantInput,
   PresetProductInput,
+  BulkDeleteProductsInput,
 };
 
 function safeRevalidatePath(path: string): void {
@@ -671,3 +674,132 @@ export async function deleteProductAction(
     return { success: false, error: "failedToDelete" };
   }
 }
+
+export type BulkDeleteResult =
+  | {
+      success: true;
+      deletedCount: number;
+      archivedCount: number;
+      skippedActiveCount: number;
+    }
+  | { success: false; error: string };
+
+/**
+ * Bulk deletes products with strict guards.
+ * Protects products with active unfulfilled orders (skippedActiveCount).
+ * Soft-archives products with historical orders (archivedCount).
+ * Hard-deletes unreferenced products in a transaction (deletedCount).
+ * Requires SUPER_ADMIN role.
+ */
+export async function bulkDeleteProductsAction(
+  rawInput: BulkDeleteProductsInput | { productIds: string[] }
+): Promise<BulkDeleteResult> {
+  const session = await getAdminSession();
+  if (!session || !isSuperAdmin(session)) {
+    return { success: false, error: "unauthorized" };
+  }
+
+  const parsed = bulkDeleteProductsSchema.safeParse(rawInput);
+  if (!parsed.success) {
+    return { success: false, error: "validationError" };
+  }
+
+  const data = parsed.data;
+  let deletedCount = 0;
+  let archivedCount = 0;
+  let skippedActiveCount = 0;
+
+  try {
+    const activeStatuses = (
+      ["PENDING", "CONFIRMED", "PROCESSING", "SHIPPED"] as const
+    ).filter((s) => s in OrderStatus) as OrderStatus[];
+
+    for (const id of data.productIds) {
+      const product = await prisma.product.findUnique({
+        where: { id },
+        select: { id: true },
+      });
+
+      if (!product) {
+        continue;
+      }
+
+      const activeOrderCount = await prisma.orderItem.count({
+        where: {
+          variant: {
+            productId: product.id,
+          },
+          order: {
+            status: {
+              in: activeStatuses,
+            },
+          },
+        },
+      });
+
+      if (activeOrderCount > 0) {
+        skippedActiveCount++;
+        continue;
+      }
+
+      const totalOrderCount = await prisma.orderItem.count({
+        where: {
+          variant: {
+            productId: product.id,
+          },
+        },
+      });
+
+      if (totalOrderCount > 0) {
+        await prisma.product.update({
+          where: { id: product.id },
+          data: { isArchived: true },
+        });
+        archivedCount++;
+        continue;
+      }
+
+      await prisma.$transaction(async (tx) => {
+        const variants = await tx.productVariant.findMany({
+          where: { productId: product.id },
+          select: { id: true },
+        });
+        const variantIds = variants.map((v) => v.id);
+
+        if (variantIds.length > 0) {
+          await tx.branchInventory.deleteMany({
+            where: { variantId: { in: variantIds } },
+          });
+
+          await tx.iMEIRecord.deleteMany({
+            where: { variantId: { in: variantIds } },
+          });
+
+          await tx.productVariant.deleteMany({
+            where: { id: { in: variantIds } },
+          });
+        }
+
+        await tx.product.delete({
+          where: { id: product.id },
+        });
+      });
+
+      deletedCount++;
+    }
+
+    safeRevalidatePath("/admin/products");
+    safeRevalidatePath("/catalog");
+
+    return {
+      success: true,
+      deletedCount,
+      archivedCount,
+      skippedActiveCount,
+    };
+  } catch (err) {
+    console.error("bulkDeleteProductsAction error:", err);
+    return { success: false, error: "failedToBulkDelete" };
+  }
+}
+
