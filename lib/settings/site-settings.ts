@@ -29,23 +29,34 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsData = {
   announcementBanner: null,
 };
 
+/**
+ * Direct database lookup without Next.js caching layer.
+ * Recommended for Admin panel forms and server mutations.
+ */
+export async function getSiteSettingsDirect(): Promise<SiteSettingsData> {
+  try {
+    const settings = await prisma.siteSettings.findUnique({
+      where: { id: "global" },
+    });
+    if (settings) {
+      return settings;
+    }
+    return DEFAULT_SITE_SETTINGS;
+  } catch {
+    return DEFAULT_SITE_SETTINGS;
+  }
+}
+
+/**
+ * Cached site settings for public storefront with tag-based invalidation.
+ */
 export const getSiteSettings = unstable_cache(
   async (): Promise<SiteSettingsData> => {
-    try {
-      const settings = await prisma.siteSettings.findUnique({
-        where: { id: "global" },
-      });
-      if (settings) {
-        return settings;
-      }
-      return DEFAULT_SITE_SETTINGS;
-    } catch {
-      return DEFAULT_SITE_SETTINGS;
-    }
+    return getSiteSettingsDirect();
   },
   ["site-settings"],
   {
     tags: ["site-settings"],
-    revalidate: 3600,
+    revalidate: 60,
   }
 );

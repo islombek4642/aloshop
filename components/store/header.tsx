@@ -2,7 +2,20 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { Search, ShoppingBag, Smartphone, Store, Layers, Home } from "lucide-react";
+import {
+  Search,
+  ShoppingBag,
+  Smartphone,
+  Store,
+  Layers,
+  Home,
+  MapPin,
+  Clock,
+  Phone,
+  Send,
+  Instagram,
+  Facebook,
+} from "lucide-react";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Button } from "@/components/ui/button";
@@ -10,12 +23,14 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils/cn";
 import { useCart } from "@/lib/store/use-cart";
+import type { SiteSettingsData } from "@/lib/settings/site-settings";
 
 export interface StoreHeaderProps {
   cartItemCount?: number;
+  settings?: SiteSettingsData | null;
 }
 
-export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
+export function StoreHeader({ cartItemCount: propCount, settings }: StoreHeaderProps) {
   const tNav = useTranslations("nav");
   const tCommon = useTranslations("common");
   const pathname = usePathname();
@@ -31,6 +46,15 @@ export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
 
   const cartItemCount =
     propCount !== undefined ? propCount : mounted ? storeCartCount : 0;
+
+  const siteName = settings?.siteName?.trim() || tCommon("siteName");
+  const phone = settings?.phone || "+998 71 200 11 22";
+  const cleanPhone = phone.replace(/[^\d+]/g, "");
+  const address = settings?.address;
+  const workingHours = settings?.workingHours;
+  const telegramUrl = settings?.telegramUrl;
+  const instagramUrl = settings?.instagramUrl;
+  const facebookUrl = settings?.facebookUrl;
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,19 +81,89 @@ export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      {/* Desktop Top Utility Bar with dynamic address, hours, phone and socials */}
+      <div className="hidden lg:block border-b border-border/40 bg-muted/30 text-xs text-muted-foreground">
+        <div className="mx-auto flex h-8 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Left: Address & Working Hours */}
+          <div className="flex items-center gap-5">
+            {address && (
+              <span className="inline-flex items-center gap-1.5 truncate max-w-md">
+                <MapPin className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                <span className="truncate">{address}</span>
+              </span>
+            )}
+            {workingHours && (
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
+                <span>{workingHours}</span>
+              </span>
+            )}
+          </div>
+
+          {/* Right: Phone & Social Links */}
+          <div className="flex items-center gap-4">
+            {phone && (
+              <a
+                href={`tel:${cleanPhone}`}
+                className="inline-flex items-center gap-1.5 font-mono text-foreground hover:text-primary transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                <span>{phone}</span>
+              </a>
+            )}
+            {telegramUrl && (
+              <a
+                href={telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                aria-label="Telegram"
+              >
+                <Send className="h-3 w-3 text-sky-500 shrink-0" aria-hidden="true" />
+                <span className="text-[11px]">Telegram</span>
+              </a>
+            )}
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-3 w-3 text-pink-500 shrink-0" aria-hidden="true" />
+                <span className="text-[11px]">Instagram</span>
+              </a>
+            )}
+            {facebookUrl && (
+              <a
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-3 w-3 text-blue-600 shrink-0" aria-hidden="true" />
+                <span className="text-[11px]">Facebook</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link
           href="/"
           className="flex items-center gap-2.5 transition-opacity hover:opacity-90 shrink-0"
-          aria-label={tCommon("siteName")}
+          aria-label={siteName}
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
             <Smartphone className="h-5 w-5" aria-hidden="true" />
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold tracking-tight text-foreground leading-none">
-              {tCommon("siteName")}
+              {siteName}
             </span>
             <span className="hidden text-[10px] text-muted-foreground sm:inline-block leading-tight">
               {tCommon("siteTagline")}
@@ -174,4 +268,3 @@ export function StoreHeader({ cartItemCount: propCount }: StoreHeaderProps) {
     </header>
   );
 }
-

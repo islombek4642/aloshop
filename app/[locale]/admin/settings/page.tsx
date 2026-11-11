@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getAdminSession, isSuperAdmin } from "@/lib/auth/admin";
-import { getSiteSettings } from "@/lib/settings/site-settings";
+import { getSiteSettingsDirect } from "@/lib/settings/site-settings";
 import { SettingsForm } from "@/components/admin/settings-form";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default async function AdminSettingsPage({
   }
 
   const t = await getTranslations({ locale, namespace: "admin.settingsPage" });
-  const settings = await getSiteSettings();
+  const settings = await getSiteSettingsDirect();
 
   return (
     <div className="space-y-6 max-w-5xl">

@@ -18,6 +18,7 @@ import { ProductCard, type ProductCardData } from "@/components/store/product-ca
 import { prisma } from "@/lib/db/prisma";
 import { inferDefaultRam } from "@/lib/utils/specs";
 import { getFeaturedFallbackProducts } from "@/lib/catalog/store-fallbacks";
+import { getSiteSettings } from "@/lib/settings/site-settings";
 
 export const dynamic = "force-dynamic";
 
@@ -90,7 +91,18 @@ export default async function HomePage({ params }: HomePageProps) {
   const tBranches = await getTranslations({ locale, namespace: "branches" });
   const tCatalog = await getTranslations({ locale, namespace: "catalog" });
 
-  const featuredProducts = await getFeaturedProducts();
+  const [featuredProducts, dbBranches, settings] = await Promise.all([
+    getFeaturedProducts(),
+    prisma.branch
+      .findMany({
+        where: { isActive: true },
+        select: { name: true, address: true, phone: true },
+        orderBy: { name: "asc" },
+        take: 3,
+      })
+      .catch(() => []),
+    getSiteSettings().catch(() => null),
+  ]);
 
   const brandPills = [
     { name: "Apple", query: "Apple" },
@@ -121,11 +133,11 @@ export default async function HomePage({ params }: HomePageProps) {
     },
   ];
 
-  const branchCards = [
+  const fallbackBranches = [
     {
       name: "Malika Filiali",
-      address: "Toshkent sh., Shayxontohur t., Kichik Halka Yo'li 59 (C-4)",
-      phone: "+998 71 200 11 22",
+      address: settings?.address || "Toshkent sh., Shayxontohur t., Kichik Halka Yo'li 59 (C-4)",
+      phone: settings?.phone || "+998 71 200 11 22",
     },
     {
       name: "Chilonzor Filiali",
@@ -138,6 +150,8 @@ export default async function HomePage({ params }: HomePageProps) {
       phone: "+998 71 200 55 66",
     },
   ];
+
+  const branchCards = dbBranches && dbBranches.length > 0 ? dbBranches : fallbackBranches;
 
   return (
     <div className="flex flex-col space-y-12 md:space-y-16">
@@ -305,7 +319,7 @@ export default async function HomePage({ params }: HomePageProps) {
               <div className="space-y-1.5 border-t pt-3 text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                  <span>{tBranches("workingHoursValue")}</span>
+                  <span>{settings?.workingHours || tBranches("workingHoursValue")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-3.5 w-3.5" aria-hidden="true" />

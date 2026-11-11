@@ -9,6 +9,7 @@ import {
 } from "@/lib/validations/admin-settings";
 import {
   DEFAULT_SITE_SETTINGS,
+  getSiteSettingsDirect,
   type SiteSettingsData,
 } from "@/lib/settings/site-settings";
 
@@ -19,7 +20,11 @@ function safeRevalidate(): void {
     // Gracefully ignore outside Next.js request context
   }
   try {
-    revalidatePath("/");
+    revalidatePath("/", "layout");
+    revalidatePath("/[locale]", "layout");
+    revalidatePath("/uz", "layout");
+    revalidatePath("/ru", "layout");
+    revalidatePath("/en", "layout");
     revalidatePath("/branches");
     revalidatePath("/admin/settings");
   } catch {
@@ -33,12 +38,10 @@ export type GetSiteSettingsResult =
 
 export async function getSiteSettingsAction(): Promise<GetSiteSettingsResult> {
   try {
-    const settings = await prisma.siteSettings.findUnique({
-      where: { id: "global" },
-    });
+    const settings = await getSiteSettingsDirect();
     return {
       success: true,
-      settings: settings || DEFAULT_SITE_SETTINGS,
+      settings,
     };
   } catch {
     return {

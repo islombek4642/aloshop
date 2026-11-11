@@ -12,6 +12,8 @@ import {
   ChevronRight,
   Store,
   Layers,
+  Mail,
+  Send,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
@@ -25,6 +27,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/db/prisma";
+import { getSiteSettings } from "@/lib/settings/site-settings";
 
 export const dynamic = "force-dynamic";
 
@@ -128,7 +131,10 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
   const tCommon = await getTranslations({ locale, namespace: "common" });
   const tHome = await getTranslations({ locale, namespace: "home" });
 
-  const branches = await getStorefrontBranches();
+  const [branches, settings] = await Promise.all([
+    getStorefrontBranches(),
+    getSiteSettings().catch(() => null),
+  ]);
 
   return (
     <div className="container mx-auto px-4 py-6 md:py-10 max-w-7xl space-y-8">
@@ -166,6 +172,54 @@ export default async function BranchesPage({ params }: BranchesPageProps) {
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             {tBranches("subtitle")}
           </p>
+        </div>
+      </div>
+
+      {/* Central Office & Headquarters Card (Dynamic from SiteSettings) */}
+      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 sm:p-7 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+              <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              <span>{tBranches("address")}</span>
+            </div>
+            <h2 className="text-base sm:text-lg font-bold text-foreground">
+              {settings?.siteName || tCommon("siteName")} - {settings?.address || "Toshkent sh., Navoiy shoh ko'chasi"}
+            </h2>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground pt-0.5">
+              <span className="inline-flex items-center gap-1">
+                <Clock className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
+                <span>{tBranches("workingHours")}: {settings?.workingHours || "09:00 - 20:00"}</span>
+              </span>
+              {settings?.email && (
+                <span className="inline-flex items-center gap-1">
+                  <Mail className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
+                  <a href={`mailto:${settings.email}`} className="hover:text-foreground transition-colors">
+                    {settings.email}
+                  </a>
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            {settings?.phone && (
+              <Button asChild size="sm" className="gap-1.5 text-xs h-9">
+                <a href={`tel:${settings.phone.replace(/[^\d+]/g, "")}`}>
+                  <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>{settings.phone}</span>
+                </a>
+              </Button>
+            )}
+            {settings?.telegramUrl && (
+              <Button asChild size="sm" variant="outline" className="gap-1.5 text-xs h-9">
+                <a href={settings.telegramUrl} target="_blank" rel="noopener noreferrer">
+                  <Send className="h-3.5 w-3.5 text-sky-500" aria-hidden="true" />
+                  <span>Telegram</span>
+                </a>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
