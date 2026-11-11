@@ -11,6 +11,7 @@ import type { BranchStockItem } from "@/components/store/branch-stock-widget";
 import type { ProductVariantData } from "@/components/store/variant-selector";
 import { inferDefaultRam } from "@/lib/utils/specs";
 import { getFallbackProductBySlug } from "@/lib/catalog/store-fallbacks";
+import { getSiteSettings } from "@/lib/settings/site-settings";
 
 export const dynamic = "force-dynamic";
 
@@ -187,14 +188,21 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const [product, branches] = await Promise.all([
+  const [product, branches, siteSettings] = await Promise.all([
     getProductBySlug(slug),
     getBranches(),
+    getSiteSettings().catch(() => null),
   ]);
 
   if (!product) {
     notFound();
   }
 
-  return <ProductDetailsClient product={product} branches={branches} />;
+  return (
+    <ProductDetailsClient
+      product={product}
+      branches={branches}
+      siteSettings={siteSettings}
+    />
+  );
 }

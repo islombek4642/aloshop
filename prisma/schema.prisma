@@ -209,3 +209,19 @@ model OrderItem {
   @@index([orderId])
   @@index([variantId])
 }
+
+// Sayt umumiy sozlamalari (Singleton model)
+model SiteSettings {
+  id                 String   @id @default("global")
+  siteName           String   @default("AloShop")
+  phone              String   @default("+998 71 200 11 22")
+  secondaryPhone     String?
+  email              String?  @default("info@aloshop.uz")
+  workingHours       String   @default("09:00 - 20:00")
+  address            String?  @default("Toshkent sh., Navoiy shoh ko'chasi")
+  telegramUrl        String?  @default("https://t.me/aloshop_official")
+  instagramUrl       String?  @default("https://instagram.com/aloshop")
+  facebookUrl        String?
+  announcementBanner String?
+  updatedAt          DateTime @updatedAt
+}

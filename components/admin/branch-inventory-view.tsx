@@ -314,19 +314,119 @@ export function BranchInventoryView({
               <p className="font-medium text-foreground">{t("noInventory")}</p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow className="hover:bg-transparent">
-                  <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
-                  <TableHead className="text-xs">SKU</TableHead>
-                  <TableHead className="text-xs">{t("product")}</TableHead>
-                  <TableHead className="text-xs">{t("colorAndStorage")}</TableHead>
-                  <TableHead className="text-xs">{t("price")}</TableHead>
-                  <TableHead className="text-xs text-center w-40">{t("stockQuantity")}</TableHead>
-                  <TableHead className="text-xs text-right w-24"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden md:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="w-12 text-xs font-semibold text-center">№</TableHead>
+                      <TableHead className="text-xs">SKU</TableHead>
+                      <TableHead className="text-xs">{t("product")}</TableHead>
+                      <TableHead className="text-xs">{t("colorAndStorage")}</TableHead>
+                      <TableHead className="text-xs">{t("price")}</TableHead>
+                      <TableHead className="text-xs text-center w-40">{t("stockQuantity")}</TableHead>
+                      <TableHead className="text-xs text-right w-24"></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {paginatedBranchItems.map((item, index) => {
+                      const currentQty =
+                        editedStock[item.variantId] !== undefined
+                          ? editedStock[item.variantId]
+                          : item.quantity;
+                      const isDirty =
+                        editedStock[item.variantId] !== undefined &&
+                        editedStock[item.variantId] !== item.quantity;
+                      const isSaving = savingVariantId === item.variantId;
+                      const feedback =
+                        statusFeedback?.variantId === item.variantId
+                          ? statusFeedback.type
+                          : null;
+
+                      return (
+                        <TableRow key={item.id} className="hover:bg-muted/30">
+                          <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
+                            {(currentPage - 1) * pageSize + index + 1}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs font-semibold text-primary">
+                            {item.sku}
+                          </TableCell>
+                          <TableCell className="text-xs font-medium">
+                            <span className="font-semibold text-foreground">
+                              {item.productName}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-xs text-muted-foreground">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="w-3 h-3 rounded-full border border-black/15 shrink-0"
+                                style={{ backgroundColor: item.colorHex }}
+                                aria-hidden="true"
+                              />
+                              <span>
+                                {item.colorName} &bull; {item.storage}
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-xs font-semibold">
+                            {formatCurrency(item.price)}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <div className="flex items-center justify-center gap-1.5">
+                              <Input
+                                type="number"
+                                min={0}
+                                value={currentQty}
+                                onChange={(e) =>
+                                  handleStockChange(
+                                    item.variantId,
+                                    parseInt(e.target.value, 10) || 0
+                                  )
+                                }
+                                className="w-20 h-8 text-center text-base sm:text-xs font-mono font-bold"
+                              />
+                              <Button
+                                size="sm"
+                                variant={isDirty ? "default" : "outline"}
+                                disabled={!isDirty || isSaving}
+                                onClick={() =>
+                                  handleSaveStock(item.variantId, item.quantity)
+                                }
+                                className="h-8 px-2.5 text-xs"
+                              >
+                                {isSaving ? (
+                                  <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                                ) : feedback === "success" ? (
+                                  <Check className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
+                                ) : feedback === "error" ? (
+                                  <AlertCircle className="w-3.5 h-3.5 text-destructive" aria-hidden="true" />
+                                ) : (
+                                  <Save className="w-3.5 h-3.5" aria-hidden="true" />
+                                )}
+                              </Button>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => openTransferForVariant(item.variantId)}
+                              className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground"
+                              title={t("transferStock")}
+                            >
+                              <ArrowRightLeft className="w-3.5 h-3.5" aria-hidden="true" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile Cards View */}
+              <div className="md:hidden divide-y divide-border/60">
                 {paginatedBranchItems.map((item, index) => {
                   const currentQty =
                     editedStock[item.variantId] !== undefined
@@ -342,20 +442,26 @@ export function BranchInventoryView({
                       : null;
 
                   return (
-                    <TableRow key={item.id} className="hover:bg-muted/30">
-                      <TableCell className="w-12 text-xs font-mono text-muted-foreground text-center">
-                        {(currentPage - 1) * pageSize + index + 1}
-                      </TableCell>
-                      <TableCell className="font-mono text-xs font-semibold text-primary">
-                        {item.sku}
-                      </TableCell>
-                      <TableCell className="text-xs font-medium">
-                        <span className="font-semibold text-foreground">
-                          {item.productName}
+                    <div key={item.id} className="p-4 space-y-3 bg-card">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-[11px] font-mono text-muted-foreground">
+                            #{(currentPage - 1) * pageSize + index + 1}
+                          </span>
+                          <span className="font-mono text-xs font-bold text-primary truncate">
+                            {item.sku}
+                          </span>
+                        </div>
+                        <span className="text-xs font-bold text-foreground shrink-0 font-mono">
+                          {formatCurrency(item.price)}
                         </span>
-                      </TableCell>
-                      <TableCell className="text-xs text-muted-foreground">
-                        <div className="flex items-center gap-1.5">
+                      </div>
+
+                      <div className="space-y-1">
+                        <h4 className="text-xs font-semibold text-foreground leading-tight">
+                          {item.productName}
+                        </h4>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                           <span
                             className="w-3 h-3 rounded-full border border-black/15 shrink-0"
                             style={{ backgroundColor: item.colorHex }}
@@ -365,12 +471,13 @@ export function BranchInventoryView({
                             {item.colorName} &bull; {item.storage}
                           </span>
                         </div>
-                      </TableCell>
-                      <TableCell className="text-xs font-semibold">
-                        {formatCurrency(item.price)}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <div className="flex items-center justify-center gap-1.5">
+                      </div>
+
+                      <div className="flex items-center justify-between gap-2 pt-2 border-t border-border/40">
+                        <div className="flex items-center gap-2">
+                          <label className="text-[11px] font-medium text-muted-foreground">
+                            {t("stockQuantity")}:
+                          </label>
                           <Input
                             type="number"
                             min={0}
@@ -381,8 +488,11 @@ export function BranchInventoryView({
                                 parseInt(e.target.value, 10) || 0
                               )
                             }
-                            className="w-20 h-8 text-center text-base sm:text-xs font-mono font-bold"
+                            className="w-20 h-9 text-center text-base sm:text-xs font-mono font-bold"
                           />
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
                           <Button
                             size="sm"
                             variant={isDirty ? "default" : "outline"}
@@ -390,7 +500,7 @@ export function BranchInventoryView({
                             onClick={() =>
                               handleSaveStock(item.variantId, item.quantity)
                             }
-                            className="h-8 px-2.5 text-xs"
+                            className="h-9 px-3 text-xs"
                           >
                             {isSaving ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
@@ -402,24 +512,23 @@ export function BranchInventoryView({
                               <Save className="w-3.5 h-3.5" aria-hidden="true" />
                             )}
                           </Button>
+
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => openTransferForVariant(item.variantId)}
+                            className="h-9 px-2.5 text-xs text-muted-foreground hover:text-foreground"
+                            title={t("transferStock")}
+                          >
+                            <ArrowRightLeft className="w-3.5 h-3.5" aria-hidden="true" />
+                          </Button>
                         </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => openTransferForVariant(item.variantId)}
-                          className="h-8 px-2 text-xs text-muted-foreground hover:text-foreground"
-                          title={t("transferStock")}
-                        >
-                          <ArrowRightLeft className="w-3.5 h-3.5" aria-hidden="true" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
+                      </div>
+                    </div>
                   );
                 })}
-              </TableBody>
-            </Table>
+              </div>
+            </>
           )}
 
           {currentBranchItems.length > 0 && (

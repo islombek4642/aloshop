@@ -74,11 +74,16 @@ export interface SerializedProduct {
 export interface ProductDetailsClientProps {
   product: SerializedProduct;
   branches: BranchStockItem[];
+  siteSettings?: {
+    phone?: string | null;
+    telegramUrl?: string | null;
+  } | null;
 }
 
 export function ProductDetailsClient({
   product,
   branches,
+  siteSettings,
 }: ProductDetailsClientProps) {
   const tProduct = useTranslations("product");
   const tCommon = useTranslations("common");
@@ -451,13 +456,17 @@ export function ProductDetailsClient({
             </span>
             <div className="flex items-center gap-2">
               <Button asChild variant="ghost" size="sm" className="h-8 gap-1.5 px-2 text-xs">
-                <a href="tel:+998712001122">
+                <a href={`tel:${(siteSettings?.phone || "+998 71 200 11 22").replace(/[^\d+]/g, "")}`}>
                   <Phone className="h-3.5 w-3.5" aria-hidden="true" />
                   <span className="hidden sm:inline">{tProduct("callStore")}</span>
                 </a>
               </Button>
               <Button asChild variant="ghost" size="sm" className="h-8 gap-1.5 px-2 text-xs text-primary">
-                <a href="https://t.me/aloshop_official" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={siteSettings?.telegramUrl || "https://t.me/aloshop_official"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Send className="h-3.5 w-3.5" aria-hidden="true" />
                   <span>{tProduct("writeTelegram")}</span>
                 </a>

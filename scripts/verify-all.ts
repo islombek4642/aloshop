@@ -175,6 +175,11 @@ const SUITES: SuiteDefinition[] = [
     command: `npx tsx "${path.join("tests", "admin-products-bulk-delete.test.ts")}"`,
   },
   {
+    id: "admin-site-settings",
+    name: "Admin Site Settings Singleton & Dynamic Store Info Suite",
+    command: `npx tsx "${path.join("tests", "admin-site-settings.test.ts")}"`,
+  },
+  {
     id: "typecheck",
     name: "Strict TypeScript Compilation (tsc --noEmit)",
     command: "npx tsc --noEmit",

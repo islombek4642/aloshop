@@ -214,14 +214,18 @@ export function ProductsListView({
     return filteredProducts.slice(startIndex, startIndex + pageSize);
   }, [filteredProducts, currentPage, pageSize, totalPages]);
 
-  // Reset selection when search, brand, category, or page changes
+  // Reset selection when search or filters change (retains selection across currentPage pagination)
   React.useEffect(() => {
     clearSelection();
-  }, [clearSelection, searchTerm, selectedBrand, selectedCategory, currentPage]);
+  }, [clearSelection, searchTerm, selectedBrand, selectedCategory]);
 
   const isAllPageSelected =
     paginatedProducts.length > 0 &&
     paginatedProducts.every((p) => selectedProductIds.has(p.id));
+
+  const isAllFilteredSelected =
+    filteredProducts.length > 0 &&
+    selectedProductIds.size === filteredProducts.length;
 
   const toggleSelectAllOnPage = () => {
     setSelectedProductIds((prev) => {
@@ -237,6 +241,10 @@ export function ProductsListView({
       }
       return next;
     });
+  };
+
+  const selectAllFiltered = () => {
+    setSelectedProductIds(new Set(filteredProducts.map((p) => p.id)));
   };
 
   const handleConfirmBulkDelete = async () => {
@@ -362,16 +370,45 @@ export function ProductsListView({
         </div>
 
         {/* Create Button */}
-        <Link href="/admin/products/new">
-          <Button size="sm" className="h-9 gap-1.5 text-xs shrink-0">
+        <Button asChild size="sm" className="h-9 gap-1.5 text-xs shrink-0">
+          <Link href="/admin/products/new">
             <Plus className="w-4 h-4" aria-hidden="true" />
             <span>{t("newProduct")}</span>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       {/* Products Table */}
       <div className="rounded-lg border border-border bg-card overflow-hidden shadow-xs">
+        {/* Global Cross-Page Selection Banner */}
+        {isAllPageSelected && filteredProducts.length > paginatedProducts.length && (
+          <div className="bg-primary/5 border-b border-primary/20 text-foreground px-4 py-2.5 text-xs flex flex-wrap items-center justify-center gap-1.5 text-center animate-in fade-in duration-150">
+            {!isAllFilteredSelected ? (
+              <span>
+                {t("selectPageBanner", { count: paginatedProducts.length })}{" "}
+                <button
+                  type="button"
+                  onClick={selectAllFiltered}
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80 transition-colors ml-1 cursor-pointer"
+                >
+                  {t("selectAllTotal", { total: filteredProducts.length })}
+                </button>
+              </span>
+            ) : (
+              <span>
+                {t("allSelectedBanner", { total: filteredProducts.length })}{" "}
+                <button
+                  type="button"
+                  onClick={clearSelection}
+                  className="font-semibold text-primary underline underline-offset-2 hover:text-primary/80 transition-colors ml-1 cursor-pointer"
+                >
+                  {t("cancelSelection")}
+                </button>
+              </span>
+            )}
+          </div>
+        )}
+
         {filteredProducts.length === 0 ? (
           <div className="p-12 text-center text-xs text-muted-foreground">
             <Filter className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" aria-hidden="true" />
@@ -400,7 +437,7 @@ export function ProductsListView({
                     <TableHead className="text-xs">{t("warranty")}</TableHead>
                     <TableHead className="text-xs">{t("variants")}</TableHead>
                     <TableHead className="text-xs text-right">{t("totalStock")}</TableHead>
-                    <TableHead className="text-xs text-right w-24">{t("actions")}</TableHead>
+                    <TableHead className="text-xs text-right w-14 pr-4">{t("actions")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -483,31 +520,19 @@ export function ProductsListView({
                         className="text-xs text-right pr-4"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <div className="flex items-center justify-end gap-1">
-                          <Link href={`/admin/products/${product.id}/edit`}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
-                              title={t("edit")}
-                            >
+                        <div className="flex items-center justify-end">
+                          <Button
+                            asChild
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                            title={t("edit")}
+                          >
+                            <Link href={`/admin/products/${product.id}/edit`}>
                               <Pencil className="w-3.5 h-3.5" aria-hidden="true" />
                               <span className="sr-only">{t("edit")}</span>
-                            </Button>
-                          </Link>
-
-                          {isSuperAdmin && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => setProductToDelete(product)}
-                              className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-                              title={t("delete")}
-                            >
-                              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-                              <span className="sr-only">{t("delete")}</span>
-                            </Button>
-                          )}
+                            </Link>
+                          </Button>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -601,7 +626,7 @@ export function ProductsListView({
         {/* Mobile Cards View */}
         <div className="md:hidden space-y-3 p-3">
           {paginatedProducts.length > 0 && (
-            <div className="flex items-center justify-between px-1 py-1 text-xs text-muted-foreground border-b border-border/50 pb-2">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-card border border-border/80 shadow-2xs">
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <div className="flex items-center justify-center p-2.5 -m-1.5 min-w-[40px] min-h-[40px] shrink-0">
                   <input
@@ -612,11 +637,11 @@ export function ProductsListView({
                     className="w-4 h-4 rounded border-border text-primary cursor-pointer accent-primary align-middle"
                   />
                 </div>
-                <span className="font-medium text-foreground text-xs">{t("selectAll")}</span>
+                <span className="font-semibold text-foreground text-xs">{t("selectAllMobile", { count: filteredProducts.length })}</span>
               </label>
               {selectedProductIds.size > 0 && (
                 <span className="text-[11px] font-mono text-primary font-medium">
-                  {t("selectedCount", { count: selectedProductIds.size })}
+                  {selectedProductIds.size}/{filteredProducts.length}
                 </span>
               )}
             </div>
@@ -696,30 +721,18 @@ export function ProductsListView({
                   </Button>
 
                   <div className="flex items-center gap-1 shrink-0">
-                    <Link href={`/admin/products/${product.id}/edit`}>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-10 w-10 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
-                        title={t("edit")}
-                      >
+                    <Button
+                      asChild
+                      variant="ghost"
+                      size="sm"
+                      className="h-10 w-10 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                      title={t("edit")}
+                    >
+                      <Link href={`/admin/products/${product.id}/edit`}>
                         <Pencil className="w-4 h-4" aria-hidden="true" />
                         <span className="sr-only">{t("edit")}</span>
-                      </Button>
-                    </Link>
-
-                    {isSuperAdmin && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setProductToDelete(product)}
-                        className="h-10 w-10 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-                        title={t("delete")}
-                      >
-                        <Trash2 className="w-4 h-4" aria-hidden="true" />
-                        <span className="sr-only">{t("delete")}</span>
-                      </Button>
-                    )}
+                      </Link>
+                    </Button>
                   </div>
                 </div>
 
@@ -883,10 +896,11 @@ export function ProductsListView({
         <div
           role="region"
           aria-label="Batch actions"
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-full shadow-2xl px-4 py-2.5 flex items-center gap-3 border border-border/40 animate-in fade-in slide-in-from-bottom-4 duration-200"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-full shadow-2xl px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between sm:justify-start gap-2 sm:gap-3 border border-border/40 animate-in fade-in slide-in-from-bottom-4 duration-200 w-[calc(100%-1.5rem)] sm:w-auto max-w-lg mb-[env(safe-area-inset-bottom,0px)]"
         >
           <span className="text-xs font-semibold whitespace-nowrap">
-            {t("selectedCount", { count: selectedProductIds.size })}
+            <span className="sm:hidden">{selectedProductIds.size} ta</span>
+            <span className="hidden sm:inline">{t("selectedCount", { count: selectedProductIds.size })}</span>
           </span>
           <div className="h-4 w-px bg-white/20 dark:bg-slate-900/20" aria-hidden="true" />
           <Button
@@ -894,9 +908,10 @@ export function ProductsListView({
             variant="ghost"
             size="sm"
             onClick={clearSelection}
-            className="h-8 px-2.5 text-xs text-white/80 hover:text-white hover:bg-white/10 dark:text-slate-900/80 dark:hover:text-slate-900 dark:hover:bg-slate-900/10 rounded-full"
+            className="h-8 px-2 sm:px-2.5 text-xs text-white/80 hover:text-white hover:bg-white/10 dark:text-slate-900/80 dark:hover:text-slate-900 dark:hover:bg-slate-900/10 rounded-full"
           >
-            {t("cancelSelection")}
+            <span className="sm:hidden">{t("cancelBtnMobile")}</span>
+            <span className="hidden sm:inline">{t("cancelSelection")}</span>
           </Button>
           {isSuperAdmin && (
             <Button
@@ -907,10 +922,11 @@ export function ProductsListView({
                 setIsBulkModalOpen(true);
                 setBulkError(null);
               }}
-              className="h-8 px-3 text-xs rounded-full gap-1.5 shrink-0"
+              className="h-8 px-2.5 sm:px-3 text-xs rounded-full gap-1.5 shrink-0"
             >
               <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>{t("bulkDeleteBtn")}</span>
+              <span className="sm:hidden">{t("deleteBtnMobile")}</span>
+              <span className="hidden sm:inline">{t("bulkDeleteBtn")}</span>
             </Button>
           )}
         </div>

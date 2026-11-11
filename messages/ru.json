@@ -34,6 +34,7 @@
       "currencyUsd": "$",
       "pcs": "шт",
       "date": "Дата",
+      "workingHours": "Режим работы",
       "language": "Язык",
       "theme": "Тема",
       "switchLanguage": "Выберите язык"
@@ -264,6 +265,7 @@
     "branches": "Филиалы",
     "inventory": "Учет остатков",
     "users": "Пользователи",
+    "settings": "Настройки",
     "logout": "Выйти",
     "login": "Вход",
     "loginTitle": "Вход в панель управления",
@@ -382,7 +384,13 @@
       "bulkDeleteSuccess": "Удалено товаров: {deleted}, архивировано: {archived}.",
       "bulkDeleteSkipped": "{skipped} товаров не удалены из-за активных заказов.",
       "cancelSelection": "Отменить выбор",
-      "viewVariants": "Варианты ({count})"
+      "viewVariants": "Варианты ({count})",
+      "selectPageBanner": "Выбрано {count} товаров на текущей странице.",
+      "selectAllTotal": "Выбрать все {total} товаров в списке",
+      "allSelectedBanner": "Выбраны все {total} товаров в списке.",
+      "selectAllMobile": "Выбрать все ({count})",
+      "deleteBtnMobile": "Удалить",
+      "cancelBtnMobile": "Отмена"
     },
     "productMatrix": {
       "matrixTitle": "Матрица конфигураций смартфона",
@@ -881,6 +889,28 @@
       "callBranch": "Позвонить",
       "branchDetails": "Информация о филиале",
       "close": "Закрыть"
+    },
+    "settingsPage": {
+      "title": "Настройки магазина",
+      "subtitle": "Общие контакты, режим работы и ссылки на социальные сети",
+      "generalSection": "Общая и контактная информация",
+      "siteName": "Название магазина",
+      "phone": "Основной телефон",
+      "secondaryPhone": "Дополнительный телефон",
+      "email": "Электронная почта",
+      "address": "Адрес",
+      "workingHoursSection": "Режим работы",
+      "workingHours": "Режим работы",
+      "workingHoursPlaceholder": "Например: 09:00 - 20:00",
+      "socialSection": "Социальные сети и объявления",
+      "telegramUrl": "Ссылка на Telegram",
+      "instagramUrl": "Ссылка на Instagram",
+      "facebookUrl": "Ссылка на Facebook",
+      "announcementBanner": "Текст объявления (баннер)",
+      "saveSuccess": "Настройки успешно сохранены",
+      "saveError": "Произошла ошибка при сохранении настроек",
+      "saveButton": "Сохранить",
+      "saving": "Сохранение..."
     }
   },
   "errors": {

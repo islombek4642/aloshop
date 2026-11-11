@@ -381,7 +381,7 @@ export function VariantsSection({
                           parseInt(e.target.value) || 0
                         )
                       }
-                      className="w-20 h-9 sm:h-8 text-center text-xs font-mono"
+                      className="w-20 h-9 sm:h-8 text-center text-base sm:text-xs font-mono"
                     />
                   </div>
                 ))}

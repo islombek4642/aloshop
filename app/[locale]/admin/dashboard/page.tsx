@@ -339,7 +339,7 @@ export default async function AdminDashboardPage({
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead className="text-xs">{t("branches")}</TableHead>
-                <TableHead className="text-xs">{tCommon("labels.date")}</TableHead>
+                <TableHead className="text-xs">{tCommon("labels.workingHours")}</TableHead>
                 <TableHead className="text-xs">{t("ordersTable.phone")}</TableHead>
                 <TableHead className="text-xs text-right">{t("itemsCount")}</TableHead>
               </TableRow>

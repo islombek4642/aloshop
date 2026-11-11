@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import {
   Smartphone,
   MapPin,
@@ -10,12 +10,51 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import { prisma } from "@/lib/db/prisma";
+import { getSiteSettings } from "@/lib/settings/site-settings";
 
-export function StoreFooter() {
-  const tFooter = useTranslations("footer");
-  const tNav = useTranslations("nav");
-  const tCommon = useTranslations("common");
-  const tHome = useTranslations("home");
+const FALLBACK_BRANCHES = [
+  {
+    id: "b1",
+    name: "Malika Savdo Markazi",
+    address: "Navoiy shoh ko'chasi, A-blok 14-do'kon",
+    slug: "malika",
+  },
+  {
+    id: "b2",
+    name: "Chilonzor filiali",
+    address: "Qatortol ko'chasi 1-uy",
+    slug: "chilonzor",
+  },
+  {
+    id: "b3",
+    name: "Buyuk Ipak Yo'li filiali",
+    address: "Mirzo Ulug'bek shoh ko'chasi 14",
+    slug: "buyuk-ipak-yoli",
+  },
+];
+
+export async function StoreFooter() {
+  const tFooter = await getTranslations("footer");
+  const tNav = await getTranslations("nav");
+  const tCommon = await getTranslations("common");
+  const tHome = await getTranslations("home");
+
+  const [settings, dbBranches] = await Promise.all([
+    getSiteSettings().catch(() => null),
+    prisma.branch
+      .findMany({
+        where: { isActive: true },
+        select: { id: true, name: true, address: true, slug: true },
+        orderBy: { name: "asc" },
+      })
+      .catch(() => []),
+  ]);
+
+  const branches = dbBranches && dbBranches.length > 0 ? dbBranches : FALLBACK_BRANCHES;
+  const phone = settings?.phone || "+998 71 200 11 22";
+  const cleanPhone = phone.replace(/[^\d+]/g, "");
+  const workingHours = settings?.workingHours || tFooter("workingHours");
 
   const currentYear = new Date().getFullYear();
 
@@ -24,24 +63,6 @@ export function StoreFooter() {
     { href: "/catalog", label: tNav("catalog") },
     { href: "/branches", label: tNav("branches") },
     { href: "/cart", label: tNav("cart") },
-  ];
-
-  const branches = [
-    {
-      name: "Malika Savdo Markazi",
-      address: "Navoiy shoh ko'chasi, A-blok 14-do'kon",
-      slug: "malika",
-    },
-    {
-      name: "Chilonzor filiali",
-      address: "Qatortol ko'chasi 1-uy",
-      slug: "chilonzor",
-    },
-    {
-      name: "Buyuk Ipak Yo'li filiali",
-      address: "Mirzo Ulug'bek shoh ko'chasi 14",
-      slug: "buyuk-ipak-yoli",
-    },
   ];
 
   return (
@@ -91,14 +112,14 @@ export function StoreFooter() {
             </ul>
           </div>
 
-          {/* Branch Locations */}
+          {/* Branch Locations (Dynamic from Database) */}
           <div className="flex flex-col space-y-3">
             <h4 className="text-sm font-semibold tracking-wide text-foreground">
               {tFooter("branchesTitle")}
             </h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               {branches.map((b) => (
-                <li key={b.name}>
+                <li key={b.slug || b.name}>
                   <Link
                     href="/branches"
                     className="flex flex-col space-y-0.5 group hover:text-foreground transition-colors"
@@ -116,7 +137,7 @@ export function StoreFooter() {
             </ul>
           </div>
 
-          {/* Contacts & Working Hours */}
+          {/* Contacts & Working Hours (Dynamic from SiteSettings) */}
           <div className="flex flex-col space-y-3">
             <h4 className="text-sm font-semibold tracking-wide text-foreground">
               {tFooter("contactsTitle")}
@@ -124,15 +145,15 @@ export function StoreFooter() {
             <div className="space-y-2.5 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                <span>{tFooter("workingHours")}</span>
+                <span>{workingHours}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                 <a
-                  href="tel:+998712001122"
+                  href={`tel:${cleanPhone}`}
                   className="transition-colors hover:text-foreground font-mono text-xs"
                 >
-                  +998 71 200 11 22
+                  {phone}
                 </a>
               </div>
               <div className="flex items-center gap-2 pt-2">
@@ -163,4 +184,3 @@ export function StoreFooter() {
     </footer>
   );
 }
-

@@ -34,6 +34,7 @@
       "currencyUsd": "$",
       "pcs": "pcs",
       "date": "Date",
+      "workingHours": "Working hours",
       "language": "Language",
       "theme": "Theme",
       "switchLanguage": "Select language"
@@ -264,6 +265,7 @@
     "branches": "Branches",
     "inventory": "Inventory Management",
     "users": "Users",
+    "settings": "Settings",
     "logout": "Log Out",
     "login": "Sign In",
     "loginTitle": "Sign In to Admin Panel",
@@ -382,7 +384,13 @@
       "bulkDeleteSuccess": "{deleted} products deleted, {archived} archived.",
       "bulkDeleteSkipped": "{skipped} products were not deleted due to active orders.",
       "cancelSelection": "Cancel selection",
-      "viewVariants": "Variants ({count})"
+      "viewVariants": "Variants ({count})",
+      "selectPageBanner": "Selected {count} products on this page.",
+      "selectAllTotal": "Select all {total} products in the list",
+      "allSelectedBanner": "All {total} products in the list are selected.",
+      "selectAllMobile": "Select all ({count})",
+      "deleteBtnMobile": "Delete",
+      "cancelBtnMobile": "Cancel"
     },
     "productMatrix": {
       "matrixTitle": "Smartphone Configuration Matrix",
@@ -881,6 +889,28 @@
       "callBranch": "Call branch",
       "branchDetails": "Branch details",
       "close": "Close"
+    },
+    "settingsPage": {
+      "title": "Store Settings",
+      "subtitle": "General contacts, working hours and social media links",
+      "generalSection": "General & Contact Information",
+      "siteName": "Store Name",
+      "phone": "Primary Phone",
+      "secondaryPhone": "Secondary Phone",
+      "email": "Email",
+      "address": "Address",
+      "workingHoursSection": "Working Hours",
+      "workingHours": "Working Hours",
+      "workingHoursPlaceholder": "e.g. 09:00 - 20:00",
+      "socialSection": "Social Networks & Announcements",
+      "telegramUrl": "Telegram Link",
+      "instagramUrl": "Instagram Link",
+      "facebookUrl": "Facebook Link",
+      "announcementBanner": "Announcement text (banner)",
+      "saveSuccess": "Settings saved successfully",
+      "saveError": "Error saving settings",
+      "saveButton": "Save",
+      "saving": "Saving..."
     }
   },
   "errors": {

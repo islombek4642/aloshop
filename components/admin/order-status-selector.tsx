@@ -11,6 +11,8 @@ import {
   CheckCheck,
   XCircle,
   Loader2,
+  Check,
+  AlertCircle,
 } from "lucide-react";
 import {
   Select,
@@ -37,6 +39,7 @@ export function OrderStatusSelector({
   const router = useRouter();
   const [status, setStatus] = React.useState<OrderStatus>(currentStatus);
   const [isUpdating, setIsUpdating] = React.useState(false);
+  const [feedback, setFeedback] = React.useState<"success" | "error" | null>(null);
 
   const handleStatusChange = async (newVal: string) => {
     const newStatus = newVal as OrderStatus;
@@ -44,17 +47,24 @@ export function OrderStatusSelector({
 
     setStatus(newStatus);
     setIsUpdating(true);
+    setFeedback(null);
 
     try {
       const res = await updateOrderStatusAction(orderId, newStatus);
       if (!res.success) {
         // Rollback on failure
         setStatus(currentStatus);
+        setFeedback("error");
+        setTimeout(() => setFeedback(null), 3000);
       } else {
+        setFeedback("success");
+        setTimeout(() => setFeedback(null), 2500);
         router.refresh();
       }
     } catch {
       setStatus(currentStatus);
+      setFeedback("error");
+      setTimeout(() => setFeedback(null), 3000);
     } finally {
       setIsUpdating(false);
     }
@@ -167,6 +177,16 @@ export function OrderStatusSelector({
           </SelectItem>
         </SelectContent>
       </Select>
+      {feedback === "success" && (
+        <span title="Holat yangilandi" className="text-emerald-600 animate-in fade-in duration-150 shrink-0">
+          <Check className="w-3.5 h-3.5" aria-hidden="true" />
+        </span>
+      )}
+      {feedback === "error" && (
+        <span title="Xatolik yuz berdi" className="text-destructive animate-in fade-in duration-150 shrink-0">
+          <AlertCircle className="w-3.5 h-3.5" aria-hidden="true" />
+        </span>
+      )}
     </div>
   );
 }

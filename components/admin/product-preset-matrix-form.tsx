@@ -332,12 +332,12 @@ export function ProductPresetMatrixForm({
             </p>
           </div>
 
-          <Link href="/admin/products">
-            <Button variant="outline" size="sm" type="button" className="h-9 gap-1.5 text-xs">
+          <Button asChild variant="outline" size="sm" type="button" className="h-9 gap-1.5 text-xs">
+            <Link href="/admin/products">
               <ArrowLeft className="w-4 h-4" aria-hidden="true" />
               <span>{t("backToProducts")}</span>
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-border/60">
@@ -564,7 +564,7 @@ export function ProductPresetMatrixForm({
                       value={row.price || ""}
                       onChange={(e) => handlePriceChange(row.key, Number(e.target.value))}
                       placeholder="0"
-                      className="h-8 text-xs font-mono"
+                      className="h-8 text-base sm:text-xs font-mono"
                     />
                   </div>
 
@@ -584,7 +584,7 @@ export function ProductPresetMatrixForm({
                             min="0"
                             value={row.stock[b.id] ?? 0}
                             onChange={(e) => handleStockChange(row.key, b.id, Number(e.target.value))}
-                            className="h-7 text-xs font-mono text-center"
+                            className="h-7 text-base sm:text-xs font-mono text-center"
                           />
                         </div>
                       ))}
@@ -618,11 +618,11 @@ export function ProductPresetMatrixForm({
 
       {/* Form Submission Actions */}
       <div className="flex items-center justify-end gap-3 pt-2">
-        <Link href="/admin/products">
-          <Button variant="outline" type="button" disabled={isSubmitting} className="h-10 text-xs">
+        <Button asChild variant="outline" type="button" disabled={isSubmitting} className="h-10 text-xs">
+          <Link href="/admin/products">
             {tCommon("cancel")}
-          </Button>
-        </Link>
+          </Link>
+        </Button>
 
         <Button
           type="submit"

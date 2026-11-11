@@ -218,8 +218,8 @@ export function StickySidebarSummary({
         </Card>
       </div>
 
-      {/* Mobile Sticky Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 p-3 bg-background/95 backdrop-blur-md border-t border-border z-40 sm:hidden shadow-lg flex items-center gap-2">
+      {/* Mobile & Tablet Sticky Bottom Action Bar */}
+      <div className="fixed bottom-0 left-0 right-0 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-background/95 backdrop-blur-md border-t border-border z-40 lg:hidden shadow-lg flex items-center gap-2">
         <Button
           type="button"
           variant="outline"

@@ -26,6 +26,22 @@ export function AdminHeader({ session }: AdminHeaderProps) {
   const locale = useLocale();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       <header className="h-16 shrink-0 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/75 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6">
@@ -103,6 +119,7 @@ export function AdminHeader({ session }: AdminHeaderProps) {
               session={session}
               className="h-full border-r-0"
               onNavigate={() => setMobileMenuOpen(false)}
+              isMobileDrawer
             />
           </div>
         </div>

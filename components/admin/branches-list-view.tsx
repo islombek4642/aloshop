@@ -610,19 +610,17 @@ export function BranchesListView({
                     {/* Action Buttons */}
                     {isSuperAdmin && (
                       <div className="flex items-center justify-between gap-2 pt-1">
-                        <Link
-                          href={`/admin/inventory?branchId=${branch.id}`}
-                          className="flex-1"
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 h-9 text-xs font-medium gap-1.5 hover:bg-primary/5 hover:text-primary hover:border-primary/40"
                         >
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full h-9 text-xs font-medium gap-1.5 hover:bg-primary/5 hover:text-primary hover:border-primary/40"
-                          >
+                          <Link href={`/admin/inventory?branchId=${branch.id}`}>
                             <Boxes className="w-3.5 h-3.5 text-primary" />
                             <span>{t("goToInventory")}</span>
-                          </Button>
-                        </Link>
+                          </Link>
+                        </Button>
 
                         <Button
                           variant="outline"
@@ -709,24 +707,12 @@ export function BranchesListView({
             ))}
           </div>
 
-          {/* Floating Action Button (FAB) for mobile */}
-          {isSuperAdmin && (
-            <button
-              type="button"
-              onClick={openCreateModal}
-              className="fixed bottom-6 right-6 z-40 sm:hidden h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-primary/40"
-              aria-label={t("newBranch")}
-            >
-              <Plus className="w-6 h-6" />
-            </button>
-          )}
-
           {/* MOBILE BOTTOM SHEET (ACTION DRAWER) */}
           <Dialog
             open={selectedMobileBranch !== null}
             onOpenChange={(open) => !open && setSelectedMobileBranch(null)}
           >
-            <DialogContent className="fixed inset-x-0 bottom-0 top-auto translate-y-0 rounded-t-3xl rounded-b-none border-t border-border/80 bg-background p-6 shadow-2xl max-h-[85vh] overflow-y-auto sm:max-w-none sm:rounded-t-3xl">
+            <DialogContent className="fixed inset-x-0 bottom-0 top-auto translate-y-0 rounded-t-3xl rounded-b-none border-t border-border/80 bg-background p-6 shadow-2xl max-h-[85vh] overflow-y-auto sm:max-w-none sm:rounded-t-3xl md:hidden">
               <DialogHeader className="text-left pb-2 space-y-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
@@ -839,20 +825,20 @@ export function BranchesListView({
               <div className="space-y-2 pt-2">
                 {/* Go to Inventory */}
                 {selectedMobileBranch && (
-                  <Link
-                    href={`/admin/inventory?branchId=${selectedMobileBranch.id}`}
-                    onClick={() => setSelectedMobileBranch(null)}
-                    className="w-full block"
+                  <Button
+                    asChild
+                    type="button"
+                    variant="outline"
+                    className="w-full h-11 text-xs font-medium justify-start gap-2.5 px-4 hover:bg-primary/5 hover:text-primary hover:border-primary/40"
                   >
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full h-11 text-xs font-medium justify-start gap-2.5 px-4 hover:bg-primary/5 hover:text-primary hover:border-primary/40"
+                    <Link
+                      href={`/admin/inventory?branchId=${selectedMobileBranch.id}`}
+                      onClick={() => setSelectedMobileBranch(null)}
                     >
                       <Boxes className="w-4 h-4 text-primary" />
                       <span>{t("goToInventory")}</span>
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 )}
 
                 {/* Edit Branch */}

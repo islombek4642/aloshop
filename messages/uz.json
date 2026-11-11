@@ -34,6 +34,7 @@
       "currencyUsd": "$",
       "pcs": "dona",
       "date": "Sana",
+      "workingHours": "Ish vaqti",
       "language": "Til",
       "theme": "Mavzu",
       "switchLanguage": "Tilni tanlang"
@@ -264,6 +265,7 @@
     "branches": "Filiallar",
     "inventory": "Qoldiqlar hisobi",
     "users": "Foydalanuvchilar",
+    "settings": "Sozlamalar",
     "logout": "Chiqish",
     "login": "Kirish",
     "loginTitle": "Boshqaruv tizimiga kirish",
@@ -382,7 +384,13 @@
       "bulkDeleteSuccess": "{deleted} ta tovar o'chirildi, {archived} ta arxivlandi.",
       "bulkDeleteSkipped": "{skipped} ta tovar faol buyurtmada bo'lgani sababli o'chirilmadi.",
       "cancelSelection": "Tanlovni bekor qilish",
-      "viewVariants": "Variantlar ({count})"
+      "viewVariants": "Variantlar ({count})",
+      "selectPageBanner": "Joriy sahifadagi {count} ta mahsulot tanlandi.",
+      "selectAllTotal": "Ro'yxatdagi barcha {total} ta mahsulotni tanlash",
+      "allSelectedBanner": "Ro'yxatdagi barcha {total} ta mahsulot tanlangan.",
+      "selectAllMobile": "Barchasini tanlash ({count} ta)",
+      "deleteBtnMobile": "O'chirish",
+      "cancelBtnMobile": "Bekor"
     },
     "productMatrix": {
       "matrixTitle": "Smartfon konfiguratsiya matritsasi",
@@ -881,6 +889,28 @@
       "callBranch": "Qo'ng'iroq qilish",
       "branchDetails": "Filial ma'lumotlari",
       "close": "Yopish"
+    },
+    "settingsPage": {
+      "title": "Do'kon sozlamalari",
+      "subtitle": "Umumiy kontaktlar, ish vaqti va ijtimoiy tarmoqlar havolalari",
+      "generalSection": "Umumiy va aloqa ma'lumotlari",
+      "siteName": "Do'kon nomi",
+      "phone": "Asosiy telefon",
+      "secondaryPhone": "Qo'shimcha telefon",
+      "email": "Elektron pochta",
+      "address": "Manzil",
+      "workingHoursSection": "Ish vaqti",
+      "workingHours": "Ish vaqti",
+      "workingHoursPlaceholder": "Masalan: 09:00 - 20:00",
+      "socialSection": "Ijtimoiy tarmoqlar va e'lonlar",
+      "telegramUrl": "Telegram havola",
+      "instagramUrl": "Instagram havola",
+      "facebookUrl": "Facebook havola",
+      "announcementBanner": "E'lon matni (banner)",
+      "saveSuccess": "Sozlamalar muvaffaqiyatli saqlandi",
+      "saveError": "Sozlamalarni saqlashda xatolik yuz berdi",
+      "saveButton": "Saqlash",
+      "saving": "Saqlanmoqda..."
     }
   },
   "errors": {

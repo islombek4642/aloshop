@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, User, Lock, LogIn, Loader2, AlertCircle } from "lucide-react";
+import { ShieldCheck, User, Lock, LogIn, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { loginAdminAction } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,6 +24,7 @@ export default function AdminLoginPage() {
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [isPending, setIsPending] = React.useState(false);
 
@@ -140,15 +141,28 @@ export default function AdminLoginPage() {
                   <Input
                     id="admin-password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t("passwordPlaceholder")}
-                    className="pl-9 text-base sm:text-sm"
+                    className="pl-9 pr-10 text-base sm:text-sm"
                     disabled={isPending}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground focus:outline-none"
+                    tabIndex={-1}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" aria-hidden="true" />
+                    ) : (
+                      <Eye className="h-4 w-4" aria-hidden="true" />
+                    )}
+                  </button>
                 </div>
               </div>
             </CardContent>

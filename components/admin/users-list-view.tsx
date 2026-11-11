@@ -17,6 +17,8 @@ import {
   Trash2,
   ChevronRight,
   Calendar,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -79,6 +81,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
   const [username, setUsername] = React.useState("");
   const [fullName, setFullName] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showCreatePassword, setShowCreatePassword] = React.useState(false);
   const [branchId, setBranchId] = React.useState(branches[0]?.id || "");
 
   // Edit User State
@@ -91,6 +94,7 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
   // Reset Password State
   const [resetUser, setResetUser] = React.useState<SerializedAdminUser | null>(null);
   const [newPassword, setNewPassword] = React.useState("");
+  const [showResetPassword, setShowResetPassword] = React.useState(false);
 
   // Delete User State
   const [deletingUser, setDeletingUser] = React.useState<SerializedAdminUser | null>(null);
@@ -709,14 +713,29 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
                 <Lock className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
                 <span>{t("password")} *</span>
               </label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder={t("passwordPlaceholder")}
-                className="text-base sm:text-xs h-9 font-mono"
-                required
-              />
+              <div className="relative">
+                <Input
+                  type={showCreatePassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder={t("passwordPlaceholder")}
+                  className="text-base sm:text-xs h-9 font-mono pr-10"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCreatePassword(!showCreatePassword)}
+                  className="absolute right-2.5 top-2 text-muted-foreground hover:text-foreground focus:outline-none"
+                  tabIndex={-1}
+                  aria-label={showCreatePassword ? "Hide password" : "Show password"}
+                >
+                  {showCreatePassword ? (
+                    <EyeOff className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-4 w-4" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Branch Assignment */}
@@ -910,15 +929,30 @@ export function UsersListView({ users, branches, locale }: UsersListViewProps) {
               <label className="text-xs font-medium text-foreground">
                 {t("newPasswordLabel")} *
               </label>
-              <Input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder={t("newPasswordPlaceholder")}
-                className="text-base sm:text-xs h-9 font-mono"
-                required
-                minLength={6}
-              />
+              <div className="relative">
+                <Input
+                  type={showResetPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder={t("newPasswordPlaceholder")}
+                  className="text-base sm:text-xs h-9 font-mono pr-10"
+                  required
+                  minLength={6}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowResetPassword(!showResetPassword)}
+                  className="absolute right-2.5 top-2 text-muted-foreground hover:text-foreground focus:outline-none"
+                  tabIndex={-1}
+                  aria-label={showResetPassword ? "Hide password" : "Show password"}
+                >
+                  {showResetPassword ? (
+                    <EyeOff className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-4 w-4" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
             </div>
 
             <DialogFooter className="pt-2 gap-2 sm:gap-2">
